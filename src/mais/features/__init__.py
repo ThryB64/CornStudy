@@ -201,13 +201,14 @@ def build_features(
         # Ethanol proxy: corn-oil spread as crush margin approximation
         if "corn_close" in db.columns and "oil_close" in db.columns:
             try:
-                proxy = pd.DataFrame({"Date": out_df["Date"]})
+                proxy = pd.DataFrame({"Date": pd.to_datetime(out_df["Date"])})
                 corn_p = pd.to_numeric(db.set_index("Date")["corn_close"]
                                        .reindex(out_df["Date"]).ffill(), errors="coerce")
                 oil_p = pd.to_numeric(db.set_index("Date")["oil_close"]
                                       .reindex(out_df["Date"]).ffill(), errors="coerce")
                 # Corn-to-oil ratio (proxy for ethanol margin): higher oil vs corn = better crush
-                proxy["ethanol_proxy_crush_margin"] = (oil_p / corn_p.replace(0, float("nan"))).shift(1)
+                margin = (oil_p / corn_p.replace(0, float("nan"))).shift(1)
+                proxy["ethanol_proxy_crush_margin"] = margin.to_numpy()
                 out_df = out_df.merge(proxy, on="Date", how="left")
                 log.info("features_ethanol_proxy_added")
             except Exception as e:

@@ -1,6 +1,6 @@
 # Validation Report
 
-- Generated at: `2026-05-08 14:00:29 UTC`
+- Generated at: `2026-05-08 18:14:22 UTC`
 - Overall status: **PASS** (7/7 checks passed)
 
 ## Validation Checks
@@ -37,26 +37,26 @@
 
 | Column | NaN rate |
 |---|---:|
-| `wx_belt_prcp_30_anom_z` | 0.2469 |
-| `wx_belt_tmax_c_anom_z` | 0.2460 |
-| `wx_belt_tmin_c_anom_z` | 0.2460 |
-| `wx_belt_tavg_c_anom_z` | 0.2460 |
-| `wx_nebraska_tavg_anom_z` | 0.2460 |
-| `wx_belt_prcp_mm_anom_z` | 0.2460 |
-| `wx_illinois_tavg_anom_z` | 0.2460 |
-| `wx_iowa_tavg_anom_z` | 0.2460 |
-| `wx_indiana_tavg_anom_z` | 0.2460 |
-| `wx_minnesota_tavg_anom_z` | 0.2460 |
-| `wasde_stocks_to_use_calc_z_surprise_vs_trend` | 0.1310 |
-| `wasde_supply_minus_use_z_surprise_vs_trend` | 0.1310 |
-| `wasde_avg_farm_price_z_surprise_vs_trend` | 0.1310 |
-| `wasde_stocks_to_use_calc_z_surprise_vs_5y` | 0.1289 |
-| `wasde_avg_farm_price_z_surprise_vs_5y` | 0.1289 |
-| `wasde_supply_minus_use_z_surprise_vs_5y` | 0.1289 |
-| `wasde_stocks_to_use_calc_z_surprise_vs_prev` | 0.1273 |
-| `wasde_avg_farm_price_z_surprise_vs_prev` | 0.1273 |
-| `wasde_supply_minus_use_z_surprise_vs_prev` | 0.1273 |
-| `wasde_avg_farm_price_z` | 0.1271 |
+| `cot_pm_net_pct_oi_surprise_vs_trend` | 0.5097 |
+| `cot_mm_net_pct_oi_surprise_vs_trend` | 0.5097 |
+| `cot_pm_net_surprise_vs_trend` | 0.5097 |
+| `cot_sd_net_surprise_vs_trend` | 0.5097 |
+| `cot_mm_long_pct_surprise_vs_trend` | 0.5097 |
+| `cot_mm_short_pct_surprise_vs_trend` | 0.5097 |
+| `cot_pm_long_surprise_vs_trend` | 0.5097 |
+| `cot_mm_short_surprise_vs_trend` | 0.5097 |
+| `cot_open_interest_surprise_vs_trend` | 0.5097 |
+| `cot_mm_long_surprise_vs_trend` | 0.5097 |
+| `cot_sd_short_surprise_vs_trend` | 0.5097 |
+| `cot_sd_long_surprise_vs_trend` | 0.5097 |
+| `cot_pm_short_surprise_vs_trend` | 0.5097 |
+| `cot_mm_net_surprise_vs_trend` | 0.5097 |
+| `cot_sd_net_surprise_vs_5y` | 0.4995 |
+| `cot_mm_long_pct_surprise_vs_5y` | 0.4995 |
+| `cot_mm_net_pct_oi_surprise_vs_5y` | 0.4995 |
+| `cot_pm_net_pct_oi_surprise_vs_5y` | 0.4995 |
+| `cot_mm_short_pct_surprise_vs_5y` | 0.4995 |
+| `cot_mm_long_surprise_vs_5y` | 0.4995 |
 
 ## Conclusion
 

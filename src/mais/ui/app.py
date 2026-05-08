@@ -14,9 +14,11 @@ from mais.paths import FEATURES_PARQUET, LEAKAGE_AUDIT_PARQUET, TARGETS_PARQUET
 from mais.study import (
     BENCHMARK_PARQUET,
     CALIBRATED_PREDICTIONS_PARQUET,
+    CQR_RESULTS_PARQUET,
     DECISION_SNAPSHOT_JSON,
     FACTOR_IMPORTANCE_PARQUET,
     REGIME_PARQUET,
+    SHAP_IMPORTANCE_PARQUET,
     STUDY_REPORT,
     STUDY_SUMMARY_JSON,
     build_professional_study,
@@ -50,7 +52,7 @@ def _fmt_pct(x: float) -> str:
     return f"{x:.1%}"
 
 
-def _load_study() -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def _load_study() -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     summary = _read_json(str(STUDY_SUMMARY_JSON))
     benchmarks = _read_parquet(str(BENCHMARK_PARQUET))
     calibrated = _read_parquet(str(CALIBRATED_PREDICTIONS_PARQUET))
@@ -58,7 +60,9 @@ def _load_study() -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame, pd.DataFr
     factors = _read_parquet("data/processed/factors.parquet")
     factor_importance = _read_parquet(str(FACTOR_IMPORTANCE_PARQUET))
     family_importance = _read_parquet(str(FAMILY_IMPORTANCE_PARQUET))
-    return summary, benchmarks, calibrated, regimes, factors, factor_importance, family_importance
+    shap_importance = _read_parquet(str(SHAP_IMPORTANCE_PARQUET)) if SHAP_IMPORTANCE_PARQUET.exists() else pd.DataFrame()
+    cqr_results = _read_parquet(str(CQR_RESULTS_PARQUET)) if CQR_RESULTS_PARQUET.exists() else pd.DataFrame()
+    return summary, benchmarks, calibrated, regimes, factors, factor_importance, family_importance, shap_importance, cqr_results
 
 
 with st.sidebar:
@@ -102,7 +106,7 @@ if not _exists(*required):
     st.stop()
 
 
-summary, benchmarks, calibrated, regimes, factors, factor_importance, family_importance = _load_study()
+summary, benchmarks, calibrated, regimes, factors, factor_importance, family_importance, shap_importance, cqr_results = _load_study()
 decision = _read_json(str(DECISION_SNAPSHOT_JSON))
 
 
@@ -178,7 +182,16 @@ elif page == "Facteurs économiques":
     factor_family = meta.get("factor_family", {})
 
     fam = family_importance[family_importance["horizon"] == horizon].sort_values("coef_share", ascending=False)
-    top = factor_importance[factor_importance["horizon"] == horizon].sort_values("coef_share", ascending=False)
+    method_options = ["ridge_coef"]
+    if not shap_importance.empty:
+        method_options.append("shap")
+    method = st.segmented_control("Méthode d'importance", method_options, default=method_options[0])
+    if method == "shap" and not shap_importance.empty:
+        top = shap_importance[shap_importance["horizon"] == horizon].sort_values("coef_share", ascending=False)
+    elif "method" in factor_importance.columns:
+        top = factor_importance[(factor_importance["horizon"] == horizon) & (factor_importance["method"] == "ridge_coef")].sort_values("coef_share", ascending=False)
+    else:
+        top = factor_importance[factor_importance["horizon"] == horizon].sort_values("coef_share", ascending=False)
 
     left, right = st.columns(2)
     with left:
@@ -229,6 +242,16 @@ elif page == "Benchmark modèles":
     c1.metric("Coverage 90%", _fmt_pct(float(p["covered_90"].mean())))
     c2.metric("Largeur moyenne", f"{p['interval_width_logret_90'].mean():.4f}")
     c3.metric("DA", _fmt_pct(float((p["y_true"].apply(lambda x: 1 if x >= 0 else -1) == p["y_pred"].apply(lambda x: 1 if x >= 0 else -1)).mean())))
+
+    if not cqr_results.empty:
+        st.subheader("CQR 90%")
+        cq = cqr_results[cqr_results["horizon"] == horizon].copy()
+        if not cq.empty:
+            cq["Date"] = pd.to_datetime(cq["Date"])
+            st.line_chart(cq.set_index("Date")[["y_true", "q_lo", "midpoint", "q_hi"]])
+            q1, q2 = st.columns(2)
+            q1.metric("Coverage CQR", _fmt_pct(float(cq["covered"].mean())))
+            q2.metric("Largeur CQR", f"{cq['interval_width'].mean():.4f}")
 
 
 elif page == "Décision agriculteur":
@@ -292,7 +315,7 @@ elif page == "Sources & qualité":
     coverage = _read_parquet(str(SOURCE_COVERAGE_PARQUET)) if SOURCE_COVERAGE_PARQUET.exists() else pd.DataFrame()
     if not coverage.empty:
         c1, c2, c3 = st.columns(3)
-        c1.metric("Sources actives", int((coverage["status"] == "active_in_features").sum()))
+        c1.metric("Sources actives", int(coverage["status"].isin(["active_in_features", "proxy_in_features"]).sum()))
         c2.metric("Sources planifiées", int((coverage["status"] == "planned").sum()))
         c3.metric("Features source", int(coverage["matched_features"].sum()))
         st.dataframe(coverage.sort_values(["priority", "source"]), width="stretch", hide_index=True)

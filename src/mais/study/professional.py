@@ -52,6 +52,7 @@ SOURCE_COVERAGE_PARQUET = STUDY_DIR / "source_coverage.parquet"
 STUDY_SUMMARY_JSON = STUDY_DIR / "study_summary.json"
 STUDY_REPORT = Path("docs/PROFESSIONAL_STUDY_REPORT.md")
 SHAP_IMPORTANCE_PARQUET = STUDY_DIR / "shap_importance.parquet"
+CQR_RESULTS_PARQUET = STUDY_DIR / "cqr_results.parquet"
 
 
 @dataclass(frozen=True)
@@ -86,10 +87,18 @@ def build_professional_study(force_rebuild_factors: bool = False) -> StudyResult
     write_parquet(calibrated, CALIBRATED_PREDICTIONS_PARQUET)
 
     write_parquet(factor_importance, FACTOR_IMPORTANCE_PARQUET)
+    if "method" in factor_importance.columns:
+        shap_importance = factor_importance[factor_importance["method"] == "shap"].copy()
+    else:
+        shap_importance = pd.DataFrame()
+    write_parquet(shap_importance, SHAP_IMPORTANCE_PARQUET)
     write_parquet(family_importance, FAMILY_IMPORTANCE_PARQUET)
 
     regimes = _build_regimes(factors)
     write_parquet(regimes, REGIME_PARQUET)
+
+    cqr_results = _build_cqr_results(features, factors, targets)
+    write_parquet(cqr_results, CQR_RESULTS_PARQUET)
 
     source_coverage = _build_source_coverage(features)
     write_parquet(source_coverage, SOURCE_COVERAGE_PARQUET)
@@ -104,6 +113,8 @@ def build_professional_study(force_rebuild_factors: bool = False) -> StudyResult
         benchmarks=benchmarks,
         calibrated=calibrated,
         regimes=regimes,
+        cqr_results=cqr_results,
+        shap_importance=shap_importance,
         decision=decision,
         source_coverage=source_coverage,
     )
@@ -514,6 +525,47 @@ def _norm_cdf(x: pd.Series | np.ndarray) -> np.ndarray:
     return 0.5 * (1.0 + np.vectorize(math.erf)(arr / math.sqrt(2.0)))
 
 
+def _build_cqr_results(
+    features: pd.DataFrame,
+    factors: pd.DataFrame,
+    targets: pd.DataFrame,
+) -> pd.DataFrame:
+    """Run walk-forward CQR for each horizon; returns a combined DataFrame."""
+    from mais.meta.cqr import walk_forward_cqr
+
+    features = _normalize_dates(features)
+    factors = _normalize_dates(factors)
+    targets = _normalize_dates(targets)
+    factor_cols = _numeric_cols(factors)
+
+    frames = []
+    for horizon in HORIZONS:
+        target_col = f"y_logret_h{horizon}"
+        if target_col not in targets.columns:
+            continue
+        try:
+            result = walk_forward_cqr(
+                features=factors,
+                targets=targets,
+                factor_cols=factor_cols,
+                target_col=target_col,
+                horizon=horizon,
+                coverage=0.90,
+            )
+            if not result.empty:
+                frames.append(result)
+        except Exception as exc:
+            log.warning("cqr_horizon_failed", horizon=horizon, error=str(exc))
+
+    if not frames:
+        return pd.DataFrame()
+    combined = pd.concat(frames, ignore_index=True)
+    actual_cov = float(combined["covered"].mean())
+    log.info("cqr_all_horizons_done", n_rows=len(combined),
+             actual_coverage=round(actual_cov, 3))
+    return combined
+
+
 def _build_regimes(factors: pd.DataFrame) -> pd.DataFrame:
     db_path = INTERIM_DIR / "database.parquet"
     if not db_path.exists():
@@ -537,14 +589,63 @@ def _build_regimes(factors: pd.DataFrame) -> pd.DataFrame:
     logp = np.log(pd.to_numeric(df["corn_close"], errors="coerce"))
     df["return_60d"] = logp.diff(60)
     df["realized_vol_60d"] = logp.diff().rolling(60, min_periods=30).std() * math.sqrt(252)
-    trend = _expanding_z(df["return_60d"])
-    vol = _expanding_z(df["realized_vol_60d"])
-    tight = df.get("factor_wasde_balance_tightness", pd.Series(0.0, index=df.index)).fillna(0.0)
-    momentum = df.get("factor_market_medium_trend", pd.Series(0.0, index=df.index)).fillna(0.0)
-    score = 0.45 * trend.fillna(0.0) + 0.25 * tight + 0.20 * momentum - 0.10 * vol.fillna(0.0)
-    df["regime_score"] = score
-    df["regime"] = np.select([score > 0.45, score < -0.45], ["bull", "bear"], default="range")
-    return df[["Date", "corn_close", "return_60d", "realized_vol_60d", "regime_score", "regime"]]
+
+    # Markov-switching regime detection (3-state: bull/range/bear)
+    ret = logp.diff().dropna()
+    ret_fit = ret.tail(3000)
+    _markov_fitted = False
+    if len(ret_fit) >= 500:
+        try:
+            from statsmodels.tsa.regime_switching.markov_regression import MarkovRegression
+            mod = MarkovRegression(
+                ret_fit.values,
+                k_regimes=3,
+                trend="c",
+                switching_variance=True,
+            )
+            res = mod.fit(disp=False, maxiter=200, search_reps=5)
+            probs = np.asarray(res.smoothed_marginal_probabilities)  # shape (nobs, 3)
+            if probs.shape[0] != len(ret_fit) and probs.shape[1] == len(ret_fit):
+                probs = probs.T
+            # Identify regimes by empirical probability-weighted mean return
+            regime_means = [
+                float(np.average(ret_fit.values, weights=probs[:, i]))
+                for i in range(3)
+            ]
+            order = np.argsort(regime_means)  # ascending: [bear_idx, range_idx, bull_idx]
+            bear_idx, range_idx, bull_idx = int(order[0]), int(order[1]), int(order[2])
+            label_map = {bear_idx: "bear", range_idx: "range", bull_idx: "bull"}
+            best = np.argmax(probs, axis=1)
+            regime_ser = pd.Series([label_map[int(r)] for r in best], index=ret_fit.index)
+            score_ser = pd.Series(
+                probs[:, bull_idx] - probs[:, bear_idx], index=ret_fit.index
+            )
+            df["regime"] = regime_ser.reindex(df.index, fill_value="range")
+            df["regime_score"] = score_ser.reindex(df.index, fill_value=0.0)
+            df["regime_method"] = "markov_switching"
+            _markov_fitted = True
+            log.info(
+                "markov_regime_fitted",
+                n_obs=len(ret_fit),
+                bull_frac=round(float((df["regime"] == "bull").mean()), 3),
+                bear_frac=round(float((df["regime"] == "bear").mean()), 3),
+                range_frac=round(float((df["regime"] == "range").mean()), 3),
+            )
+        except Exception as exc:
+            log.warning("markov_regime_fallback", error=str(exc))
+
+    if not _markov_fitted:
+        # Rule-based fallback (original implementation)
+        trend = _expanding_z(df["return_60d"])
+        vol = _expanding_z(df["realized_vol_60d"])
+        tight = df.get("factor_wasde_balance_tightness", pd.Series(0.0, index=df.index)).fillna(0.0)
+        momentum = df.get("factor_market_medium_trend", pd.Series(0.0, index=df.index)).fillna(0.0)
+        score = 0.45 * trend.fillna(0.0) + 0.25 * tight + 0.20 * momentum - 0.10 * vol.fillna(0.0)
+        df["regime_score"] = score
+        df["regime"] = np.select([score > 0.45, score < -0.45], ["bull", "bear"], default="range")
+        df["regime_method"] = "rule_fallback"
+
+    return df[["Date", "corn_close", "return_60d", "realized_vol_60d", "regime_score", "regime", "regime_method"]]
 
 
 def _build_source_coverage(features: pd.DataFrame) -> pd.DataFrame:
@@ -559,6 +660,14 @@ def _build_source_coverage(features: pd.DataFrame) -> pd.DataFrame:
         expected_group = _expected_feature_group(name)
         matched = [c for c in cols if _feature_matches_source(c, name, expected_group)]
         coverage = float(features[matched].notna().mean().mean()) if matched else 0.0
+        if name == "eia_ethanol" and matched and not (INTERIM_DIR / "eia_ethanol.parquet").exists():
+            status = "proxy_in_features"
+        elif matched:
+            status = "active_in_features"
+        elif source.get("enabled", False):
+            status = "enabled_not_in_features"
+        else:
+            status = "planned"
         rows.append(
             {
                 "source": name,
@@ -569,7 +678,7 @@ def _build_source_coverage(features: pd.DataFrame) -> pd.DataFrame:
                 "matched_features": len(matched),
                 "mean_feature_coverage": coverage,
                 "priority": _source_priority(name),
-                "status": "active_in_features" if matched else ("enabled_not_in_features" if source.get("enabled", False) else "planned"),
+                "status": status,
             }
         )
     return pd.DataFrame(rows)
@@ -651,6 +760,8 @@ def _build_summary(
     benchmarks: pd.DataFrame,
     calibrated: pd.DataFrame,
     regimes: pd.DataFrame,
+    cqr_results: pd.DataFrame,
+    shap_importance: pd.DataFrame,
     decision: dict[str, Any],
     source_coverage: pd.DataFrame,
 ) -> dict[str, Any]:
@@ -664,6 +775,21 @@ def _build_summary(
         .sort_values(["horizon", "model"])
     )
     regime_counts = regimes["regime"].value_counts(normalize=True).to_dict() if "regime" in regimes else {}
+    cqr_summary = []
+    if not cqr_results.empty:
+        cqr_summary = (
+            cqr_results.groupby("horizon", as_index=False)
+            .agg(
+                coverage=("covered", "mean"),
+                width=("interval_width", "mean"),
+                n=("covered", "size"),
+            )
+            .sort_values("horizon")
+            .to_dict(orient="records")
+        )
+    regime_method = "unknown"
+    if "regime_method" in regimes.columns and not regimes.empty:
+        regime_method = str(regimes["regime_method"].dropna().tail(1).iloc[0])
     return {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
         "date_min": str(pd.to_datetime(features["Date"]).min().date()),
@@ -674,7 +800,10 @@ def _build_summary(
         "n_targets": int(targets.shape[1] - 1),
         "best_by_horizon": best_by_horizon,
         "coverage_summary": cov.to_dict(orient="records"),
+        "cqr_summary": cqr_summary,
+        "n_shap_rows": int(len(shap_importance)),
         "regime_distribution": {k: float(v) for k, v in regime_counts.items()},
+        "regime_method": regime_method,
         "decision": decision,
         "active_sources": int((source_coverage["status"] == "active_in_features").sum()) if not source_coverage.empty else 0,
         "planned_sources": int((source_coverage["status"] == "planned").sum()) if not source_coverage.empty else 0,
@@ -683,8 +812,10 @@ def _build_summary(
             "predictions": str(PREDICTIONS_PARQUET),
             "calibrated_predictions": str(CALIBRATED_PREDICTIONS_PARQUET),
             "factor_importance": str(FACTOR_IMPORTANCE_PARQUET),
+            "shap_importance": str(SHAP_IMPORTANCE_PARQUET),
             "family_importance": str(FAMILY_IMPORTANCE_PARQUET),
             "regimes": str(REGIME_PARQUET),
+            "cqr_results": str(CQR_RESULTS_PARQUET),
             "decision_snapshot": str(DECISION_SNAPSHOT_JSON),
         },
     }
@@ -749,16 +880,61 @@ def _write_report(
             )
     lines.append("")
 
-    lines.append("## Top facteurs")
+    lines.append("## Top facteurs Ridge")
     lines.append("")
     if not factor_importance.empty:
+        ridge_importance = (
+            factor_importance[factor_importance["method"] == "ridge_coef"].copy()
+            if "method" in factor_importance.columns
+            else factor_importance.copy()
+        )
         lines.append("| Horizon | Facteur | Famille | Part coef Ridge |")
         lines.append("|---:|---|---|---:|")
-        top_fac = factor_importance.sort_values(["horizon", "coef_share"], ascending=[True, False]).groupby("horizon").head(8)
+        top_fac = ridge_importance.sort_values(["horizon", "coef_share"], ascending=[True, False]).groupby("horizon").head(8)
         for _, row in top_fac.iterrows():
             lines.append(
                 f"| J+{int(row['horizon'])} | `{row['factor']}` | `{row['family']}` | {row['coef_share']:.3f} |"
             )
+    lines.append("")
+
+    lines.append("## Top facteurs SHAP")
+    lines.append("")
+    shap_rows = (
+        factor_importance[factor_importance["method"] == "shap"].copy()
+        if "method" in factor_importance.columns
+        else pd.DataFrame()
+    )
+    if shap_rows.empty:
+        lines.append("SHAP n'a pas produit de table exploitable dans ce run.")
+    else:
+        lines.append("| Horizon | Facteur | Famille | Part mean(|SHAP|) |")
+        lines.append("|---:|---|---|---:|")
+        top_shap = shap_rows.sort_values(["horizon", "coef_share"], ascending=[True, False]).groupby("horizon").head(8)
+        for _, row in top_shap.iterrows():
+            lines.append(
+                f"| J+{int(row['horizon'])} | `{row['factor']}` | `{row['family']}` | {row['coef_share']:.3f} |"
+            )
+    lines.append("")
+
+    lines.append("## Intervalles CQR")
+    lines.append("")
+    cqr_summary = summary.get("cqr_summary", [])
+    if cqr_summary:
+        lines.append("| Horizon | Couverture réalisée | Largeur moyenne | N test |")
+        lines.append("|---:|---:|---:|---:|")
+        for row in cqr_summary:
+            lines.append(
+                f"| J+{int(row['horizon'])} | {float(row['coverage']):.3f} / cible 0.900 | "
+                f"{float(row['width']):.5f} | {int(row['n'])} |"
+            )
+        lines.append("")
+        lines.append(
+            "Lecture: la CQR est exécutée et calibrée, mais la couverture réalisée reste "
+            "sous 90% sur ce backtest, signe d'une forte dérive temporelle. Le résultat "
+            "est donc utilisable comme diagnostic, pas comme garantie opérationnelle parfaite."
+        )
+    else:
+        lines.append("CQR n'a pas produit de résultats exploitables dans ce run.")
     lines.append("")
 
     lines.append("## Couverture sources")
@@ -783,26 +959,26 @@ def _write_report(
     lines.append("| Fonctionnalité | Statut | Note |")
     lines.append("|---|---|---|")
     impl_status = [
-        ("Collecte données (WASDE, FRED, NASS, OpenMeteo)", "✅ Implémenté", "11 collecteurs actifs"),
+        ("Collecte données (WASDE, FRED, NASS, OpenMeteo)", "✅ Implémenté", "Collecteurs et tables locales validés"),
         ("Anti-leakage (5 checks, |corr|>0.97)", "✅ Implémenté", "Audit automatisé à chaque build"),
         ("Cibles y_logret_h{5,10,20,30}", "✅ Implémenté", "Expanding quantile, anti-leakage"),
-        ("Features brutes (marché, météo belt, WASDE, FRED, NASS)", "✅ Implémenté", f"248 colonnes"),
-        ("Facteurs synthétiques (8 familles)", "✅ Implémenté", "32 facteurs, expanding z-scores"),
-        ("Walk-forward avec embargo 30j", "✅ Implémenté", "8 ans train initial, step 21j"),
-        ("Benchmark modèles (Ridge/RF/ElasticNet/HGB)", "✅ Implémenté", "4 horizons, walk-forward"),
+        ("Features brutes", "✅ Implémenté", f"{summary['n_raw_features']} colonnes"),
+        ("Facteurs synthétiques", "✅ Implémenté", f"{summary['n_factors']} facteurs, expanding z-scores"),
+        ("Walk-forward temporel", "✅ Implémenté", "Train historique, tests par blocs, embargo par horizon"),
+        ("Benchmark modèles", "✅ Implémenté", "Ridge, ElasticNet, RF, HGB, LightGBM/XGBoost si installés"),
         ("Stacking Ridge sur meta-database", "✅ Implémenté", "6 modèles de base"),
         ("Intervalles de confiance (split-conformal)", "✅ Implémenté", "Rolling window 252j, couverture ~90%"),
-        ("Régime de marché (bull/bear/range)", "✅ Implémenté", "Règles déterministes sur return_60d + vol"),
+        ("Régime de marché (bull/bear/range)", "✅ Implémenté", f"Méthode actuelle : {summary.get('regime_method', 'unknown')}"),
         ("Décision agriculteur (SELL/STORE/WAIT)", "✅ Implémenté", "Moteur YAML paramétrable"),
         ("Importance par coefficient Ridge", "✅ Implémenté", "Ablation par famille"),
-        ("Analyse SHAP", "❌ Non implémenté", "Prévu — actuellement : coef Ridge uniquement"),
-        ("Conformalized Quantile Regression (CQR)", "❌ Non implémenté", "Prévu — actuellement : split-conformal symétrique"),
-        ("Régime Markov-switching", "❌ Non implémenté", "Prévu — actuellement : seuils rule-based"),
-        ("EIA éthanol dans features", "❌ Non intégré", "Collecteur présent, non câblé"),
-        ("CFTC COT dans features", "❌ Non intégré", "Collecteur stub présent, non câblé"),
+        ("Analyse SHAP", "✅ Implémenté" if summary.get("n_shap_rows", 0) else "⚠️ Non disponible", f"{summary.get('n_shap_rows', 0)} lignes SHAP"),
+        ("Conformalized Quantile Regression (CQR)", "✅ Implémenté" if cqr_summary else "⚠️ Non disponible", "LightGBM quantile + calibration conforme ; couverture réalisée reportée ci-dessus"),
+        ("Régime Markov-switching", "✅ Implémenté" if summary.get("regime_method") == "markov_switching" else "⚠️ Fallback", "Statsmodels MarkovRegression, fallback rule-based si échec"),
+        ("EIA éthanol dans features", "⚠️ Proxy intégré", "Proxy marge énergie/maïs sans clé EIA ; vraie EIA activable avec clé API"),
+        ("CFTC COT dans features", "✅ Implémenté", "CFTC historique public, publication laggée dans les features"),
         ("NDVI / indices de végétation satellite", "❌ Non implémenté", "Hors périmètre actuel"),
         ("ENSO / El Niño", "❌ Non implémenté", "Hors périmètre actuel"),
-        ("XGBoost/LightGBM dans meta-database", "⚠️ Partiel", "Dans benchmarks mais pas dans la meta-database"),
+        ("XGBoost/LightGBM", "✅ Benchmark / ⚠️ meta", "Dans benchmarks et SHAP ; non ajouté au stacking historique"),
     ]
     for feat, status, note in impl_status:
         lines.append(f"| {feat} | {status} | {note} |")
@@ -814,18 +990,18 @@ def _write_report(
         "Le projet dispose d'une architecture solide et d'une base technique propre. "
         "Les modèles actifs (RF, HGB sur facteurs) surpassent le zéro-return baseline "
         "sur la précision directionnelle (55–60% à J+20/30). "
-        "Les nouvelles familles production_fundamentals et macro_dollar_rates sont intégrées "
-        "mais montrent une redondance partielle avec WASDE (colinéarité Ridge). "
-        "L'effet net est neutre sur Ridge, légèrement positif sur HGB à J+30 (+0.4pp DA)."
+        "Les familles production_fundamentals, ethanol_demand, cot_positioning et macro_dollar_rates "
+        "sont intégrées sans fuite temporelle. Leur valeur ajoutée doit se lire par horizon : "
+        "certaines informations sont redondantes avec WASDE en Ridge, mais utiles pour les modèles non linéaires "
+        "et pour l'explication économique."
     )
     lines.append("")
     lines.append(
         "Prochaines étapes par ordre de priorité : "
-        "(1) intégrer EIA éthanol et CFTC COT dans features ; "
-        "(2) ajouter XGBoost/LightGBM à la meta-database ; "
-        "(3) implémenter SHAP réel ; "
-        "(4) implémenter CQR ; "
-        "(5) régime Markov-switching."
+        "(1) fournir une vraie clé EIA pour remplacer le proxy éthanol ; "
+        "(2) mesurer l'ablation CFTC/EIA source par source ; "
+        "(3) ajouter USDA Crop Progress ; "
+        "(4) intégrer LightGBM/XGBoost au stacking historique si le gain walk-forward est stable."
     )
     lines.append("")
     STUDY_REPORT.parent.mkdir(parents=True, exist_ok=True)
@@ -864,6 +1040,10 @@ def _family_from_factor_name(name: str) -> str:
         return "seasonality"
     if name.startswith("factor_production") or name.startswith("factor_stocks"):
         return "production_fundamentals"
+    if name.startswith("factor_ethanol"):
+        return "ethanol_demand"
+    if name.startswith("factor_cot"):
+        return "cot_positioning"
     if name.startswith("factor_macro"):
         return "macro_dollar_rates"
     return "others"

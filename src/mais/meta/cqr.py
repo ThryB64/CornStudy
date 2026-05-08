@@ -95,7 +95,7 @@ class CQRModel:
         n = len(scores)
         # Finite-sample adjusted quantile level
         q_level = min(1.0, (1.0 - self.alpha) * (1.0 + 1.0 / n))
-        self._e = float(np.quantile(scores, q_level))
+        self._e = max(0.0, float(np.quantile(scores, q_level)))
         self._fitted = True
         log.info("cqr_calibrated", e=round(self._e, 5),
                  coverage=self.coverage, n_cal=n)

@@ -41,6 +41,7 @@ FAMILY_ORDER = [
     "wasde_supply_demand",
     "weather_belt_stress",
     "production_fundamentals",
+    "ethanol_demand",
     "macro_dollar_rates",
     "cot_positioning",
     "seasonality",
@@ -384,6 +385,19 @@ FACTOR_RECIPES: tuple[FactorRecipe, ...] = (
             "cpi_mom_pct": 0.6,
         },
     ),
+    # ---- Ethanol demand / energy economics ----
+    FactorRecipe(
+        name="factor_ethanol_margin_signal",
+        family="ethanol_demand",
+        description="Signal de marge éthanol ; valeur élevée = pétrole cher relativement au maïs, donc demande potentiellement soutenue.",
+        signed_components={
+            "ethanol_proxy_crush_margin": 1.0,
+            "ethanol_proxy_crush_margin_surprise_vs_trend": 0.8,
+            "ethanol_production_kbd": 0.8,
+            "ethanol_production_kbd_surprise_vs_trend": 0.8,
+            "ethanol_supply_tightness": 0.6,
+        },
+    ),
     # ---- COT Positioning (CFTC weekly, 3-day lag) ----
     FactorRecipe(
         name="factor_cot_speculative_pressure",
@@ -450,7 +464,7 @@ def _family_of(col: str) -> str:
     if c.startswith("cot_"):
         return "cot_positioning"
     if c.startswith("ethanol_"):
-        return "macro_dollar_rates"
+        return "ethanol_demand"
     # Production fundamentals: exact prefix match or surprise variants thereof
     for kw in _PRODUCTION_KEYWORDS:
         if c == kw or c.startswith(kw + "_surprise"):

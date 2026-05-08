@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.installed.cfg
+.eggs/
+
+# Venv
+venv/
+.venv/
+env/
+ENV/
+
+# Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# IDEs
+.idea/
+.vscode/
+.cursor/
+*.swp
+*.swo
+.DS_Store
+
+# Project: data
+# Raw data is reproducible by re-running collectors, but it is heavy:
+# we keep the layout in git, but ignore the data files themselves.
+data/raw/**
+data/interim/**
+data/processed/**
+data/wasde_raw/**
+data/wasde_pdf_raw/**
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!data/metadata/.gitkeep
+!data/README.md
+
+# Project: model artefacts
+data/models/
+artefacts/
+!artefacts/
+!artefacts/.gitkeep
+!artefacts/README.md
+mlruns/
+optuna_studies/
+*.db
+*.sqlite
+
+# Local archives / large user files
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.xlsx
+*.xls
+
+# Logs
+logs/
+*.log
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Pipeline cache
+.snakemake/
+.dvc/
+
+# Old project artefacts (kept for reference, ignored from new commits)
+csv/
+Models/
+script/
+csv/corrige/database.csv

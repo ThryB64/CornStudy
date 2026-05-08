@@ -1,0 +1,98 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mais"
+version = "0.2.0"
+description = "Corn (CBOT) price analysis, prediction and farmer decision support."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Etude Mais" }]
+
+dependencies = [
+    "pandas>=2.1",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "scikit-learn>=1.4",
+    "pyarrow>=14",
+    "joblib>=1.3",
+    "pyyaml>=6.0",
+    "python-dateutil>=2.8",
+    "structlog>=23.2",
+    "typer>=0.9",
+    "rich>=13.7",
+]
+
+[project.optional-dependencies]
+collect = [
+    "yfinance>=0.2.40",
+    "requests>=2.31",
+    "openmeteo-requests>=1.2",
+    "fredapi>=0.5",
+    "pdfplumber>=0.10",
+    "beautifulsoup4>=4.12",
+    "lxml>=4.9",
+]
+ml = [
+    "lightgbm>=4.1",
+    "xgboost>=2.0",
+    "catboost>=1.2",
+    "statsmodels>=0.14",
+    "arch>=6.2",
+    "ngboost>=0.4",
+    "pmdarima>=2.0",
+    "pygam>=0.9",
+    "optuna>=3.5",
+    "shap>=0.44",
+]
+dl = [
+    "torch>=2.1",
+    "pytorch-lightning>=2.1",
+]
+ui = [
+    "streamlit>=1.30",
+    "plotly>=5.18",
+    "altair>=5.2",
+]
+api = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "pydantic>=2.5",
+]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1.9",
+    "mypy>=1.8",
+    "pre-commit>=3.6",
+]
+
+[project.scripts]
+mais = "mais.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"mais" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: marks slow integration tests",
+    "external: requires external network/API access",
+    "integration: marks integration tests touching real data",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict_optional = true
+ignore_missing_imports = true

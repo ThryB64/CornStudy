@@ -1,0 +1,91 @@
+# decision.yaml - Règles de décision agronomique.
+# Le module src/mais/decision/ transforme les sorties probabilistes des modèles
+# en recommandations "vendre maintenant / vendre par tiers / stocker / attendre".
+#
+# Toutes les valeurs sont en USD/bushel sauf mention contraire.
+
+farmer_profile:
+  default:
+    location_state: iowa
+    storage_capacity_bushels: 50000
+    storage_cost_usd_per_bu_per_month: 0.04
+    cash_flow_constraint: medium       # low | medium | high : urgence de cash
+    risk_aversion: medium              # low | medium | high
+    basis_local_typical_usd_per_bu: -0.20  # cash terminal local vs CBOT futures
+    has_storage_drying: true
+    moisture_penalty_above_15pct: 0.03
+
+horizons:
+  - horizon_days: 5
+    use_for: short_term_tactical
+  - horizon_days: 10
+    use_for: short_term_tactical
+  - horizon_days: 20
+    use_for: medium_term_strategic     # cible principale décision agriculteur
+  - horizon_days: 30
+    use_for: medium_term_strategic
+
+decision_rules:
+  # Toutes les règles utilisent les sorties du méta-modèle :
+  #   p_up_strong_h{H}  : probabilité que P_{t+H} > P_t * 1.05
+  #   p_down_strong_h{H}: probabilité que P_{t+H} < P_t * 0.97
+  #   q10_h{H}, q50_h{H}, q90_h{H} : quantiles du prix prédit
+  #   regime            : bull | range | bear | unknown (Markov-switching)
+
+  - id: stop_loss_emergency
+    priority: 1
+    condition: "p_down_strong_h10 > 0.65 OR regime == 'bear'"
+    action: SELL_NOW
+    sell_fraction: 1.0
+    rationale: "Risque baissier majeur à 10 jours, vendre tout le stock disponible."
+
+  - id: strong_uptrend
+    priority: 2
+    condition: "p_up_strong_h20 > 0.6 AND regime == 'bull'"
+    action: STORE
+    sell_fraction: 0.0
+    rationale: "Forte probabilité de hausse à 20 jours, garder en stock (coûts < espérance gain)."
+
+  - id: high_uncertainty
+    priority: 3
+    condition: "(q90_h20 - q10_h20) / q50_h20 > 0.20"
+    action: SELL_THIRDS
+    sell_fraction: 0.33
+    rationale: "Incertitude trop forte (>20% de spread), vendre par tiers échelonnés."
+
+  - id: cashflow_urgency_override
+    priority: 4
+    condition: "farmer_profile.cash_flow_constraint == 'high'"
+    action: SELL_NOW
+    sell_fraction: 0.5
+    rationale: "Contrainte cash forte - on vend la moitié immédiatement quoi qu'il arrive."
+
+  - id: storage_economics_negative
+    priority: 5
+    condition: "(q50_h20 - p_t) < (storage_cost_usd_per_bu_per_month * 1.0)"
+    action: SELL_NOW
+    sell_fraction: 0.7
+    rationale: "Espérance de gain inférieure au coût de stockage : vendre majoritairement."
+
+  - id: default_dca
+    priority: 99
+    condition: "true"
+    action: SELL_THIRDS_OVER_60_DAYS
+    sell_fraction: 0.33
+    rationale: "Aucune conviction forte : DCA classique sur 60 jours."
+
+backtest:
+  start_date: "2010-01-01"
+  end_date: "2024-12-31"
+  initial_inventory_bushels: 50000
+  harvest_dates_iowa: ["10-15"]   # MM-DD : 1 récolte/an mi-octobre
+  baseline_strategies:
+    - sell_at_harvest_100
+    - sell_dca_monthly
+    - sell_at_first_signal
+    - hold_until_planting_decision
+  evaluation_metrics:
+    - revenue_per_bushel_usd
+    - sharpe_per_year
+    - max_drawdown_revenue
+    - pct_years_beating_harvest_only

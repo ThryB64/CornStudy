@@ -11,19 +11,20 @@ import streamlit as st
 
 from mais.decision import advise
 from mais.paths import FEATURES_PARQUET, LEAKAGE_AUDIT_PARQUET, TARGETS_PARQUET
-from mais.study import (
+from mais.study import build_professional_study
+from mais.study.professional import (
     BENCHMARK_PARQUET,
     CALIBRATED_PREDICTIONS_PARQUET,
     CQR_RESULTS_PARQUET,
     DECISION_SNAPSHOT_JSON,
+    FAMILY_IMPORTANCE_PARQUET,
     FACTOR_IMPORTANCE_PARQUET,
     REGIME_PARQUET,
     SHAP_IMPORTANCE_PARQUET,
+    SOURCE_COVERAGE_PARQUET,
     STUDY_REPORT,
     STUDY_SUMMARY_JSON,
-    build_professional_study,
 )
-from mais.study.professional import FAMILY_IMPORTANCE_PARQUET, SOURCE_COVERAGE_PARQUET
 
 
 st.set_page_config(page_title="Étude maïs CBOT", layout="wide")

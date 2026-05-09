@@ -237,11 +237,14 @@ def cli_stack(
 
 
 @app.command("profile")
-def cli_profile(csv_path: Path = typer.Argument(...)) -> None:
+def cli_profile(
+    csv_path: Path = typer.Argument(...),
+    as_json: bool = typer.Option(False, "--json", help="Emit machine-readable JSON."),
+) -> None:
     """Profile any CSV (auto-detect time-series vs tabular, target type, ...).
     Outputs the list of compatible models from models.yaml."""
-    from mais.optimize.profiler import profile_dataset
-    typer.echo(profile_dataset(csv_path))
+    from mais.optimize.profiler import profile_dataset, profile_dataset_json
+    typer.echo(profile_dataset_json(csv_path) if as_json else profile_dataset(csv_path))
 
 
 @app.command("study")
@@ -256,6 +259,47 @@ def cli_study(
     typer.echo(f"Wrote {result.report_path}")
     for name, path in result.summary.get("artefacts", {}).items():
         typer.echo(f"  - {name}: {path}")
+
+
+@app.command("daily-run")
+def cli_daily_run(
+    collect: bool = typer.Option(False, "--collect/--no-collect", help="Run enabled collectors first."),
+    train: bool = typer.Option(False, "--train/--no-train", help="Run train-all + stacking."),
+    study: bool = typer.Option(True, "--study/--no-study", help="Regenerate professional study."),
+    backtest: bool = typer.Option(True, "--backtest/--no-backtest", help="Run farmer revenue backtest."),
+    fail_fast: bool = typer.Option(True, "--fail-fast/--keep-going"),
+) -> None:
+    """Run the daily operational pipeline and write monitoring status."""
+    from mais.ops import DAILY_STATUS_JSON, run_daily_pipeline
+
+    ensure_dirs()
+    status = run_daily_pipeline(
+        collect=collect,
+        train=train,
+        study=study,
+        backtest=backtest,
+        fail_fast=fail_fast,
+    )
+    typer.echo(f"Daily status: {status['overall_status']}")
+    typer.echo(f"Wrote {DAILY_STATUS_JSON}")
+    for step in status.get("steps", []):
+        typer.echo(
+            f"  {step['step']:18s} {step['status']:4s} "
+            f"{step['duration_sec']:.1f}s {step['message'][:140]}"
+        )
+
+
+@app.command("status")
+def cli_status() -> None:
+    """Print the latest daily pipeline status."""
+    from mais.ops import DAILY_STATUS_JSON, load_daily_status
+
+    status = load_daily_status()
+    typer.echo(f"Daily status: {status.get('overall_status')}")
+    typer.echo(f"Generated at: {status.get('generated_at', 'NA')}")
+    typer.echo(f"File: {DAILY_STATUS_JSON}")
+    for step in status.get("steps", []):
+        typer.echo(f"  {step.get('step'):18s} {step.get('status'):4s} {step.get('message', '')[:160]}")
 
 
 def main() -> None:

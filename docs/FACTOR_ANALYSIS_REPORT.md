@@ -1,6 +1,6 @@
 # Rapport d'analyse factorielle
 
-- Généré le: `2026-05-08 18:11:51 UTC`
+- Généré le: `2026-05-09 10:12:42 UTC`
 - Features source: `/home/cytech/Desktop/Etude Mais/data/processed/features.parquet`
 - Facteurs: `/home/cytech/Desktop/Etude Mais/data/processed/factors.parquet`
 - Métadonnées: `/home/cytech/Desktop/Etude Mais/data/processed/factors_metadata.json`

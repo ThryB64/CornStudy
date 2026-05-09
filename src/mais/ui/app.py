@@ -11,6 +11,8 @@ import streamlit as st
 
 from mais.decision import advise
 from mais.paths import FEATURES_PARQUET, LEAKAGE_AUDIT_PARQUET, TARGETS_PARQUET
+from mais.ops import DAILY_STATUS_JSON
+from mais.decision.backtest import BACKTEST_REPORT, BACKTEST_SUMMARY_JSON
 from mais.study import build_professional_study
 from mais.study.professional import (
     BENCHMARK_PARQUET,
@@ -83,6 +85,7 @@ with st.sidebar:
             "Benchmark modèles",
             "Décision agriculteur",
             "Sources & qualité",
+            "Monitoring",
             "Rapports",
         ],
     )
@@ -344,9 +347,38 @@ elif page == "Sources & qualité":
     st.dataframe(tables, width="stretch", hide_index=True)
 
 
+elif page == "Monitoring":
+    st.title("Monitoring quotidien")
+    if DAILY_STATUS_JSON.exists():
+        status = _read_json(str(DAILY_STATUS_JSON))
+        st.metric("Statut pipeline", status.get("overall_status", "unknown"))
+        st.caption(f"Dernière exécution: {status.get('generated_at', 'NA')}")
+        steps = pd.DataFrame(status.get("steps", []))
+        if not steps.empty:
+            st.dataframe(steps, width="stretch", hide_index=True)
+    else:
+        st.warning("Aucun statut quotidien. Lancez `mais daily-run` ou `make daily`.")
+
+    st.subheader("Backtest agriculteur")
+    if BACKTEST_SUMMARY_JSON.exists():
+        bt = _read_json(str(BACKTEST_SUMMARY_JSON))
+        rows = pd.DataFrame(bt.get("strategies", []))
+        if not rows.empty:
+            c1, c2, c3 = st.columns(3)
+            adviser = rows[rows["strategy"] == "model_adviser"]
+            if not adviser.empty:
+                r = adviser.iloc[0]
+                c1.metric("Revenu modèle", f"{r['avg_revenue_per_bu']:.2f} USD/bu")
+                c2.metric("Sharpe annuel", f"{r['sharpe_per_year']:.2f}")
+                c3.metric("Années > harvest", _fmt_pct(float(r["pct_years_beating_baseline"])))
+            st.dataframe(rows, width="stretch", hide_index=True)
+    else:
+        st.info("Backtest revenu non encore généré.")
+
+
 elif page == "Rapports":
     st.title("Rapports")
-    tabs = st.tabs(["Étude générée", "Analyse factorielle", "Etude.md"])
+    tabs = st.tabs(["Étude générée", "Analyse factorielle", "Backtest agriculteur", "Etude.md"])
     with tabs[0]:
         if STUDY_REPORT.exists():
             st.markdown(_read_text(str(STUDY_REPORT)))
@@ -355,6 +387,9 @@ elif page == "Rapports":
         if path.exists():
             st.markdown(_read_text(str(path)))
     with tabs[2]:
+        if BACKTEST_REPORT.exists():
+            st.markdown(_read_text(str(BACKTEST_REPORT)))
+    with tabs[3]:
         path = Path("Etude.md")
         if path.exists():
             st.markdown(_read_text(str(path)))

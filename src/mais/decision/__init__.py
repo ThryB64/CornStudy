@@ -14,8 +14,14 @@ Public API
 """
 
 from .rules import Action, Recommendation, advise, load_rules
-from .backtest import run_backtest
 from .advise_cli import advise_today
+
+
+def run_backtest(*args, **kwargs):
+    """Lazy wrapper to avoid importing study artefacts during study generation."""
+    from .backtest import run_backtest as _run_backtest
+
+    return _run_backtest(*args, **kwargs)
 
 __all__ = [
     "Action",

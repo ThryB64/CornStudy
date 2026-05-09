@@ -9,6 +9,6 @@ The legacy 3286-line ``Models/optimize.py`` is being broken up here into:
 """
 
 from .runner import run_training
-from .profiler import profile_dataset
+from .profiler import profile_dataset, profile_dataset_json
 
-__all__ = ["run_training", "profile_dataset"]
+__all__ = ["run_training", "profile_dataset", "profile_dataset_json"]

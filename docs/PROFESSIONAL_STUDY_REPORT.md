@@ -1,6 +1,6 @@
 # Étude professionnelle du prix du maïs CBOT
 
-- Générée le: `2026-05-08 18:13:51 UTC`
+- Générée le: `2026-05-09 10:11:15 UTC`
 - Période étudiée: `2000-10-25` -> `2025-07-25`
 - Données: 6192 observations, 305 features brutes, 36 facteurs.
 

@@ -1,34 +1,38 @@
-"""``mais advise`` - print today's recommendation."""
+"""``mais advise`` - print the current recommendation."""
 
 from __future__ import annotations
 
-from .rules import advise, load_rules
+import json
+
+from mais.paths import ARTEFACTS_DIR
+
+DECISION_SNAPSHOT_JSON = ARTEFACTS_DIR / "professional_study" / "decision_snapshot.json"
 
 
 def advise_today(horizon: int = 20, farmer_state: str = "iowa") -> str:
-    """Toy implementation - returns a SAMPLE recommendation since the real
-    meta-predictions table doesn't exist yet. Wire this to
-    ``data/processed/meta_predictions.parquet`` (stacking output) once
-    Phase 3 is complete."""
-    rules, profile = load_rules()
-    profile["location_state"] = farmer_state
-    H = horizon
-    sample_preds = {
-        f"p_up_strong_h{H}":   0.55,
-        f"p_down_strong_h{H}": 0.15,
-        f"q10_h{H}":           0.97,
-        f"q50_h{H}":           1.02,
-        f"q90_h{H}":           1.08,
-        "regime":              "bull",
-        "p_t":                 1.0,
-    }
-    rec = advise(sample_preds, profile, rules)
+    """Return the latest study recommendation, falling back to a clear message."""
+    if not DECISION_SNAPSHOT_JSON.exists():
+        return (
+            f"=== Mais Decision Advisor (state={farmer_state}, horizon=H{horizon}) ===\n"
+            f"No decision snapshot found. Run `mais study` first."
+        )
+    decision = json.loads(DECISION_SNAPSHOT_JSON.read_text(encoding="utf-8"))
+    if decision.get("status") != "ok":
+        return (
+            f"=== Mais Decision Advisor (state={farmer_state}, horizon=H{horizon}) ===\n"
+            f"Decision unavailable: {decision.get('status', 'unknown')}"
+        )
+    rec = decision.get("recommendation", {})
     return (
-        f"=== Mais Decision Advisor (state={farmer_state}, horizon=H{H}) ===\n"
-        f"Action      : {rec.action.value}\n"
-        f"Sell %      : {int(rec.sell_fraction * 100)}%\n"
-        f"Rule fired  : {rec.rule_id}\n"
-        f"Rationale   : {rec.rationale}\n"
-        f"\n[NOTE] This used SAMPLE predictions. Run `mais train` then `mais stack`\n"
-        f"to wire real model outputs."
+        f"=== Mais Decision Advisor (state={farmer_state}, horizon=H{horizon}) ===\n"
+        f"As of       : {decision.get('as_of')}\n"
+        f"Action      : {rec.get('action')}\n"
+        f"Sell %      : {float(rec.get('sell_fraction', 0.0)):.0%}\n"
+        f"Rule fired  : {rec.get('rule_id')}\n"
+        f"Regime      : {decision.get('regime')}\n"
+        f"Cash price  : {decision.get('cash_price_usd_per_bu', 0.0):.2f} USD/bu\n"
+        f"Q10/Q50/Q90 : {decision.get('predicted_cash_q10_h20', 0.0):.2f} / "
+        f"{decision.get('predicted_cash_q50_h20', 0.0):.2f} / "
+        f"{decision.get('predicted_cash_q90_h20', 0.0):.2f} USD/bu\n"
+        f"Rationale   : {rec.get('rationale', '')}"
     )

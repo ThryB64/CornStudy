@@ -14,7 +14,8 @@ This is the ROUTER mentioned in the audit's section 6.2.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+import json
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -36,6 +37,9 @@ class DatasetProfile:
     categorical_cols: list[str] = field(default_factory=list)
     candidate_targets: dict[str, dict[str, Any]] = field(default_factory=dict)
     requirements: set[ModelRequirement] = field(default_factory=set)
+    missing_rate: dict[str, float] = field(default_factory=dict)
+    high_cardinality_cols: list[str] = field(default_factory=list)
+    suggested_preprocessing: list[str] = field(default_factory=list)
 
     def summary(self) -> str:
         lines = [
@@ -45,6 +49,10 @@ class DatasetProfile:
             f"  numeric = {len(self.numeric_cols)}, bool = {len(self.boolean_cols)}, "
             f"categorical = {len(self.categorical_cols)}",
             f"  requirements = {sorted(r.value for r in self.requirements)}",
+            f"  high_cardinality = {len(self.high_cardinality_cols)}",
+            f"",
+            "Suggested preprocessing:",
+            *[f"  - {s}" for s in self.suggested_preprocessing],
             f"",
             f"Candidate targets ({len(self.candidate_targets)}):",
         ]
@@ -97,8 +105,24 @@ def profile_dataset(path: str | Path) -> str:
     return _profile_to_summary(df, path)
 
 
+def profile_dataset_json(path: str | Path) -> str:
+    df = read_table(path)
+    profile = build_profile(df)
+    data = asdict(profile)
+    data["requirements"] = sorted(r.value for r in profile.requirements)
+    return json.dumps(data, ensure_ascii=True, indent=2)
+
+
 def _profile_to_summary(df: pd.DataFrame, path) -> str:
+    profile = build_profile(df)
     p = Path(path) if path else Path(".")
+    return profile.summary() + (
+        f"\n\nFile: {p}\n"
+        f"Use `mais train --target <name> --model <name>` to train one of these.\n"
+    )
+
+
+def build_profile(df: pd.DataFrame) -> DatasetProfile:
     date_col = _detect_date_column(df)
     is_ts = date_col is not None
 
@@ -111,12 +135,30 @@ def _profile_to_summary(df: pd.DataFrame, path) -> str:
         if c == date_col:
             continue
         s = df[c]
+        profile.missing_rate[str(c)] = float(s.isna().mean())
         if pd.api.types.is_bool_dtype(s):
             profile.boolean_cols.append(c)
         elif pd.api.types.is_numeric_dtype(s):
             profile.numeric_cols.append(c)
         else:
             profile.categorical_cols.append(c)
+            if s.nunique(dropna=True) > min(100, max(20, len(df) // 20)):
+                profile.high_cardinality_cols.append(c)
+
+    if is_ts:
+        profile.suggested_preprocessing.append("Use walk-forward validation with chronological splits.")
+    if profile.categorical_cols:
+        profile.suggested_preprocessing.append("One-hot encode low-cardinality categoricals; target/hash encode high-cardinality columns.")
+    if any(v > 0.2 for v in profile.missing_rate.values()):
+        profile.suggested_preprocessing.append("Add missingness indicators for columns with >20% missing values.")
+    if profile.numeric_cols:
+        skewed = []
+        for c in profile.numeric_cols:
+            s = pd.to_numeric(df[c], errors="coerce").dropna()
+            if len(s) > 20 and abs(float(s.skew())) > 2:
+                skewed.append(c)
+        if skewed:
+            profile.suggested_preprocessing.append(f"Consider log/yeo-johnson transforms for skewed numeric columns: {', '.join(skewed[:8])}.")
 
     profile.requirements = {ModelRequirement.EXOGENOUS}
     if is_ts:
@@ -142,7 +184,4 @@ def _profile_to_summary(df: pd.DataFrame, path) -> str:
             "compatible": compatible[:10],
         }
 
-    return profile.summary() + (
-        f"\n\nFile: {p}\n"
-        f"Use `mais train --target <name> --model <name>` to train one of these.\n"
-    )
+    return profile

@@ -1,30 +1,26 @@
-# CornStudy — Étude professionnelle du maïs CBOT
+# Etude Mais — v2
 
 Comprendre, expliquer et prédire le prix du maïs CBOT pour fournir aux agriculteurs un indicateur de décision (vendre / stocker / attendre) à J+5, J+10, J+20, J+30.
 
-## Vision
+## Vision en deux sous-projets
 
 1. **Pipeline de données** (`src/mais/collect`, `clean`, `features`, `targets`) — collecte ~30 sources publiques, nettoie, harmonise les fréquences (daily/weekly/monthly), construit `data/processed/features.parquet` + `data/processed/targets.parquet` avec audit anti-leakage automatique.
-2. **Facteurs économiques** (`src/mais/features/factors.py`) — réduit les features brutes en facteurs interprétables : WASDE, météo Corn Belt, momentum, volatilité, cross-commodities et saisonnalité.
-3. **Étude professionnelle** (`src/mais/study`) — benchmark walk-forward, calibration, intervalles, régimes de marché, importance des facteurs et décision cash-price.
-4. **Application Streamlit** (`src/mais/ui/app.py`) — console interactive : synthèse, régimes, facteurs, modèles, décision agriculteur, sources et rapports.
+2. **Plateforme de modèles + indicateur agriculteur** (`src/mais/models`, `walkforward`, `optimize`, `meta`, `decision`, `ui`) — orchestre 50+ modèles (baseline, classique, ML, DL), construit une vraie meta-database et un méta-modèle (stacking), et la couche `decision/` qui transforme les prédictions probabilistes en règles "vendre/stocker/attendre" backtestées de façon agronomique.
 
-## Organisation du dépôt
+## Choix par défaut (modifiables)
 
 - **Code en anglais**, doc en français.
 - **Parquet** en interne pour `data/interim/` et `data/processed/`. Export CSV facultatif via la CLI.
 - **Makefile** comme orchestrateur (zéro dépendance, lisible). Snakemake/Prefect possibles plus tard si besoin de DAG complexe.
-- Les données lourdes, artefacts et environnements locaux ne sont pas versionnés. Les dossiers `data/` et `artefacts/` restent présents avec `.gitkeep` et README dédiés.
-- L'ancien projet local est documenté dans `legacy/v1/`, mais le dépôt actif reste centré sur la V2 propre.
+- Le **vieux code reste intact** dans `csv/`, `script/`, `Models/`, `data/wasde_raw/` pour ne rien casser pendant la migration. Le nouveau code vit dans `src/mais/`, `tests/`, `data/{raw,interim,processed}/`, `pipelines/`, `config/`.
 
 ## Démarrage rapide
 
 ```bash
 # 1. installer
 make venv
-make install-dev
 
-# 2. (optionnel) migrer des CSV legacy locaux vers data/interim/*.parquet
+# 2. (optionnel) migrer les données existantes du vieux projet vers data/interim/*.parquet
 make migrate-legacy
 
 # 3. construire le dataset complet
@@ -40,6 +36,22 @@ make install-ui
 make ui
 ```
 
+## Exploitation quotidienne
+
+La commande de production quotidienne est :
+
+```bash
+make daily
+make status
+```
+
+Elle reconstruit les features, targets, audit anti-fuite, facteurs, étude
+professionnelle et backtest agriculteur. Sur un serveur avec clés API officielles :
+
+```bash
+venv/bin/python -m mais.cli daily-run --collect
+```
+
 ## Application d'étude professionnelle
 
 La commande principale pour reconstruire l'étude complète issue de `Etude.md` est :
@@ -51,6 +63,7 @@ make study
 Elle génère :
 
 - `docs/PROFESSIONAL_STUDY_REPORT.md`
+- `docs/FARMER_BACKTEST_REPORT.md`
 - `artefacts/professional_study/model_benchmarks.parquet`
 - `artefacts/professional_study/model_predictions.parquet`
 - `artefacts/professional_study/calibrated_predictions.parquet`
@@ -66,19 +79,8 @@ make ui
 ```
 
 Pages incluses : synthèse exécutive, marché/régimes, facteurs économiques,
-benchmark modèles, décision agriculteur cash-price, sources/qualité et rapports.
-
-## Commandes utiles
-
-```bash
-make test
-make features
-make targets
-make audit
-make factor-analysis
-make study
-make ui
-```
+benchmark modèles, décision agriculteur cash-price, sources/qualité, monitoring
+quotidien et rapports.
 
 ## Arborescence
 
@@ -98,20 +100,15 @@ mais/
     decision/              # couche conseil agriculteur
     api/                   # FastAPI
     ui/                    # Streamlit
-  data/                    # dossiers vides en Git ; fichiers générés localement
+  data/
     raw/                   # téléchargements bruts (immuables)
     interim/               # nettoyage intermédiaire (parquet)
     processed/             # features.parquet + targets.parquet
     metadata/              # data_dictionary, anti-leakage audit
-  artefacts/               # sorties modèles/étude générées localement
-  docs/
-    PROFESSIONAL_STUDY_REPORT.md
-    FACTOR_ANALYSIS_REPORT.md
   tests/
   config/                  # sources.yaml, features.yaml, models.yaml, decision.yaml
   pipelines/               # plus tard : Snakefile éventuel
   notebooks/
-  legacy/v1/               # notes sur l'ancien projet local non versionné
   pyproject.toml
   Makefile
 ```
@@ -119,8 +116,12 @@ mais/
 ## Documentation
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - vue d'ensemble technique
+- [docs/DATA_DICTIONARY.md](docs/DATA_DICTIONARY.md) - catalogue de toutes les variables (généré automatiquement)
 - [docs/ANTI_LEAKAGE.md](docs/ANTI_LEAKAGE.md) - règles d'anti-fuite et tests
 - [docs/AGRO_INDICATOR.md](docs/AGRO_INDICATOR.md) - règles de décision agriculteur
 - [docs/MIGRATION.md](docs/MIGRATION.md) - mapping ancien -> nouveau
 - [docs/AUDIT_REPORT.md](docs/AUDIT_REPORT.md) - rapport critique du projet historique
+- [docs/OPERATIONS.md](docs/OPERATIONS.md) - exploitation quotidienne et cron
 - [docs/PROFESSIONAL_STUDY_REPORT.md](docs/PROFESSIONAL_STUDY_REPORT.md) - rapport d'étude généré
+- [docs/FACTOR_ANALYSIS_REPORT.md](docs/FACTOR_ANALYSIS_REPORT.md) - analyse factorielle
+- [docs/FARMER_BACKTEST_REPORT.md](docs/FARMER_BACKTEST_REPORT.md) - simulation revenu agriculteur

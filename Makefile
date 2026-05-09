@@ -35,6 +35,8 @@ help:
 	@echo "  make factors          Phase 2: build economic factors"
 	@echo "  make factor-analysis  Phase 2: regenerate factors + factor report"
 	@echo "  make study            Phase 2: professional corn price study"
+	@echo "  make daily            Production: features + targets + audit + factors + study + backtest"
+	@echo "  make status           Production: latest daily pipeline status"
 	@echo "  make ui               Launch Streamlit dashboard"
 	@echo ""
 	@echo "  make test             Run unit + integration tests"
@@ -93,7 +95,7 @@ migrate-legacy: venv
 # Phase 3: Training & evaluation
 # ----------------------------------------------------------------------
 
-.PHONY: train train-all stack backtest factors factor-analysis study ui
+.PHONY: train train-all stack backtest factors factor-analysis study daily status ui
 
 train: venv
 	$(PY) -m mais.cli train --model ridge_reg --target y_logret_h20 --trials 20
@@ -115,6 +117,12 @@ factor-analysis: venv
 
 study: venv
 	$(PY) -m mais.cli study
+
+daily: venv
+	$(PY) -m mais.cli daily-run
+
+status: venv
+	$(PY) -m mais.cli status
 
 ui: install-ui
 	$(VENV)/bin/streamlit run src/mais/ui/app.py

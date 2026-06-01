@@ -391,6 +391,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
             lines += ["", block]
     except Exception:
         pass
+    try:
+        from mais.research.v102_active_signal_monitoring import active_signal_report_block
+        block = active_signal_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
     # V38/V41 : contextes ADVERSE_RISK + CBOT_SUPPORT additifs (jamais un veto, n'altèrent pas le signal)
     try:
         from mais.research.v38_adverse_risk import adverse_risk_report_block

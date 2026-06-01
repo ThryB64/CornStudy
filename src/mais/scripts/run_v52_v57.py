@@ -30,6 +30,7 @@ from mais.research.v82_episode_library import run_v82_episodes  # noqa: E402
 from mais.research.v86_cbot_support_v2 import run_v86_cbot_support_v2  # noqa: E402
 from mais.research.v99_indicator_synthesis_v2 import synthesize_indicator_v2  # noqa: E402
 from mais.research.v101_official_synthesis_fix import run_v101_official_synthesis  # noqa: E402
+from mais.research.v102_active_signal_monitoring import monitor_active_signal  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -72,6 +73,7 @@ if __name__ == "__main__":
     _show("V82 EPISODE_LIBRARY", run_v82_episodes(df, with_network=False))
     _show("V86 CBOT_SUPPORT_V2", run_v86_cbot_support_v2(df, with_network=False))
     _show("V101 OFFICIAL_SYNTHESIS", run_v101_official_synthesis(df))
+    _show("V102 ACTIVE_MONITORING", monitor_active_signal())
     _show("V99 SYNTHESIS_V2", synthesize_indicator_v2(df, with_network=False))
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:

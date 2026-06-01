@@ -20,6 +20,7 @@ from mais.research.v64_adverse_risk_v2 import run_v64_adverse_v2  # noqa: E402
 from mais.research.v65_cbot_rebound_engine import run_v65_rebound  # noqa: E402
 from mais.research.v70_path_classification import run_v70_paths  # noqa: E402
 from mais.research.v71_eu_production_balance import run_v71_eu_production  # noqa: E402
+from mais.research.v71b_eu_production_locality import run_v71b_locality  # noqa: E402
 from mais.research.v72_survival_reversion import run_v72_survival  # noqa: E402
 from mais.research.v77_indicator_synthesis import synthesize_indicator  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
@@ -49,6 +50,10 @@ if __name__ == "__main__":
         _show("V71 EU_PRODUCTION", run_v71_eu_production(df))
     except Exception as e:  # noqa: BLE001
         print(f"\n[V71 EU_PRODUCTION] indisponible: {type(e).__name__}: {e}")
+    try:
+        _show("V71b EU_LOCALITY", run_v71b_locality(df))
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[V71b EU_LOCALITY] indisponible: {type(e).__name__}: {e}")
     _show("V72 SURVIVAL_REVERSION", run_v72_survival(df))
     _show("V77 INDICATOR_SYNTHESIS", synthesize_indicator(df))
     _show("V59 MONTHLY_FORWARD", run_v59_report())

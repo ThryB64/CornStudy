@@ -1,0 +1,156 @@
+# models.yaml - Configuration nettoyée des 50+ modèles.
+# Remplace Models/config.yaml dont la cible était cassée (is_last_lightning_cloud_ground).
+#
+# Chaque modèle déclare:
+#   task_types  : tâches supportées (regression, binary, multiclass, ordinal, quantile)
+#   requires    : ce qu'il lui faut (time_index, exogenous, panel, etc.)
+#   min_samples : seuil de données minimal
+#   group       : baseline | classical_ts | ml | dl | meta
+
+dataset:
+  features_path: data/processed/features.parquet
+  targets_path: data/processed/targets.parquet
+  date_col: Date
+  # CIBLES (corrigées : ce sont les vraies, plus is_last_lightning_cloud_ground)
+  primary_targets:
+    - y_logret_h5
+    - y_logret_h10
+    - y_logret_h20
+    - y_logret_h30
+  classification_targets:
+    - y_class_h5
+    - y_class_h10
+    - y_class_h20
+    - y_class_h30
+  binary_targets:
+    - y_up_h5
+    - y_up_h10
+    - y_up_h20
+    - y_up_h30
+
+walkforward:
+  enabled: true
+  retrain_strategy: monthly_rolling   # plus serré que yearly_rolling
+  initial_train_years: 8
+  step_days: 21                       # ~1 mois
+  embargo_days: 30                    # purge horizon-dépendant
+  min_train_rows: 500
+
+cv:
+  inner_splits: 3                     # CV interne pour Optuna
+  purge_days: 30
+  embargo_days: 5
+
+metrics:
+  regression:
+    - rmse
+    - mae
+    - mase                            # Mean Absolute Scaled Error (vs naive)
+    - directional_accuracy
+    - pinball_q10
+    - pinball_q90
+  classification:
+    - balanced_accuracy
+    - log_loss
+    - brier_score
+    - calibration_ece                 # Expected Calibration Error
+  agronomic:
+    - decision_pnl_vs_baseline_dollar_per_bu
+    - storage_avoided_loss_dollar_per_bu
+
+feature_selection:
+  default_mode: universal             # cf. EXPLICATION_SELECTION_VARIABLES.md
+  k_final:
+    mode: optimize
+    min: 20
+    max: 200
+    step: 10
+  cluster_modes_to_try:
+    - none
+    - medoid_per_cluster
+    - topk_per_cluster
+
+optimization:
+  enabled: true
+  framework: optuna
+  n_trials_default: 30
+  pruner: median
+  composite_score:
+    formula: "r2_oos + 0.001 * ic + 0.01 * directional_accuracy"
+
+# ============================================================================
+# Catalogue de modèles
+# ============================================================================
+models:
+
+  # --- Baselines (toujours actives, point de comparaison) -----------------
+  - { name: naive_last,     group: baseline,     task_types: [regression],                         requires: [time_index], min_samples: 50  }
+  - { name: naive_drift,    group: baseline,     task_types: [regression],                         requires: [time_index], min_samples: 50  }
+  - { name: naive_seasonal, group: baseline,     task_types: [regression],                         requires: [time_index], min_samples: 252 }
+  - { name: ema_baseline,   group: baseline,     task_types: [regression],                         requires: [time_index], min_samples: 50  }
+  - { name: ar1_baseline,   group: baseline,     task_types: [regression],                         requires: [time_index], min_samples: 100 }
+  - { name: random_walk,    group: baseline,     task_types: [regression],                         requires: [time_index], min_samples: 50  }
+
+  # --- Classique séries temporelles ---------------------------------------
+  - { name: arima_pure,        group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 200 }
+  - { name: sarimax_reg,       group: classical_ts, task_types: [regression],            requires: [time_index, exogenous], min_samples: 252 }
+  - { name: ets_reg,           group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 252 }
+  - { name: theta_reg,         group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 100 }
+  - { name: tbats_reg,         group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 504 }
+  - { name: stl_forecast,      group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 504 }
+  - { name: prophet_reg,       group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 252 }
+  - { name: var_reg,           group: classical_ts, task_types: [regression],            requires: [time_index, exogenous], min_samples: 200 }
+  - { name: vecm_reg,          group: classical_ts, task_types: [regression],            requires: [time_index, exogenous], min_samples: 252 }
+  - { name: ucm_reg,           group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 252 }
+  - { name: dfm_reg,           group: classical_ts, task_types: [regression],            requires: [time_index, exogenous], min_samples: 252 }
+  - { name: garch_reg,         group: classical_ts, task_types: [regression, quantile],  requires: [time_index], min_samples: 252 }
+  - { name: egarch_reg,        group: classical_ts, task_types: [regression, quantile],  requires: [time_index], min_samples: 252 }
+  - { name: dcc_garch_reg,     group: classical_ts, task_types: [regression, quantile],  requires: [time_index, exogenous], min_samples: 504 }
+  - { name: har_rv_reg,        group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 252 }
+  - { name: markov_switching,  group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 504 }
+  - { name: tar_reg,           group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 252 }
+  - { name: bocpd_reg,         group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 252 }
+  - { name: ols_hac_reg,       group: classical_ts, task_types: [regression],            requires: [exogenous], min_samples: 100 }
+  - { name: schwartz_smith,    group: classical_ts, task_types: [regression],            requires: [time_index], min_samples: 504 }
+  - { name: nelson_siegel,     group: classical_ts, task_types: [regression],            requires: [exogenous], min_samples: 252 }
+  - { name: hierarchical_reg,  group: classical_ts, task_types: [regression],            requires: [panel], min_samples: 504 }
+
+  # --- ML tabulaire -------------------------------------------------------
+  - { name: ridge_reg,           group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 100 }
+  - { name: lasso_reg,           group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 100 }
+  - { name: elastic_net,         group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 100 }
+  - { name: pls_regression,      group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 100 }
+  - { name: rf_reg,              group: ml, task_types: [regression, binary, multiclass],   requires: [exogenous], min_samples: 200 }
+  - { name: extra_trees,         group: ml, task_types: [regression, binary, multiclass],   requires: [exogenous], min_samples: 200 }
+  - { name: xgboost_reg,         group: ml, task_types: [regression, binary, multiclass],   requires: [exogenous], min_samples: 200 }
+  - { name: lgbm_reg,            group: ml, task_types: [regression, binary, multiclass],   requires: [exogenous], min_samples: 200 }
+  - { name: catboost_reg,        group: ml, task_types: [regression, binary, multiclass],   requires: [exogenous], min_samples: 200 }
+  - { name: xgboost_quantile,    group: ml, task_types: [quantile],                         requires: [exogenous], min_samples: 200 }
+  - { name: quantile_rf_reg,     group: ml, task_types: [quantile],                         requires: [exogenous], min_samples: 200 }
+  - { name: quantile_regression, group: ml, task_types: [quantile],                         requires: [exogenous], min_samples: 100 }
+  - { name: knn_reg,             group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 200 }
+  - { name: svr_reg,             group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 200, max_samples: 5000 }
+  - { name: gam_reg,             group: ml, task_types: [regression],                       requires: [exogenous], min_samples: 200 }
+  - { name: gaussian_process,    group: ml, task_types: [regression, quantile],             requires: [exogenous], min_samples: 100, max_samples: 3000 }
+  - { name: ngboost_reg,         group: ml, task_types: [regression, quantile],             requires: [exogenous], min_samples: 200 }
+  - { name: seasonal_baseline,   group: ml, task_types: [regression],                       requires: [time_index], min_samples: 252 }
+  - { name: seasonal_local_lgbm, group: ml, task_types: [regression],                       requires: [exogenous, time_index], min_samples: 504 }
+
+  # --- Deep learning ------------------------------------------------------
+  - { name: lstm_reg,         group: dl, task_types: [regression],            requires: [time_index, exogenous], min_samples: 1000 }
+  - { name: tcn_reg,          group: dl, task_types: [regression],            requires: [time_index, exogenous], min_samples: 1000 }
+  - { name: nbeats_reg,       group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1000 }
+  - { name: nhits_reg,        group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1000 }
+  - { name: tft_reg,          group: dl, task_types: [regression, quantile],  requires: [time_index, exogenous], min_samples: 1500 }
+  - { name: patchtst_reg,     group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1500 }
+  - { name: dlinear_reg,      group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1000 }
+  - { name: timesnet_reg,     group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1500 }
+  - { name: tsmixer_reg,      group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1500 }
+  - { name: informer_reg,     group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1500 }
+  - { name: deepar_reg,       group: dl, task_types: [regression, quantile],  requires: [time_index],            min_samples: 1500 }
+  - { name: tide_reg,         group: dl, task_types: [regression],            requires: [time_index],            min_samples: 1500 }
+
+  # --- Meta ---------------------------------------------------------------
+  - { name: ensemble_weighted,    group: meta, task_types: [regression, binary, quantile],  requires: [meta_features],  min_samples: 100 }
+  - { name: stacking_reg,         group: meta, task_types: [regression, binary, quantile],  requires: [meta_features],  min_samples: 100 }
+  - { name: conformal_prediction, group: meta, task_types: [quantile],                       requires: [base_predictions], min_samples: 100 }

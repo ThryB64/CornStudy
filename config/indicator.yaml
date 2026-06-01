@@ -1,0 +1,88 @@
+# Maize Market Direction Indicator — Configuration V3
+# Ce fichier est la référence unique pour tous les notebooks et le code indicateur.
+# Toute modification doit être accompagnée d'une nouvelle EXP dans EXPERIMENT_INDEX.md.
+
+# Horizons supportés (en jours ouvrés)
+horizons: [5, 10, 20, 30, 60]
+
+# Règles de signal — appliquées dans cet ordre strict
+# L'ordre est critique : confidence est vérifiée en premier
+signal_rules:
+  # Seuil de confiance en dessous duquel on émet UNCERTAIN quelle que soit la direction
+  uncertain_confidence_threshold: 0.45694
+  # Seuil de probabilité pour BULLISH / BEARISH
+  bullish_prob_threshold: 0.60
+  bearish_prob_threshold: 0.60
+  # Écart minimum entre P(up) et P(down) pour affirmer une direction
+  min_prob_gap: 0.15
+  # Écart maximum entre P(up) et P(down) pour NEUTRAL
+  neutral_max_gap: 0.10
+
+# Formule du confidence_score V1
+# confidence_score = sum(weight_i * component_i)
+# Toutes les composantes sont normalisées entre 0 et 1
+confidence_score:
+  # abs(P(up) - 0.5) * 2  — plus la proba est extrême, plus c'est confiant
+  probability_distance_weight: 0.30
+  # % des modèles du stacking qui donnent le même signe que le modèle majoritaire
+  model_agreement_weight: 0.25
+  # 1 - normalized_cqr_width (clampé à [0, 1] — normalisation par la largeur max historique)
+  interval_width_weight: 0.25
+  # % des N derniers jours avec le même signal (BULLISH/BEARISH/NEUTRAL)
+  signal_stability_weight: 0.20
+  # Fenêtre de stabilité (jours)
+  stability_lookback_days: 5
+  # Valeur neutre au démarrage, jamais 0.0
+  signal_stability_init: 0.5
+
+# Configuration V3-01 : confiance adaptative et calibration régularisée
+confidence:
+  version: v4
+  threshold: 0.45694
+  platt_C: 1.0
+  signal_stability_window: 5
+  signal_stability_init: 0.5
+
+# Configuration V3-04 : consensus multi-horizon
+consensus:
+  enabled: true
+  main_horizon: 40
+  disagreement_threshold: 0.06
+  consensus_threshold: 0.50
+  strong_consensus_threshold: 0.75
+  strong_confidence_threshold: 0.70
+  auc_weights: {}
+
+# Seuils d'interprétation du confidence_score
+confidence_interpretation:
+  low: 0.45      # < 0.45 → UNCERTAIN
+  medium: 0.60   # 0.45–0.60 → signal faible à modéré
+  high: 0.75     # > 0.75 → signal fort
+
+# Probabilités fortes (pour P(strong_up) et P(strong_down))
+strong_move_thresholds:
+  h20: 0.03   # hausse/baisse > 3% à J+20
+  h30: 0.03   # hausse/baisse > 3% à J+30
+
+# Configuration des régimes de marché
+regimes:
+  n_states: 2            # 2 états (bull/bear) — plus robuste que 3 états (bear ≈ 2.2%)
+  bull_label: "bull"     # étiquette état haussier
+  bear_label: "bear"     # étiquette état baissier
+
+# Configuration Optuna (tuning LightGBM en production)
+# Smoke test : n_trials=1-5. Production : n_trials=50+
+optuna:
+  n_trials: 50
+  timeout_seconds: 3600
+  sampler: tpe
+  pruner: median
+  n_startup_trials: 5
+
+# Fichiers de sortie de l'indicateur
+output:
+  direction_scores: artefacts/indicator/direction_scores.parquet
+  confidence_scores: artefacts/indicator/confidence_scores.parquet
+  backtest: artefacts/indicator/indicator_backtest.parquet
+  summary: artefacts/indicator/indicator_summary.json
+  report: artefacts/reports/INDICATOR_REPORT.md

@@ -1,0 +1,8 @@
+{
+  "mean": 49.87360997599113,
+  "std": 12.777698771166005,
+  "n": 260,
+  "full_mean": 37.229665828825645,
+  "full_std": 15.522877106108359,
+  "refreshed_from": "ema_curve_features.parquet"
+}

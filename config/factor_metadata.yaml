@@ -1,0 +1,235 @@
+# factor_metadata.yaml — 13 familles de facteurs
+# Générée après ETUDE-05 (SHAP mesuré) et ETUDE-16 (cibles complètes)
+# Date : 2026-05-15
+#
+# shap_importance_avg : importance SHAP moyenne sur toutes les cibles et horizons
+#                       (source : artefacts/professional_study/shap_importance.parquet)
+# phase1_stub : True = source non encore collectée automatiquement (NaN structurel)
+
+families:
+
+  - name: seasonality
+    factor_col: factor_seasonality
+    shap_importance_avg: 0.1031
+    n_feature_cols: 9
+    source: usda_calendar (local_synthetic)
+    frequency: daily
+    phase1_stub: false
+    columns_pattern: ["is_wasde_day", "is_acreage_day", "is_grain_stocks_day",
+                      "is_prospective_planting_day", "days_to_next_wasde",
+                      "days_to_next_grain_stocks", "corn_month_sin", "corn_month_cos",
+                      "corn_week_of_year"]
+    notes: >
+      Meilleure famille SHAP. L'effet calendrier WASDE est dominant.
+      is_* features connues à l'avance — exemptées du check future_dep (audit.py).
+
+  - name: positioning
+    factor_col: factor_positioning
+    shap_importance_avg: 0.0765
+    n_feature_cols: 56
+    source: cftc_cot
+    frequency: weekly
+    phase1_stub: false
+    nan_structural_pct: 50
+    nan_reason: >
+      CFTC COT data disponible depuis 2013 uniquement.
+      Les 50% NaN pre-2013 sont structurels (pas un bug).
+    columns_pattern: ["cot_mm_net", "cot_mm_long", "cot_mm_short",
+                      "cot_open_interest", "cot_*_z_score", "cot_*_surprise_vs_*"]
+    notes: >
+      Deuxième famille par importance. Le positionnement des managed money
+      est un signal fort à h20-h30. NaN pre-2013 imputés (XGBoost/LGB natifs).
+
+  - name: market_momentum
+    factor_col: factor_market_momentum
+    shap_importance_avg: 0.0750
+    n_feature_cols: 17
+    source: yfinance (cbot_corn)
+    frequency: daily
+    phase1_stub: false
+    columns_pattern: ["corn_logret_*", "corn_sma_*", "corn_ema_*", "corn_rsi_14",
+                      "corn_macd_*", "corn_bb_*", "corn_atr_14", "corn_drawdown_252",
+                      "corn_dist_to_52w_*"]
+    notes: Momentum court terme. RSI et MACD apportent le plus de signal.
+
+  - name: cross_commodity
+    factor_col: factor_cross_commodity
+    shap_importance_avg: 0.0689
+    n_feature_cols: 10
+    source: yfinance (cbot_wheat, cbot_soy, nymex_crude, ice_dxy)
+    frequency: daily
+    phase1_stub: false
+    columns_pattern: ["corn_soy_ratio", "corn_wheat_ratio", "corn_oil_ratio",
+                      "corn_gas_ratio", "corn_dxy_ratio", "corn_*_corr60"]
+    notes: Ratios inter-commodités. La corrélation soja-maïs est la plus informative.
+
+  - name: weather_belt_stress
+    factor_col: factor_weather_belt_stress
+    shap_importance_avg: 0.0617
+    n_feature_cols: 180  # 9 variables × 20 états pondérés
+    source: openmeteo_states
+    frequency: daily
+    phase1_stub: false
+    columns_pattern: ["temp_*", "precip_*", "soil_moisture_*", "et0_*",
+                      "radiation_*", "humidity_*", "windspeed_*", "weather_belt_*"]
+    notes: >
+      Ceinture maïs US (Iowa, Illinois, Nebraska, Minnesota..., 20 états).
+      Stress hydrique (ET0, soil_moisture) le plus prédictif en été.
+
+  - name: macro_dollar_rates
+    factor_col: factor_macro_dollar_rates
+    shap_importance_avg: 0.0500
+    n_feature_cols: 11
+    source: fred_api
+    frequency: monthly_or_daily
+    phase1_stub: false
+    columns_pattern: ["fedfunds", "cpi_yoy_pct", "dxy_*", "usd_brl_*", "usd_mxn_*",
+                      "usd_cny_*", "dgs10_*", "t10y_breakeven", "wti_fred_*",
+                      "natgas_henry_*", "fertilizer_price_*"]
+    notes: >
+      Taux directeurs et USD/BRL (Real brésilien) apportent le plus de signal.
+      Fertilisants (PNFERTUSDM) : nouveau depuis Phase 1.
+
+  - name: market_volatility
+    factor_col: factor_market_volatility
+    shap_importance_avg: 0.0453
+    n_feature_cols: 3
+    source: yfinance (cbot_corn, derived)
+    frequency: daily
+    phase1_stub: false
+    columns_pattern: ["corn_realized_vol_20", "corn_realized_vol_60", "corn_bb_bandwidth_20"]
+    notes: Volatilité réalisée. Signal utile pour les cibles y_realized_vol_h* (niveau 4).
+
+  - name: wasde_supply_demand
+    factor_col: factor_wasde_supply_demand
+    shap_importance_avg: 0.0409
+    n_feature_cols: 132
+    source: usda_wasde
+    frequency: monthly
+    phase1_stub: false
+    nan_structural_pct: 5
+    columns_pattern: ["wasde_corn_*", "wasde_world_*", "wasde_avg_farm_price_*",
+                      "wasde_*_surprise_vs_*", "wasde_*_mom_diff"]
+    notes: >
+      WASDE = rapport mensuel USDA (stocks, production, consommation mondiale).
+      Les surprises (vs estimation précédente) sont plus informatives que les niveaux.
+      132 colonnes après ffill (publication ~10ème du mois).
+
+  - name: raw_signal
+    factor_col: factor_raw_signal
+    shap_importance_avg: 0.0309
+    n_feature_cols: 5  # volume, open_interest natif, etc.
+    source: yfinance + cftc_cot
+    frequency: daily
+    phase1_stub: false
+    columns_pattern: ["corn_volume_*", "cot_open_interest_raw"]
+    notes: Signal brut non transformé — baseline du modèle. Peu important seul.
+
+  - name: drought_severity
+    factor_col: factor_drought_severity
+    shap_importance_avg: null  # non mesuré séparément (stub dans factor file)
+    n_feature_cols: 1
+    source: us_drought_monitor
+    frequency: weekly
+    phase1_stub: false
+    nan_structural_pct: 47
+    nan_reason: >
+      US Drought Monitor API disponible depuis 2012 uniquement (structurel pre-2012).
+    columns_pattern: ["drought_composite"]
+    notes: Fort signal en période de sécheresse estivale (juin-août). 47% NaN pre-2012.
+
+  - name: ethanol_demand
+    factor_col: factor_ethanol_demand
+    shap_importance_avg: null
+    n_feature_cols: 2
+    source: eia_ethanol
+    frequency: weekly
+    phase1_stub: false
+    nan_structural_pct: 39
+    nan_reason: EIA ethanol weekly data disponible depuis juin 2010.
+    columns_pattern: ["ethanol_production_kbd", "ethanol_stocks_kbbl"]
+    notes: >
+      Demande éthanol = ~40% de la consommation US de maïs.
+      Signal important pour les horizons h20-h30.
+
+  - name: crop_condition
+    factor_col: factor_crop_condition_pressure
+    shap_importance_avg: null
+    n_feature_cols: 1
+    source: usda_nass_crop_progress
+    frequency: weekly_seasonal
+    phase1_stub: false
+    nan_structural_pct: 59
+    nan_reason: >
+      Crop condition = saisonnière (mai-octobre uniquement).
+      59% NaN structurel (hors saison de croissance).
+    columns_pattern: ["condition_gd_ex_pct"]
+    notes: Fort signal durant la saison de croissance (juillet-août critique).
+
+  - name: export_demand
+    factor_col: factor_export_demand_surprise
+    shap_importance_avg: null
+    n_feature_cols: 1
+    source: usda_fas_export_sales
+    frequency: weekly
+    phase1_stub: true
+    nan_structural_pct: 100
+    nan_reason: >
+      FAS_API_KEY non fournie — export_sales_mt = NaN à 100%.
+      Pour activer : fournir FAS_API_KEY dans .env et passer enabled: true dans sources.yaml.
+    columns_pattern: ["export_sales_mt"]
+    notes: >
+      Export sales hebdomadaires (ventes nettes + expéditions maïs US).
+      Publié jeudi 8h30 ET. Signal fort lors de semaines de ventes record.
+      NON ACTIVÉ — Phase 1 stub.
+
+  - name: wasde_surprises
+    factor_col: factor_wasde_surprises_z
+    shap_importance_avg: null
+    n_feature_cols: 3
+    source: usda_wasde
+    frequency: monthly
+    phase1_stub: false
+    nan_structural_pct: 6
+    nan_reason: >
+      6% NaN en début de série (z-score expandant nécessite min 12 observations).
+    columns_pattern: ["wasde_*_surprise_vs_prev"]
+    notes: >
+      Surprises MoM z-scorées pour ending_stocks (inversé), production et use_total.
+      Ajouté en IND-06. Gain AUC +0.010 sur y_down_gt_5pct_h20 (pré-2023).
+
+  - name: weather_advanced
+    factor_col: factor_weather_advanced
+    shap_importance_avg: null
+    n_feature_cols: 3
+    source: open_meteo
+    frequency: daily
+    phase1_stub: false
+    nan_structural_pct: 1
+    nan_reason: >
+      ~1% NaN en début de série et hors saison pour GDD (seulement avr-sept).
+    columns_pattern: ["wx_belt_gdd_accumulated", "wx_belt_rain_deficit_14d", "wx_belt_heat_days_38c_30"]
+    notes: >
+      GDD accumulé par crop year (réinitialisé le 1er avril), déficit pluie 14j, jours de chaleur >38°C.
+      Ajouté en IND-06. Composante de factor_weather_advanced.
+
+  - name: euronext_curve
+    factor_col: factor_euronext_curve
+    shap_importance_avg: null
+    n_feature_cols: 37
+    source: barchart_proxy_exploratory + cbot_corn + eurusd_rate
+    frequency: daily
+    phase1_stub: false
+    source_quality: exploratory
+    anti_leakage: "Toutes les features EMA sont laggées shift(1) ; rendements/volatilité calculés sur front_adjusted après roll audit WARN."
+    nan_structural_pct: null
+    columns_pattern: ["ema_*", "cbot_eur_t"]
+    notes: >
+      Features courbe Euronext EMA : prix front/second/third/harvest/liquid, spreads,
+      pentes, carry, roll yield, liquidité, basis CBOT-EMA et rendements adjusted.
+      Le bloc master ajoute 28 features de courbe, 6 features continuous laggées
+      et 3 colonnes de disponibilité EMA.
+      Source historique Barchart proxy exploratoire : ne pas présenter close_or_last
+      comme settlement officiel Euronext et ne pas intégrer les contrats F dans les
+      séries finales. À confirmer plus tard avec Barchart OnDemand/Premier ou
+      Euronext Web Services/NextHistory pour une version production.

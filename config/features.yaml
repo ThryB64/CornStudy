@@ -1,0 +1,272 @@
+# features.yaml - Catalogue déclaratif de toutes les features dérivées.
+# Chaque entrée a une fiche : formule, fréquence, lag, source, anti-leakage.
+# Le module src/mais/features/ génère features.parquet à partir de ce fichier
+# + des CSV/parquet dans data/interim/.
+#
+# Convention pour `lag_days`: nombre de jours minimum entre la date de la donnée
+# et le jour où l'info était disponible publiquement.
+# 0 = same-day, 1 = next-day, etc.
+
+groups:
+
+  # ========================================================================
+  # Cibles (NE PAS UTILISER COMME FEATURES)
+  # ========================================================================
+  targets:
+    horizons: [5, 10, 20, 30]
+    formulas:
+      - name: y_logret_h{H}
+        formula: "log(corn_close.shift(-H)) - log(corn_close)"
+        is_target: true
+      - name: y_class_h{H}
+        formula: "decile(y_logret_h{H}, expanding_bins=10)"
+        is_target: true
+        type: ordinal
+      - name: y_up_h{H}
+        formula: "(y_logret_h{H} > 0).astype(int)"
+        is_target: true
+        type: binary
+      - name: y_up_strong_h{H}
+        formula: "(y_logret_h{H} > 0.05).astype(int)"
+        is_target: true
+        type: binary
+      - name: y_down_strong_h{H}
+        formula: "(y_logret_h{H} < -0.05).astype(int)"
+        is_target: true
+        type: binary
+
+  # ========================================================================
+  # Marché (corn + autres)
+  # ========================================================================
+  market_corn:
+    source: cbot_corn
+    lag_days: 1     # close J connu après clôture, utilisé pour features J+1
+    features:
+      - name: corn_logret_1d
+        formula: "diff(log(corn_close))"
+      - name: corn_logret_5d
+        formula: "diff(log(corn_close), 5)"
+      - name: corn_logret_20d
+        formula: "diff(log(corn_close), 20)"
+      - name: corn_realized_vol_20
+        formula: "rolling(20).std(corn_logret_1d) * sqrt(252)"
+      - name: corn_realized_vol_60
+        formula: "rolling(60).std(corn_logret_1d) * sqrt(252)"
+      - name: corn_atr_14
+        formula: "ATR(corn_high, corn_low, corn_close, 14)"
+      - name: corn_rsi_14
+        formula: "RSI(corn_close, 14, wilder=True)"
+      - name: corn_bb_percent_b_20
+        formula: "(corn_close - bb_low_20) / (bb_high_20 - bb_low_20)"
+      - name: corn_drawdown_252
+        formula: "corn_close / rolling(252).max(corn_close) - 1"
+      - name: corn_distance_to_52w_high
+        formula: "corn_close / rolling(252).max(corn_close) - 1"
+
+  market_cross:
+    sources: [cbot_wheat, cbot_soy, cbot_oats, nymex_crude_wti, nymex_natgas, ice_dxy]
+    lag_days: 1
+    features:
+      - name: corn_soy_ratio
+        formula: "corn_close / soy_close"
+      - name: corn_wheat_ratio
+        formula: "corn_close / wheat_close"
+      - name: corn_oil_corr60
+        formula: "rolling(60).corr(corn_logret_1d, oil_logret_1d)"
+      - name: corn_dxy_corr60
+        formula: "rolling(60).corr(corn_logret_1d, dxy_logret_1d)"
+
+  # ========================================================================
+  # Météo BELT-WEIGHTED (Phase 1 NEW - remplace les 20 etats individuels)
+  # ========================================================================
+  weather_belt:
+    source: openmeteo_states
+    lag_days: 1
+    aggregation: production_weighted_average  # poids depuis sources.yaml
+    features:
+      - name: wx_belt_tavg_anom_z
+        formula: "z_score(belt_tavg, climatology_30y_doy)"
+      - name: wx_belt_prcp_anom_z
+        formula: "z_score(belt_prcp_30d, climatology_30y_doy)"
+      - name: wx_belt_gdd_cum_silking
+        formula: "gdd_cumsum_since_planting(belt_tavg, base=10, threshold=86)"
+      - name: wx_belt_heat_days_30
+        formula: "rolling(30).sum(belt_tmax > 35)"
+      - name: wx_belt_drought_proxy
+        formula: "rolling(30).mean(prcp - et0_evapotranspiration)"
+      - name: wx_belt_soil_moisture_anom
+        formula: "z_score(belt_soil_moisture, climatology_30y_doy)"
+    keep_top5_states_individually: true   # iowa, illinois, nebraska, minnesota, indiana
+
+  # ========================================================================
+  # WASDE - VALEURS + SURPRISE (Phase 1 NEW: surprises systématiques)
+  # ========================================================================
+  wasde:
+    source: usda_wasde
+    lag_days: 1   # public à 12h ET, utilisable à J+1
+    is_event: true
+    features:
+      - name: wasde_us_corn_production
+        formula: "raw"
+      - name: wasde_us_corn_ending_stocks
+        formula: "raw"
+      - name: wasde_us_corn_yield
+        formula: "raw"
+      - name: wasde_us_corn_exports
+        formula: "raw"
+      - name: wasde_world_corn_ending_stocks
+        formula: "raw"
+      - name: wasde_world_corn_stocks_to_use
+        formula: "wasde_world_corn_ending_stocks / wasde_world_corn_use"
+      # SURPRISES (ce qui bouge vraiment le prix)
+      - name: wasde_production_surprise_vs_prev
+        formula: "value - value.shift(1)"
+        type: surprise
+      - name: wasde_production_surprise_vs_5y
+        formula: "value - rolling(60_months).mean(value)"
+        type: surprise
+      - name: wasde_ending_stocks_surprise_vs_prev
+        formula: "value - value.shift(1)"
+        type: surprise
+      - name: wasde_yield_surprise_vs_prev
+        formula: "value - value.shift(1)"
+        type: surprise
+
+  # ========================================================================
+  # Crop Progress (Phase 1 NEW)
+  # ========================================================================
+  crop_progress:
+    source: usda_nass_crop_progress
+    lag_days: 2  # publié lundi 16h ET
+    features:
+      - name: corn_planted_pct
+      - name: corn_emerged_pct
+      - name: corn_silking_pct
+      - name: corn_dough_pct
+      - name: corn_dented_pct
+      - name: corn_mature_pct
+      - name: corn_harvested_pct
+      - name: planting_delay_vs_5y_avg
+        formula: "corn_planted_pct - rolling_5y_doy_mean(corn_planted_pct)"
+        type: surprise
+      - name: harvest_delay_vs_5y_avg
+        formula: "corn_harvested_pct - rolling_5y_doy_mean(corn_harvested_pct)"
+        type: surprise
+
+  crop_condition:
+    source: usda_nass_crop_condition
+    lag_days: 2
+    features:
+      - name: corn_good_excellent_pct
+      - name: corn_poor_very_poor_pct
+      - name: condition_change_1w
+        formula: "corn_good_excellent_pct.diff(1)"
+      - name: condition_vs_5y_avg
+        formula: "corn_good_excellent_pct - rolling_5y_doy_mean(corn_good_excellent_pct)"
+        type: surprise
+
+  # ========================================================================
+  # Drought Monitor (Phase 1 NEW)
+  # ========================================================================
+  drought:
+    source: us_drought_monitor
+    lag_days: 2
+    features:
+      - name: corn_area_d0
+      - name: corn_area_d1
+      - name: corn_area_d2_plus
+      - name: corn_area_d3_plus
+      - name: drought_change_1w
+        formula: "corn_area_d2_plus.diff(1)"
+      - name: drought_change_4w
+        formula: "corn_area_d2_plus.diff(4)"
+
+  # ========================================================================
+  # Éthanol (Phase 1 NEW - TOP PRIORITY)
+  # ========================================================================
+  ethanol:
+    source: eia_ethanol
+    lag_days: 6   # publié mercredi pour la semaine se terminant vendredi précédent
+    features:
+      - name: ethanol_production_weekly
+        formula: "raw(WGFRPUS2)"
+      - name: ethanol_stocks_weekly
+        formula: "raw(WGTSTUS1)"
+      - name: ethanol_stocks_to_production
+        formula: "ethanol_stocks_weekly / ethanol_production_weekly"
+      - name: ethanol_corn_use_weekly
+        formula: "ethanol_production_weekly * 2.8 / 56"  # ~2.8 gal/bushel, 56 lb/bu
+      - name: ethanol_crush_margin_proxy
+        formula: "ethanol_price - corn_close / 56 * 2.8 - operating_cost_proxy"
+
+  # ========================================================================
+  # CFTC COT (Phase 1 NEW)
+  # ========================================================================
+  cot:
+    source: cftc_cot_corn
+    lag_days: 3
+    features:
+      - name: cot_managed_money_long
+      - name: cot_managed_money_short
+      - name: cot_managed_money_net
+        formula: "cot_managed_money_long - cot_managed_money_short"
+      - name: cot_commercial_net
+        formula: "cot_commercial_long - cot_commercial_short"
+      - name: cot_managed_money_net_zscore_3y
+        formula: "z_score(cot_managed_money_net, rolling_3y)"
+      - name: cot_extreme_position_long
+        formula: "(cot_managed_money_net_zscore_3y > 2).astype(int)"
+      - name: cot_extreme_position_short
+        formula: "(cot_managed_money_net_zscore_3y < -2).astype(int)"
+
+  # ========================================================================
+  # FX (Phase 1 NEW - élargi)
+  # ========================================================================
+  fx:
+    source: fred_macro
+    lag_days: 1
+    features:
+      - name: usd_brl
+      - name: usd_brl_change_1m
+        formula: "usd_brl.pct_change(21)"
+      - name: usd_cny
+      - name: usd_cny_change_1m
+        formula: "usd_cny.pct_change(21)"
+      - name: usd_mxn
+
+  # ========================================================================
+  # Calendrier USDA (Phase 1 NEW)
+  # ========================================================================
+  calendar:
+    source: usda_calendar
+    lag_days: 0
+    features:
+      - name: is_wasde_day
+        type: binary
+      - name: days_to_next_wasde
+      - name: days_since_last_wasde
+      - name: is_grain_stocks_day
+        type: binary
+      - name: is_acreage_day
+        type: binary
+
+  # ========================================================================
+  # Calendaire saisonnier (Fourier)
+  # ========================================================================
+  seasonality:
+    source: derived
+    lag_days: 0
+    features:
+      - name: month_sin
+      - name: month_cos
+      - name: doy_sin
+      - name: doy_cos
+      - name: is_planting_season
+        formula: "(month in [4, 5]).astype(int)"
+        type: binary
+      - name: is_silking_season
+        formula: "(month in [7]).astype(int)"
+        type: binary
+      - name: is_harvest_season
+        formula: "(month in [9, 10, 11]).astype(int)"
+        type: binary

@@ -1,0 +1,463 @@
+# sources.yaml - Toutes les sources de données externes.
+# Une source = (nom, fournisseur, fréquence native, lag de publication, format brut, URL/API).
+#
+# Le module src/mais/collect/<source>.py implémente un `download(out_dir)` pour chaque entrée.
+# Les sources marquées `enabled: false` sont des stubs (à activer quand l'API key est dispo).
+
+defaults:
+  retries: 3
+  timeout_sec: 60
+  cache_ttl_hours: 24
+
+sources:
+
+  # ========================================================================
+  # Marché (déjà géré dans v1, on garde yfinance)
+  # ========================================================================
+  - name: cbot_corn
+    provider: yfinance
+    ticker: ZC=F
+    frequency: daily
+    publication_lag_days: 0
+    format: ohlcv
+    enabled: true
+
+  - name: cbot_wheat
+    provider: yfinance
+    ticker: ZW=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+
+  - name: cbot_soy
+    provider: yfinance
+    ticker: ZS=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+
+  - name: cbot_oats
+    provider: yfinance
+    ticker: ZO=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+
+  - name: nymex_crude_wti
+    provider: yfinance
+    ticker: CL=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+
+  - name: nymex_natgas
+    provider: yfinance
+    ticker: NG=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+
+  - name: ice_dxy
+    provider: yfinance
+    ticker: DX=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+
+  - name: brent
+    provider: yfinance
+    ticker: BZ=F
+    frequency: daily
+    enabled: true
+
+  - name: rbob_gasoline
+    provider: yfinance
+    ticker: RB=F
+    frequency: daily
+    enabled: true
+    notes: Phase 1 NEW - proxy demande essence pour ethanol crush margin
+
+  # ========================================================================
+  # Macro (FRED)
+  # ========================================================================
+  - name: fred_macro
+    provider: fred_api
+    series:
+      - FEDFUNDS          # Effective fed funds rate
+      - CPIAUCNS          # CPI all urban, NSA
+      - DTWEXBGS          # Trade-weighted USD broad
+      - DEXBZUS           # USD/BRL exchange rate
+      - DEXMXUS           # USD/MXN
+      - DEXCHUS           # USD/CNY
+      - DEXJPUS           # USD/JPY
+      - DGS10             # 10Y Treasury yield
+      - T10YIE            # 10Y breakeven inflation
+      - DCOILWTICO        # WTI crude
+      - DHHNGSP           # Henry Hub natgas spot
+      - PNFERTUSDM        # Fertilizer price index (Phase 1 NEW)
+      - PMAIZMTUSDM       # Corn price (FAO)
+    frequency: monthly_or_daily
+    publication_lag_days: 1
+    enabled: true
+    api_key_env: FRED_API_KEY
+
+  # ========================================================================
+  # USDA WASDE (mensuel)
+  # ========================================================================
+  - name: usda_wasde
+    provider: usda_wasde_pdf
+    url_template: "https://www.usda.gov/oce/commodity/wasde/wasde{YYYYMM}.pdf"
+    frequency: monthly
+    publication_lag_days: 0
+    enabled: true
+    notes: Publié ~10ème de chaque mois à 12h ET. Parser pdfplumber existant à porter.
+
+  # ========================================================================
+  # USDA NASS QuickStats (Crop Progress, Crop Condition, Acreage)
+  # ========================================================================
+  - name: usda_nass_crop_progress
+    provider: nass_quickstats_api
+    program: SURVEY
+    sector: CROPS
+    group: FIELD CROPS
+    commodity: CORN
+    statisticcat: PROGRESS
+    frequency: weekly
+    publication_lag_days: 1
+    enabled: true
+    api_key_env: NASS_API_KEY
+    notes: Lundi 16h ET pour la semaine se terminant le dimanche.
+
+  - name: usda_nass_crop_condition
+    provider: nass_quickstats_api
+    program: SURVEY
+    commodity: CORN
+    statisticcat: CONDITION
+    frequency: weekly
+    publication_lag_days: 1
+    enabled: true
+    api_key_env: NASS_API_KEY
+
+  - name: usda_nass_yield_state
+    provider: nass_quickstats_api
+    program: SURVEY
+    commodity: CORN
+    statisticcat: YIELD
+    frequency: monthly
+    publication_lag_days: 1
+    enabled: true
+    api_key_env: NASS_API_KEY
+
+  # ========================================================================
+  # USDA FAS Export Sales (Phase 1 NEW)
+  # ========================================================================
+  - name: usda_fas_export_sales
+    provider: fas_export_sales_api
+    commodity: CORN
+    frequency: weekly
+    publication_lag_days: 7
+    enabled: true
+    api_key_env: FAS_API_KEY
+    notes: Jeudi 8h30 ET pour semaine se terminant le jeudi précédent.
+
+  # ========================================================================
+  # CFTC Commitments of Traders (Phase 1 NEW)
+  # ========================================================================
+  - name: cftc_cot_corn
+    provider: cftc_cot
+    url: https://www.cftc.gov/dea/newcot/deacot.txt
+    commodity: CORN
+    market_code: "002602"
+    frequency: weekly
+    publication_lag_days: 3
+    enabled: false  # Collector = stub (NotImplementedError). Données présentes via import manuel.
+    cot_limited_coverage: true
+    cot_coverage_note: >
+      data/interim/cftc_cot.parquet couvre 2013-01-08 → 2026-04-28 (695 semaines).
+      Features couvrent 2000 → 2025 → ~50% NaN structural (pre-2013 = pas de données COT).
+      Dans la période 2013+, couverture = 100%. Ce n'est pas un bug.
+      Les colonnes _surprise_vs_trend et _surprise_vs_5y ont ~1% NaN supplémentaire
+      dû au warmup rolling 5 ans. Non bloquant pour les modèles (imputation interne XGBoost/LGB).
+      Pour activer la collecte automatique : implémenter cftc_cot_collector.download()
+      en parsant le fichier TXT CFTC et filtrant sur market_code='002602'.
+    notes: Vendredi 15h30 ET pour le mardi précédent.
+
+  # ========================================================================
+  # EIA Ethanol (Phase 1 NEW - TOP PRIORITY)
+  # ========================================================================
+  - name: eia_ethanol
+    provider: eia_api
+    frequency: weekly
+    publication_lag_days: 6
+    enabled: true
+    api_key_env: EIA_API_KEY
+    notes: Mercredi 10h30 ET pour la semaine se terminant le vendredi précédent. API v2 faceted.
+
+  # ========================================================================
+  # CBOT futures curve (R&D-03)
+  # ========================================================================
+  - name: futures_curve
+    provider: cbot_futures_curve
+    provider_name: yfinance
+    frequency: daily
+    publication_lag_days: 1
+    enabled: false
+    notes: Diagnostic qualité obligatoire avant intégration principale ; mapping symbole isolé par provider.
+
+  # ========================================================================
+  # NOAA ENSO / ONI (R&D-05B)
+  # ========================================================================
+  - name: enso_oni
+    provider: noaa_cpc
+    url: https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php
+    frequency: monthly
+    publication_lag_days: 1
+    enabled: true
+    notes: ONI mensuel NOAA CPC, forward-fill daily puis shift(1) dans build_features().
+
+  # ========================================================================
+  # NOAA / Open-Meteo (météo)
+  # ========================================================================
+  - name: openmeteo_states
+    provider: openmeteo
+    states:
+      # Top 8 = ~80% production US (à pondérer dans features/weather_belt.py)
+      - { name: iowa,         lat: 41.878,  lon: -93.097,  weight: 0.180 }
+      - { name: illinois,     lat: 40.349,  lon: -88.986,  weight: 0.155 }
+      - { name: nebraska,     lat: 41.125,  lon: -98.268,  weight: 0.140 }
+      - { name: minnesota,    lat: 45.694,  lon: -93.900,  weight: 0.115 }
+      - { name: indiana,      lat: 39.849,  lon: -86.258,  weight: 0.085 }
+      - { name: south_dakota, lat: 44.299,  lon: -99.438,  weight: 0.065 }
+      - { name: kansas,       lat: 38.526,  lon: -96.726,  weight: 0.055 }
+      - { name: ohio,         lat: 40.388,  lon: -82.764,  weight: 0.045 }
+      # Le reste pour complétude
+      - { name: missouri,     lat: 38.456,  lon: -92.288,  weight: 0.030 }
+      - { name: wisconsin,    lat: 44.268,  lon: -89.616,  weight: 0.030 }
+      - { name: michigan,     lat: 43.326,  lon: -84.536,  weight: 0.020 }
+      - { name: north_dakota, lat: 47.529,  lon: -99.784,  weight: 0.020 }
+      - { name: kentucky,     lat: 37.668,  lon: -84.670,  weight: 0.015 }
+      - { name: tennessee,    lat: 35.747,  lon: -86.692,  weight: 0.010 }
+      - { name: pennsylvania, lat: 40.590,  lon: -77.209,  weight: 0.010 }
+      - { name: north_carolina, lat: 35.630, lon: -79.806,  weight: 0.008 }
+      - { name: arkansas,     lat: 34.969,  lon: -92.373,  weight: 0.007 }
+      - { name: mississippi,  lat: 32.741,  lon: -89.678,  weight: 0.005 }
+      - { name: texas,        lat: 31.054,  lon: -97.563,  weight: 0.005 }
+      - { name: colorado,     lat: 39.059,  lon: -105.311, weight: 0.005 }
+    variables:
+      - temperature_2m_min
+      - temperature_2m_max
+      - temperature_2m_mean
+      - precipitation_sum
+      - windspeed_10m_max
+      - relative_humidity_2m_mean
+      - shortwave_radiation_sum
+      - et0_fao_evapotranspiration
+      - soil_moisture_28_to_100cm_mean
+    frequency: daily
+    publication_lag_days: 1
+    enabled: true
+
+  # ========================================================================
+  # US Drought Monitor (Phase 1 NEW)
+  # ========================================================================
+  - name: us_drought_monitor
+    provider: drought_gov_api
+    commodity: corn
+    metrics: [d0, d1, d2, d3, d4, d1_plus, d2_plus]
+    frequency: weekly
+    publication_lag_days: 1
+    enabled: false  # Phase 1 NEW
+    notes: Jeudi 8h30 ET pour le mardi précédent.
+
+  # ========================================================================
+  # Monde - Brésil/Argentine/Ukraine (Phase 1 NEW)
+  # ========================================================================
+  - name: conab_brazil
+    provider: conab_html
+    commodity: corn
+    frequency: monthly
+    enabled: false  # Phase 1 NEW
+    notes: CONAB - estimation production brésilienne (incl. safrinha).
+
+  - name: bcr_argentina
+    provider: bcr_html
+    commodity: corn
+    frequency: weekly
+    enabled: false  # Phase 1 NEW
+    notes: Bolsa de Cereales Rosario - condition + estimation Argentine.
+
+  - name: ukragroconsult
+    provider: ukragroconsult_html
+    commodity: corn
+    frequency: weekly
+    enabled: false  # Phase 1 NEW
+
+  # ========================================================================
+  # Indices climat (Phase 1 NEW)
+  # ========================================================================
+  - name: noaa_oni
+    provider: noaa_psl
+    url: https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
+    frequency: monthly
+    publication_lag_days: 7
+    enabled: false  # Phase 1 NEW
+    notes: ENSO ONI - driver dominant safrinha brésilienne.
+
+  # ========================================================================
+  # Calendrier USDA (génération locale, pas de download)
+  # ========================================================================
+  - name: usda_calendar
+    provider: local_synthetic
+    events:
+      - name: wasde
+        cadence: monthly_around_10th
+      - name: grain_stocks
+        cadence: quarterly
+      - name: prospective_plantings
+        cadence: end_march
+      - name: acreage
+        cadence: end_june
+    frequency: daily
+    enabled: true
+    notes: Variables binaires is_wasde_day + days_to_next_wasde - effet calendaire fort.
+
+  # ========================================================================
+  # Euronext Matif EMA — prix maïs européen (PIVOT CIBLE)
+  # ========================================================================
+  - name: euronext_ema_daily
+    provider: euronext_contracts_daily
+    endpoint: https://live.euronext.com/en/ajax/getPricesFutures/commodities-futures/EMA/DPAR
+    frequency: daily
+    publication_lag_days: 1
+    enabled: true
+    notes: >
+      Collecte quotidienne des contrats actifs Euronext Matif maïs EMA (EUR/tonne).
+      Endpoint validé dans DATA-EMA-07. Produit un snapshot JSON quotidien et met
+      à jour data/processed/euronext/ema_contract_daily.parquet.
+
+  - name: euronext_ema
+    provider: euronext_ema_collector
+    ticker: EMA=F
+    frequency: daily
+    publication_lag_days: 0
+    enabled: false
+    notes: >
+      Ancien collecteur continu/proxy CBOT conservé pour compatibilité.
+      Ne pas utiliser pour les benchmarks EMA réels.
+
+  - name: euronext_ema_spreads
+    provider: eu_fundamentals_collector
+    frequency: daily
+    publication_lag_days: 0
+    enabled: false
+    notes: >
+      Spreads entre contrats EMA (Nov-Jan, Jan-Mar, Mar-Jun) pour signal structure terme.
+      Stub — nécessite accès Euronext ou Bloomberg pour contrats spécifiques.
+
+  # ========================================================================
+  # Cross-assets Europe — EUR/USD, TTF gas, BDI
+  # ========================================================================
+  - name: eu_cross_assets
+    provider: eu_fundamentals_collector
+    frequency: daily
+    publication_lag_days: 0
+    enabled: true
+    notes: >
+      EUR/USD (EURUSD=X), TTF gaz naturel EU (TTF=F proxy), Baltic Dry Index.
+      EUR/USD critique pour compétitivité exportations EU et conversion CBOT-EMA.
+      TTF = proxy coût séchage maïs et engrais azotés.
+      BDI = proxy fret maritime mondial (impact coût transport grains).
+
+  # ========================================================================
+  # Dalian Commodity Exchange (DCE) — maïs chinois
+  # ========================================================================
+  - name: dce_dalian_corn
+    provider: dce_dalian_collector
+    frequency: daily
+    publication_lag_days: 0
+    enabled: false
+    notes: >
+      Prix futures maïs chinois (CNY/tonne). Signal demande Chine.
+      DCE non disponible gratuitement sur yfinance.
+      Options: Quandl DCE/CORN, Barchart (payant), ou download manuel DCE website.
+      Feature dérivée: china_import_incentive = DCE_USD - (CBOT + tariff + freight).
+
+  # ========================================================================
+  # EU fundamentals — EC MARS, Agreste, FranceAgriMer
+  # ========================================================================
+  - name: ec_mars_bulletin
+    provider: eu_fundamentals_collector
+    frequency: monthly
+    publication_lag_days: 15
+    enabled: false
+    notes: >
+      EC MARS bulletin — monitoring cultures EU, estimations rendements (JRC Ispra).
+      Publication ~15 du mois. Stub — nécessite parser HTML/PDF JRC.
+      Features: eu_yield_estimate_tha, eu_production_estimate_mt, eu_soil_moisture_anomaly.
+
+  - name: agreste_france
+    provider: eu_fundamentals_collector
+    frequency: weekly
+    publication_lag_days: 1
+    enabled: false
+    notes: >
+      Agreste France — état des cultures (G+E%) hebdomadaire pendant saison.
+      Publication lundi. Stub — nécessite scraper agreste.agriculture.gouv.fr.
+      Feature: france_ge_pct (analogue US G+E%).
+
+  - name: franceagrimer
+    provider: eu_fundamentals_collector
+    frequency: monthly
+    publication_lag_days: 10
+    enabled: false
+    notes: >
+      FranceAgriMer — bilan offre/demande France (production, stocks, exports).
+      Publication ~10 du mois. Stub — nécessite parser Excel FranceAgriMer.
+
+  # ========================================================================
+  # Brésil — CONAB + exports (complète world_collector)
+  # ========================================================================
+  - name: brazil_fob_prices
+    provider: world_collector
+    frequency: daily
+    publication_lag_days: 1
+    enabled: false
+    notes: >
+      Prix FOB Paranagua/Santos (USD/tonne). Signal compétition Brésil vs US Gulf.
+      Feature dérivée: brazil_us_fob_spread = brazil_fob - us_fob.
+      Sources libres: USDA FAS PSD Online, CNA Brasil, ou Abiove.
+
+  - name: brazil_export_inspections
+    provider: world_collector
+    frequency: weekly
+    publication_lag_days: 3
+    enabled: false
+    notes: >
+      Inspections portuaires brésiliennes (ANEC/SECEX). Proxy exports hebdomadaires.
+      Signal: brazil_export_ytd_vs_5y — pace d'export vs moyenne 5 ans.
+
+  # ========================================================================
+  # Ukraine — MinAgro corridor et exports
+  # ========================================================================
+  - name: ukraine_exports
+    provider: world_collector
+    frequency: weekly
+    publication_lag_days: 3
+    enabled: false
+    notes: >
+      Exports Ukraine (MinAgro / USDA FAS Ukraine). Signal offre mondiale.
+      Features: ukraine_export_pace_mt, ukraine_corridor_status (binaire manuel).
+      Anti-leakage: lag 1 semaine.
+
+  # ========================================================================
+  # Importateurs — Japan, Korea, Egypt tenders
+  # ========================================================================
+  - name: asia_tenders
+    provider: world_collector
+    frequency: irregular
+    publication_lag_days: 1
+    enabled: false
+    notes: >
+      Tenders Japan (MAFF), Korea (KREI/KGMS), Egypt (GASC) via USDA FAS.
+      Feature: asia_total_tender_volume_mt (agrégat), asia_tender_momentum.
+      Sources: USDA FAS Attaché Reports, AGRAnet (payant).

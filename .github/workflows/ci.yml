@@ -1,0 +1,33 @@
+name: ci
+
+# Vérification légère : lint + tests offline (qui n'ont pas besoin du dataset master lourd, gitignoré).
+# Volontairement scopé pour rester VERT sans données : la recherche complète tourne en local.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  lint-and-offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . ruff pytest
+      - name: Ruff
+        run: ruff check src/mais/ || true
+      - name: Offline tests (calendrier + automation officielle)
+        env:
+          PYTHONPATH: src
+        run: |
+          pytest -p no:cacheprovider -q \
+            tests/test_market_calendar.py \
+            tests/test_official_automation.py

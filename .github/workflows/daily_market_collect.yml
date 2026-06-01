@@ -1,0 +1,61 @@
+name: daily-market-collect
+
+# V42-03 — Collecte officielle Euronext EMA automatisée.
+# Deux passages : principal après clôture (20h30 Paris) + rattrapage matinal (07h30 Paris)
+# pour les settlements/OI publiés avec retard. Calendar-aware : NO_SESSION le week-end/férié = OK.
+
+on:
+  schedule:
+    - cron: "30 18 * * 1-5"   # 20h30 Europe/Paris (heure d'été) -> 18:30 UTC, lun-ven
+    - cron: "30 5 * * 1-5"    # 07h30 Europe/Paris -> 05:30 UTC, lun-ven (rattrapage)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # nécessaire pour committer/pusher la donnée forward accumulée
+
+concurrency:
+  group: daily-market-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . || pip install pandas pyarrow requests numpy scipy scikit-learn
+
+      - name: Daily collect (retry on morning run)
+        env:
+          RUN_HOUR: ${{ github.event.schedule == '30 5 * * 1-5' && 'retry' || 'main' }}
+        run: |
+          if [ "$RUN_HOUR" = "retry" ]; then
+            python scripts/run_daily_collect.py --retry
+          else
+            python scripts/run_daily_collect.py
+          fi
+
+      - name: Commit appended data (append-only)
+        run: |
+          git config user.name "ema-bot"
+          git config user.email "ema-bot@users.noreply.github.com"
+          git add data/raw/euronext_ema_official data/forward_journal data/official_forward reports/daily artefacts/v42 || true
+          git commit -m "chore(forward): official collect $(date -u +%F)" || echo "nothing to commit"
+          git push || echo "push skipped"
+
+      - name: Upload artefacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-status
+          path: |
+            reports/daily/latest.json
+            artefacts/v42/v42_automation.json
+          if-no-files-found: ignore

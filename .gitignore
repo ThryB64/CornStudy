@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.installed.cfg
+.eggs/
+
+# Venv
+venv/
+.venv/
+env/
+
+# Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project: data — sous-dossiers lourds/reproductibles ignorés (collecteurs régénèrent).
+# On GARDE versionnés : data/official_forward/ et data/forward_journal/ (petits, append-only par l'Action)
+# + data/raw/euronext_ema_official/ (snapshot officiel accumulé).
+data/raw/*
+!data/raw/euronext_ema_official
+data/interim/
+data/processed/
+data/models/
+data/wasde_raw/
+data/wasde_pdf_raw/
+data/reports/
+data/snapshots/
+data/predictions/
+data/external/
+!data/metadata/.gitkeep
+
+# Heavy / legacy assets : exclus du repo (volumineux, reproductibles)
+*.zip
+csv/
+Models/
+Archive/
+notebooks/corn_study/exports/
+
+# Project: model artefacts
+data/models/
+artefacts/
+mlruns/
+optuna_studies/
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Pipeline cache
+.snakemake/
+.dvc/
+
+# Old project artefacts (kept for reference, ignored from new commits)
+csv/corrige/database.csv
+.env
+
+# Local agent/IDE config
+.claude/
+.cursor/

@@ -100,6 +100,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["context_refresh"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 7) Reconstruction basis live + ADVERSE_RISK live (V108)
+    try:
+        from mais.research.v108_live_basis_reconstruction import run_v108_live_basis
+        status["live_basis"] = run_v108_live_basis(try_network=True)
+    except Exception as e:  # noqa: BLE001
+        status["live_basis"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

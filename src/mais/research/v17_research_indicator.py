@@ -399,6 +399,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v108_live_basis_reconstruction import live_basis_report_block
+        block = live_basis_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v102_active_signal_monitoring import active_signal_report_block
         block = active_signal_report_block()
         if block:

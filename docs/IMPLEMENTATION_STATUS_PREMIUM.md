@@ -72,7 +72,8 @@ sur les 42 trades. Mise à jour : 2026-06-01.
 | Brique | Statut | Raison |
 |---|---|---|
 | MARS rendements intra-campagne | ⛔ | bulletins PDF non parsés (vraie donnée EU manquante) |
-| EU imports / Ukraine FOB (COMEXT) | ⛔ | pas de collecteur (SDMX lourd) |
+| EU imports / Ukraine FOB (COMEXT) | ⛔ | **probé 2026-06-01** : `DS-045409` renvoie « not available for dissemination » → COMEXT hors API SDMX (bulk-download séparé). Confirmé inaccessible ici |
+| Spreads inter-commodités (corn/soy, crude/corn, gas, corn/wheat) (V80) | ⚠️ | corn/wheat le plus lié au CBOT (−0.20), liens au basis tous <0.05 → canal CBOT, pas basis |
 | Options / IV CBOT (V74) | ⛔ | pas de source |
 | Archive révisions prévisions météo | ⛔ | Open-Meteo historical-forecast time-out |
 | Décision finale (V78) | 🔁 | après 3–6 mois de forward |

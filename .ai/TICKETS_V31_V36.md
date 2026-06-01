@@ -110,6 +110,13 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
   n'aide pas → `NONSYNC_REAL_BUT_REALIGN_MARGINAL_LIVE`. Compression AUC robuste (0.615↔0.621). Garder k=0
   live ; vrai correctif = CBOT intraday à l'heure settlement Euronext (data-gated). Tests test_v46 (2 PASS).
 
+## V47 — Choix d'objectif z→0.5 vs z→0 (doc `docs/V47_OBJECTIVE_CHOICE.md`)
+- **V47-01 (DÉCOUVERTE)** — `DONE` — `v47_objective_choice.py` : comparaison à conditions ÉGALES (stop −20,
+  max 90j). z→0 > z→0.5 global (12.8 vs 10.3) mais surtout via CBOT soutenu (MEDIUM 21.3 vs 13.7). Sur CBOT
+  faible : z→0 n'ajoute que +0.2 €/t en tenant 9.8j de plus → z→0.5 plus efficace.
+  Reco contexte : z→0 si CBOT soutenu sinon z→0.5 → `OBJECTIVE_CHOICE_IS_RISK_EFFICIENCY` (gain = risque/temps,
+  pas PnL brut). Tests test_v47 (2 PASS). Aucune touche à la règle.
+
 ## Bloqués data (conçus, à relancer)
 - **V33** — courbe officielle (basis haut + backwardation vs contango) : besoin de jours officiels.
 - **V34** — archive météo prévue réelle : host historical-forecast time out ; accumuler forward.

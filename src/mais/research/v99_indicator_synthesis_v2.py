@@ -87,7 +87,25 @@ def synthesize_indicator_v2(df: pd.DataFrame, with_network: bool = True) -> dict
     except Exception:  # noqa: BLE001
         cbot_support_v2 = "NO_SIGNAL"
 
+    # V101 : si le journal officiel forward est PLUS RÉCENT que le master, le SIGNAL live vient de l'officiel
+    live = {k: base.get(k) for k in ("as_of", "signal_tier", "basis_z", "basis_eur_t")}
+    live_source = "master"
+    context_lag_days = 0
+    try:
+        from mais.research.v101_official_synthesis_fix import _latest_official
+        off = _latest_official()
+        if off and pd.Timestamp(off["price_date"]) > pd.Timestamp(base["as_of"]):
+            live = {"as_of": off["price_date"], "signal_tier": off["signal_tier"],
+                    "basis_z": off["basis_z_used"], "basis_eur_t": off["basis_official_eur_t"]}
+            live_source = "official_forward_journal"
+            context_lag_days = (pd.Timestamp(off["price_date"]) - pd.Timestamp(base["as_of"])).days
+    except Exception:  # noqa: BLE001
+        pass
+
     warnings = []
+    if live_source == "official_forward_journal":
+        warnings.append(f"LIVE: signal officiel {live['as_of']} ({live['signal_tier']}) ; diagnostics de "
+                        f"contexte au {base.get('as_of')} (retard {context_lag_days} j, à rafraîchir)")
     if subst["flag"]:
         warnings.append("SUBSTITUTION: prime soutenue par ratio blé/maïs élevé -> plus dangereuse à shorter")
     if wx["flag"]:
@@ -101,15 +119,22 @@ def synthesize_indicator_v2(df: pd.DataFrame, with_network: bool = True) -> dict
     out = {
         "version": "V99-SYNTHESIS-V2",
         "verdict": "SYNTHESIS_V2_BUILT",
+        **live,
+        "live_source": live_source,
+        "context_as_of": base.get("as_of"),
+        "context_lag_days": int(context_lag_days),
         **{k: base[k] for k in (
-            "as_of", "signal_tier", "basis_z", "basis_eur_t", "adverse_risk", "cbot_support",
-            "physical_tension", "recommended_target", "horizon_estimate_days", "confidence",
-            "reason_to_abstain") if k in base},
+            "adverse_risk", "cbot_support", "physical_tension", "recommended_target",
+            "horizon_estimate_days", "confidence") if k in base},
         "cbot_support_v2": cbot_support_v2,
         "enso_context": enso,
         "substitution_warning": subst,
         "weather_warning": wx,
         "context_warnings": warnings,
+        # un signal officiel actif n'est PAS en abstention (l'abstention master/UNCERTAIN ne s'applique plus)
+        "reason_to_abstain": (None if (live_source == "official_forward_journal"
+                                       and str(live["signal_tier"]).startswith("SHORT_PREMIUM"))
+                              else base.get("reason_to_abstain")),
         "explanation": base.get("explanation", []),
         "disclaimer": ("Vue d'ensemble research v2. Diagnostics & warnings = CONTEXTE, jamais des vetos. "
                        "Règle figée inchangée. RESEARCH_ONLY_NOT_TRADING."),

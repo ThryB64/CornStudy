@@ -8,6 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "src"))
 
+from mais.research.v51_weather_extremes import run_v51_extremes  # noqa: E402
 from mais.research.v52_matif_substitution import run_v52_matif  # noqa: E402
 from mais.research.v54_physical_tension import run_v54_tension  # noqa: E402
 from mais.research.v56_target_recommendation import run_v56_target  # noqa: E402
@@ -28,6 +29,7 @@ if __name__ == "__main__":
     print("=" * 60)
     df = filter_out_holdout(load_master_dataset())
     print(f"master shape (no holdout): {df.shape}")
+    _show("V51 WEATHER_EXTREMES", run_v51_extremes(df))
     _show("V54 PHYSICAL_TENSION", run_v54_tension(df))
     _show("V56 TARGET_RECOMMENDATION", run_v56_target(df))
     _show("V57 MAGNITUDE_BUCKETS", run_v57_buckets(df))

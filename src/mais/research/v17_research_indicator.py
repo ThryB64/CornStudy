@@ -392,6 +392,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v107_live_context_refresh import live_context_report_block
+        block = live_context_report_block(try_network=False)
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v102_active_signal_monitoring import active_signal_report_block
         block = active_signal_report_block()
         if block:

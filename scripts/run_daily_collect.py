@@ -93,6 +93,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["matif_ratio"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 6) Refresh du contexte CBOT live 2026 (V107) — persiste l'artefact lu par le rapport
+    try:
+        from mais.research.v107_live_context_refresh import run_v107_context_refresh
+        status["context_refresh"] = run_v107_context_refresh(try_network=True)
+    except Exception as e:  # noqa: BLE001
+        status["context_refresh"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

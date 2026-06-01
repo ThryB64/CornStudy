@@ -103,6 +103,13 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
   2026-06-01 : stress prévu US 27.4, EU 22.7. Historical-forecast time out → on accumule. Tests test_v45 (2 PASS).
 - **Data-gated** : météo EU réalisée absente du master (stress EU = forward only).
 
+## V46 — Alignement settlement CBOT/EMA (doc `docs/V46_SETTLEMENT_ALIGNMENT.md`)
+- **V46-01 (DÉCOUVERTE)** — `DONE` — `v46_settlement_alignment.py` : non-sync réelle (meilleur alignement
+  info k=−1 corr 0.424 vs 0.095 contemporain). Basis k=0 a autocorr lag-1 Δ NÉGATIVE (−0.159) = rebond
+  micro-structure ; k=−1 l'annule + réduit le bruit 21% (4.21→3.32). MAIS k=−1 = fuite (non live), k=+1
+  n'aide pas → `NONSYNC_REAL_BUT_REALIGN_MARGINAL_LIVE`. Compression AUC robuste (0.615↔0.621). Garder k=0
+  live ; vrai correctif = CBOT intraday à l'heure settlement Euronext (data-gated). Tests test_v46 (2 PASS).
+
 ## Bloqués data (conçus, à relancer)
 - **V33** — courbe officielle (basis haut + backwardation vs contango) : besoin de jours officiels.
 - **V34** — archive météo prévue réelle : host historical-forecast time out ; accumuler forward.

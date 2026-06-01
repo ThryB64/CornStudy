@@ -37,6 +37,7 @@ from mais.research.v105_compression_event_study import run_v105_event_study  # n
 from mais.research.v106_compression_trigger import run_v106_trigger  # noqa: E402
 from mais.research.v107_live_context_refresh import run_v107_context_refresh  # noqa: E402
 from mais.research.v108_live_basis_reconstruction import run_v108_live_basis  # noqa: E402
+from mais.research.v109_ema_curve_live_tension import run_v109_curve_tension  # noqa: E402
 from mais.research.v120_basis_econometrics import run_v120_all  # noqa: E402
 from mais.research.v121_basis_forecast_model import run_v121_forecast  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
@@ -96,6 +97,10 @@ if __name__ == "__main__":
         _show("V108 LIVE_BASIS", run_v108_live_basis(try_network=True))
     except Exception as e:  # noqa: BLE001
         print(f"\n[V108] indisponible: {type(e).__name__}: {e}")
+    try:
+        _show("V109 CURVE_TENSION", run_v109_curve_tension(try_network=True))
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[V109] indisponible: {type(e).__name__}: {e}")
     _show("V99 SYNTHESIS_V2", synthesize_indicator_v2(df, with_network=False))
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:

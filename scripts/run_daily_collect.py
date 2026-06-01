@@ -107,6 +107,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["live_basis"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 8) Courbe EMA officielle live -> PHYSICAL_TENSION live (V109)
+    try:
+        from mais.research.v109_ema_curve_live_tension import run_v109_curve_tension
+        status["curve_tension"] = run_v109_curve_tension(try_network=True)
+    except Exception as e:  # noqa: BLE001
+        status["curve_tension"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

@@ -13,6 +13,7 @@ from mais.research.v54_physical_tension import run_v54_tension  # noqa: E402
 from mais.research.v56_target_recommendation import run_v56_target  # noqa: E402
 from mais.research.v57_magnitude_buckets import run_v57_buckets  # noqa: E402
 from mais.research.v58_casebook_enriched import run_v58_enriched  # noqa: E402
+from mais.research.v59_monthly_forward_report import run_v59_report  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -31,6 +32,7 @@ if __name__ == "__main__":
     _show("V56 TARGET_RECOMMENDATION", run_v56_target(df))
     _show("V57 MAGNITUDE_BUCKETS", run_v57_buckets(df))
     _show("V58 CASEBOOK_ENRICHED", run_v58_enriched(df))
+    _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:
         _show("V52 MATIF_SUBSTITUTION", run_v52_matif(df))
     except Exception as e:  # noqa: BLE001

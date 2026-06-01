@@ -14,6 +14,7 @@ sur les 42 trades. Mise à jour : 2026-06-01.
 | Objectifs z→0.5 (prudent) / z→0 (complet), stop −20/−25 | ✅ | Indicatifs, research |
 | Asymétrie short ≫ long premium | ✅ | V49 : 12.8 vs 8.2 €/t |
 | Compression du basis haut (réversion) | ✅ | demi-vie ~17–54 j ; V12/V13 |
+| **Robustesse de l'edge (V81)** | ✅ | LOYO PnL min +10.9 ; **hors crise 80% win / +11.2 €/t** ; survit coût 5 €/t (+7.8) ; aucune année > 23% du PnL → `EDGE_STABLE_NOT_DRIVEN_BY_ONE_YEAR` |
 
 ## 2. Mécanisme (le « pourquoi »)
 | Brique | Statut | Résultat |

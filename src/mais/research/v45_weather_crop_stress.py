@@ -146,18 +146,19 @@ def _oof_auc(x: pd.DataFrame, y: pd.Series, horizon: int) -> float | None:
     return float(roc_auc_score(y[ok], pred[ok]))
 
 
-def _forward_stress_from_forecast(fc: pd.DataFrame) -> float | None:
-    """Indice de stress prévu (lead 1-10) : chaud + sec, moyenne zones."""
+def _forward_stress_from_forecast(fc: pd.DataFrame) -> dict[str, float] | None:
+    """Stress prévu (lead 1-10) : moyenne (chaud+sec) ET pic de chaleur (V48 : le signal est dans l'extrême)."""
     if fc is None or len(fc) == 0:
         return None
     f = fc[fc["lead_time_days"].between(1, 10)] if "lead_time_days" in fc.columns else fc
     piv = f.pivot_table(index="forecast_valid_date", columns="variable", values="value", aggfunc="mean")
     if "tmax" not in piv.columns:
         return None
-    tmax = piv["tmax"].mean()
+    tmax_mean = float(piv["tmax"].mean())
+    tmax_peak = float(piv["tmax"].max())
     prcp = piv.get("precipitation", piv.get("prcp"))
-    dry = -(prcp.mean()) if prcp is not None else 0.0
-    return round(float(tmax + 0.1 * dry), 3)
+    dry = -(float(prcp.mean())) if prcp is not None else 0.0
+    return {"mean": round(tmax_mean + 0.1 * dry, 3), "peak_tmax": round(tmax_peak, 2)}
 
 
 def collect_weather_forecast_forward(try_network: bool = True) -> dict[str, Any]:
@@ -170,7 +171,9 @@ def collect_weather_forecast_forward(try_network: bool = True) -> dict[str, Any]
         for region in ("us", "eu"):
             try:
                 fc = fetch_forecast(region=region)
-                rec[f"forecast_stress_{region}"] = _forward_stress_from_forecast(fc)
+                s = _forward_stress_from_forecast(fc)
+                rec[f"forecast_stress_{region}"] = s["mean"] if s else None
+                rec[f"forecast_peak_tmax_{region}"] = s["peak_tmax"] if s else None
                 rec[f"n_rows_{region}"] = int(len(fc))
             except Exception as e:  # noqa: BLE001
                 rec[f"forecast_stress_{region}"] = None

@@ -127,3 +127,11 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
   Ukraine à merger pour un module physique complet.
 - **V37** — validation proxy vs officiel (≥40 j puis 3/6/12 mois).
 - **V38** — paper trading (coûts réels, slippage) : conditions dans DECISION_NEXT_STEPS_AFTER_V30.md.
+
+## V48 — Météo prévue : signal ? (doc `docs/V48_WEATHER_FORECAST_SIGNAL.md`)
+- **V48-01 (DÉCOUVERTE)** — `DONE` — `v48_weather_forecast_signal.py` : valeur d'une prévision PARFAITE
+  (oracle, non-tradeable, borne sup). Météo MOYENNE prévue = aucun edge même parfaite (AUC 0.488, gain vs
+  réalisé −0.019). MAIS **pic de chaleur prévu (extrême) corr 0.311, +1.6% vs −2.3%** → le signal est dans
+  les EXTRÊMES (non-linéarité rendement >30-32°C en pollinisation). Verdict
+  `SIGNAL_IN_EXTREME_FORECAST_NOT_MEAN_COLLECT_FORWARD_EXTREMES`. Journal forward V45 enrichi du pic prévu
+  (`forecast_peak_tmax_us/eu`). Tests test_v48 (2 PASS). EU réalisé data-gated. Règle inchangée.

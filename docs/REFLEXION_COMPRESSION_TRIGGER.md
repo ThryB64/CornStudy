@@ -70,3 +70,14 @@ Pas de feature future ; pas de sur-optimisation sur 42 épisodes ; pas de multip
 confondre corrélation a posteriori et prédiction réelle ; un trigger faible n'est pas un signal de trading.
 Critère GO/WATCHLIST/NO_GO : un trigger n'est retenu (ADD_TO_DAILY_REPORT) que s'il améliore l'OOF du timing
 de façon stable ET reste interprétable ; sinon WATCHLIST.
+
+---
+
+## Résultats (implémentation CT-01/02/09/10/11)
+- **CT-01 (v104)** : 5 définitions de `compression_start_date` cohérentes (std ~2.7 j) ; offset entrée→start ~5 j (hors ADVERSE).
+- **CT-02 (v105)** : event study → le basis fait un **OVERSHOOT** (blow-off) ; la hausse est **EMA-driven** (EMA surperforme jusqu'au pic, CBOT faible), la compression démarre quand l'**EMA se retourne** (figure `docs/COMPRESSION_TRIGGER_EVENT_STUDY.png`). Le « CBOT monte d'abord » N'EST PAS un précurseur propre. Verdict `NO_CLEAR_SINGLE_PRECURSOR` (relatif EMA/CBOT).
+- **CT-09/10 (v106)** : panel quotidien (460 j basis_z>1), base rate compression imminente (Δz≥0.3 / 10 j) = **0.65** ; OOF AUC features causales = 0.578 (marginal). **DÉCOUVERTE CLÉ** : le `COMPRESSION_TRIGGER_SCORE` est **inversé** (NONE 0.79 > EARLY 0.65 > CONFIRMED 0.60) → les précurseurs détectables signalent une compression **déjà en cours**, pas à venir. Verdict `COMPRESSION_TRIGGER_REFLECTS_ONGOING_NOT_LEADING`.
+- **CT-11** : bloc `Déclencheur de compression` ajouté au daily report comme **état descriptif** (compression amorcée ou non), pas un prédicteur.
+
+## Conclusion de la phase
+Timer le DÉBUT précis de la compression est **intrinsèquement difficile** (réversion quasi-efficiente) : le seul signal « leading » est le **taux de base élevé** de basis_z>1 (la prime haute se comprime souvent à 10 j). Les précurseurs (momentum basis qui se retourne, EMA qui s'essouffle, blé/maïs qui se détend) **coïncident** avec la compression plutôt qu'ils ne la **précèdent**. C'est un résultat honnête et important : il borne ce qu'on peut espérer du timing et oriente l'indicateur vers un **état** (« compression amorcée ») plutôt qu'une **prédiction** de déclenchement. CT-07/08 (météo prévue, événements fondamentaux) restent data-gated/forward.

@@ -16,6 +16,9 @@ from mais.research.v57_magnitude_buckets import run_v57_buckets  # noqa: E402
 from mais.research.v58_casebook_enriched import run_v58_enriched  # noqa: E402
 from mais.research.v59_monthly_forward_report import run_v59_report  # noqa: E402
 from mais.research.v60_weather_basis_driver import run_v60_weather_basis  # noqa: E402
+from mais.research.v64_adverse_risk_v2 import run_v64_adverse_v2  # noqa: E402
+from mais.research.v65_cbot_rebound_engine import run_v65_rebound  # noqa: E402
+from mais.research.v72_survival_reversion import run_v72_survival  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -36,6 +39,9 @@ if __name__ == "__main__":
     _show("V56 TARGET_RECOMMENDATION", run_v56_target(df))
     _show("V57 MAGNITUDE_BUCKETS", run_v57_buckets(df))
     _show("V58 CASEBOOK_ENRICHED", run_v58_enriched(df))
+    _show("V64 ADVERSE_RISK_V2", run_v64_adverse_v2(df))
+    _show("V65 CBOT_REBOUND_ENGINE", run_v65_rebound(df))
+    _show("V72 SURVIVAL_REVERSION", run_v72_survival(df))
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:
         _show("V52 MATIF_SUBSTITUTION", run_v52_matif(df))

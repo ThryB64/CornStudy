@@ -23,6 +23,7 @@ from mais.research.v71_eu_production_balance import run_v71_eu_production  # noq
 from mais.research.v71b_eu_production_locality import run_v71b_locality  # noqa: E402
 from mais.research.v72_survival_reversion import run_v72_survival  # noqa: E402
 from mais.research.v77_indicator_synthesis import synthesize_indicator  # noqa: E402
+from mais.research.v79_enso_regime import run_v79_enso  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -56,6 +57,10 @@ if __name__ == "__main__":
         print(f"\n[V71b EU_LOCALITY] indisponible: {type(e).__name__}: {e}")
     _show("V72 SURVIVAL_REVERSION", run_v72_survival(df))
     _show("V77 INDICATOR_SYNTHESIS", synthesize_indicator(df))
+    try:
+        _show("V79 ENSO_REGIME", run_v79_enso(df, try_network=True))
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[V79 ENSO] indisponible: {type(e).__name__}: {e}")
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:
         _show("V52 MATIF_SUBSTITUTION", run_v52_matif(df))

@@ -76,6 +76,12 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
   2 jours → `TOO_SHORT_KEEP_ACCUMULATING` (jalons 10/40/90 j). Tests test_official_automation (3 PASS).
 - **V42-06** — `DONE` — monitoring calendar-aware : NO_SESSION → OK_NO_SESSION (jamais FAIL).
 
+## V43 — Matrice de qualité de signal (doc `docs/V43_SIGNAL_QUALITY_MATRIX.md`)
+- **V43-01** — `DONE` — `v43_signal_quality_matrix.py` : croise ADVERSE_RISK × CBOT_SUPPORT → quality
+  HIGH/MEDIUM/LOW. `QUALITY_SEPARATES_OUTCOMES` (monotone) mais extrêmes fins (HIGH n=1, LOW n=3).
+  Cellule robuste : bucket MEDIUM, CBOT soutenu → ADVERSE 11.8% vs 25% / PnL 15.9 vs 6.9. Bloc ajouté au
+  rapport quotidien (3e contexte). Tests test_v43 (2 PASS). Contexte, pas veto.
+
 ## Bloqués data (conçus, à relancer)
 - **V33** — courbe officielle (basis haut + backwardation vs contango) : besoin de jours officiels.
 - **V34** — archive météo prévue réelle : host historical-forecast time out ; accumuler forward.

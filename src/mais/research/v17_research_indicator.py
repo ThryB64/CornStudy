@@ -427,6 +427,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v86_cbot_support_v2 import cbot_support_v2_report_block
+        block = cbot_support_v2_report_block(df)
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v77_indicator_synthesis import synthesis_report_block
         block = synthesis_report_block(df)
         if block:

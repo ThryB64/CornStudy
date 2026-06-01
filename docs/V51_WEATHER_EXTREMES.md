@@ -50,8 +50,21 @@ dôme de chaleur de juillet, en suivant en priorité la **persistance** prévue 
 pas la météo moyenne. C'est précisément ce que le journal forward V45/V48 accumule (pics tmax prévus) ; V51
 dit quoi y privilégier : la durée de l'épisode chaud.
 
+## V60 — La météo US est-elle un driver du BASIS ? (négatif utile)
+Prolongement direct sur le cœur de l'étude (`v60_weather_basis_driver.py`, tests 2 PASS). Même rigueur
+lead-lag, cible = variation du basis.
+
+- Lead-lag météo→basis : forward `NEUTRAL` (corr −0.05/+0.04 à h>0), mais BACKWARD négatif (−0.27 à −20 j,
+  −0.25 à −10 j) → le basis était déjà en **compression AVANT** l'extrême.
+- Niveau de basis sous chaleur extrême : **35.2 €/t** vs hors extrême **40.3 €/t** → basis **plus BAS** sous
+  extrême (cohérent CBOT-catch-up), pas d'élargissement de prime EU.
+
+→ Verdict `US_HEAT_NOT_A_CLEAR_BASIS_DRIVER`. **La chaleur US n'explique PAS la prime EU** : elle pousse le
+CBOT (anticipé), et le basis se comprime plutôt qu'il ne s'élargit. Renforce la thèse de la **PRIME LOCALE**
+(V16/V36/V40). L'edge météo réel est sur le CBOT via PRÉVISION, pas sur le basis.
+
 ## Suite
-- Enrichir le journal forward (V45) avec `forecast_consecutive_hot_days` (persistance prévue), pas seulement
-  le pic.
-- Valider en forward quand l'historique de prévisions s'accumule (les prévisions historiques ne sont pas
-  re-téléchargeables — l'API historical-forecast time-out, cf. V45).
+- Enrichir le journal forward (V45) avec `forecast_consecutive_hot_days` (persistance prévue) — **fait**.
+- Prochaine brique météo logique : **tracker de RÉVISION de prévision** (la surprise non anticipée est la
+  seule vraiment tradeable, cf. V51/V60) — forward-only, à accumuler.
+- Valider en forward quand l'historique de prévisions s'accumule (l'API historical-forecast time-out, V45).

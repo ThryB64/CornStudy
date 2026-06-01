@@ -15,6 +15,7 @@ from mais.research.v56_target_recommendation import run_v56_target  # noqa: E402
 from mais.research.v57_magnitude_buckets import run_v57_buckets  # noqa: E402
 from mais.research.v58_casebook_enriched import run_v58_enriched  # noqa: E402
 from mais.research.v59_monthly_forward_report import run_v59_report  # noqa: E402
+from mais.research.v60_weather_basis_driver import run_v60_weather_basis  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -30,6 +31,7 @@ if __name__ == "__main__":
     df = filter_out_holdout(load_master_dataset())
     print(f"master shape (no holdout): {df.shape}")
     _show("V51 WEATHER_EXTREMES", run_v51_extremes(df))
+    _show("V60 WEATHER_BASIS_DRIVER", run_v60_weather_basis(df))
     _show("V54 PHYSICAL_TENSION", run_v54_tension(df))
     _show("V56 TARGET_RECOMMENDATION", run_v56_target(df))
     _show("V57 MAGNITUDE_BUCKETS", run_v57_buckets(df))

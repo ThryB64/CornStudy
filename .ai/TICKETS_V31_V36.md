@@ -82,6 +82,15 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
   Cellule robuste : bucket MEDIUM, CBOT soutenu → ADVERSE 11.8% vs 25% / PnL 15.9 vs 6.9. Bloc ajouté au
   rapport quotidien (3e contexte). Tests test_v43 (2 PASS). Contexte, pas veto.
 
+## V44 — Mécanisme & magnitude (doc `docs/V44_MECHANISM_MAGNITUDE.md`)
+- **V44-E1** — `DONE (méthodo)` — lead-lag CBOT/EMA : contemporain faible 0.095, pic à 1 j 0.424 →
+  `NONSYNC_PRICING_PEAK_AT_1D` = price discovery non-synchrone (settlement), PAS un leadership économique.
+  Vraie lead-lag = intraday (data-gated). Justifie le shift(1).
+- **V44-E2** — `DONE` — magnitude : baisse +5.7 €/t si signal vs −2.8 sans (anomalie compressible nette,
+  n=380) ; OOF R² amplitude 0.093 → `MAGNITUDE_PARTIALLY_PREDICTABLE` (modeste, cohérent V35).
+- **V44-E3** — `DONE` — saisonnalité causale basis : prime haute juil-sept (soudure), basse févr/récolte.
+  Tests test_v44 (2 PASS).
+
 ## Bloqués data (conçus, à relancer)
 - **V33** — courbe officielle (basis haut + backwardation vs contango) : besoin de jours officiels.
 - **V34** — archive météo prévue réelle : host historical-forecast time out ; accumuler forward.

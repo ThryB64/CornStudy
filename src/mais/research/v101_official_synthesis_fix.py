@@ -131,19 +131,46 @@ def run_v101_official_synthesis(df: pd.DataFrame, write_v99_latest: bool = True)
     return out
 
 
+def _fresh_live_diagnostics() -> dict[str, Any] | None:
+    """Lit les diagnostics LIVE rafraîchis (V107 CBOT_SUPPORT, V108 ADVERSE_RISK, V109 PHYSICAL_TENSION)."""
+    def _read(path, key):
+        try:
+            return json.loads(path.read_text(encoding="utf-8")).get(key)
+        except Exception:  # noqa: BLE001
+            return None
+    cbot = _read(ARTEFACTS_DIR / "v107" / "v107_context_refresh.json", "cbot_support_v2_live")
+    adv = _read(ARTEFACTS_DIR / "v108" / "v108_live_basis.json", "adverse_risk_live")
+    tension = _read(ARTEFACTS_DIR / "v109" / "v109_curve_tension.json", "physical_tension_live")
+    if cbot is None and adv is None and tension is None:
+        return None
+    return {"cbot_support_v2": cbot, "adverse_risk": adv, "physical_tension": tension}
+
+
 def official_live_report_block(df: pd.DataFrame) -> str:
     s = run_v101_official_synthesis(df, write_v99_latest=False)
     if s.get("verdict") != "OFFICIAL_SYNTHESIS_FIXED":
         return ""
+    fresh = _fresh_live_diagnostics()
+    if fresh and all(fresh.get(k) not in (None, "NO_SIGNAL") for k in ("cbot_support_v2", "adverse_risk", "physical_tension")):
+        from mais.research.v56_target_recommendation import recommend_target
+        reco = recommend_target(fresh["adverse_risk"], fresh["cbot_support_v2"], fresh["physical_tension"])
+        ctx_line = (
+            f"- Contexte LIVE (rafraîchi 2026) : ADVERSE_RISK {fresh['adverse_risk']} · CBOT_SUPPORT v2 "
+            f"{fresh['cbot_support_v2']} · PHYSICAL_TENSION {fresh['physical_tension']} → **objectif "
+            f"recommandé {reco}**\n"
+            "- ✅ Diagnostics live à jour (V107/V108/V109) ; plus de retard de contexte.\n")
+    else:
+        ctx_line = (
+            f"- Contexte (au {s['context_as_of']}, retard {s['context_lag_days']} j) : ADVERSE_RISK "
+            f"{s['adverse_risk_ctx']} · CBOT_SUPPORT v2 {s['cbot_support_v2_ctx']} · PHYS_TENSION "
+            f"{s['physical_tension_ctx']} → objectif suggéré {s['recommended_target_ctx']}\n"
+            f"- ⚠️ {s['data_lag_warning']}\n")
     return (
         "### État LIVE officiel (V101 — source = journal officiel forward)\n"
         f"- **{s['as_of']}** · Signal **{s['signal_tier']}** · basis officiel {s['basis_official_eur_t']} €/t "
         f"(z={s['basis_z_used']}, {s['z_source']})\n"
         f"- Objectif : prudent {s['objective_prudent']} / complet {s['objective_full']} · horizon médian "
-        f"{s['median_horizon_days']} j · courbe {s['curve_shape']}\n"
-        f"- Contexte (au {s['context_as_of']}, retard {s['context_lag_days']} j) : ADVERSE_RISK "
-        f"{s['adverse_risk_ctx']} · CBOT_SUPPORT v2 {s['cbot_support_v2_ctx']} · PHYS_TENSION "
-        f"{s['physical_tension_ctx']} → objectif suggéré {s['recommended_target_ctx']}\n"
-        f"- ⚠️ {s['data_lag_warning']}\n"
-        "- RESEARCH_ONLY_NOT_TRADING.\n"
+        f"{s['median_horizon_days']} j\n"
+        + ctx_line
+        + "- RESEARCH_ONLY_NOT_TRADING.\n"
     )

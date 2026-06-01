@@ -168,5 +168,5 @@ def live_basis_report_block() -> str:
         f"- basis officiel {s.get('basis_official_eur_t')} €/t (z={s.get('basis_z_official')}) · "
         f"wheat/corn z live {s.get('wheat_corn_z_live')} · résidu subst. z {s.get('substitution_residual_z_live')}\n"
         f"- **ADVERSE_RISK live = {s.get('adverse_risk_live')}** {s.get('adverse_risk_components')}\n"
-        "- PHYSICAL_TENSION encore en attente (courbe EMA officielle). RESEARCH_ONLY_NOT_TRADING.\n"
+        "- PHYSICAL_TENSION live fourni par V109 (courbe officielle). RESEARCH_ONLY_NOT_TRADING.\n"
     )

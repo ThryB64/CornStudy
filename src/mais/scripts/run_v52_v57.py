@@ -35,6 +35,7 @@ from mais.research.v103_proxy_official_dashboard import run_v103_dashboard  # no
 from mais.research.v104_compression_start import run_v104_compression_start  # noqa: E402
 from mais.research.v105_compression_event_study import run_v105_event_study  # noqa: E402
 from mais.research.v106_compression_trigger import run_v106_trigger  # noqa: E402
+from mais.research.v120_basis_econometrics import run_v120_all  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -82,6 +83,7 @@ if __name__ == "__main__":
     _show("V104 COMPRESSION_START", run_v104_compression_start(df))
     _show("V105 EVENT_STUDY", run_v105_event_study(df, make_png=False))
     _show("V106 COMPRESSION_TRIGGER", run_v106_trigger(df))
+    _show("V120 BASIS_ECONOMETRICS", run_v120_all(df))
     _show("V99 SYNTHESIS_V2", synthesize_indicator_v2(df, with_network=False))
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:

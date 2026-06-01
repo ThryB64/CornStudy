@@ -34,10 +34,14 @@ def test_run_v107(tmp_path, monkeypatch):
     mk = _market()
     mk.index = pd.bdate_range(end="2026-06-01", periods=len(mk))  # finit à la date du signal
     monkeypatch.setattr(v107, "fetch_live_market", lambda try_network=True: mk)
+    monkeypatch.setattr(v107, "fetch_live_cot",
+                        lambda try_network=True: {"report_date": "2026-05-26", "mm_net_pct_oi": 0.11})
+    monkeypatch.setattr(v107, "_cot_historical_median", lambda: 0.02)
     out = v107.run_v107_context_refresh(try_network=True)
     assert out["version"] == "V107-CONTEXT-REFRESH"
     assert out["verdict"] in ("CONTEXT_REFRESHED_FRESH", "CONTEXT_REFRESHED_BUT_LAGGED")
     assert out["cbot_support_v2_live"] in ("LOW", "MEDIUM", "HIGH", "NO_SIGNAL")
+    assert out["cot_favorable"] == 1  # 0.11 > 0.02
     assert out["context_lag_days"] <= 5
 
 

@@ -43,6 +43,46 @@ def _yahoo_daily(sym: str, rng: str = "5y", timeout: int = 30) -> pd.Series:
     return pd.Series(close, index=ts, name=sym).dropna()
 
 
+CFTC_DISAGG = "https://www.cftc.gov/dea/newcot/f_disagg.txt"
+
+
+def fetch_live_cot(try_network: bool = True, timeout: int = 40) -> dict[str, Any] | None:
+    """Managed-money net % d'open interest pour le maïs (CFTC désagrégé, dernière semaine). Fraction."""
+    if not try_network:
+        return None
+    import csv
+    import io
+    try:
+        req = urllib.request.Request(CFTC_DISAGG, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            txt = r.read().decode("latin-1", "replace")
+        rows = [row for row in csv.reader(io.StringIO(txt))
+                if row and row[0].upper().startswith("CORN - CHICAGO")]
+        if not rows:
+            return None
+        c = rows[0]
+        oi = float(c[7])
+        mm_long = float(c[13])
+        mm_short = float(c[14])
+        if oi <= 0:
+            return None
+        return {"report_date": c[2].strip(),
+                "mm_net_pct_oi": round((mm_long - mm_short) / oi, 4)}  # fraction, comme le master
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def _cot_historical_median() -> float:
+    """Médiane historique du managed-money net %OI (depuis le master) ; fallback 0.0."""
+    try:
+        from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset
+        s = pd.to_numeric(
+            filter_out_holdout(load_master_dataset()).get("cot_mm_net_pct_oi_x"), errors="coerce").dropna()
+        return float(s.median()) if len(s) else 0.0
+    except Exception:  # noqa: BLE001
+        return 0.0
+
+
 def fetch_live_market(try_network: bool = True) -> pd.DataFrame:
     if not try_network:
         return pd.DataFrame()
@@ -101,7 +141,21 @@ def run_v107_context_refresh(try_network: bool = True) -> dict[str, Any]:
     from mais.research.v86_cbot_support_v2 import compute_cbot_support_v2
     cs2 = compute_cbot_support_v2(frame, enso_regime=enso)
     last_ctx = cs2.iloc[-1]
-    cbot_support_v2 = str(last_ctx["cbot_support_v2"])
+
+    # COT live : managed-money net %OI vs médiane historique -> composant c_mm (manquant dans la frame Yahoo)
+    cot = fetch_live_cot(try_network=try_network)
+    cot_favorable = None
+    if cot is not None:
+        cot_favorable = int(cot["mm_net_pct_oi"] > _cot_historical_median())
+
+    def _c(name):
+        v = last_ctx[name]
+        return int(v) if pd.notna(v) else 0
+    base = {"uptrend_sma50": _c("c_uptrend"), "momentum20_pos": _c("c_momentum"),
+            "corn_cheap_vs_wheat": _c("c_corn_cheap"), "la_nina": _c("c_la_nina")}
+    score = sum(base.values()) + (cot_favorable or 0)
+    # banding fixe identique à V86 (HIGH>=3, MEDIUM 2, LOW<=1), maintenant COT inclus en live
+    cbot_support_v2 = "HIGH" if score >= 3 else ("MEDIUM" if score == 2 else "LOW")
 
     lag_days = int((signal_date - market_date).days)
     # gate de fraîcheur : retard en jours ouvrés approx
@@ -115,15 +169,13 @@ def run_v107_context_refresh(try_network: bool = True) -> dict[str, Any]:
         "context_lag_days": lag_days,
         "fresh_within_gate": bool(fresh),
         "cbot_support_v2_live": cbot_support_v2,
-        "cbot_support_components": {
-            "uptrend_sma50": int(last_ctx["c_uptrend"]) if pd.notna(last_ctx["c_uptrend"]) else None,
-            "momentum20_pos": int(last_ctx["c_momentum"]) if pd.notna(last_ctx["c_momentum"]) else None,
-            "corn_cheap_vs_wheat": int(last_ctx["c_corn_cheap"]) if pd.notna(last_ctx["c_corn_cheap"]) else None,
-            "la_nina": int(last_ctx["c_la_nina"]) if pd.notna(last_ctx["c_la_nina"]) else None,
-        },
-        "refreshed": ["corn", "wheat", "soy", "crude", "gas", "CBOT_SUPPORT_v2"],
+        "cbot_support_score": int(score),
+        "cot_live": cot,
+        "cot_favorable": cot_favorable,
+        "cbot_support_components": {**base, "cot_managed_money_favorable": cot_favorable},
+        "refreshed": ["corn", "wheat", "soy", "crude", "gas", "COT_managed_money", "CBOT_SUPPORT_v2"],
         "still_lagged": ["ADVERSE_RISK (résidu substitution = basis historique)",
-                         "PHYSICAL_TENSION (courbe EMA officielle)", "COT (à brancher)"],
+                         "PHYSICAL_TENSION (courbe EMA officielle)"],
         "verdict": verdict,
         "interpretation": (
             f"Contexte MARCHÉ rafraîchi au {market_date.date()} (signal officiel {signal_date.date()}, "

@@ -405,6 +405,20 @@ def generate_daily_report(df: pd.DataFrame) -> str:
             lines += ["", block]
     except Exception:
         pass
+    try:
+        from mais.research.v54_physical_tension import physical_tension_report_block
+        block = physical_tension_report_block(df)
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v56_target_recommendation import target_recommendation_report_block
+        block = target_recommendation_report_block(df)
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
     report = "\n".join(lines)
     (V17_DIR / "daily_report.md").write_text(report, encoding="utf-8")
     return report

@@ -1,5 +1,5 @@
 {
-  "ran_at": "2026-06-01 09:49:36 UTC",
+  "ran_at": "2026-06-01 14:13:47 UTC",
   "as_of": "2026-06-01",
   "mode": "main",
   "session_today": "TRADING_SESSION",
@@ -21,13 +21,13 @@
       "official_front_contract": "EMA_Q2026",
       "official_front_settlement": 227.0,
       "official_front_oi": 15091,
-      "cbot_cents_bu": 446.5,
-      "eurusd": 1.1654,
-      "cbot_eur_t": 150.83,
-      "basis_official_eur_t": 76.17,
-      "basis_z_official_implied": 2.058,
+      "cbot_cents_bu": 443.25,
+      "eurusd": 1.1617,
+      "cbot_eur_t": 150.21,
+      "basis_official_eur_t": 76.79,
+      "basis_z_official_implied": 2.107,
       "basis_z_official_rolling": null,
-      "basis_z_used": 2.058,
+      "basis_z_used": 2.107,
       "z_source": "proxy_implied",
       "signal_tier": "SHORT_PREMIUM_EXTREME",
       "objective_prudent": "z->0.5",
@@ -121,6 +121,28 @@
       "status": "RESEARCH_ONLY_NOT_TRADING"
     },
     "status": "RESEARCH_ONLY_NOT_TRADING"
+  },
+  "weather_forecast": {
+    "issue_date": "2026-06-01",
+    "status": "OK",
+    "forecast_stress_us": 27.775,
+    "forecast_peak_tmax_us": 31.15,
+    "n_rows_us": 600,
+    "forecast_stress_eu": 22.661,
+    "forecast_peak_tmax_eu": 24.76,
+    "n_rows_eu": 420,
+    "journal": "ALREADY_LOGGED"
+  },
+  "matif_ratio": {
+    "status": "OK",
+    "price_date": "2026-06-01",
+    "matif_wheat_contract": "EBM_U2026",
+    "matif_wheat_settle": 207.5,
+    "matif_corn_contract": "EMA_Q2026",
+    "matif_corn_settle": 227.0,
+    "matif_wheat_corn_ratio": 0.9141,
+    "appended": false,
+    "reason": "d\u00e9j\u00e0 journalis\u00e9"
   },
   "result": "OK"
 }

@@ -86,6 +86,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["weather_forecast"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 5) Ratio MATIF blé/maïs (substitution EU), append-only forward (V52)
+    try:
+        from mais.research.v52_matif_substitution import append_matif_journal
+        status["matif_ratio"] = append_matif_journal()
+    except Exception as e:  # noqa: BLE001
+        status["matif_ratio"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

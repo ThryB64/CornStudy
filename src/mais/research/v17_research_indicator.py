@@ -434,12 +434,18 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
-        from mais.research.v77_indicator_synthesis import synthesis_report_block
-        block = synthesis_report_block(df)
+        from mais.research.v99_indicator_synthesis_v2 import synthesis_v2_report_block
+        block = synthesis_v2_report_block(df, with_network=False)
         if block:
             lines += ["", block]
     except Exception:
-        pass
+        try:
+            from mais.research.v77_indicator_synthesis import synthesis_report_block
+            block = synthesis_report_block(df)
+            if block:
+                lines += ["", block]
+        except Exception:
+            pass
     report = "\n".join(lines)
     (V17_DIR / "daily_report.md").write_text(report, encoding="utf-8")
     return report

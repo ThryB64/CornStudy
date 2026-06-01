@@ -26,6 +26,7 @@ from mais.research.v77_indicator_synthesis import synthesize_indicator  # noqa: 
 from mais.research.v79_enso_regime import run_v79_enso  # noqa: E402
 from mais.research.v80_intercommodity_spreads import run_v80_intercommodity  # noqa: E402
 from mais.research.v81_robustness_audit import run_v81_robustness  # noqa: E402
+from mais.research.v82_episode_library import run_v82_episodes  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -65,6 +66,7 @@ if __name__ == "__main__":
         print(f"\n[V79 ENSO] indisponible: {type(e).__name__}: {e}")
     _show("V80 INTERCOMMODITY", run_v80_intercommodity(df))
     _show("V81 ROBUSTNESS", run_v81_robustness(df))
+    _show("V82 EPISODE_LIBRARY", run_v82_episodes(df, with_network=False))
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:
         _show("V52 MATIF_SUBSTITUTION", run_v52_matif(df))

@@ -135,3 +135,11 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
   les EXTRÊMES (non-linéarité rendement >30-32°C en pollinisation). Verdict
   `SIGNAL_IN_EXTREME_FORECAST_NOT_MEAN_COLLECT_FORWARD_EXTREMES`. Journal forward V45 enrichi du pic prévu
   (`forecast_peak_tmax_us/eu`). Tests test_v48 (2 PASS). EU réalisé data-gated. Règle inchangée.
+
+## V49 — Jambe long premium + V50 — ADVERSE casebook (doc `docs/V49_V50_LONG_LEG_CASEBOOK.md`)
+- **V49-01 (DÉCOUVERTE)** — `DONE` — `v49_long_premium_leg.py` : jambe LONG (basis_z<−1) fonctionne (n=40,
+  win 75%, PnL +8.2) mais < jambe SHORT (81%, +12.8) → `ASYMMETRY_CONFIRMED_SHORT_BETTER`. Règle reste
+  short-only. Tests test_v49 (2 PASS).
+- **V50-01** — `DONE` — `v50_adverse_casebook.py` → `docs/ADVERSE_CASEBOOK.md` : 7 ADVERSE documentés.
+  Raisons : 6× prime modérée (z<1.5), 5× CBOT non porteur, 2× roll, 2× crise → confirme V32/V41/V39.
+  Tests test_v50 (1 PASS).

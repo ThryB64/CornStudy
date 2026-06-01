@@ -419,6 +419,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
             lines += ["", block]
     except Exception:
         pass
+    try:
+        from mais.research.v64_adverse_risk_v2 import adverse_risk_v2_report_block
+        block = adverse_risk_v2_report_block(df)
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
     report = "\n".join(lines)
     (V17_DIR / "daily_report.md").write_text(report, encoding="utf-8")
     return report

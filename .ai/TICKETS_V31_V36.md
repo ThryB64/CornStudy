@@ -91,6 +91,18 @@ Docs : `docs/V31_V32_V35_ADVERSE_FORWARD.md`, `docs/DECISION_NEXT_STEPS_AFTER_V3
 - **V44-E3** — `DONE` — saisonnalité causale basis : prime haute juil-sept (soudure), basse févr/récolte.
   Tests test_v44 (2 PASS).
 
+## V45 — Météo & stress cultural (doc `docs/V45_WEATHER_CROP_STRESS.md`)
+- **V45-01** — `DONE` — `v45_weather_crop_stress.py` : indice de stress US causal + phénologique (juillet
+  critique), anti-leakage shift(1).
+- **V45-E1 (DÉCOUVERTE)** — `DONE` — stress US RÉALISÉ ne prédit PAS la hausse CBOT (corr −0.07, AUC 0.508,
+  fwd ret high −2.8% vs low −1.1%) → `US_STRESS_WEAK_PREDICTOR`. La météo est price-in par ANTICIPATION ;
+  reformule l'idée → l'archive de PRÉVISIONS est le bon outil.
+- **V45-E2** — `DONE` — basis haut + stress US élevé → compression plus faible (4.1 vs 9.2 €/t) = contexte
+  de prudence (stress d'été, prime moins compressible).
+- **V45-forward** — `DONE (amorcé)` — journal prévisions append-only daté émission (US+EU). Réseau OK
+  2026-06-01 : stress prévu US 27.4, EU 22.7. Historical-forecast time out → on accumule. Tests test_v45 (2 PASS).
+- **Data-gated** : météo EU réalisée absente du master (stress EU = forward only).
+
 ## Bloqués data (conçus, à relancer)
 - **V33** — courbe officielle (basis haut + backwardation vs contango) : besoin de jours officiels.
 - **V34** — archive météo prévue réelle : host historical-forecast time out ; accumuler forward.

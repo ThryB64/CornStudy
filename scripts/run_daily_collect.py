@@ -79,6 +79,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["automation"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 4) Prévisions météo forward (US+EU), append-only daté à l'émission (anti-leakage)
+    try:
+        from mais.research.v45_weather_crop_stress import collect_weather_forecast_forward
+        status["weather_forecast"] = collect_weather_forecast_forward(try_network=True)
+    except Exception as e:  # noqa: BLE001
+        status["weather_forecast"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

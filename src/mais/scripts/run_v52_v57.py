@@ -50,6 +50,9 @@ from mais.research.v132_indicator_synthesis_v3 import run_v132_synthesis  # noqa
 from mais.research.v133_monthly_forward_report_v2 import run_v133_monthly_v2  # noqa: E402
 from mais.research.v134_data_sourcing_plan import run_v134_sourcing_plan  # noqa: E402
 from mais.research.v135_decision_checkpoint import run_v135_checkpoint  # noqa: E402
+from mais.research.v136_weather_revision_archive import run_v136_weather_archive  # noqa: E402
+from mais.research.v137_event_date_attribution import run_v137_event_dates  # noqa: E402
+from mais.research.v138_horizon_estimator import run_v138_horizon  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -116,8 +119,14 @@ if __name__ == "__main__":
     _show("V125 CURVE_ACCUMULATION", run_v125_curve_accumulation())
     _show("V126 MATIF_SUBSTITUTION_V2", run_v126_substitution())
     _show("V129 EVENT_LIBRARY", run_v129_event_library(df))
+    _show("V137 EVENT_DATE_ATTRIBUTION", run_v137_event_dates(df))
+    try:
+        _show("V136 WEATHER_ARCHIVE", run_v136_weather_archive(try_network=True))
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[V136] indisponible: {type(e).__name__}: {e}")
     _show("V130 REGIME_ECONOMETRICS", run_v130_regime_econometrics(df))
     _show("V131 TARGET_RECO_V3", run_v131_target_v3(df))
+    _show("V138 HORIZON_ESTIMATOR", run_v138_horizon(df))
     _show("V132 INDICATOR_V3", run_v132_synthesis())
     _show("V133 MONTHLY_FORWARD_V2", run_v133_monthly_v2())
     _show("V134 DATA_SOURCING_PLAN", run_v134_sourcing_plan())

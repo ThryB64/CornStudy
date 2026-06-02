@@ -462,6 +462,20 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v137_event_date_attribution import event_dates_report_block
+        block = event_dates_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v136_weather_revision_archive import weather_archive_report_block
+        block = weather_archive_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v131_target_recommendation_v3 import target_v3_report_block
         block = target_v3_report_block()
         if block:
@@ -471,6 +485,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     try:
         from mais.research.v130_basis_regime_econometrics import regime_econometrics_report_block
         block = regime_econometrics_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v138_horizon_estimator import horizon_estimator_report_block
+        block = horizon_estimator_report_block()
         if block:
             lines += ["", block]
     except Exception:

@@ -118,3 +118,20 @@ CBOT_SUPPORT MEDIUM / PHYSICAL_TENSION HIGH (courbe NARROWING) → **objectif re
 4. Affiner l'horizon V27 par tier avec la demi-vie V130 (déjà mesurée), à valider en forward.
 
 Tout reste **RESEARCH_ONLY_NOT_TRADING**.
+
+---
+
+## 8. Addendum V136-V138 (priorités gratuites du checkpoint, faites)
+
+- **V136 — archive météo historique** : l'Historical Forecast API ne donne qu'**un lead** → pas de révision
+  multi-lead reconstructible ; les révisions sont captées **en forward par V127**. L'archive d'extrêmes passés
+  est construite (best-effort, timeout → DATA_BLOCKED). Branché au runner/rapport, **pas au cron** (coût timeout).
+- **V137 — attribution par dates USDA** : 26/29 épisodes chevauchent un rapport, mais c'est **quasi mécanique**
+  (WASDE mensuel + fenêtres ~19 j) donc peu discriminant ; l'information utile = **12 épisodes CBOT-driven**
+  (CBOT_WASDE 10 + CBOT_GRAIN_STOCKS 2), qui sharpe le proxy V129 (qui n'en voyait qu'un). DESCRIPTIF.
+- **V138 — horizon par demi-vie (NÉGATIF honnête)** : la demi-vie du *niveau* (V130) **sous-prédit
+  massivement** le temps de parcours d'un signal jusqu'à z→0.5 (analytique 9.5 j vs réel 28.6 j, corr ≈ 0).
+  Leçon : demi-vie AR(1) du niveau ≠ horizon d'un signal extrême (overshoot + chemin). → **WATCHLIST**,
+  gardé comme borne calée (×3.01 ≈ 29 j) ; **l'horizon primaire reste V27 saisonnier / V72 empirique**.
+
+Aucune régression (suite complète exit 0). Baseline figée, holdout verrouillé.

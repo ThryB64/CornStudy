@@ -50,8 +50,11 @@ def _horizon_by_tier(tier: str, base: int | None) -> dict[str, Any]:
     hl = (v130.get("half_life_by_tier") or {})
     short = {"SHORT_PREMIUM_MODERATE": "MODERATE", "SHORT_PREMIUM_STRONG": "STRONG",
              "SHORT_PREMIUM_EXTREME": "EXTREME"}.get(tier)
+    v138 = _read("v138/v138_horizon.json").get("live_estimate") or {}
     return {"median_horizon_days_seasonal": base, "half_life_days_for_tier": hl.get(short),
-            "note": "horizon saisonnier V27 ; demi-vie par tier V130 (l'extrême réverse plus vite)"}
+            "estimated_days_to_z05": v138.get("calibrated_days_to_z05"),
+            "note": "horizon primaire = saisonnier V27 ; demi-vie par tier V130 (l'extrême réverse plus vite) ; "
+                    "estimation calée V138 jusqu'à z→0.5 (l'analytique AR(1) pur sous-prédit)"}
 
 
 def run_v132_synthesis() -> dict[str, Any]:

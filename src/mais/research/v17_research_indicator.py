@@ -392,6 +392,27 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v132_indicator_synthesis_v3 import synthesis_v3_report_block
+        block = synthesis_v3_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v122_journal_consistency import consistency_report_block
+        block = consistency_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v123_freshness_gate import freshness_report_block
+        block = freshness_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v107_live_context_refresh import live_context_report_block
         block = live_context_report_block(try_network=False)
         if block:
@@ -413,8 +434,57 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v125_curve_accumulation import curve_accumulation_report_block
+        block = curve_accumulation_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v126_matif_substitution_v2 import substitution_v2_report_block
+        block = substitution_v2_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v127_weather_forecast_extremes import weather_warning_report_block
+        block = weather_warning_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v129_event_catalyst_library import event_library_report_block
+        block = event_library_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v131_target_recommendation_v3 import target_v3_report_block
+        block = target_v3_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v130_basis_regime_econometrics import regime_econometrics_report_block
+        block = regime_econometrics_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v102_active_signal_monitoring import active_signal_report_block
         block = active_signal_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v124_active_monitoring_v2 import active_monitoring_v2_report_block
+        block = active_monitoring_v2_report_block()
         if block:
             lines += ["", block]
     except Exception:
@@ -489,6 +559,20 @@ def generate_daily_report(df: pd.DataFrame) -> str:
                 lines += ["", block]
         except Exception:
             pass
+    try:
+        from mais.research.v133_monthly_forward_report_v2 import monthly_v2_report_block
+        block = monthly_v2_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v135_decision_checkpoint import checkpoint_report_block
+        block = checkpoint_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
     report = "\n".join(lines)
     (V17_DIR / "daily_report.md").write_text(report, encoding="utf-8")
     return report

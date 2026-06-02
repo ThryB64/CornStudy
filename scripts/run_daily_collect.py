@@ -114,6 +114,62 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["curve_tension"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 9) Accumulation de la courbe EMA + tendance de tension (V125)
+    try:
+        from mais.research.v125_curve_accumulation import run_v125_curve_accumulation
+        status["curve_accumulation"] = run_v125_curve_accumulation()
+    except Exception as e:  # noqa: BLE001
+        status["curve_accumulation"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 9b) Historique ratio MATIF blé/maïs (substitution EU) -> parquet structuré (V126)
+    try:
+        from mais.research.v126_matif_substitution_v2 import run_v126_substitution
+        status["substitution_v2"] = run_v126_substitution()
+    except Exception as e:  # noqa: BLE001
+        status["substitution_v2"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 9c) Météo forecast extrême US + EU (warning de contexte, append-only) (V127)
+    try:
+        from mais.research.v127_weather_forecast_extremes import run_v127_weather
+        status["weather_extremes"] = {r: run_v127_weather(try_network=True, region=r) for r in ("us", "eu")}
+    except Exception as e:  # noqa: BLE001
+        status["weather_extremes"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 9d) Probe + accumulation du basis aligné intraday (WATCHLIST) (V128)
+    try:
+        from mais.research.v128_intraday_aligned_probe import run_v128_intraday
+        status["intraday_align"] = run_v128_intraday(try_network=True)
+    except Exception as e:  # noqa: BLE001
+        status["intraday_align"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 10) Révision auditée du jour courant + cohérence des couches (V122)
+    try:
+        from mais.research.v122_journal_consistency import run_v122
+        fj = status.get("forward_journal") or {}
+        recomputed = fj.get("signal") if isinstance(fj, dict) else None
+        status["consistency"] = run_v122(as_of=as_of, revise_with=recomputed)
+    except Exception as e:  # noqa: BLE001
+        status["consistency"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 11) Suivi du signal actif v2 (V124) + gate de fraîcheur (V123)
+    try:
+        from mais.research.v124_active_monitoring_v2 import monitor_active_signal_v2
+        status["active_monitoring_v2"] = monitor_active_signal_v2()
+    except Exception as e:  # noqa: BLE001
+        status["active_monitoring_v2"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+    try:
+        from mais.research.v123_freshness_gate import run_v123_freshness
+        status["freshness"] = run_v123_freshness()
+    except Exception as e:  # noqa: BLE001
+        status["freshness"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 12) Synthèse de l'indicateur research v3 (vue intégrée) (V132)
+    try:
+        from mais.research.v132_indicator_synthesis_v3 import run_v132_synthesis
+        status["indicator_v3"] = run_v132_synthesis()
+    except Exception as e:  # noqa: BLE001
+        status["indicator_v3"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

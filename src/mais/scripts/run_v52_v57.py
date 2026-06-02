@@ -40,6 +40,16 @@ from mais.research.v108_live_basis_reconstruction import run_v108_live_basis  # 
 from mais.research.v109_ema_curve_live_tension import run_v109_curve_tension  # noqa: E402
 from mais.research.v120_basis_econometrics import run_v120_all  # noqa: E402
 from mais.research.v121_basis_forecast_model import run_v121_forecast  # noqa: E402
+from mais.research.v124_active_monitoring_v2 import monitor_active_signal_v2  # noqa: E402
+from mais.research.v125_curve_accumulation import run_v125_curve_accumulation  # noqa: E402
+from mais.research.v126_matif_substitution_v2 import run_v126_substitution  # noqa: E402
+from mais.research.v129_event_catalyst_library import run_v129_event_library  # noqa: E402
+from mais.research.v130_basis_regime_econometrics import run_v130_regime_econometrics  # noqa: E402
+from mais.research.v131_target_recommendation_v3 import run_v131_target_v3  # noqa: E402
+from mais.research.v132_indicator_synthesis_v3 import run_v132_synthesis  # noqa: E402
+from mais.research.v133_monthly_forward_report_v2 import run_v133_monthly_v2  # noqa: E402
+from mais.research.v134_data_sourcing_plan import run_v134_sourcing_plan  # noqa: E402
+from mais.research.v135_decision_checkpoint import run_v135_checkpoint  # noqa: E402
 from mais.scripts.run_v8_phase_a import filter_out_holdout, load_master_dataset  # noqa: E402
 
 
@@ -102,6 +112,16 @@ if __name__ == "__main__":
     except Exception as e:  # noqa: BLE001
         print(f"\n[V109] indisponible: {type(e).__name__}: {e}")
     _show("V99 SYNTHESIS_V2", synthesize_indicator_v2(df, with_network=False))
+    _show("V124 ACTIVE_MONITORING_V2", monitor_active_signal_v2())
+    _show("V125 CURVE_ACCUMULATION", run_v125_curve_accumulation())
+    _show("V126 MATIF_SUBSTITUTION_V2", run_v126_substitution())
+    _show("V129 EVENT_LIBRARY", run_v129_event_library(df))
+    _show("V130 REGIME_ECONOMETRICS", run_v130_regime_econometrics(df))
+    _show("V131 TARGET_RECO_V3", run_v131_target_v3(df))
+    _show("V132 INDICATOR_V3", run_v132_synthesis())
+    _show("V133 MONTHLY_FORWARD_V2", run_v133_monthly_v2())
+    _show("V134 DATA_SOURCING_PLAN", run_v134_sourcing_plan())
+    _show("V135 DECISION_CHECKPOINT", run_v135_checkpoint())
     _show("V59 MONTHLY_FORWARD", run_v59_report())
     try:
         _show("V52 MATIF_SUBSTITUTION", run_v52_matif(df))

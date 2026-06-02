@@ -30,3 +30,4 @@ date,weekday,session,trading_session
 2026-05-30,Saturday,NO_SESSION_WEEKEND,False
 2026-05-31,Sunday,NO_SESSION_WEEKEND,False
 2026-06-01,Monday,TRADING_SESSION,True
+2026-06-02,Tuesday,TRADING_SESSION,True

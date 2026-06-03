@@ -144,13 +144,20 @@ def run_v105_event_study(df: pd.DataFrame, make_png: bool = True) -> dict[str, A
         "bz_at_tplus10": round(float(bz_mean[PRE + POST]), 3),
         "cbot_cumret_tminus10_to_t0_pct": round(float((cbot_mean[PRE] - cbot_mean[PRE - 10]) * 100), 2),
         "verdict": verdict,
+        "cbot_pre_start_direction": ("UP" if pre_means.get("cbot_ret_pre10", 0) > 0
+                                     else "DOWN" if pre_means.get("cbot_ret_pre10", 0) < 0 else "FLAT"),
         "interpretation": (
             f"Avant le début de compression (t-10→t-1) : CBOT {pre_means.get('cbot_ret_pre10')}, EMA "
             f"{pre_means.get('ema_ret_pre10')}, Δbasis_z {pre_means.get('bz_change_pre5')}, Δwheat/corn "
             f"{pre_means.get('wc_change_pre10')}. Par canal, rendement CBOT pré-start : {cbot_pre_by_path}. "
-            "Si le CBOT monte (et plus pour les CBOT_DRIVEN) avant que le basis baisse, c'est le précurseur "
-            "central -> base du COMPRESSION_TRIGGER (CT-10). Figure : docs/COMPRESSION_TRIGGER_EVENT_STUDY.png."),
-        "note": "Descriptif (start daté a posteriori). Les features du trigger seront strictement causales (CT-10).",
+            "CORRECTIF RED-TEAM (VN-B1) : contrairement à une hypothèse initiale, le CBOT NE MONTE PAS avant le "
+            "début de compression — son rendement pré-start est NÉGATIF (ici "
+            f"{pre_means.get('cbot_ret_pre10')}), y compris pour les CBOT_DRIVEN. Il n'y a donc PAS de "
+            "précurseur 'rebond CBOT' fiable (verdict NO_CLEAR_SINGLE_PRECURSOR), ce qui est cohérent avec "
+            "V106 (score de trigger INVERSÉ : il reflète une compression déjà en cours, pas à venir). "
+            "Figure : docs/COMPRESSION_TRIGGER_EVENT_STUDY.png."),
+        "note": "Descriptif (start daté a posteriori). Le 'précurseur CBOT haussier' était une extrapolation "
+                "narrative non soutenue par les chiffres ; corrigé. Features du trigger strictement causales (CT-10).",
         "status": "RESEARCH_ONLY_NOT_TRADING",
     }
     (V105_DIR / "v105_event_study.json").write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")

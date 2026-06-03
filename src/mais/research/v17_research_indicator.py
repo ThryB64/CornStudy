@@ -383,6 +383,14 @@ def generate_daily_report(df: pd.DataFrame) -> str:
         "_Interprétation : un basis élevé tend à se compresser (la prime européenne se normalise). "
         "Signal = sous-performance probable d'EMA vs CBOT sur ~40-90 j._",
     ]
+    # VN-A1 : PREMIUM HEAD (source unique autoritative) tout en tête
+    try:
+        from mais.premium.head import premium_head_report_block
+        block = premium_head_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
     # V101 : ÉTAT LIVE OFFICIEL en priorité (journal forward), avant les diagnostics master (qui peuvent être en retard)
     try:
         from mais.research.v101_official_synthesis_fix import official_live_report_block

@@ -165,6 +165,12 @@ def append_forward_journal(record: dict[str, Any]) -> dict[str, Any]:
     JOURNAL_DIR.mkdir(parents=True, exist_ok=True)
     record = dict(record)
     record["logged_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    # VN-A2 : estampillage timing/session (PROVISIONAL/FINAL selon DSP 18:30 CET)
+    try:
+        from mais.premium.session_timing import stamp_timing
+        record = stamp_timing(record)
+    except Exception:  # noqa: BLE001
+        pass
     row = pd.DataFrame([{k: v for k, v in record.items() if not isinstance(v, list)}])
     row["warnings"] = ";".join(record.get("warnings", []))
 

@@ -134,9 +134,11 @@ def quality_flag(contract: dict[str, Any]) -> str:
         return "settlement_missing"
     if contract.get("open_interest") is None:
         return "oi_missing"
-    volume = contract.get("volume")
     open_interest = contract.get("open_interest")
-    if (volume is None or float(volume) == 0.0) or float(open_interest) < 500:
+    # VN-A4 : la liquidité d'un snapshot de SETTLEMENT se juge sur l'OPEN INTEREST, pas le volume — le volume
+    # est souvent non publié (None) ou nul sur les échéances déférées alors que le settlement reste valide.
+    # On ne flagge low_liquidity que si l'OI est réellement bas (faux low_liquidity évité quand volume manque).
+    if float(open_interest) < 500:
         return "low_liquidity"
     return "ok"
 

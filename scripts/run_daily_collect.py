@@ -170,6 +170,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["indicator_v3"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 13) Single source of truth premium (VN-A1) — le head autoritatif
+    try:
+        from mais.premium.head import build_premium_head
+        status["premium_head"] = build_premium_head()
+    except Exception as e:  # noqa: BLE001
+        status["premium_head"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

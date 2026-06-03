@@ -9,7 +9,9 @@ def test_run(tmp_path, monkeypatch):
     out = v134.run_v134_sourcing_plan()
     assert out["verdict"] == "DATA_SOURCE_PLAN_READY"
     assert out["n_sources"] == len(v134.SOURCES)
-    assert "Eurostat COMEXT (DS-045409)" in out["blocked"]
+    # COMEXT requalifié DATA_BLOCKED -> PARTIAL_BEST_EFFORT (bulk download existe)
+    assert not any("COMEXT" in b for b in out["blocked"])
+    assert any(s["status"] == "ACTIONABLE" for s in out["sources"])
     # toutes les entrées ont les champs requis
     for s in out["sources"]:
         for k in ("source", "use", "availability", "cost", "api", "constraints", "status", "unblocks"):

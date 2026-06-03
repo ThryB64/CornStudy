@@ -26,32 +26,50 @@ WINDOW_TOLERANCE_DAYS = 2
 CBOT_MOVE = 0.02
 
 
-def report_calendar(start: pd.Timestamp, end: pd.Timestamp) -> dict[str, list[pd.Timestamp]]:
+def report_calendar(start: pd.Timestamp, end: pd.Timestamp,
+                    try_network: bool = False) -> tuple[dict[str, list[pd.Timestamp]], bool]:
+    """Calendrier des rapports. Renvoie (dict, wasde_is_exact). Tente les dates EXACTES (VN-C5) si réseau."""
     from mais.collect.usda_calendar_collector import (
         _annual_acreage,
         _quarterly_grain_stocks,
         _wasde_dates,
     )
-    return {"WASDE": _wasde_dates(start, end),
-            "GRAIN_STOCKS": _quarterly_grain_stocks(start, end),
-            "ACREAGE": _annual_acreage(start, end)}
+    wasde_exact = False
+    wasde_dates = _wasde_dates(start, end)
+    if try_network:
+        try:
+            from mais.collect.usda_release_calendar import wasde_release_dates
+            collected = []
+            for yr in range(start.year, end.year + 1):
+                rd = wasde_release_dates(yr, try_network=True)
+                if rd.get("is_exact"):
+                    collected += [pd.Timestamp(d) for d in rd["dates"]]
+            if collected:
+                wasde_dates = [d for d in collected if start <= d <= end]
+                wasde_exact = True
+        except Exception:  # noqa: BLE001
+            pass
+    return ({"WASDE": wasde_dates, "GRAIN_STOCKS": _quarterly_grain_stocks(start, end),
+             "ACREAGE": _annual_acreage(start, end)}, wasde_exact)
 
 
-def _contains_report(window_dates: pd.DatetimeIndex, events: list[pd.Timestamp]) -> bool:
+def _contains_report(window_dates: pd.DatetimeIndex, events: list[pd.Timestamp],
+                     tol: int = WINDOW_TOLERANCE_DAYS) -> bool:
     if len(window_dates) == 0:
         return False
-    lo = window_dates.min() - pd.Timedelta(days=WINDOW_TOLERANCE_DAYS)
-    hi = window_dates.max() + pd.Timedelta(days=WINDOW_TOLERANCE_DAYS)
+    lo = window_dates.min() - pd.Timedelta(days=tol)
+    hi = window_dates.max() + pd.Timedelta(days=tol)
     return any(lo <= e <= hi for e in events)
 
 
-def run_v137_event_dates(df: pd.DataFrame) -> dict[str, Any]:
+def run_v137_event_dates(df: pd.DataFrame, try_network: bool = False) -> dict[str, Any]:
     from mais.research.v129_event_catalyst_library import detect_compression_events
     assert_no_holdout(df)
     events = detect_compression_events(df)
     if len(events) == 0:
         return {"version": "V137-EVENT-DATES", "verdict": "NO_EVENTS"}
-    cal = report_calendar(df.index.min(), df.index.max())
+    cal, wasde_exact = report_calendar(df.index.min(), df.index.max(), try_network=try_network)
+    tol = 1 if wasde_exact else WINDOW_TOLERANCE_DAYS
 
     rows = []
     for _, e in events.iterrows():
@@ -61,7 +79,7 @@ def run_v137_event_dates(df: pd.DataFrame) -> dict[str, Any]:
         cbot_ret = float(np.log(cbot.iloc[-1] / cbot.iloc[0])) if len(cbot) >= 2 and cbot.iloc[0] > 0 else 0.0
         label = "NO_REPORT"
         for rep in ("WASDE", "GRAIN_STOCKS", "ACREAGE"):
-            if _contains_report(win.index, cal[rep]):
+            if _contains_report(win.index, cal[rep], tol):
                 label = f"CBOT_{rep}" if cbot_ret >= CBOT_MOVE else f"{rep}_NO_CBOT_MOVE"
                 break
         rows.append({"peak_date": str(peak.date()), "end_date": str(end.date()),
@@ -79,6 +97,8 @@ def run_v137_event_dates(df: pd.DataFrame) -> dict[str, Any]:
         "n_episodes_overlap_report": n_with_report,
         "n_cbot_report_driven": n_cbot_report,
         "calendar_counts": {k: len(v) for k, v in cal.items()},
+        "calendar_precision": "EXACT" if wasde_exact else "APPROX_~10th",
+        "window_tolerance_days": tol,
         "interpretation": (
             f"{len(lib)} épisodes ; {n_with_report} chevauchent une date de rapport USDA (±{WINDOW_TOLERANCE_DAYS} j) "
             f"— **chevauchement quasi mécanique** (WASDE mensuel + fenêtres ~19 j), donc PEU discriminant en soi. "

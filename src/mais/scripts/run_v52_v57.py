@@ -128,6 +128,20 @@ if __name__ == "__main__":
     _show("V131 TARGET_RECO_V3", run_v131_target_v3(df))
     _show("V138 HORIZON_ESTIMATOR", run_v138_horizon(df))
     _show("V132 INDICATOR_V3", run_v132_synthesis())
+    # VNEXT — leading data + premium head
+    try:
+        from mais.premium.curve_sign_audit import audit_curve_signs
+        from mais.premium.euronext_history_probe import probe_history
+        from mais.premium.head import build_premium_head
+        from mais.research.v_eu_physical_pressure import run_eu_physical_pressure
+        from mais.research.v_forecast_revision_tape import run_v_revision_tape
+        _show("VN-A3 CURVE_SIGN_AUDIT", audit_curve_signs())
+        _show("VN-C1 EURONEXT_HISTORY_PROBE", probe_history(try_network=True))
+        _show("VN-C4 FORECAST_REVISION_TAPE", run_v_revision_tape())
+        _show("VN-C3 EU_PHYSICAL_PRESSURE", run_eu_physical_pressure(try_network=True))
+        _show("VN-A1 PREMIUM_HEAD", build_premium_head())
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[VNEXT] partiel: {type(e).__name__}: {e}")
     _show("V133 MONTHLY_FORWARD_V2", run_v133_monthly_v2())
     _show("V134 DATA_SOURCING_PLAN", run_v134_sourcing_plan())
     _show("V135 DECISION_CHECKPOINT", run_v135_checkpoint())

@@ -22,10 +22,11 @@ def _synthetic():
 
 
 def test_report_calendar():
-    cal = v137.report_calendar(pd.Timestamp("2021-01-01"), pd.Timestamp("2021-12-31"))
+    cal, exact = v137.report_calendar(pd.Timestamp("2021-01-01"), pd.Timestamp("2021-12-31"), try_network=False)
     assert len(cal["WASDE"]) == 12  # un par mois
     assert len(cal["GRAIN_STOCKS"]) >= 3
     assert len(cal["ACREAGE"]) >= 1
+    assert exact is False  # offline -> approximation
 
 
 def test_run(tmp_path, monkeypatch):
@@ -37,6 +38,7 @@ def test_run(tmp_path, monkeypatch):
     assert out["n_events"] >= 1
     # la fenêtre de compression couvre ~mai-juin -> contient au moins un WASDE mensuel
     assert out["n_episodes_overlap_report"] >= 1
+    assert out["calendar_precision"] == "APPROX_~10th"  # offline
     assert (tmp_path / "event_date_attribution.parquet").exists()
 
 

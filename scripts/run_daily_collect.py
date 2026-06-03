@@ -170,6 +170,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["indicator_v3"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 12b) Forecast revision tape (VN-C4, lit le journal météo V127)
+    try:
+        from mais.research.v_forecast_revision_tape import run_v_revision_tape
+        status["revision_tape"] = run_v_revision_tape()
+    except Exception as e:  # noqa: BLE001
+        status["revision_tape"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # 13) Single source of truth premium (VN-A1) — le head autoritatif
     try:
         from mais.premium.head import build_premium_head

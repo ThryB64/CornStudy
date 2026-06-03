@@ -175,6 +175,11 @@ if __name__ == "__main__":
         _show("V146 DASHBOARD_V4", run_v146_dashboard())
     except Exception as e:  # noqa: BLE001
         print(f"\n[V139-V148] partiel: {type(e).__name__}: {e}")
+    try:
+        from mais.research.v149_indicator_multiview import run_v149_all
+        _show("V149 INDICATOR_MULTIVIEW", run_v149_all(df))
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[V149] partiel: {type(e).__name__}: {e}")
     _show("V133 MONTHLY_FORWARD_V2", run_v133_monthly_v2())
     _show("V134 DATA_SOURCING_PLAN", run_v134_sourcing_plan())
     _show("V135 DECISION_CHECKPOINT", run_v135_checkpoint())

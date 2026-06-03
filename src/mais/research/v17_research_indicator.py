@@ -391,6 +391,34 @@ def generate_daily_report(df: pd.DataFrame) -> str:
             lines += ["", block]
     except Exception:
         pass
+    try:
+        from mais.premium.state_machine import state_machine_report_block
+        block = state_machine_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.premium.lifecycle_report import lifecycle_report_block
+        block = lifecycle_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.premium.forward_milestones import milestones_report_block
+        block = milestones_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
+        from mais.research.v140_weather_revision_engine import weather_engine_report_block
+        block = weather_engine_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
     # V101 : ÉTAT LIVE OFFICIEL en priorité (journal forward), avant les diagnostics master (qui peuvent être en retard)
     try:
         from mais.research.v101_official_synthesis_fix import official_live_report_block

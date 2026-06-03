@@ -152,6 +152,29 @@ if __name__ == "__main__":
         _show("VN-A1 PREMIUM_HEAD", build_premium_head())
     except Exception as e:  # noqa: BLE001
         print(f"\n[VNEXT] partiel: {type(e).__name__}: {e}")
+    # V139-V148 — machine d'état + forward + dashboard
+    try:
+        from mais.premium.dashboard_v4 import run_v146_dashboard
+        from mais.premium.forward_milestones import run_v147_milestones, run_v148_checkpoint_40d
+        from mais.premium.lifecycle_report import run_v145_lifecycle
+        from mais.premium.official_proxy_validation import run_v144_proxy_validation
+        from mais.premium.state_machine import run_v139_state_machine
+        from mais.research.v140_weather_revision_engine import run_v140_weather_engine
+        from mais.research.v141_curve_forward_validation import run_v141_curve_validation
+        from mais.research.v142_matif_forward_validation import run_v142_matif_validation
+        from mais.research.v143_event_catalyst_enrichment import run_v143_enrichment
+        _show("V139 STATE_MACHINE", run_v139_state_machine())
+        _show("V140 WEATHER_ENGINE", run_v140_weather_engine())
+        _show("V141 CURVE_VALIDATION", run_v141_curve_validation())
+        _show("V142 MATIF_VALIDATION", run_v142_matif_validation())
+        _show("V143 EVENT_ENRICHMENT", run_v143_enrichment())
+        _show("V144 PROXY_VALIDATION", run_v144_proxy_validation())
+        _show("V145 LIFECYCLE", run_v145_lifecycle())
+        _show("V147 MILESTONES", run_v147_milestones())
+        _show("V148 CHECKPOINT_40D", run_v148_checkpoint_40d())
+        _show("V146 DASHBOARD_V4", run_v146_dashboard())
+    except Exception as e:  # noqa: BLE001
+        print(f"\n[V139-V148] partiel: {type(e).__name__}: {e}")
     _show("V133 MONTHLY_FORWARD_V2", run_v133_monthly_v2())
     _show("V134 DATA_SOURCING_PLAN", run_v134_sourcing_plan())
     _show("V135 DECISION_CHECKPOINT", run_v135_checkpoint())

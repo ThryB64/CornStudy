@@ -177,12 +177,37 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["revision_tape"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 12c) Moteur météo -> canaux (V140)
+    try:
+        from mais.research.v140_weather_revision_engine import run_v140_weather_engine
+        status["weather_engine"] = run_v140_weather_engine()
+    except Exception as e:  # noqa: BLE001
+        status["weather_engine"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 12d) Machine d'état de l'indicateur (V139) — avant le head qui la consomme
+    try:
+        from mais.premium.state_machine import run_v139_state_machine
+        status["state_machine"] = run_v139_state_machine()
+    except Exception as e:  # noqa: BLE001
+        status["state_machine"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # 13) Single source of truth premium (VN-A1) — le head autoritatif
     try:
         from mais.premium.head import build_premium_head
         status["premium_head"] = build_premium_head()
     except Exception as e:  # noqa: BLE001
         status["premium_head"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 14) Cycle de vie (V145), jalons (V147), dashboard v4 (V146)
+    try:
+        from mais.premium.dashboard_v4 import run_v146_dashboard
+        from mais.premium.forward_milestones import run_v147_milestones
+        from mais.premium.lifecycle_report import run_v145_lifecycle
+        status["lifecycle"] = run_v145_lifecycle()
+        status["milestones"] = run_v147_milestones()
+        status["dashboard_v4"] = run_v146_dashboard()
+    except Exception as e:  # noqa: BLE001
+        status["dashboard_v4"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})

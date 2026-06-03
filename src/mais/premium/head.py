@@ -45,6 +45,11 @@ def build_premium_head() -> dict[str, Any]:
                 "note": "Synthèse V132 indisponible ; lancer le pipeline premium."}
     cons = _read("v122/v122_consistency.json")
     fresh = _read("v123/v123_freshness.json")
+    try:
+        from mais.premium.state_machine import run_v139_state_machine
+        sm = run_v139_state_machine()
+    except Exception:  # noqa: BLE001
+        sm = {}
 
     head = {
         "version": "PREMIUM-HEAD",
@@ -55,6 +60,9 @@ def build_premium_head() -> dict[str, Any]:
         "basis_z": v132.get("basis_z"),
         "basis_eur_t": v132.get("basis_eur_t"),
         "official_proxy_status": v132.get("official_proxy_status"),
+        "PRIME_NATURE": sm.get("prime_nature"),
+        "LIFECYCLE_STATE": sm.get("lifecycle_state"),
+        "HEADLINE_STATE": sm.get("headline_state"),
         "TARGET_RECOMMENDATION": v132.get("TARGET_RECOMMENDATION"),
         "HORIZON_ESTIMATE": v132.get("HORIZON_ESTIMATE"),
         "diagnostics": v132.get("diagnostics"),
@@ -83,11 +91,13 @@ def premium_head_report_block() -> str:
     if h.get("verdict") != "PREMIUM_HEAD_BUILT":
         return ""
     he = h.get("HORIZON_ESTIMATE") or {}
+    state_line = (f" · cycle **{h.get('LIFECYCLE_STATE')}** ({h.get('PRIME_NATURE')})"
+                  if h.get("LIFECYCLE_STATE") and h["LIFECYCLE_STATE"] != "NO_ACTIVE_SIGNAL" else "")
     return (
         "### ⭐ Premium head — source unique (VN-A1)\n"
         f"- **{h['as_of']} · {h['PREMIUM_STATE']}** · basis {h['basis_eur_t']} €/t (z {h['basis_z']}, "
         f"{h['official_proxy_status']}) · objectif **{h['TARGET_RECOMMENDATION']}** · horizon ~"
-        f"{he.get('estimated_days_to_z05') or he.get('median_horizon_days_seasonal')} j\n"
+        f"{he.get('estimated_days_to_z05') or he.get('median_horizon_days_seasonal')} j{state_line}\n"
         f"- Cohérence {h['consistency']['verdict']} · fraîcheur {h['freshness']['verdict']} · périmètre "
         f"PREMIUM_ONLY (clean={h['scope_clean']})\n"
         "- Couches auxiliaires : REPORTING_ONLY/LEGACY explicitées. RESEARCH_ONLY_NOT_TRADING.\n"

@@ -133,12 +133,22 @@ if __name__ == "__main__":
         from mais.premium.curve_sign_audit import audit_curve_signs
         from mais.premium.euronext_history_probe import probe_history
         from mais.premium.head import build_premium_head
+        from mais.research.v_adverse_discriminator import run_v_adverse_discriminator
         from mais.research.v_eu_physical_pressure import run_eu_physical_pressure
+        from mais.research.v_event_microstructure import run_v_event_microstructure
         from mais.research.v_forecast_revision_tape import run_v_revision_tape
+        from mais.research.v_hazard_compression import run_v_hazard
+        from mais.research.v_hierarchical_explanation import run_v_hierarchical
+        from mais.research.v_state_transitions import run_v_state_transitions
         _show("VN-A3 CURVE_SIGN_AUDIT", audit_curve_signs())
         _show("VN-C1 EURONEXT_HISTORY_PROBE", probe_history(try_network=True))
         _show("VN-C4 FORECAST_REVISION_TAPE", run_v_revision_tape())
         _show("VN-C3 EU_PHYSICAL_PRESSURE", run_eu_physical_pressure(try_network=True))
+        _show("VN-D2 STATE_TRANSITIONS", run_v_state_transitions(df))
+        _show("VN-D1 HAZARD_COMPRESSION", run_v_hazard(df))
+        _show("VN-D3 ADVERSE_DISCRIMINATOR", run_v_adverse_discriminator())
+        _show("VN-D4 HIERARCHICAL_EXPLANATION", run_v_hierarchical(df))
+        _show("VN-E2 EVENT_MICROSTRUCTURE", run_v_event_microstructure())
         _show("VN-A1 PREMIUM_HEAD", build_premium_head())
     except Exception as e:  # noqa: BLE001
         print(f"\n[VNEXT] partiel: {type(e).__name__}: {e}")

@@ -491,6 +491,13 @@ def generate_daily_report(df: pd.DataFrame) -> str:
     except Exception:
         pass
     try:
+        from mais.research.v_state_transitions import state_transitions_report_block
+        block = state_transitions_report_block()
+        if block:
+            lines += ["", block]
+    except Exception:
+        pass
+    try:
         from mais.research.v130_basis_regime_econometrics import regime_econometrics_report_block
         block = regime_econometrics_report_block()
         if block:

@@ -1,2 +1,3 @@
 {"issue_date": "2026-06-01", "status": "OK", "forecast_stress_us": 27.371, "n_rows_us": 600, "forecast_stress_eu": 22.697, "n_rows_eu": 420}
 {"issue_date": "2026-06-02", "status": "OK", "forecast_stress_us": 28.215, "forecast_peak_tmax_us": 31.43, "forecast_consecutive_hot_days_us": 0, "n_rows_us": 600, "forecast_stress_eu": null, "error_eu": "NotImplementedError: open-meteo forecast indisponible (r\u00e9seau ?): <urlopen error _ssl.c:993: The hand"}
+{"issue_date": "2026-06-03", "status": "OK", "forecast_stress_us": 27.363, "forecast_peak_tmax_us": 28.76, "forecast_consecutive_hot_days_us": 0, "n_rows_us": 600, "forecast_stress_eu": null, "error_eu": "NotImplementedError: open-meteo forecast indisponible (r\u00e9seau ?): <urlopen error _ssl.c:993: The hand"}

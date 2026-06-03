@@ -1,2 +1,3 @@
 {"status": "OK", "price_date": "2026-06-01", "matif_wheat_contract": "EBM_U2026", "matif_wheat_settle": 207.5, "matif_corn_contract": "EMA_Q2026", "matif_corn_settle": 227.0, "matif_wheat_corn_ratio": 0.9141, "logged_at": "2026-06-01T14:12:40.817921+00:00"}
 {"status": "OK", "price_date": "2026-06-02", "matif_wheat_contract": "EBM_U2026", "matif_wheat_settle": 206.5, "matif_corn_contract": "EMA_Q2026", "matif_corn_settle": 224.25, "matif_wheat_corn_ratio": 0.9208, "logged_at": "2026-06-02T09:49:43.198721+00:00"}
+{"status": "OK", "price_date": "2026-06-03", "matif_wheat_contract": "EBM_U2026", "matif_wheat_settle": 204.0, "matif_corn_contract": "EMA_Q2026", "matif_corn_settle": 222.5, "matif_wheat_corn_ratio": 0.9169, "logged_at": "2026-06-03T10:20:28.537941+00:00"}

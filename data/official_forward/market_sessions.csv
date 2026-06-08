@@ -34,3 +34,6 @@ date,weekday,session,trading_session
 2026-06-03,Wednesday,TRADING_SESSION,True
 2026-06-04,Thursday,TRADING_SESSION,True
 2026-06-05,Friday,TRADING_SESSION,True
+2026-06-06,Saturday,NO_SESSION_WEEKEND,False
+2026-06-07,Sunday,NO_SESSION_WEEKEND,False
+2026-06-08,Monday,TRADING_SESSION,True

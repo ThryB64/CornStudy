@@ -1,13 +1,13 @@
 {
-  "ran_at": "2026-06-09 08:46:33 UTC",
+  "ran_at": "2026-06-09 20:27:01 UTC",
   "as_of": "2026-06-09",
-  "mode": "retry",
+  "mode": "main",
   "session_today": "TRADING_SESSION",
   "official_snapshot": {
     "status": "OK",
     "price_date": "2026-06-09",
     "n_contracts": 10,
-    "n_added": 10,
+    "n_added": 0,
     "n_total": 80,
     "path": "/home/runner/work/CornStudy/CornStudy/data/raw/euronext_ema_official/official_daily.parquet",
     "most_liquid": "EMA_Q2026"
@@ -19,15 +19,15 @@
       "verdict": "OFFICIAL_SIGNAL_COMPUTED",
       "price_date": "2026-06-09",
       "official_front_contract": "EMA_Q2026",
-      "official_front_settlement": 217.0,
+      "official_front_settlement": 216.5,
       "official_front_oi": 14628,
-      "cbot_cents_bu": 420.5,
-      "eurusd": 1.155,
-      "cbot_eur_t": 143.33,
-      "basis_official_eur_t": 73.67,
-      "basis_z_official_implied": 1.862,
+      "cbot_cents_bu": 420.0,
+      "eurusd": 1.1547,
+      "cbot_eur_t": 143.19,
+      "basis_official_eur_t": 73.31,
+      "basis_z_official_implied": 1.834,
       "basis_z_official_rolling": null,
-      "basis_z_used": 1.862,
+      "basis_z_used": 1.834,
       "z_source": "proxy_implied",
       "signal_tier": "SHORT_PREMIUM_STRONG",
       "objective_prudent": "z->0.5",
@@ -44,10 +44,9 @@
       "status": "RESEARCH_ONLY_NOT_TRADING"
     },
     "journal_append": {
-      "status": "APPENDED",
+      "status": "ALREADY_LOGGED",
       "price_date": "2026-06-09",
-      "n_total": 8,
-      "signal_tier": "SHORT_PREMIUM_STRONG"
+      "n_total": 8
     },
     "journal_summary": {
       "version": "V27-JOURNAL-SUMMARY",
@@ -127,23 +126,24 @@
   "weather_forecast": {
     "issue_date": "2026-06-09",
     "status": "OK",
-    "forecast_stress_us": 25.882,
-    "forecast_peak_tmax_us": 31.49,
+    "forecast_stress_us": 26.738,
+    "forecast_peak_tmax_us": 31.47,
     "forecast_consecutive_hot_days_us": 0,
     "n_rows_us": 600,
     "forecast_stress_eu": null,
     "error_eu": "NotImplementedError: open-meteo forecast indisponible (r\u00e9seau ?): <urlopen error _ssl.c:993: The hand",
-    "journal": "APPENDED"
+    "journal": "ALREADY_LOGGED"
   },
   "matif_ratio": {
     "status": "OK",
     "price_date": "2026-06-09",
     "matif_wheat_contract": "EBM_U2026",
-    "matif_wheat_settle": 200.75,
+    "matif_wheat_settle": 201.75,
     "matif_corn_contract": "EMA_Q2026",
-    "matif_corn_settle": 217.0,
-    "matif_wheat_corn_ratio": 0.9251,
-    "appended": true
+    "matif_corn_settle": 216.5,
+    "matif_wheat_corn_ratio": 0.9319,
+    "appended": false,
+    "reason": "d\u00e9j\u00e0 journalis\u00e9"
   },
   "context_refresh": {
     "version": "V107-CONTEXT-REFRESH",
@@ -188,7 +188,7 @@
     "signal_date": "2026-06-09",
     "basis_z_official": 1.862,
     "basis_official_eur_t": 73.67,
-    "cbot_eur_t_reconstructed_last": 143.24,
+    "cbot_eur_t_reconstructed_last": 143.19,
     "cbot_eur_t_validation": [
       {
         "date": "2026-05-29",
@@ -228,20 +228,20 @@
       },
       {
         "date": "2026-06-08",
-        "reconstructed": 141.96,
+        "reconstructed": 143.0,
         "official_journal": 142.32,
-        "abs_err": 0.36
+        "abs_err": 0.68
       },
       {
         "date": "2026-06-09",
-        "reconstructed": 143.24,
+        "reconstructed": 143.19,
         "official_journal": 143.33,
-        "abs_err": 0.09
+        "abs_err": 0.14
       }
     ],
-    "reconstruction_mean_abs_err_eur_t": 0.75,
+    "reconstruction_mean_abs_err_eur_t": 0.79,
     "reconstruction_ok": true,
-    "wheat_corn_z_live": 1.089,
+    "wheat_corn_z_live": 1.066,
     "substitution_residual_z_live": null,
     "adverse_risk_live": "MEDIUM",
     "adverse_risk_components": {
@@ -249,7 +249,7 @@
       "high_substitution_wc_z_gt_0p5": 1
     },
     "verdict": "ADVERSE_RISK_LIVE_UNBLOCKED",
-    "interpretation": "CBOT_eur_t reconstruit (ZC=F+EUR/USD, conversion *39.3679) valid\u00e9 contre le journal officiel : erreur moyenne 0.75 \u20ac/t (ok=True). ADVERSE_RISK live = **MEDIUM** (prime mod\u00e9r\u00e9e=0, r\u00e9sidu bas=None, substitution haute=1). Le basis_z officiel (1.862) \u00e9tant EXTR\u00caME (>1.5), la prime n'est pas 'mod\u00e9r\u00e9e' -> composant V32 inactif. D\u00e9bloque ADVERSE_RISK live ; PHYSICAL_TENSION reste en attente de la courbe EMA officielle.",
+    "interpretation": "CBOT_eur_t reconstruit (ZC=F+EUR/USD, conversion *39.3679) valid\u00e9 contre le journal officiel : erreur moyenne 0.79 \u20ac/t (ok=True). ADVERSE_RISK live = **MEDIUM** (prime mod\u00e9r\u00e9e=0, r\u00e9sidu bas=None, substitution haute=1). Le basis_z officiel (1.862) \u00e9tant EXTR\u00caME (>1.5), la prime n'est pas 'mod\u00e9r\u00e9e' -> composant V32 inactif. D\u00e9bloque ADVERSE_RISK live ; PHYSICAL_TENSION reste en attente de la courbe EMA officielle.",
     "note": "R\u00e9sidu substitution = r\u00e9gression basis_z~wc_z ajust\u00e9e sur le master, appliqu\u00e9e au point live (z-scores, scale-consistant). CONTEXTE, jamais un veto.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
@@ -259,13 +259,13 @@
     "basis_z_official": 1.862,
     "curve": {
       "front_contract": "EMA_Q2026",
-      "front_settle": 217.0,
+      "front_settle": 216.5,
       "next_contract": "EMA_X2026",
-      "next_settle": 205.75,
-      "front_next_spread": 11.25,
+      "next_settle": 206.25,
+      "front_next_spread": 10.25,
       "backwardation": true,
       "curve_shape": "BACKWARDATION",
-      "nov_mar_spread": -5.0,
+      "nov_mar_spread": -4.0,
       "most_liquid_contract": "EMA_Q2026",
       "front_oi": 14628
     },
@@ -275,7 +275,7 @@
     },
     "physical_tension_live": "HIGH",
     "verdict": "PHYSICAL_TENSION_LIVE_UNBLOCKED",
-    "interpretation": "Courbe EMA officielle live : front EMA_Q2026 217.0 vs EMA_X2026 205.75 -> spread 11.25 \u20ac/t (BACKWARDATION). PHYSICAL_TENSION live = **HIGH**. Une backwardation marqu\u00e9e (vieille r\u00e9colte ch\u00e8re vs nouvelle) traduit une tension physique R\u00c9ELLE -> la prime EMA haute est alors JUSTIFI\u00c9E, compression plus lente, objectif PRUDENT z\u21920.5 (V56). Un contango la rendrait plus probablement anomalie compressible (z\u21920).",
+    "interpretation": "Courbe EMA officielle live : front EMA_Q2026 216.5 vs EMA_X2026 206.25 -> spread 10.25 \u20ac/t (BACKWARDATION). PHYSICAL_TENSION live = **HIGH**. Une backwardation marqu\u00e9e (vieille r\u00e9colte ch\u00e8re vs nouvelle) traduit une tension physique R\u00c9ELLE -> la prime EMA haute est alors JUSTIFI\u00c9E, compression plus lente, objectif PRUDENT z\u21920.5 (V56). Un contango la rendrait plus probablement anomalie compressible (z\u21920).",
     "note": "Snapshot officiel du jour. PHYSICAL_TENSION live d\u00e9sormais disponible (dernier diagnostic en retard d\u00e9bloqu\u00e9). CONTEXTE, jamais un veto.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },

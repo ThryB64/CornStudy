@@ -164,21 +164,29 @@ def append_forward_journal(record: dict[str, Any]) -> dict[str, Any]:
         return {"status": "SKIP", "reason": record.get("reason", record.get("verdict"))}
     JOURNAL_DIR.mkdir(parents=True, exist_ok=True)
     record = dict(record)
-    record["logged_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-    # VN-A2 : estampillage timing/session (PROVISIONAL/FINAL selon DSP 18:30 CET)
-    try:
-        from mais.premium.session_timing import stamp_timing
-        record = stamp_timing(record)
-    except Exception:  # noqa: BLE001
-        pass
+    now_utc = datetime.now(timezone.utc)
+    record["logged_at"] = now_utc.strftime("%Y-%m-%d %H:%M:%S UTC")
+    # VN-A2 / V150 : vérité de session TOUJOURS estampillée (PROVISIONAL/FINAL selon DSP 18:30 CET).
+    from mais.premium.session_timing import stamp_timing
+    record = stamp_timing(record, collected_at_utc=now_utc)
     row = pd.DataFrame([{k: v for k, v in record.items() if not isinstance(v, list)}])
     row["warnings"] = ";".join(record.get("warnings", []))
 
     if JOURNAL_PARQUET.exists():
         prev = pd.read_parquet(JOURNAL_PARQUET)
-        if str(record["price_date"]) in set(prev["price_date"].astype(str)):
-            return {"status": "ALREADY_LOGGED", "price_date": record["price_date"],
-                    "n_total": int(len(prev))}
+        pdate = str(record["price_date"])
+        same_date = prev[prev["price_date"].astype(str) == pdate]
+        if len(same_date):
+            # V150 : un FINAL existant n'est jamais réécrit. Un PROVISIONAL peut être complété par un
+            # FINAL/REVISED (nouvelle ligne, le passé reste intact).
+            prev_status = set(same_date.get("record_status", pd.Series(dtype=str)).astype(str))
+            if "FINAL" in prev_status or record.get("record_status") != "FINAL":
+                return {"status": "ALREADY_LOGGED", "price_date": pdate,
+                        "n_total": int(len(prev)), "existing_status": sorted(prev_status)}
+            record = dict(record)
+            record["record_status"] = "REVISED"
+            row = pd.DataFrame([{k: v for k, v in record.items() if not isinstance(v, list)}])
+            row["warnings"] = ";".join(record.get("warnings", []))
         combined = pd.concat([prev, row], ignore_index=True)
     else:
         combined = row
@@ -186,13 +194,35 @@ def append_forward_journal(record: dict[str, Any]) -> dict[str, Any]:
     with JOURNAL_JSONL.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(record, default=str) + "\n")
     return {"status": "APPENDED", "price_date": record["price_date"],
+            "record_status": record.get("record_status"),
             "n_total": int(len(combined)), "signal_tier": record["signal_tier"]}
 
 
-def load_forward_journal() -> pd.DataFrame:
+def load_forward_journal(final_only: bool = False) -> pd.DataFrame:
+    """Journal forward. final_only=True ne garde, pour chaque date, que le dernier FINAL/REVISED.
+
+    Si une date n'a qu'un PROVISIONAL/SETTLING, elle est exclue en mode final_only (gate de vérité).
+    """
     if not JOURNAL_PARQUET.exists():
         return pd.DataFrame()
-    return pd.read_parquet(JOURNAL_PARQUET)
+    j = pd.read_parquet(JOURNAL_PARQUET)
+    if not final_only or "record_status" not in j.columns:
+        return j
+    finals = j[j["record_status"].astype(str).isin(["FINAL", "REVISED"])]
+    if finals.empty:
+        return finals
+    if "logged_at" in finals.columns:
+        finals = finals.sort_values("logged_at")
+    return finals.drop_duplicates(subset="price_date", keep="last").reset_index(drop=True)
+
+
+def latest_final_record() -> dict[str, Any] | None:
+    """Dernier enregistrement FINAL/REVISED du journal (vérité de session), ou None."""
+    f = load_forward_journal(final_only=True)
+    if f.empty:
+        return None
+    f = f.sort_values("price_date")
+    return f.iloc[-1].to_dict()
 
 
 def summarize_forward_journal() -> dict[str, Any]:
@@ -205,11 +235,23 @@ def summarize_forward_journal() -> dict[str, Any]:
     tiers = j["signal_tier"].value_counts().to_dict()
     basis = pd.to_numeric(j["basis_official_eur_t"], errors="coerce").dropna()
     months_needed = max(0, 6 - days / 21)
+    # V150 : vérité de session — comptage par statut, dernier FINAL, alerte si le dernier jour est provisoire.
+    status_counts = ({str(k): int(v) for k, v in j["record_status"].value_counts().to_dict().items()}
+                     if "record_status" in j.columns else {})
+    finals = load_forward_journal(final_only=True)
+    last_final_date = str(finals["price_date"].iloc[-1]) if not finals.empty else None
+    last_date = str(j["price_date"].iloc[-1])
+    last_status = (str(j.iloc[-1].get("record_status")) if "record_status" in j.columns else None)
     return {
         "version": "V27-JOURNAL-SUMMARY",
         "n_days": days,
+        "n_final_days": int(finals["price_date"].nunique()) if not finals.empty else 0,
         "first_date": str(j["price_date"].iloc[0]),
-        "last_date": str(j["price_date"].iloc[-1]),
+        "last_date": last_date,
+        "last_final_date": last_final_date,
+        "last_record_status": last_status,
+        "last_day_provisional": (last_status not in ("FINAL", "REVISED")) if last_status else None,
+        "session_status_counts": status_counts,
         "tier_counts": {str(k): int(v) for k, v in tiers.items()},
         "basis_official_mean": round(float(basis.mean()), 2) if len(basis) else None,
         "basis_official_last": round(float(basis.iloc[-1]), 2) if len(basis) else None,

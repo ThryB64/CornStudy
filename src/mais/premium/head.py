@@ -50,6 +50,19 @@ def build_premium_head() -> dict[str, Any]:
         sm = run_v139_state_machine()
     except Exception:  # noqa: BLE001
         sm = {}
+    # V150/V151 : vérité de session du journal officiel (FINAL-gate visible dans la source unique).
+    try:
+        from mais.research.v27_official_forward import summarize_forward_journal
+        _s = summarize_forward_journal()
+        session_truth = {
+            "n_days": _s.get("n_days"), "n_final_days": _s.get("n_final_days"),
+            "last_date": _s.get("last_date"), "last_final_date": _s.get("last_final_date"),
+            "last_record_status": _s.get("last_record_status"),
+            "last_day_provisional": _s.get("last_day_provisional"),
+            "session_status_counts": _s.get("session_status_counts"),
+        }
+    except Exception:  # noqa: BLE001
+        session_truth = {}
 
     head = {
         "version": "PREMIUM-HEAD",
@@ -71,6 +84,9 @@ def build_premium_head() -> dict[str, Any]:
                         "stale_layers": [s.get("layer") for s in cons.get("stale_layers", [])]},
         "freshness": {"verdict": fresh.get("verdict"), "context_lag_days": fresh.get("context_lag_days"),
                       "disabled": fresh.get("disabled_diagnostics", [])},
+        "session_truth": session_truth,
+        "session_warning": ("DERNIER JOUR PROVISOIRE (settlement non final, voir DSP 18:30 CET)"
+                            if session_truth.get("last_day_provisional") else None),
         "layer_roles": LAYER_ROLES,
         "legacy_out_of_scope": LEGACY_OUT_OF_SCOPE,
         "explanation": v132.get("explanation"),
@@ -93,6 +109,12 @@ def premium_head_report_block() -> str:
     he = h.get("HORIZON_ESTIMATE") or {}
     state_line = (f" · cycle **{h.get('LIFECYCLE_STATE')}** ({h.get('PRIME_NATURE')})"
                   if h.get("LIFECYCLE_STATE") and h["LIFECYCLE_STATE"] != "NO_ACTIVE_SIGNAL" else "")
+    st = h.get("session_truth") or {}
+    session_line = ""
+    if st:
+        flag = " ⚠️ **dernier jour PROVISOIRE**" if h.get("session_warning") else ""
+        session_line = (f"- Vérité de session : {st.get('n_final_days')}/{st.get('n_days')} jours FINAL · "
+                        f"dernier FINAL {st.get('last_final_date')}{flag}\n")
     return (
         "### ⭐ Premium head — source unique (VN-A1)\n"
         f"- **{h['as_of']} · {h['PREMIUM_STATE']}** · basis {h['basis_eur_t']} €/t (z {h['basis_z']}, "
@@ -100,5 +122,6 @@ def premium_head_report_block() -> str:
         f"{he.get('estimated_days_to_z05') or he.get('median_horizon_days_seasonal')} j{state_line}\n"
         f"- Cohérence {h['consistency']['verdict']} · fraîcheur {h['freshness']['verdict']} · périmètre "
         f"PREMIUM_ONLY (clean={h['scope_clean']})\n"
+        f"{session_line}"
         "- Couches auxiliaires : REPORTING_ONLY/LEGACY explicitées. RESEARCH_ONLY_NOT_TRADING.\n"
     )

@@ -1225,6 +1225,14 @@ prédictible, edge fragile sous multiplicité, correction symétrique pas CBOT-o
 *précise* (saisonnalité été). C'est la montée en rigueur visée. **Prochain** : T-PLACEBO (spreads
 témoins), V144 proxy↔officiel, V161 parité, SPA (Hansen), V158 e-mails.
 
+- **V171 T-PLACEBO** ✅ : même moteur de réversion sur le basis EMA réel vs 5 spreads témoins
+  (corn/wheat, /soy, /oil, /gas, /dxy). **Basis EMA Sharpe/trade 0.94 (win 0.89), rang 1/6**, domine
+  tous les témoins (meilleur = corn_soy 0.37). Verdict **EDGE_SPECIFIC_TO_EMA_BASIS** (~2.5× le
+  meilleur témoin). **Contrepoint important à V172** : l'edge est FRAGILE en absolu sous multiplicité
+  (Sharpe modeste après coûts) MAIS **SPÉCIFIQUE** (pas un artefact générique de réversion de spread).
+  Les deux résultats ensemble = lecture honnête : « signal réel et spécifique, mais petit après
+  coûts ». Falsification partielle (témoins internes ; idéal = colza/canola, blé MATIF/CBOT → V158).
+
 ---
 
 ## Annexe A — Sources web

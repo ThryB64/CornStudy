@@ -105,7 +105,7 @@
 | V168 T-SUBBASKET | P2 | Panier de substitution élargi | R8 | basket_z > wheat_corn_z seul |
 | V169 T-BAYES | P2 | Survie bayésienne hiérarchique | R9 | postérieurs par régime |
 | V170 T-DAG | P3 | DAG causal formel & identifiabilité | R10 | liste effets identifiables |
-| **V171 T-PLACEBO** | **P0** | Placebo spreads non liés | X1 | maïs domine témoins |
+| **V171 T-PLACEBO** | **P0** | Placebo spreads non liés | X1 | **`DONE` ✅** `v171_placebo_spreads.py` — basis EMA Sharpe/trade **0.94 (rang 1/6)** vs meilleur témoin 0.37 → **EDGE_SPECIFIC_TO_EMA_BASIS** (~2.5× le témoin) ; 4 tests verts. Témoins internes (faute de colza/canola) → falsification partielle |
 | **V172 T-OVERFIT** | **P0** | Pack anti-overfitting (DSR/PBO/SPA/purged CV) | X2,Partie 5 | `DONE` ✅ `mais/audit/overfitting.py` (PSR/DSR/PBO-CSCV, 6 tests) **+ branché sur trades réels** `v172_overfit_on_trades.py` : baseline z>1 = **32 trades, Sharpe/trade 0.22**, Sharpe ↗ avec seuil (2.0→0.54) ; **Deflated Sharpe NE survit PAS à 50 essais (0.11)** mais **PBO=0.26 ROBUST** (sélection de seuil non sur-ajustée) → `FRAGILE_UNDER_MULTIPLICITY` honnête ; 2 tests. Reste : SPA + recensement exhaustif des variantes |
 | V173 T-COSTGRID | P1 | Stress coûts×slippage×roll par régime | X8 | coût-seuil de mort de l'edge |
 | V174 T-FX-BCE | P1 | Règle FX BCE officielle horodatée | D6 | abs_err reconstruction réduit |

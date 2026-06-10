@@ -123,7 +123,7 @@ sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée l
 | V144 proxy↔officiel | **aucun overlap temporel** (proxy s'arrête 2025-07, journal officiel = juin 2026) ; module `official_proxy_validation.py` existe déjà | ≥40 jours officiels accumulés, ou export historique (V158) |
 | V165 facteurs de courbe | colonnes proxy trop creuses (f1 n=332, f2 n=7) — comme V141 | courbe officielle multi-échéances accumulée (V125 forward) ou export Euronext |
 | V161 parité d'import | besoin FOB Black Sea/Brésil + fret (pas en repo, souvent paywall) | brancher COMEXT prix unitaires (D1) + Baltic (D2) — gratuit mais à collecter |
-| V140/V127 weather revision engine | besoin archive Open‑Meteo Previous Runs (day1..day7) | collecter l'archive (gratuit, API) — prochain lot data |
+| V140/V127 weather revision engine | **collecteur CODÉ** `openmeteo_previous_runs.py` (lead-fixe day1..7 + `revision_tape`, 3 tests offline verts) ; archive en WAITING_DATA (réseau indispo ici) | lancer `fetch_previous_runs()` avec réseau → V140 consomme `load_revisions()` |
 | V158 envoi e-mails | action externe (utilisateur) | e-mails prêts dans `docs/ACQUISITION_PACKAGE.md` |
 
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)

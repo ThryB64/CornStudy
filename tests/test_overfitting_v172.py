@@ -46,6 +46,23 @@ def test_pbo_one_genuinely_good_strategy_is_robust():
     assert out["verdict"] == "ROBUST"
 
 
+def test_spa_random_not_significant():
+    rng = np.random.default_rng(10)
+    M = rng.normal(0, 1, size=(40, 8))  # pur bruit -> pas de stratégie significative
+    out = ov.reality_check_spa(M, n_boot=500)
+    assert out["p_spa_hansen"] > 0.05
+    assert out["verdict"] == "NOT_SIGNIFICANT_AFTER_SNOOPING"
+
+
+def test_spa_strong_strategy_significant():
+    rng = np.random.default_rng(11)
+    M = rng.normal(0, 1, size=(60, 6))
+    M[:, 2] += 1.2  # une stratégie nettement supérieure
+    out = ov.reality_check_spa(M, n_boot=500)
+    assert out["p_spa_hansen"] <= 0.05
+    assert out["best_strategy_index"] == 2
+
+
 def test_run_pack_overall():
     rng = np.random.default_rng(3)
     rets = rng.normal(0.1, 1.0, 200)

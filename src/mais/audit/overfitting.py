@@ -158,6 +158,51 @@ def pbo_cscv(perf_matrix: np.ndarray, n_splits: int = 10) -> dict[str, Any]:
     }
 
 
+def reality_check_spa(perf_matrix: np.ndarray, n_boot: int = 2000, seed: int = 0) -> dict[str, Any]:
+    """White Reality Check + Hansen SPA (recentrage consistant) sur un univers de stratégies.
+
+    perf_matrix : (T périodes) x (N stratégies) de performance relative au benchmark (0 = nul).
+    H0 : la MEILLEURE stratégie n'a pas de performance supérieure une fois corrigé du data-snooping.
+    Retourne les p-values RC (White) et SPA_c (Hansen). p > 0.05 => pas significatif après recherche.
+    """
+    mat = np.asarray(perf_matrix, dtype=float)
+    n, k = mat.shape
+    if n < 8 or k < 2:
+        return {"verdict": "SKIP", "reason": "univers trop petit", "T": n, "N": k}
+    fbar = np.nanmean(mat, axis=0)
+    sd = np.nanstd(mat, axis=0, ddof=1)
+    sd[sd == 0] = np.nan
+    sqrt_n = np.sqrt(n)
+    v_white = float(np.nanmax(sqrt_n * fbar))
+    v_spa = float(np.nanmax(sqrt_n * fbar / sd))  # studentisé (Hansen)
+    # seuil de recentrage Hansen (écarte les très mauvaises stratégies de la nulle)
+    thresh = -np.sqrt(2.0 * np.log(np.log(n))) * sd / sqrt_n
+    keep = fbar >= thresh
+    rng = np.random.default_rng(seed)
+    cnt_white = cnt_spa = 0
+    for _ in range(n_boot):
+        idx = rng.integers(0, n, n)  # bootstrap i.i.d. sur les périodes
+        boot = mat[idx]
+        fboot = np.nanmean(boot, axis=0)
+        centered = sqrt_n * (fboot - fbar)
+        if np.nanmax(centered) >= v_white:
+            cnt_white += 1
+        stud = np.where(keep, centered / sd, -np.inf)
+        if np.nanmax(stud) >= v_spa:
+            cnt_spa += 1
+    p_white = cnt_white / n_boot
+    p_spa = cnt_spa / n_boot
+    best = int(np.nanargmax(fbar))
+    return {
+        "verdict": "SIGNIFICANT_AFTER_SNOOPING" if p_spa <= 0.05 else "NOT_SIGNIFICANT_AFTER_SNOOPING",
+        "p_reality_check_white": round(p_white, 4),
+        "p_spa_hansen": round(p_spa, 4),
+        "best_strategy_index": best,
+        "best_mean_perf": round(float(fbar[best]), 5),
+        "n_periods": n, "n_strategies": k, "n_boot": n_boot,
+    }
+
+
 def run_overfitting_pack(returns: np.ndarray, n_trials: int,
                          perf_matrix: np.ndarray | None = None,
                          trial_sharpes: np.ndarray | None = None) -> dict[str, Any]:
@@ -168,6 +213,7 @@ def run_overfitting_pack(returns: np.ndarray, n_trials: int,
     }
     if perf_matrix is not None:
         out["pbo"] = pbo_cscv(perf_matrix)
+        out["reality_check_spa"] = reality_check_spa(perf_matrix)
     dsr_ok = out["deflated_sharpe"]["survives"]
     pbo_ok = (out.get("pbo", {}).get("pbo", 1.0) < 0.5) if perf_matrix is not None else None
     out["overall"] = ("SURVIVES" if dsr_ok and (pbo_ok in (True, None)) else "REQUALIFY_EXPLORATORY")

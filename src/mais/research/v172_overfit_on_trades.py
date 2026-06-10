@@ -15,7 +15,12 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from mais.audit.overfitting import deflated_sharpe_ratio, pbo_cscv, sharpe_stats
+from mais.audit.overfitting import (
+    deflated_sharpe_ratio,
+    pbo_cscv,
+    reality_check_spa,
+    sharpe_stats,
+)
 from mais.paths import ARTEFACTS_DIR
 from mais.registry.holdout_lock import assert_no_holdout
 from mais.research.v17_research_indicator import (
@@ -94,6 +99,7 @@ def run_v172_on_real_trades(df: pd.DataFrame) -> dict[str, Any]:
             mat[r, c] = per_year.get(y, 0.0)
     n_splits = max(2, min(10, (len(years) // 2) * 2))
     pbo = pbo_cscv(mat, n_splits=n_splits) if len(years) >= 4 else {"verdict": "SKIP", "reason": "trop peu d'années"}
+    spa = reality_check_spa(mat) if len(years) >= 8 else {"verdict": "SKIP", "reason": "trop peu d'années"}
 
     # verdict : l'edge "survit" s'il bat la déflation à n_trials réaliste (>=50) ET PBO<0.5
     dsr50 = dsr_by_trials.get("50", {})
@@ -113,6 +119,7 @@ def run_v172_on_real_trades(df: pd.DataFrame) -> dict[str, Any]:
         if len(trial_sharpes) >= 2 else None,
         "deflated_sharpe_by_n_trials": dsr_by_trials,
         "pbo": pbo,
+        "reality_check_spa": spa,
         "interpretation": (
             f"Baseline z>{BASELINE_THR} : {base_stats['n']} trades, Sharpe/trade "
             f"{round(base_stats['sharpe'],3)}, net moyen {round(float(base.mean()),2)} €/t. "

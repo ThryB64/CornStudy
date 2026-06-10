@@ -9,11 +9,13 @@ from mais.audit.overfitting import (
     deflated_sharpe_ratio,
     pbo_cscv,
     probabilistic_sharpe_ratio,
+    reality_check_spa,
     run_overfitting_pack,
 )
 from mais.audit.session_backfill import backfill_session_truth, infer_status_from_logged_at
 
 __all__ = [
     "backfill_session_truth", "infer_status_from_logged_at",
-    "deflated_sharpe_ratio", "pbo_cscv", "probabilistic_sharpe_ratio", "run_overfitting_pack",
+    "deflated_sharpe_ratio", "pbo_cscv", "probabilistic_sharpe_ratio", "reality_check_spa",
+    "run_overfitting_pack",
 ]

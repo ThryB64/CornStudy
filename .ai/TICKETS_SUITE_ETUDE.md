@@ -57,10 +57,10 @@
 
 ## SCIENCE EXPLICATIVE P1
 
-### V152 — Compression Event Study 2.0 — `TODO`
-- Event study aligné sur start A, fenêtre [-30,+90], moyenne+médiane+q25/75+bootstrap CI, censure,
-  number-at-risk. Sortie figée FINAL-only.
-- **Test** : `test_event_study_censoring`. **GO** : visuel + table avec CI et censure explicite.
+### V152 — Compression Event Study 2.0 — `DONE` ✅
+- `mais/research/v152_event_study_v2.py` : aligné start A (premium élevé), [-30,+90], moyenne+médiane+
+  q25/75+**IC bootstrap 95 %**+censure (n par offset)+**PNG**. **Run réel : 63 épisodes, basis_z médian
+  1.33 au start → 0.34 à +90j** (compression médiane ~1.0 z). Tests `test_v152_event_study.py` (3 verts).
 
 ### V153 — START vs IN_PROGRESS Split — `DONE` ✅
 - `mais/research/v153_start_vs_inprogress.py` : renommage `COMPRESSION_PROGRESS_SCORE` (descriptif) +
@@ -96,7 +96,7 @@
 | ID | Prio | Objet | Issu de | GO |
 |---|---|---|---|---|
 | V161 T-PARITY | P1 | Parité d'import EU (fair-value physique) + résidu basis | R1,D1,D2,D7,D8 | résidu mean-reverte mieux que basis_z |
-| V162 T-VECM | P1 | Cointégration Johansen + ECM EMA/CBOT | R2,X4 | relation stable, qui-corrige identifié |
+| V162 T-VECM | P1 | Cointégration Johansen + ECM EMA/CBOT | R2,X4 | **`DONE` ✅** `v162_vecm_cointegration.py` — cointégré, β=[1,−0.96], α_ema −0.020/α_cbot +0.019 (les 2 jambes corrigent ~50/50), **demi-vie ECM 14.5j** (réconcilie V120 ~17j), NUANCE V21 ; 3 tests verts |
 | V163 T-PROXYBIAS | P1 | = V144 | R3,X3 | biais stable |
 | V164 T-REGIME-HMM | P2 | START non supervisé (HMM/BOCPD) vs label A | R4,X5 | accord offset ≤3j ≥70 % épisodes |
 | V165 T-CURVE-TS | P2 | Facteurs structure par terme | R5 | 3 facteurs forward utiles |
@@ -123,5 +123,7 @@
   **Poussé sur main** (2 commits, fast-forward). **V172 T-OVERFIT** ✅ implémenté (PSR/DSR/PBO-CSCV,
   6 tests). **Daily corrigé** : politique REVISED (le run du soir FINAL upgrade le PROVISIONAL du
   matin — l'ancien code skippait en ALREADY_LOGGED, d'où 8/9 lignes PROVISIONAL).
-  **Prochaine session** (ordre 8bis.12) : brancher V172 sur les 42 trades réels → V144 proxy↔officiel
-  → V152 event study 2.0 → T-PLACEBO → V162 VECM → V161 parité → V167 saison → V158 e-mails.
+  **V152** ✅ (event study 2.0, 63 épisodes, PNG) + **V162** ✅ (VECM, demi-vie ECM 14.5j, 2 jambes
+  corrigent ~50/50 → nuance V21). 4e push.
+  **Prochaine session** : brancher V172 sur les 42 trades réels → V144 proxy↔officiel → T-PLACEBO
+  → V161 parité d'import → V167 saison → V140/V127 weather revision → V158 e-mails acquisition.

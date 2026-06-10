@@ -106,7 +106,7 @@
 | V169 T-BAYES | P2 | Survie bayésienne hiérarchique | R9 | postérieurs par régime |
 | V170 T-DAG | P3 | DAG causal formel & identifiabilité | R10 | liste effets identifiables |
 | **V171 T-PLACEBO** | **P0** | Placebo spreads non liés | X1 | maïs domine témoins |
-| **V172 T-OVERFIT** | **P0** | Pack anti-overfitting (DSR/PBO/SPA/purged CV) | X2,Partie 5 | DSR>0, PBO<0.5 publiés |
+| **V172 T-OVERFIT** | **P0** | Pack anti-overfitting (DSR/PBO/SPA/purged CV) | X2,Partie 5 | DSR>0, PBO<0.5 publiés — `DONE` ✅ module `mais/audit/overfitting.py` (PSR/DSR/PBO-CSCV), 6 tests verts ; reste à brancher sur les rendements réels des 42 trades + recensement des essais |
 | V173 T-COSTGRID | P1 | Stress coûts×slippage×roll par régime | X8 | coût-seuil de mort de l'edge |
 | V174 T-FX-BCE | P1 | Règle FX BCE officielle horodatée | D6 | abs_err reconstruction réduit |
 
@@ -120,5 +120,8 @@
 - 2026-06-10 : tickets posés. **Fondation P0 livrée & testée** : V150 ✅, V159 ✅, V151 ✅ (partiel),
   V153 ✅. ruff clean, 182 tests verts, 0 régression. Backfill réel exécuté (1 FINAL/8 PROVISIONAL).
   V153 run réel : START AUC 0.549 → timing du départ non démontré (confirme audits).
-  **Prochaine session** (ordre 8bis.12) : V144 proxy↔officiel → V152 event study 2.0 → T-OVERFIT →
-  T-PLACEBO → V162 VECM → V161 parité → V167 saison → V140/V127 weather → V158 e-mails acquisition.
+  **Poussé sur main** (2 commits, fast-forward). **V172 T-OVERFIT** ✅ implémenté (PSR/DSR/PBO-CSCV,
+  6 tests). **Daily corrigé** : politique REVISED (le run du soir FINAL upgrade le PROVISIONAL du
+  matin — l'ancien code skippait en ALREADY_LOGGED, d'où 8/9 lignes PROVISIONAL).
+  **Prochaine session** (ordre 8bis.12) : brancher V172 sur les 42 trades réels → V144 proxy↔officiel
+  → V152 event study 2.0 → T-PLACEBO → V162 VECM → V161 parité → V167 saison → V158 e-mails.

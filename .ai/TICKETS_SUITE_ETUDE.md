@@ -46,12 +46,10 @@
 - **Tests** : un test par audit, tous verts.
 - **GO** : pack d'audit exécutable, artefacts écrits sous `artefacts/audit/`.
 
-### V158 — Official Acquisition Package — `TODO` (parallèle, à lancer tôt)
-- **Objet** : e-mails prêts (Euronext FR/EN, Barchart FR/EN, CME), champs CSV exacts, contacts, budget.
-- **Contacts** : Euronext formulaire Web Services (+ datasolutions@euronext.com à reconfirmer) ;
-  Barchart solutions@barchart.com ; CME CMEDataSales@cmegroup.com.
-- **Livrable** : `docs/ACQUISITION_PACKAGE.md` + templates.
-- **GO** : package complet, prêt à envoyer.
+### V158 — Official Acquisition Package — `DONE` ✅
+- `docs/ACQUISITION_PACKAGE.md` : e-mails prêts (Euronext FR/EN, Barchart EN, CME EN), champs CSV
+  exacts, contacts vérifiés, ordre de bataille, engagement d'usage, post-réception. **Action externe
+  restante** : envoyer les e-mails (côté utilisateur).
 
 ---
 
@@ -98,7 +96,7 @@
 | V161 T-PARITY | P1 | Parité d'import EU (fair-value physique) + résidu basis | R1,D1,D2,D7,D8 | résidu mean-reverte mieux que basis_z |
 | V162 T-VECM | P1 | Cointégration Johansen + ECM EMA/CBOT | R2,X4 | **`DONE` ✅** `v162_vecm_cointegration.py` — cointégré, β=[1,−0.96], α_ema −0.020/α_cbot +0.019 (les 2 jambes corrigent ~50/50), **demi-vie ECM 14.5j** (réconcilie V120 ~17j), NUANCE V21 ; 3 tests verts |
 | V163 T-PROXYBIAS | P1 | = V144 | R3,X3 | biais stable |
-| V164 T-REGIME-HMM | P2 | START non supervisé (HMM/BOCPD) vs label A | R4,X5 | accord offset ≤3j ≥70 % épisodes |
+| V164 T-REGIME-HMM | P2 | START non supervisé (HMM/BOCPD) vs label A | R4,X5 | **`DONE` ✅** `v164_hmm_regime.py` — Markov-switching 2 états sur Δbasis_z ; **85 % des bascules HMM coïncident avec un départ label-A (±5j)** → `START_TRIANGULATED` : le label START est RÉEL (validé indépendamment), complète V153 (réel mais non prédictible ex-ante) ; 2 tests verts |
 | V165 T-CURVE-TS | P2 | Facteurs structure par terme | R5 | 3 facteurs forward utiles |
 | V166 T-CONVYIELD | P2 | Convenience yield ↔ bilan physique | R6,X9 | chaîne bilan→CY→basis OOS |
 | V167 T-SEASON | P1 | Saisonnalité des starts & survie hors-saison | R7,X6 | **`DONE` ✅** `v167_start_seasonality.py` — 63 départs, pic **août/JJA** (24), compression été 1.45z (lente 32j) vs printemps 0.59z (rapide 11.5j), **edge survit hors-saison** ; cohérent horizons V27 ; 2 tests verts |
@@ -115,6 +113,19 @@
 
 ---
 
+## CLÔTURE — tickets data-gated / external (honnête)
+
+Ces tickets ne sont **pas** abandonnés : ils sont **bloqués sur une donnée ou une action externe**, pas
+sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée là.
+
+| Ticket | Blocage | Débloque quand |
+|---|---|---|
+| V144 proxy↔officiel | **aucun overlap temporel** (proxy s'arrête 2025-07, journal officiel = juin 2026) ; module `official_proxy_validation.py` existe déjà | ≥40 jours officiels accumulés, ou export historique (V158) |
+| V165 facteurs de courbe | colonnes proxy trop creuses (f1 n=332, f2 n=7) — comme V141 | courbe officielle multi-échéances accumulée (V125 forward) ou export Euronext |
+| V161 parité d'import | besoin FOB Black Sea/Brésil + fret (pas en repo, souvent paywall) | brancher COMEXT prix unitaires (D1) + Baltic (D2) — gratuit mais à collecter |
+| V140/V127 weather revision engine | besoin archive Open‑Meteo Previous Runs (day1..day7) | collecter l'archive (gratuit, API) — prochain lot data |
+| V158 envoi e-mails | action externe (utilisateur) | e-mails prêts dans `docs/ACQUISITION_PACKAGE.md` |
+
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)
 
 - 2026-06-10 : tickets posés. **Fondation P0 livrée & testée** : V150 ✅, V159 ✅, V151 ✅ (partiel),
@@ -123,7 +134,11 @@
   **Poussé sur main** (2 commits, fast-forward). **V172 T-OVERFIT** ✅ implémenté (PSR/DSR/PBO-CSCV,
   6 tests). **Daily corrigé** : politique REVISED (le run du soir FINAL upgrade le PROVISIONAL du
   matin — l'ancien code skippait en ALREADY_LOGGED, d'où 8/9 lignes PROVISIONAL).
-  **V152** ✅ (event study 2.0, 63 épisodes, PNG) + **V162** ✅ (VECM, demi-vie ECM 14.5j, 2 jambes
-  corrigent ~50/50 → nuance V21). 4e push.
-  **Prochaine session** : brancher V172 sur les 42 trades réels → V144 proxy↔officiel → T-PLACEBO
-  → V161 parité d'import → V167 saison → V140/V127 weather revision → V158 e-mails acquisition.
+  **V152** ✅ (event study 2.0) + **V162** ✅ (VECM) + **V167** ✅ (saison) + **V172-réel** ✅ (DSR/PBO/
+  SPA sur trades) + **V171** ✅ (placebo, edge spécifique) + **V164** ✅ (HMM, START triangulé) +
+  **V158** ✅ (package acquisition). **9 pushes.**
+  **Implémentables faits.** Restent UNIQUEMENT data-gated/external (voir section Clôture) : V144, V165,
+  V161, V140/V127 (données à collecter), envoi e-mails V158 (utilisateur).
+  **Bilan robustesse (sur trades réels)** : edge SPÉCIFIQUE (V171 rang 1/6) + sélection ROBUSTE (PBO
+  0.26) mais PETIT/LIMITE (DSR ne survit pas à 50 essais, SPA p≈0.06) ; START réel (V164 85 %) mais
+  non prédictible ex-ante (V153 AUC 0.55) ; correction symétrique 2 jambes (V162, nuance V21).

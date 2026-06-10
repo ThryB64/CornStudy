@@ -1,0 +1,1 @@
+{"price_date": "2026-06-10", "revised_at": "2026-06-10 21:08:20 UTC", "as_of": "2026-06-10", "record_status": "REVISED", "changes": {"cbot_cents_bu": {"old": 422.5, "new": 419.25}, "eurusd": {"old": 1.1558, "new": 1.1542}, "cbot_eur_t": {"old": 143.91, "new": 143.0}, "basis_official_eur_t": {"old": 72.59, "new": 73.5}, "basis_z_used": {"old": 1.778, "new": 1.849}}}

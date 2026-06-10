@@ -1,0 +1,1 @@
+{"status": "OK", "region": "us", "issue_date": "2026-06-10", "heat_days_gt32": 0, "heat_days_gt35": 0, "precip_total_mm": 35.3, "dry_deficit": 0, "uncertainty_tmax_std": 3.36, "pheno_window": 1, "stress_score": 0, "stress_tier": "LOW", "logged_at": "2026-06-10 21:07:49 UTC"}

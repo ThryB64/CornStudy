@@ -38,3 +38,4 @@ date,weekday,session,trading_session
 2026-06-07,Sunday,NO_SESSION_WEEKEND,False
 2026-06-08,Monday,TRADING_SESSION,True
 2026-06-09,Tuesday,TRADING_SESSION,True
+2026-06-10,Wednesday,TRADING_SESSION,True

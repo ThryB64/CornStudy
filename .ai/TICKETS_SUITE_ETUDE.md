@@ -101,7 +101,7 @@
 | V164 T-REGIME-HMM | P2 | START non supervisé (HMM/BOCPD) vs label A | R4,X5 | accord offset ≤3j ≥70 % épisodes |
 | V165 T-CURVE-TS | P2 | Facteurs structure par terme | R5 | 3 facteurs forward utiles |
 | V166 T-CONVYIELD | P2 | Convenience yield ↔ bilan physique | R6,X9 | chaîne bilan→CY→basis OOS |
-| V167 T-SEASON | P1 | Saisonnalité des starts & survie hors-saison | R7,X6 | edge par saison cartographié |
+| V167 T-SEASON | P1 | Saisonnalité des starts & survie hors-saison | R7,X6 | **`DONE` ✅** `v167_start_seasonality.py` — 63 départs, pic **août/JJA** (24), compression été 1.45z (lente 32j) vs printemps 0.59z (rapide 11.5j), **edge survit hors-saison** ; cohérent horizons V27 ; 2 tests verts |
 | V168 T-SUBBASKET | P2 | Panier de substitution élargi | R8 | basket_z > wheat_corn_z seul |
 | V169 T-BAYES | P2 | Survie bayésienne hiérarchique | R9 | postérieurs par régime |
 | V170 T-DAG | P3 | DAG causal formel & identifiabilité | R10 | liste effets identifiables |

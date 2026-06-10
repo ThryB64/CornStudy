@@ -1200,6 +1200,31 @@ Fondation P0 livrée et **testée** (ruff clean, 182 tests verts, 0 régression)
 V140/V127 weather revision engine, V158 acquisition (e-mails prêts). Push des commits (le bot tournera
 alors avec le stamping → plus aucune ligne PROVISIONAL non étiquetée).
 
+### 2026-06-10 — 2e lot enchaîné (V172/V152/V162/V167 + V172-réel) — DONE, poussé
+
+Tout testé (ruff clean, ~48 tests dédiés verts), **poussé sur main** (6 pushes). Résultats RÉELS :
+
+- **V172 T-OVERFIT** : module `mais/audit/overfitting.py` (PSR / Deflated Sharpe / PBO-CSCV) **+
+  branché sur les vrais trades** (`v172_overfit_on_trades.py`). **Résultat phare honnête** : baseline
+  z>1 = 32 trades, Sharpe/trade **0.22**, net moyen 4.32 €/t ; le Sharpe **croît avec le seuil**
+  (0.5→−0.02 … 2.0→**0.54**, confirme V15 « edge concentré sur l'extrême ») ; **Deflated Sharpe NE
+  survit PAS** à 50 essais (DSR 0.11, déjà 0.43 à 1 essai car n=32 petit) **MAIS PBO=0.26 ROBUST** (la
+  *sélection* de seuil n'est pas sur-ajustée). Verdict `FRAGILE_UNDER_MULTIPLICITY` → l'edge par trade
+  est réel mais **modeste relativement au bruit/multiplicité** ; à requalifier EXPLORATOIRE tant que
+  SPA + placebos pas faits. **C'est exactement la réponse que les audits demandaient.**
+- **V152 event study 2.0** : 63 épisodes, basis_z médian 1.33 (start) → 0.34 (+90j), IC bootstrap +
+  censure + PNG (`artefacts/v152/`).
+- **V162 VECM** : EMA/CBOT cointégrés, β=[1, **−0.96**] (écho du φ=0.96 V120), α_ema −0.020 / α_cbot
+  +0.019 → **les deux jambes corrigent ~50/50**, demi-vie ECM **14.5j** (réconcilie V120 ~17j).
+  **NUANCE V21** : la compression n'est pas « surtout CBOT » — l'ajustement est quasi symétrique.
+- **V167 saison** : pic de départs en **août/JJA** (24 ép.) ; compression d'été 1.45z (lente ~32j) vs
+  printemps 0.59z (rapide ~11.5j) ; **edge survit hors-saison** ; cohérent horizons V27.
+
+**Bilan scientifique du jour** : 3 résultats qui *tempèrent* les claims antérieurs (timing START non
+prédictible, edge fragile sous multiplicité, correction symétrique pas CBOT-only) et 1 qui les
+*précise* (saisonnalité été). C'est la montée en rigueur visée. **Prochain** : T-PLACEBO (spreads
+témoins), V144 proxy↔officiel, V161 parité, SPA (Hansen), V158 e-mails.
+
 ---
 
 ## Annexe A — Sources web

@@ -22,8 +22,8 @@
       "action": "ACTIVE"
     },
     "weather": {
-      "as_of": "2026-06-10",
-      "lag_days": 1,
+      "as_of": "2026-06-11",
+      "lag_days": 0,
       "fresh": true,
       "action": "ACTIVE"
     },

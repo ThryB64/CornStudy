@@ -2,8 +2,8 @@
   "version": "V178-OFFICIAL-VALIDATION",
   "gate_days": 40,
   "n_official_days": 10,
-  "n_pairs": 1,
-  "n_final_or_revised": 2,
+  "n_pairs": 2,
+  "n_final_or_revised": 3,
   "thresholds_frozen_2026_06_11": {
     "validated": {
       "mae_price_eur_t": 2.0,

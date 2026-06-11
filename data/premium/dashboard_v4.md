@@ -1,19 +1,19 @@
-# 📊 Dashboard indicateur premium v4 — 2026-06-10
-_Généré 2026-06-10 21:55:50 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-06-11
+_Généré 2026-06-11 09:51:24 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_STRONG** · basis 73.5 €/t · z 1.849 (proxy_implied)
+- **SHORT_PREMIUM_STRONG** · basis 73.79 €/t · z 1.872 (proxy_implied)
 - État : **COMPRESSION_HEALTHY** (nature PRIME_PHYSICALLY_JUSTIFIED, cycle COMPRESSION_HEALTHY)
-- Objectif : **z->0.5** · horizon ~29.2 j
+- Objectif : **z->0.5** · horizon ~23 j
 
 ## Contexte
-- ADVERSE_RISK MEDIUM (stale) · CBOT_SUPPORT MEDIUM (stale) · PHYSICAL_TENSION HIGH (stale)
-- Substitution SUBSTITUTION_SIGNAL_READY · courbe NARROWING (stale) · santé HEALTHY
+- ADVERSE_RISK MEDIUM · CBOT_SUPPORT MEDIUM · PHYSICAL_TENSION HIGH
+- Substitution DATA_BLOCKED · courbe NARROWING · santé HEALTHY
 
 ## Qualité & jalons
-- Cohérence LIVE_SIGNAL_INCONSISTENT · fraîcheur CONTEXT_DEGRADED · scope_clean True
-- Jours officiels 9 · prochain jalon 10 (vérification technique) · z rolling officiel False
+- Cohérence LIVE_SIGNAL_INCONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
+- Jours officiels 10 · prochain jalon 40 (z-score officiel rolling) · z rolling officiel False
 
-_Warnings : ['prime adossée à une tension physique (backwardation) -> compression plus lente', "diagnostics périmés (non frais) : ['cbot', 'cot', 'ema_curve']"]_
+_Warnings : ['prime adossée à une tension physique (backwardation) -> compression plus lente']_
 
 Source unique : data/premium/premium_daily_head.json. RESEARCH_ONLY_NOT_TRADING.

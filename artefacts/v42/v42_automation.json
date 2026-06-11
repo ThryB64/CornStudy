@@ -1,23 +1,23 @@
 {
   "version": "V42-OFFICIAL-AUTOMATION",
-  "as_of": "2026-06-01",
+  "as_of": "2026-06-11",
   "session_today": "TRADING_SESSION",
   "collect_expected_today": true,
   "monitoring_status": "TRADING_DAY_COLLECT_EXPECTED",
   "market_sessions": {
-    "n_days": 31,
-    "trading_days": 21,
-    "no_session_days": 10,
-    "last_date": "2026-06-01"
+    "n_days": 41,
+    "trading_days": 29,
+    "no_session_days": 12,
+    "last_date": "2026-06-11"
   },
   "public_backfill_coverage": {
     "version": "V42-PUBLIC-BACKFILL",
-    "n_days": 2,
+    "n_days": 10,
     "date_range": [
       "2026-05-29",
-      "2026-06-01"
+      "2026-06-11"
     ],
-    "n_contracts_seen": 10,
+    "n_contracts_seen": 11,
     "contracts_seen": [
       "EMA_H2027",
       "EMA_H2028",
@@ -28,9 +28,10 @@
       "EMA_Q2027",
       "EMA_Q2028",
       "EMA_X2026",
-      "EMA_X2027"
+      "EMA_X2027",
+      "EMA_X2028"
     ],
-    "verdict": "PUBLIC_BACKFILL_TOO_LIMITED_SNAPSHOT_ONLY",
+    "verdict": "PUBLIC_BACKFILL_OK_SHORT_HISTORY",
     "data_strategy": {
       "niveau_1_public": "Endpoint live.euronext.com EMA/DPAR = SNAPSHOT du jour (contrats actifs + settlement/OI/volume). PAS d'historique profond ni contrats expir\u00e9s. -> on accumule jour apr\u00e8s jour (append-only).",
       "niveau_2_web_services": "Euronext Web Services (REST/JSON, historical) : demande officielle pour EMA-DPAR daily settlement OHLC/volume/OI + contrats expir\u00e9s depuis 2014.",
@@ -41,14 +42,14 @@
   },
   "proxy_vs_official": {
     "version": "V42-PROXY-VS-OFFICIAL",
-    "n_official_days": 2,
+    "n_official_days": 11,
     "signal_agreement_rate": null,
     "milestones": {
       "first": 10,
       "serious": 40,
       "conclusion": 90
     },
-    "verdict": "TOO_SHORT_KEEP_ACCUMULATING",
+    "verdict": "FIRST_COMPARISON_10D",
     "note": "Comparaison proxy vs officiel : cr\u00e9dibilise (ou non) le backtest proxy en conditions r\u00e9elles.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },

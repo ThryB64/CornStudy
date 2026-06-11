@@ -1,11 +1,11 @@
 {
   "version": "V42-PUBLIC-BACKFILL",
-  "n_days": 2,
+  "n_days": 10,
   "date_range": [
     "2026-05-29",
-    "2026-06-01"
+    "2026-06-11"
   ],
-  "n_contracts_seen": 10,
+  "n_contracts_seen": 11,
   "contracts_seen": [
     "EMA_H2027",
     "EMA_H2028",
@@ -16,9 +16,10 @@
     "EMA_Q2027",
     "EMA_Q2028",
     "EMA_X2026",
-    "EMA_X2027"
+    "EMA_X2027",
+    "EMA_X2028"
   ],
-  "verdict": "PUBLIC_BACKFILL_TOO_LIMITED_SNAPSHOT_ONLY",
+  "verdict": "PUBLIC_BACKFILL_OK_SHORT_HISTORY",
   "data_strategy": {
     "niveau_1_public": "Endpoint live.euronext.com EMA/DPAR = SNAPSHOT du jour (contrats actifs + settlement/OI/volume). PAS d'historique profond ni contrats expir\u00e9s. -> on accumule jour apr\u00e8s jour (append-only).",
     "niveau_2_web_services": "Euronext Web Services (REST/JSON, historical) : demande officielle pour EMA-DPAR daily settlement OHLC/volume/OI + contrats expir\u00e9s depuis 2014.",

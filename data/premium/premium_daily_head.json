@@ -16,8 +16,8 @@
   "TARGET_RECOMMENDATION": "z->0.5",
   "HORIZON_ESTIMATE": {
     "median_horizon_days_seasonal": 23,
-    "half_life_days_for_tier": null,
-    "estimated_days_to_z05": null,
+    "half_life_days_for_tier": 4.9,
+    "estimated_days_to_z05": 29.2,
     "note": "horizon primaire = saisonnier V27 ; demi-vie par tier V130 (l'extr\u00eame r\u00e9verse plus vite) ; estimation cal\u00e9e V138 jusqu'\u00e0 z\u21920.5 (l'analytique AR(1) pur sous-pr\u00e9dit)"
   },
   "diagnostics": {
@@ -34,7 +34,7 @@
       "fresh": true
     },
     "SUBSTITUTION_SUPPORT": {
-      "value": "DATA_BLOCKED",
+      "value": "SUBSTITUTION_SIGNAL_READY",
       "fresh": true
     },
     "WEATHER_WARNING_US": {
@@ -98,8 +98,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime SHORT_PREMIUM_STRONG (basis 73.79 \u20ac/t, z 1.872, proxy_implied). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION HIGH (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US UNKNOWN/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~23 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-06-11 17:58:42 UTC",
+  "explanation": "Prime SHORT_PREMIUM_STRONG (basis 73.79 \u20ac/t, z 1.872, proxy_implied). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION HIGH (tendance courbe NARROWING), substitution SUBSTITUTION_SIGNAL_READY, m\u00e9t\u00e9o US UNKNOWN/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~23 j (demi-vie tier 4.9 j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-06-11 18:12:33 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

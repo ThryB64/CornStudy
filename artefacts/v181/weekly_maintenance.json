@@ -1,0 +1,63 @@
+{
+  "version": "V181-WEEKLY-MAINTENANCE",
+  "verdict": "OK",
+  "n_fail": 0,
+  "n_warn": 0,
+  "generated_at": "2026-06-11T19:19:40.721098+00:00",
+  "checks": [
+    {
+      "check": "ci_daily",
+      "status": "OK",
+      "detail": "daily 2026-06-11 result=OK"
+    },
+    {
+      "check": "premium_head",
+      "status": "OK",
+      "detail": "as_of 2026-06-11, LIVE_SIGNAL_CONSISTENT"
+    },
+    {
+      "check": "single_source",
+      "status": "OK",
+      "detail": "audit single_source PASS"
+    },
+    {
+      "check": "official_journal",
+      "status": "OK",
+      "detail": "11 lignes, derni\u00e8re date il y a 0 j"
+    },
+    {
+      "check": "ema_curve",
+      "status": "OK",
+      "detail": "10 lignes, derni\u00e8re date il y a 0 j"
+    },
+    {
+      "check": "matif_ratio",
+      "status": "OK",
+      "detail": "9 lignes, derni\u00e8re date il y a 0 j"
+    },
+    {
+      "check": "weather_archive",
+      "status": "OK",
+      "detail": "25296 lignes, derni\u00e8re date il y a 0 j"
+    },
+    {
+      "check": "critical_tests",
+      "status": "OK",
+      "detail": "5 fichiers : .........................                                                [100%]"
+    }
+  ],
+  "next_milestones": {
+    "official": {
+      "n_days": 10,
+      "next": 40,
+      "meaning": "z-score officiel rolling"
+    },
+    "data_gated": {
+      "V166_OFFICIAL": "10/150",
+      "V168_MATIF": "9/150",
+      "V155_SUMMER": "93/150"
+    },
+    "v178_validation": "ACCUMULATING_10_OF_40"
+  },
+  "status": "RESEARCH_ONLY_NOT_TRADING"
+}

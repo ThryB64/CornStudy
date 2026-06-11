@@ -1,0 +1,20 @@
+{
+  "version": "V178-OFFICIAL-VALIDATION",
+  "gate_days": 40,
+  "n_official_days": 10,
+  "n_pairs": 1,
+  "n_final_or_revised": 2,
+  "thresholds_frozen_2026_06_11": {
+    "validated": {
+      "mae_price_eur_t": 2.0,
+      "abs_bias_eur_t": 1.0,
+      "tier_agreement": 0.9
+    },
+    "invalid": {
+      "mae_price_eur_t_gt": 5.0,
+      "tier_agreement_lt": 0.7
+    }
+  },
+  "status": "RESEARCH_ONLY_NOT_TRADING",
+  "verdict": "ACCUMULATING_10_OF_40"
+}

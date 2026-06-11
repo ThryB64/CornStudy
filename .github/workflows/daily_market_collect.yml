@@ -54,6 +54,8 @@ jobs:
                   artefacts/v122 artefacts/v123 artefacts/v124 artefacts/v132 artefacts/state_machine || true
           # V140-DATA : archive append-only des révisions de prévision météo (fenêtre API 92 j)
           git add data/weather || true
+          # Phase forward : gates V177, validation V178, rapport signal actif V179
+          git add artefacts/v177 artefacts/v178 artefacts/v179 reports/active_signal || true
           git commit -m "chore(forward): official collect $(date -u +%F)" || echo "nothing to commit"
           git push || echo "push skipped"
 

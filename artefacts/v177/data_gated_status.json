@@ -1,0 +1,26 @@
+{
+  "version": "V177-DATA-GATED-RERUNS",
+  "as_of": "2026-06-11T18:10:57.182739+00:00",
+  "gates": [
+    {
+      "rerun": "V166_OFFICIAL",
+      "gate": 150,
+      "n": 10,
+      "status": "ACCUMULATING"
+    },
+    {
+      "rerun": "V168_MATIF",
+      "gate": 150,
+      "n": 9,
+      "status": "ACCUMULATING"
+    },
+    {
+      "rerun": "V155_SUMMER",
+      "gate": 150,
+      "n": 93,
+      "status": "ACCUMULATING"
+    }
+  ],
+  "note": "Protocoles fig\u00e9s au moment du report (V166/V168 2026-06-11, V155 seuil interne n=150). Ce module ne fait que v\u00e9rifier la maturit\u00e9 et ex\u00e9cuter tel quel.",
+  "status": "RESEARCH_ONLY_NOT_TRADING"
+}

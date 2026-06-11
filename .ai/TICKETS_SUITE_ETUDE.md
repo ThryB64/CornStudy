@@ -142,6 +142,13 @@ sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée l
 
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)
 
+- 2026-06-11 (session 6, « consolidation & validation forward ») : **V178** ✅ (validation 40 j paires
+  proxy↔officiel, seuils figés ex-ante, ACCUMULATING_10_OF_40), **V179** ✅ (rapport signal actif
+  jour-par-jour, HEALTHY, compression 2.36 €/t), **V180** ✅ (dashboard v5 après V177/V178/V179),
+  **V181** ✅ (maintenance hebdo 9 checks + workflow GH samedi, verdict OK), **V182** ✅ (tracker
+  données externes + règles de coût) + `docs/REVIEW_FORWARD_VALIDATION_PLAN.md` (scénarios 40/90 j,
+  proxy validé/invalidé, ADVERSE/z0.5, routine). Phase EXPLORATION FERMÉE → ACCUMULATION.
+
 - 2026-06-11 (session 5, « pousser l'étude au maximum ») : **les 4 derniers tickets P2/P3 exécutés**.
   **V168** ✅ NO_GO honnête (le blé seul bat le panier blé+avoine+soja sur les 3 tests pré-déclarés —
   4e « empiler dilue »), **V169** ✅ (survie bayésienne hiérarchique : EXTREME plus lent vers z0.5 que

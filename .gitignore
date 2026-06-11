@@ -70,6 +70,10 @@ artefacts/*
 !artefacts/v124/
 !artefacts/v132/
 !artefacts/state_machine/
+!artefacts/v177/
+!artefacts/v178/
+!artefacts/v179/
+!artefacts/v181/
 mlruns/
 optuna_studies/
 *.db

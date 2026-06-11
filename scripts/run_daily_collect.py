@@ -271,6 +271,31 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["data_gated_reruns"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 15nonies) Validation officielle 40 j (V178) — paires proxy↔officiel, seuils figés ex-ante
+    try:
+        from mais.premium.v178_official_validation import run_v178_validation
+        v178 = run_v178_validation()
+        status["official_validation_v178"] = {"verdict": v178.get("verdict"),
+                                              "n_pairs": v178.get("n_pairs")}
+    except Exception as e:  # noqa: BLE001
+        status["official_validation_v178"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 15decies) Rapport signal actif (V179) — lecture seule, markdown + JSON
+    try:
+        from mais.premium.v179_active_signal_report import run_v179_active_signal_report
+        v179 = run_v179_active_signal_report()
+        status["active_signal_report"] = {"verdict": v179.get("verdict"),
+                                          "signal_status": v179.get("signal_status")}
+    except Exception as e:  # noqa: BLE001
+        status["active_signal_report"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 15undecies) Dashboard v5 (V180) — APRÈS V177/V178/V179 pour afficher les compteurs du jour
+    try:
+        from mais.premium.dashboard_v5 import run_v180_dashboard
+        status["dashboard_v5"] = run_v180_dashboard()
+    except Exception as e:  # noqa: BLE001
+        status["dashboard_v5"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # 16) Audit de cohérence source unique (V152-SYNC) — head/dashboard/lifecycle/monthly/latest
     try:
         from mais.audit.single_source import run_single_source_audit

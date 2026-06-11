@@ -65,6 +65,27 @@ Voir `docs/TICKETS_CONTINUATION_ETUDE_V150_V165.md` pour le mapping complet avec
 4. Re-run V155 quand l'archive couvre juillet-août 2026 (ou n≥150).
 5. Envoi des e-mails d'acquisition (action utilisateur, tout est prêt).
 
+## Session 2 (même jour) — exécution intégrale des tickets restants
+
+- **V174 FX-BCE (GO)** : taux de référence BCE collecté (SDMX gratuit, archive committée) ; publié
+  14:15 CET = connu avant le DSP 18:30 CET → règle FX horodatée sans fuite. Écart vs la règle yfinance
+  actuelle : max 0.19 €/t (PASS, borné) ; audit quotidien branché.
+- **V173 grille de coûts (descriptif)** : sur les 42 trades réels, coût de mort global **5 €/t/jambe**
+  (slippage 0.5). L'edge survit à 8 €/t en EXTREME (brut 29.9 €/t), en été jul_aug (20.4) et en CBOT
+  above_trend (20.4) ; il meurt à 1-3 €/t en apr_jun, MODERATE et below_trend. Triangule V167 (été) et
+  V10-E (uptrend) sans toucher la baseline.
+- **V161 parité d'import (NO_GO honnête)** : prix unitaires COMEXT collectés (366 mois, 2015→2026-02,
+  UA/BR/extra-UE, lag publication 60 j). **corr(basis, parité d'import) = 0.089** ; le résidu
+  basis−parité ne mean-reverte pas mieux que basis_z (20.4 vs 19.5 j). **La prime EMA n'est pas un coût
+  d'import : 3e confirmation de la prime LOCALE** (après V16 macro et V41 substitution).
+- **V144 débloqué côté données** : Barchart répond toujours → quote proxy quotidienne du même contrat
+  que le front officiel (1re paire 06-10 : proxy 216.5 = officiel 216.5). Le modèle de biais démarre à
+  ~40 paires (fin juillet 2026).
+- **V141/V142** : machinerie de validation forward courbe/MATIF branchée au daily, gate honnête 40 jours
+  FINAL (actuel : ACCUMULATING_2_DAYS) — mûrit automatiquement.
+- Restent ouverts : V165 (courbe multi-échéances, data-gated), V166/V168/V169/V170 (P2/P3), re-run V155
+  (été), envoi e-mails V158 (utilisateur).
+
 ## 13. Statut final
 
 **INDICATOR_ANALYTIC** (inchangé) : l'indicateur est analytique et auditable, PAS paper-trading-ready

@@ -225,6 +225,37 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["weather_previous_runs"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 15ter) Taux BCE horodaté (V174) — archive committée + audit de la règle FX
+    try:
+        from mais.audit.fx_bce import run_fx_bce_audit
+        from mais.collect.ecb_fx_collector import fetch_ecb_eurusd
+        status["ecb_fx"] = fetch_ecb_eurusd(start="2026-05-25")
+        status["fx_bce_audit"] = {k: v for k, v in run_fx_bce_audit().items() if k != "per_day"}
+    except Exception as e:  # noqa: BLE001
+        status["ecb_fx"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 15quater) Prix unitaires COMEXT (V161) — mensuel, appel léger, append-dedup dans l'archive
+    try:
+        from mais.collect.comext_unit_value import fetch_comext_unit_values
+        status["comext_unit_values"] = fetch_comext_unit_values(since="2025-01")
+    except Exception as e:  # noqa: BLE001
+        status["comext_unit_values"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 15quinquies) Quote proxy Barchart du front officiel (V144-DATA) — construit l'overlap
+    # proxy<->officiel en forward (1 paire/jour ; V144 démarre à ~40 paires)
+    try:
+        from mais.collect.proxy_forward_quote import run_proxy_forward_quote
+        status["proxy_forward_quote"] = run_proxy_forward_quote()
+    except Exception as e:  # noqa: BLE001
+        status["proxy_forward_quote"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 15sexies) Validations forward courbe/MATIF (V141/V142) — gate 40 j, mûrit automatiquement
+    try:
+        from mais.research.v141_v142_forward_validation import run_v141_v142_forward
+        status["forward_validation_v141_v142"] = run_v141_v142_forward()
+    except Exception as e:  # noqa: BLE001
+        status["forward_validation_v141_v142"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # 16) Audit de cohérence source unique (V152-SYNC) — head/dashboard/lifecycle/monthly/latest
     try:
         from mais.audit.single_source import run_single_source_audit

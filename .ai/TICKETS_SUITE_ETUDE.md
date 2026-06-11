@@ -66,20 +66,26 @@
 - **Run réel** (5940 j, holdout) : START_h10 AUC OOF **0.549** (base 0.125) ; INPROG_h10 0.521 (base
   0.651). Verdict `START_TIMING_REMAINS_HARD_DESCRIPTIVE_ONLY` → **rejet honnête**, confirme les audits.
 
-### V144 — Proxy↔Officiel Bias Model — `TODO`
+### V144 — Proxy↔Officiel Bias Model — `DATA_ACCUMULATING` (débloqué 2026-06-11)
 - Sur jours où officiel ET proxy existent : `official = a + b·proxy + régime` ; biais, RMSE, stabilité ;
   backtest proxy-corrigé. **GO** : biais stable réutilisable.
+- **Déblocage** : Barchart vit toujours → `proxy_forward_quote.py` quote chaque jour LE MÊME contrat que
+  le front officiel (daily CI, journal committé). 1re paire 2026-06-10 : proxy 216.5 = officiel 216.5.
+  V144 démarre à ~40 paires (vers fin juillet 2026). 3 tests.
 
 ### V140 / V127 — Weather Revision Engine (lead-fixed) — `TODO`
 - Open‑Meteo Historical Forecast + Previous Runs (day1..day7) + NOAA NOMADS. Features = **révisions**,
   pas météo réalisée. **Test** : `test_revision_engine_no_future`. **GO** : signal OOS sur day1..day7.
 
-### V141 — Curve Forward Validation — `TODO`
+### V141 — Curve Forward Validation — `MACHINERY_DONE / ACCUMULATING` (2026-06-11)
 - Valider front-next / Nov-Mar en forward ; factoriser la courbe (niveau/pente/courbure) plutôt que
   flags ad hoc. **GO** : la courbe améliore l'explication.
+- `v141_v142_forward_validation.py` branché daily : Spearman sur variations, **gate 40 jours FINAL**
+  (actuel : ACCUMULATING_2_DAYS), mûrit automatiquement. 2 tests.
 
-### V142 — MATIF Forward Validation — `TODO`
+### V142 — MATIF Forward Validation — `MACHINERY_DONE / ACCUMULATING` (2026-06-11)
 - Brancher le journal MATIF frais ; confirmer substitution en live. **GO** : robustesse forward.
+- Même module et même gate que V141 (ratio MATIF vs Δbasis officiel).
 
 ### V147 — Milestone Automation — `TODO`
 - Jalons 10/40/90/180/365 jours auto-déclenchés sur jours FINAL accumulés.
@@ -93,7 +99,7 @@
 
 | ID | Prio | Objet | Issu de | GO |
 |---|---|---|---|---|
-| V161 T-PARITY | P1 | Parité d'import EU (fair-value physique) + résidu basis | R1,D1,D2,D7,D8 | résidu mean-reverte mieux que basis_z |
+| V161 T-PARITY | P1 | Parité d'import EU (fair-value physique) + résidu basis | R1,D1,D2,D7,D8 | **`DONE` ✅ (NO_GO honnête, 2026-06-11)** `v161_import_parity.py` + collecteur `comext_unit_value.py` (API COMEXT host dédié, 366 mois 2015→2026-02, UA/BR/EXT_EU). **Réel : corr(basis, parité d'import)=0.089, résidu demi-vie 20.4 j vs basis_z 19.5 j → la parité d'import N'EXPLIQUE PAS la prime** (3e confirmation prime LOCALE après V16 macro + V41 substitution). Lag publication 60 j anti-leakage ; refresh daily ; 2 tests |
 | V162 T-VECM | P1 | Cointégration Johansen + ECM EMA/CBOT | R2,X4 | **`DONE` ✅** `v162_vecm_cointegration.py` — cointégré, β=[1,−0.96], α_ema −0.020/α_cbot +0.019 (les 2 jambes corrigent ~50/50), **demi-vie ECM 14.5j** (réconcilie V120 ~17j), NUANCE V21 ; 3 tests verts |
 | V163 T-PROXYBIAS | P1 | = V144 | R3,X3 | biais stable |
 | V164 T-REGIME-HMM | P2 | START non supervisé (HMM/BOCPD) vs label A | R4,X5 | **`DONE` ✅** `v164_hmm_regime.py` — Markov-switching 2 états sur Δbasis_z ; **85 % des bascules HMM coïncident avec un départ label-A (±5j)** → `START_TRIANGULATED` : le label START est RÉEL (validé indépendamment), complète V153 (réel mais non prédictible ex-ante) ; 2 tests verts |
@@ -105,8 +111,8 @@
 | V170 T-DAG | P3 | DAG causal formel & identifiabilité | R10 | liste effets identifiables |
 | **V171 T-PLACEBO** | **P0** | Placebo spreads non liés | X1 | **`DONE` ✅** `v171_placebo_spreads.py` — basis EMA Sharpe/trade **0.94 (rang 1/6)** vs meilleur témoin 0.37 → **EDGE_SPECIFIC_TO_EMA_BASIS** (~2.5× le témoin) ; 4 tests verts. Témoins internes (faute de colza/canola) → falsification partielle |
 | **V172 T-OVERFIT** | **P0** | Pack anti-overfitting (DSR/PBO/SPA/purged CV) | X2,Partie 5 | `DONE` ✅ `mais/audit/overfitting.py` (PSR/DSR/PBO-CSCV, 6 tests) **+ branché sur trades réels** `v172_overfit_on_trades.py` : baseline z>1 = **32 trades, Sharpe/trade 0.22**, Sharpe ↗ avec seuil (2.0→0.54) ; **Deflated Sharpe NE survit PAS à 50 essais (0.11)** mais **PBO=0.26 ROBUST** (sélection de seuil non sur-ajustée) → `FRAGILE_UNDER_MULTIPLICITY` honnête ; 2 tests. **+ White Reality Check / Hansen SPA** : p_White 0.07 / p_SPA **0.060** (borderline, juste au-dessus de 5 %) → `NOT_SIGNIFICANT_AFTER_SNOOPING`. Défense complète : PBO 0.26 (robuste) + DSR ne survit pas + SPA limite + placebo spécifique (V171) = edge réel/spécifique mais petit après correction. Reste : recensement exhaustif des variantes |
-| V173 T-COSTGRID | P1 | Stress coûts×slippage×roll par régime | X8 | coût-seuil de mort de l'edge |
-| V174 T-FX-BCE | P1 | Règle FX BCE officielle horodatée | D6 | abs_err reconstruction réduit |
+| V173 T-COSTGRID | P1 | Stress coûts×slippage×roll par régime | X8 | **`DONE` ✅ (2026-06-11)** `v173_cost_grid.py` sur les 42 trades réels : **coût de mort global 5 €/t/jambe (slip 0.5)** ; survit à 8 en EXTREME (brut 29.9), été jul_aug (20.4) et CBOT above_trend (20.4) ; meurt à 1-3 en apr_jun/MODERATE/below_trend. Cohérent V167/V10-E ; descriptif, baseline intouchée ; 3 tests |
+| V174 T-FX-BCE | P1 | Règle FX BCE officielle horodatée | D6 | **`DONE` ✅ (2026-06-11)** collecteur `ecb_fx_collector.py` (SDMX gratuit, archive committée) + audit `fx_bce.py` : taux BCE 14:15 CET connu avant DSP 18:30 → règle horodatée sans fuite ; **écart BCE vs règle yfinance max 0.19 €/t (PASS)** ; branché daily ; 3 tests |
 
 **Priorité scientifique chronologique** (après V150/V151/V159) :
 `V172 → V171 → V174 → V162 → V161 → V167 → V144 → reste`.
@@ -128,7 +134,17 @@ sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée l
 
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)
 
-- 2026-06-11 : **V152-SYNC** ✅ (le CI commite désormais la source unique : data/premium, reports/monthly,
+- 2026-06-11 (session 2, « continue les tickets intégralement ») : **V174** ✅ (BCE horodaté, écart max
+  0.19 €/t vs yfinance), **V173** ✅ (coût de mort 5 €/t/jambe global ; 8 en EXTREME/été/above_trend,
+  1-3 en apr_jun/MODERATE/below_trend), **V161** ✅ NO_GO honnête (corr basis↔parité 0.089, résidu ne
+  mean-reverte pas mieux → prime LOCALE confirmée 3e fois), **V144 débloqué** (quote proxy forward
+  quotidienne du front officiel, 1re paire 06-10 : 216.5=216.5), **V141/V142 machinerie** ✅ (gate 40 j
+  FINAL, ACCUMULATING_2_DAYS). 4 nouveaux collecteurs/modules branchés daily (BCE, COMEXT, proxy quote,
+  validation forward). 13 tests neufs verts, ruff clean. **Restent data-gated/external** : V165 (courbe
+  multi-échéances), V144 (≈40 paires fin juillet), re-run V155 (été), e-mails V158 (utilisateur),
+  V166/V168/V169/V170 (P2/P3 ouverts).
+
+- 2026-06-11 (session 1) : **V152-SYNC** ✅ (le CI commite désormais la source unique : data/premium, reports/monthly,
   couches autoritatives ; audit `single_source.py` 7 checks PASS ; monthly V133 quotidien ; 5 tests).
   **V140/V127 DÉBLOQUÉ** ✅ : réseau revenu, bug API corrigé (hourly only), 25 296 lignes collectées
   (17 zones, 92 j), archive append-only `data/weather/forecast_revisions.parquet` + append quotidien CI.

@@ -256,6 +256,13 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["forward_validation_v141_v142"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 15septies) Lecture live du composite V176 (stratification descriptive ; head intouché)
+    try:
+        from mais.research.v176_composite_indicator import run_v176_live
+        status["composite_v176"] = run_v176_live()
+    except Exception as e:  # noqa: BLE001
+        status["composite_v176"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # 16) Audit de cohérence source unique (V152-SYNC) — head/dashboard/lifecycle/monthly/latest
     try:
         from mais.audit.single_source import run_single_source_audit

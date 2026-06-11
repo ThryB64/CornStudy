@@ -132,6 +132,14 @@ sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée l
 | V140/V127 weather revision engine | **collecteur CODÉ** `openmeteo_previous_runs.py` (lead-fixe day1..7 + `revision_tape`, 3 tests offline verts) ; archive en WAITING_DATA (réseau indispo ici) | lancer `fetch_previous_runs()` avec réseau → V140 consomme `load_revisions()` |
 | V158 envoi e-mails | action externe (utilisateur) | e-mails prêts dans `docs/ACQUISITION_PACKAGE.md` |
 
+### V176 — Composite Premium Indicator — `DONE` ✅ (2026-06-11)
+- Score composite règle-basé (intensity/confirmed/cbot_support/summer/subst_risk, plage −1..5) PAR-DESSUS
+  la baseline z>1 inchangée. 8 variantes pré-déclarées, critères d'éligibilité déclarés avant lecture
+  (dont year-round : net hors-été>0). **Recommandée : `confirmed_z12`** (1.62/an, 10 mois couverts,
+  hit 0.72, hors-été net +5.96) + score = gradient de qualité (monotone 5.25→10.33). DSR 0.57-0.75 (ne
+  survit pas), PBO variantes 0.92 → lecture UNIQUE figée. Live daily (15septies). 5 tests.
+  `docs/V176_COMPOSITE_INDICATOR.md`.
+
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)
 
 - 2026-06-11 (session 2, « continue les tickets intégralement ») : **V174** ✅ (BCE horodaté, écart max

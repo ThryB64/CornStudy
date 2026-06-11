@@ -1,0 +1,13 @@
+{
+  "version": "V42-PROXY-VS-OFFICIAL",
+  "n_official_days": 2,
+  "signal_agreement_rate": null,
+  "milestones": {
+    "first": 10,
+    "serious": 40,
+    "conclusion": 90
+  },
+  "verdict": "TOO_SHORT_KEEP_ACCUMULATING",
+  "note": "Comparaison proxy vs officiel : cr\u00e9dibilise (ou non) le backtest proxy en conditions r\u00e9elles.",
+  "status": "RESEARCH_ONLY_NOT_TRADING"
+}

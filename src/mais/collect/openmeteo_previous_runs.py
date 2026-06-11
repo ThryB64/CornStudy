@@ -27,6 +27,10 @@ PREVIOUS_RUNS_URL = "https://previous-runs-api.open-meteo.com/v1/forecast"
 BASE_VARS = {"temperature_2m_max": "tmax", "precipitation_sum": "precip"}
 MAX_LEAD = 7
 OUT_DIR = ROOT / "data" / "processed" / "weather_revisions"
+# Archive committée (le CI l'append chaque jour) : l'API ne remonte qu'à ~92 jours, donc
+# l'accumulation append-only est la SEULE façon de construire un historique long de révisions.
+ARCHIVE_PATH = ROOT / "data" / "weather" / "forecast_revisions.parquet"
+_KEY = ["issue_date", "valid_date", "lead_day", "zone", "variable"]
 
 
 def _http_json(url: str, timeout: int = 30) -> dict[str, Any]:
@@ -35,12 +39,47 @@ def _http_json(url: str, timeout: int = 30) -> dict[str, Any]:
         return json.loads(r.read().decode("utf-8"))
 
 
-def _daily_param() -> str:
+# L'API Previous Runs n'expose les `_previous_dayN` qu'en HORAIRE (constat réseau 2026-06-11 :
+# les agrégats daily renvoient 400 "Cannot initialize ForecastVariableDaily"). On collecte donc en
+# hourly puis on agrège par date de validité UTC (max pour la température, somme pour la pluie).
+HOURLY_BASES = {"temperature_2m": ("temperature_2m_max", "max"),
+                "precipitation": ("precipitation_sum", "sum")}
+
+
+def _hourly_param() -> str:
     parts = []
-    for base in BASE_VARS:
+    for base in HOURLY_BASES:
         parts.append(base)
         parts += [f"{base}_previous_day{k}" for k in range(1, MAX_LEAD + 1)]
     return ",".join(parts)
+
+
+def hourly_to_daily(hourly: dict) -> dict:
+    """Agrège la réponse hourly Previous Runs vers le format daily attendu par parse_previous_runs."""
+    times = hourly.get("time", [])
+    if not times:
+        return {}
+    dates = [t[:10] for t in times]
+    out: dict[str, list] = {"time": sorted(set(dates))}
+    idx_by_date: dict[str, list[int]] = {}
+    for i, d in enumerate(dates):
+        idx_by_date.setdefault(d, []).append(i)
+    for base, (daily_name, how) in HOURLY_BASES.items():
+        for lead in range(0, MAX_LEAD + 1):
+            hkey = base if lead == 0 else f"{base}_previous_day{lead}"
+            dkey = daily_name if lead == 0 else f"{daily_name}_previous_day{lead}"
+            vals = hourly.get(hkey)
+            if not vals:
+                continue
+            col = []
+            for d in out["time"]:
+                vs = [vals[i] for i in idx_by_date[d] if i < len(vals) and vals[i] is not None]
+                if not vs:
+                    col.append(None)
+                else:
+                    col.append(max(vs) if how == "max" else sum(vs))
+            out[dkey] = col
+    return out
 
 
 def parse_previous_runs(daily: dict, zone: str) -> list[dict]:
@@ -66,25 +105,34 @@ def parse_previous_runs(daily: dict, zone: str) -> list[dict]:
 def fetch_previous_runs(zones: dict[str, tuple[float, float]] | None = None,
                         past_days: int = 60, write: bool = True) -> dict[str, Any]:
     """Récupère les révisions lead-fixe pour les zones données. Réseau requis."""
-    zones = zones or {**US_CORN_BELT_CENTROIDS, **EU_CENTROIDS}
+    zones = {**US_CORN_BELT_CENTROIDS, **EU_CENTROIDS} if zones is None else zones
     rows: list[dict] = []
     errors = []
     for zone, (lat, lon) in zones.items():
-        url = (f"{PREVIOUS_RUNS_URL}?latitude={lat}&longitude={lon}&daily={_daily_param()}"
+        url = (f"{PREVIOUS_RUNS_URL}?latitude={lat}&longitude={lon}&hourly={_hourly_param()}"
                f"&past_days={past_days}&forecast_days=1&timezone=UTC")
         try:
             js = _http_json(url)
-            rows += parse_previous_runs(js.get("daily", {}), zone)
+            rows += parse_previous_runs(hourly_to_daily(js.get("hourly", {})), zone)
         except Exception as e:  # noqa: BLE001
             errors.append(f"{zone}: {type(e).__name__}")
     if not rows:
         return {"verdict": "WAITING_DATA", "reason": "réseau indisponible ou réponse vide",
                 "errors": errors[:5]}
     df = pd.DataFrame(rows)
+    n_new = len(df)
     if write:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
         df.to_parquet(OUT_DIR / "weather_revisions_long.parquet", index=False)
-    return {"verdict": "REVISIONS_COLLECTED", "n_rows": int(len(df)),
+        # archive append-only dédupliquée (la dernière collecte gagne sur une clé identique)
+        ARCHIVE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        if ARCHIVE_PATH.exists():
+            old = pd.read_parquet(ARCHIVE_PATH)
+            df = pd.concat([old, df], ignore_index=True).drop_duplicates(subset=_KEY, keep="last")
+        df = df.sort_values(["valid_date", "zone", "variable", "lead_day"]).reset_index(drop=True)
+        df.to_parquet(ARCHIVE_PATH, index=False)
+    return {"verdict": "REVISIONS_COLLECTED", "n_rows_fetched": n_new,
+            "n_rows_archive": int(len(df)),
             "n_zones": int(df["zone"].nunique()), "leads": sorted(df["lead_day"].unique().tolist()),
             "collected_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"),
             "n_errors": len(errors)}
@@ -110,5 +158,8 @@ def revision_tape(df_long: pd.DataFrame) -> pd.DataFrame:
 
 
 def load_revisions() -> pd.DataFrame:
+    """Archive accumulée d'abord (longue), sinon dernière collecte locale."""
+    if ARCHIVE_PATH.exists():
+        return pd.read_parquet(ARCHIVE_PATH)
     p = OUT_DIR / "weather_revisions_long.parquet"
     return pd.read_parquet(p) if p.exists() else pd.DataFrame()

@@ -48,6 +48,12 @@ jobs:
           git config user.name "ema-bot"
           git config user.email "ema-bot@users.noreply.github.com"
           git add data/raw/euronext_ema_official data/forward_journal data/official_forward reports/daily artefacts/v42 || true
+          # V152-SYNC : la source unique premium et ses couches autoritatives sont commitées
+          # pour que le repo porte toujours l'état canonique (head/dashboard/monthly = même vérité).
+          git add data/premium reports/monthly artefacts/v99 artefacts/v101 artefacts/v107 artefacts/v109 \
+                  artefacts/v122 artefacts/v123 artefacts/v124 artefacts/v132 artefacts/state_machine || true
+          # V140-DATA : archive append-only des révisions de prévision météo (fenêtre API 92 j)
+          git add data/weather || true
           git commit -m "chore(forward): official collect $(date -u +%F)" || echo "nothing to commit"
           git push || echo "push skipped"
 

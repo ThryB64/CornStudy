@@ -1,0 +1,39 @@
+{
+  "version": "V99-SYNTHESIS-V2",
+  "verdict": "SYNTHESIS_V2_BUILT",
+  "as_of": "2026-06-01",
+  "signal_tier": "SHORT_PREMIUM_EXTREME",
+  "basis_z": 2.039,
+  "basis_eur_t": 75.93,
+  "live_source": "official_forward_journal",
+  "context_as_of": "2025-07-25",
+  "context_lag_days": 311,
+  "adverse_risk": "LOW",
+  "cbot_support": "LOW",
+  "physical_tension": "LOW",
+  "recommended_target": null,
+  "horizon_estimate_days": {},
+  "confidence": "medium",
+  "cbot_support_v2": "LOW",
+  "enso_context": "UNKNOWN",
+  "substitution_warning": {
+    "flag": false,
+    "wheat_corn_z": -0.28
+  },
+  "weather_warning": {
+    "flag": false,
+    "consecutive_hot_days_us": null,
+    "issue_date": "2026-06-01"
+  },
+  "context_warnings": [
+    "LIVE: signal officiel 2026-06-01 (SHORT_PREMIUM_EXTREME) ; diagnostics de contexte au 2025-07-25 (retard 311 j, \u00e0 rafra\u00eechir)"
+  ],
+  "reason_to_abstain": null,
+  "explanation": [
+    "CBOT non porteur (pas de rattrapage probable)",
+    "mois de roll Euronext",
+    "volatilit\u00e9 CBOT \u00e9lev\u00e9e"
+  ],
+  "disclaimer": "Vue d'ensemble research v2. Diagnostics & warnings = CONTEXTE, jamais des vetos. R\u00e8gle fig\u00e9e inchang\u00e9e. RESEARCH_ONLY_NOT_TRADING.",
+  "status": "RESEARCH_ONLY_NOT_TRADING"
+}

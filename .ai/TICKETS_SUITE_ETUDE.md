@@ -128,6 +128,16 @@ sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée l
 
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)
 
+- 2026-06-11 : **V152-SYNC** ✅ (le CI commite désormais la source unique : data/premium, reports/monthly,
+  couches autoritatives ; audit `single_source.py` 7 checks PASS ; monthly V133 quotidien ; 5 tests).
+  **V140/V127 DÉBLOQUÉ** ✅ : réseau revenu, bug API corrigé (hourly only), 25 296 lignes collectées
+  (17 zones, 92 j), archive append-only `data/weather/forecast_revisions.parquet` + append quotidien CI.
+  **V155 (nouveau)** : validation exploratoire révisions→CBOT, n=62 → `PRELIMINARY_N_SMALL` (re-run été).
+  **V175 (nouveau)** : signal tiers descriptif — PRE_SIGNAL→signal 47 % (n=34, préavis médian 2 j),
+  WATCHLIST→signal 19 %, aucun discriminant ex-ante robuste (artefact gap-jump corrigé) = 3e
+  triangulation du timing non prédictible. Restent data-gated : V144 (40 j off.), V165 (courbe),
+  V161 (FOB/fret→COMEXT/Baltic à brancher), re-run V155 (été), envoi e-mails V158 (utilisateur).
+
 - 2026-06-10 : tickets posés. **Fondation P0 livrée & testée** : V150 ✅, V159 ✅, V151 ✅ (partiel),
   V153 ✅. ruff clean, 182 tests verts, 0 régression. Backfill réel exécuté (1 FINAL/8 PROVISIONAL).
   V153 run réel : START AUC 0.549 → timing du départ non démontré (confirme audits).

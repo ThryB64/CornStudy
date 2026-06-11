@@ -1,0 +1,49 @@
+{
+  "version": "V123-FRESHNESS",
+  "signal_as_of": "2026-06-10",
+  "gate_days": 5,
+  "layers": {
+    "cbot": {
+      "as_of": "2026-06-01",
+      "lag_days": 9,
+      "fresh": false,
+      "action": "DISABLED_STALE"
+    },
+    "ema_curve": {
+      "as_of": "2026-06-01",
+      "lag_days": 9,
+      "fresh": false,
+      "action": "DISABLED_STALE"
+    },
+    "matif_ratio": {
+      "as_of": "2026-06-10",
+      "lag_days": 0,
+      "fresh": true,
+      "action": "ACTIVE"
+    },
+    "weather": {
+      "as_of": "2026-06-10",
+      "lag_days": 0,
+      "fresh": true,
+      "action": "ACTIVE"
+    },
+    "cot": {
+      "as_of": "2026-05-26",
+      "lag_days": 15,
+      "fresh": false,
+      "action": "DISABLED_STALE"
+    }
+  },
+  "context_lag_days": 15,
+  "n_active": 2,
+  "n_disabled": 3,
+  "verdict": "CONTEXT_DEGRADED",
+  "disabled_diagnostics": [
+    "cbot",
+    "ema_curve",
+    "cot"
+  ],
+  "interpretation": "Signal de r\u00e9f\u00e9rence 2026-06-10. Retard max du contexte 15 j. Couches d\u00e9sactiv\u00e9es (p\u00e9rim\u00e9es/manquantes) : ['cbot', 'ema_curve', 'cot']. Ne pas afficher ces diagnostics comme frais.",
+  "note": "Lecture des as_of des artefacts/journaux ; aucune donn\u00e9e recalcul\u00e9e. M\u00e9ta-fra\u00eecheur, pas un veto.",
+  "status": "RESEARCH_ONLY_NOT_TRADING"
+}

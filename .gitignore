@@ -58,7 +58,18 @@ notebooks/corn_study/exports/
 
 # Project: model artefacts
 data/models/
-artefacts/
+# artefacts/ ignoré SAUF les couches autoritatives premium (source unique, commitées par le CI daily)
+artefacts/*
+!artefacts/v42/
+!artefacts/v99/
+!artefacts/v101/
+!artefacts/v107/
+!artefacts/v109/
+!artefacts/v122/
+!artefacts/v123/
+!artefacts/v124/
+!artefacts/v132/
+!artefacts/state_machine/
 mlruns/
 optuna_studies/
 *.db

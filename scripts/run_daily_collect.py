@@ -209,6 +209,29 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["dashboard_v4"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 15) Rapport mensuel v2 (V133) — régénéré chaque jour pour que reports/monthly/latest.md
+    # reste aligné sur le head (V152-SYNC : une seule vérité, commitée par le CI)
+    try:
+        from mais.research.v133_monthly_forward_report_v2 import run_v133_monthly_v2
+        status["monthly_report"] = run_v133_monthly_v2()
+    except Exception as e:  # noqa: BLE001
+        status["monthly_report"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 15bis) Révisions météo previous-runs (V140-DATA) — append quotidien dans l'archive committée
+    # (l'API ne remonte qu'à ~92 j ; l'accumulation append-only construit l'historique long)
+    try:
+        from mais.collect.openmeteo_previous_runs import fetch_previous_runs
+        status["weather_previous_runs"] = fetch_previous_runs(past_days=10)
+    except Exception as e:  # noqa: BLE001
+        status["weather_previous_runs"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
+    # 16) Audit de cohérence source unique (V152-SYNC) — head/dashboard/lifecycle/monthly/latest
+    try:
+        from mais.audit.single_source import run_single_source_audit
+        status["single_source_audit"] = run_single_source_audit()
+    except Exception as e:  # noqa: BLE001
+        status["single_source_audit"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # settlement absent + passage principal -> demander un retry matinal
     snap = status.get("official_snapshot", {})
     settlement_ok = isinstance(snap, dict) and snap.get("status") == "OK"

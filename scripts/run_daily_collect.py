@@ -263,6 +263,14 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         status["composite_v176"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
 
+    # 15octies) Re-runs data-gated (V177) — V166-officiel/V168-MATIF/V155-été mûrissent seuls
+    try:
+        from mais.research.v177_data_gated_reruns import run_v177_data_gated
+        status["data_gated_reruns"] = {g["rerun"]: f'{g["status"]} {g["n"]}/{g["gate"]}'
+                                       for g in run_v177_data_gated()["gates"]}
+    except Exception as e:  # noqa: BLE001
+        status["data_gated_reruns"] = {"status": "FAIL", "error": f"{type(e).__name__}: {e}"}
+
     # 16) Audit de cohérence source unique (V152-SYNC) — head/dashboard/lifecycle/monthly/latest
     try:
         from mais.audit.single_source import run_single_source_audit

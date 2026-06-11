@@ -47,10 +47,16 @@ l'ouverture du journal). Anti-leakage : shift(1) + z expandants partout ; labels
    récente, épisodes CBOT-driven) — verdict unique : `docs/VECM_CANONICAL_VERDICT.md`.
 2. **Mean-reversion du basis** : 63 épisodes (event study 2.0), z médian 1.33 → 0.34 à +90 j ; la
    demi-vie rétrécit avec l'extrême (MODERATE 8.3 j / STRONG 4.9 j / EXTREME 3.3 j, V130) ; mais
-   l'horizon de trade réalisé est ~28 j (V138 : niveau ≠ trajectoire).
-3. **La prime est LOCALE** (triple confirmation) : ni la macro (V16, R² OOF −0.25), ni la parité
-   d'import COMEXT (V161, corr 0.089), ne l'expliquent ; la substitution blé/maïs européenne la
-   SOUTIENT (corr +0.59, V36/V41) — ratio haut = prime justifiée = compression plus lente/ADVERSE-prone.
+   l'horizon de trade réalisé est ~28 j (V138 : niveau ≠ trajectoire). **Mécanisme réconcilié
+   (V169, survie bayésienne hiérarchique)** : au niveau du TRADE, EXTREME est plus LENT vers z0.5
+   que MODERATE (médianes 47 vs 29 j, P=93 %) — la distance à parcourir domine la vitesse de
+   décroissance ; et les écarts de PnL entre paliers viennent de la MAGNITUDE, pas du win-rate
+   (postérieurs ~0.80 partout, STRONG 4/4 rétréci à 0.83 [0.65-0.96]).
+3. **La prime est LOCALE** (QUADRUPLE confirmation) : ni la macro (V16, R² OOF −0.25), ni la parité
+   d'import COMEXT (V161, corr 0.089), ni le convenience yield proxy (V166, corr −0.02 signe
+   instable) ne l'expliquent ; la substitution blé/maïs européenne la SOUTIENT (corr +0.59,
+   V36/V41) — ratio haut = prime justifiée = compression plus lente/ADVERSE-prone. Le BLÉ SEUL
+   porte ce soutien : le panier élargi blé+avoine+soja DILUE (V168, NO_GO sur 3 tests pré-déclarés).
 4. **Stratification de qualité (V176, 8 variantes pré-déclarées)** : le net moyen par trade monte de
    façon monotone avec le score composite (+5.25 → +10.33 €/t à coût 3+0.5/jambe ; hit 0.61 → 0.72).
    Variante year-round recommandée : `confirmed_z12` (z≥1.2) — 1.62 signal/an, 10 mois civils couverts,
@@ -58,7 +64,11 @@ l'ouverture du journal). Anti-leakage : shift(1) + z expandants partout ; labels
 5. **Mur des coûts (V173)** : l'edge meurt à ~5 €/t/jambe globalement ; survit à 8 €/t en EXTREME, en
    été (jul-août) et en uptrend CBOT ; meurt à 1-3 €/t en MODERATE / avril-juin / downtrend.
 6. **Tension physique** : backwardation forte = prime davantage justifiée, compression plus lente
-   (machine d'état : PRIME_PHYSICALLY_JUSTIFIED).
+   (machine d'état : PRIME_PHYSICALLY_JUSTIFIED). **Caveat V166** : ce lien courbe→basis n'est PAS
+   démontré sur l'historique proxy (CY proxy corr −0.02 ; 0/45 jours-signal en backwardation dans
+   le proxy) — c'est une hypothèse LIVE en attente de la courbe officielle (≥150 sessions) ; le
+   maillon amont bilan→courbe, lui, tient (imports COMEXT → CY rho +0.33). Et formellement la
+   courbe est un PROXY du bilan, pas une cause du basis (V170 : NO_CAUSAL_PATH).
 
 ## 6. Robustesse (le signal survit-il à la falsification ?)
 
@@ -76,6 +86,12 @@ l'ouverture du journal). Anti-leakage : shift(1) + z expandants partout ; labels
 **Lecture honnête : l'edge est SPÉCIFIQUE et DIRECTIONNEL, sa sélection de seuil est robuste, mais sa
 TAILLE ne survit pas à la correction de multiplicité sur ~30 trades.** D'où le statut analytique.
 
+**Cadre causal formalisé (V170)** : DAG exécutable (d-séparation + back-door,
+`docs/V170_CAUSAL_DAG.md`). Le Granger EMA→CBOT « significatif » est une conséquence STRUCTURELLE
+de la fourche latente choc-mondial→{CBOT, EMA} (pas un accident d'échantillon) ; estimer
+basis→compression exige de contrôler la jambe CBOT (déjà la pratique V105/V129, désormais
+justifiée) ; le nœud irréductible reste U_LOCAL_PREMIUM (4 fair-values éliminées).
+
 ## 7. Ce qui est REJETÉ (ne pas rouvrir sans donnée nouvelle)
 
 Timing ex-ante du départ de compression (3 angles : V153 START AUC OOF **0.515** — canonique de
@@ -83,7 +99,12 @@ l'artefact, vs IN_PROGRESS 0.789 qui RECONNAÎT la compression en cours ; V164 H
 mais pas la prédiction ; V175 aucun discriminant d'escalade) · inversion saisonnière V8 (falsifiée OOF) ·
 H90 (V10) · filtre régime forward (V11) · fair-value macro (V16) · parité d'import comme ancre (V161) ·
 météo RÉALISÉE → CBOT (V45, price-in) · COT seul OOS (VNEXT) · hazard timing (V106) · meta-model V6
-(overfit/leakage, V8) · demi-vie analytique = horizon trade (V138).
+(overfit/leakage, V8) · demi-vie analytique = horizon trade (V138) · panier de substitution CBOT
+élargi (V168 : le blé seul domine sur 3 tests, ne rouvrir qu'avec orge/Black Sea réels) · chaîne
+CY-proxy→basis (V166 : maillon central échoue, re-test à ≥150 sessions de courbe officielle) ·
+effet saison PROPRE sur la vitesse de compression (V169 : le contraste été/printemps de V167
+s'évapore après partial pooling, P=0.38 — il reflétait la profondeur d'entrée ; V167 reste valide
+pour le CALENDRIER des départs).
 
 ## 8. Forward officiel (la preuve en cours)
 

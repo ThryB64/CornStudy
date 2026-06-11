@@ -104,11 +104,11 @@
 | V163 T-PROXYBIAS | P1 | = V144 | R3,X3 | biais stable |
 | V164 T-REGIME-HMM | P2 | START non supervisé (HMM/BOCPD) vs label A | R4,X5 | **`DONE` ✅** `v164_hmm_regime.py` — Markov-switching 2 états sur Δbasis_z ; **85 % des bascules HMM coïncident avec un départ label-A (±5j)** → `START_TRIANGULATED` : le label START est RÉEL (validé indépendamment), complète V153 (réel mais non prédictible ex-ante) ; 2 tests verts |
 | V165 T-CURVE-TS | P2 | Facteurs structure par terme | R5 | 3 facteurs forward utiles |
-| V166 T-CONVYIELD | P2 | Convenience yield ↔ bilan physique | R6,X9 | chaîne bilan→CY→basis OOS |
+| V166 T-CONVYIELD | P2 | Convenience yield ↔ bilan physique | R6,X9 | **`DONE` ✅ (2026-06-11, CHAIN_NOT_SUPPORTED honnête)** `v166_convenience_yield.py` — CY proxy (roll yield annualisé, 348 j hors holdout) : maillon central CY→basis ÉCHOUE (corr −0.02, signe instable) = 4e fair-value éliminée ; maillon amont bilan→courbe TIENT (imports COMEXT lag 60 j → CY rho **+0.33**) ; maillon C non testable (0/45 jours-signal en backwardation dans le proxy !) → test décisif = courbe OFFICIELLE ≥150 sessions ; 5 tests |
 | V167 T-SEASON | P1 | Saisonnalité des starts & survie hors-saison | R7,X6 | **`DONE` ✅** `v167_start_seasonality.py` — 63 départs, pic **août/JJA** (24), compression été 1.45z (lente 32j) vs printemps 0.59z (rapide 11.5j), **edge survit hors-saison** ; cohérent horizons V27 ; 2 tests verts |
-| V168 T-SUBBASKET | P2 | Panier de substitution élargi | R8 | basket_z > wheat_corn_z seul |
-| V169 T-BAYES | P2 | Survie bayésienne hiérarchique | R9 | postérieurs par régime |
-| V170 T-DAG | P3 | DAG causal formel & identifiabilité | R10 | liste effets identifiables |
+| V168 T-SUBBASKET | P2 | Panier de substitution élargi | R8 | **`DONE` ✅ (2026-06-11, NO_GO honnête)** `v168_substitution_basket.py` — panier équipondéré blé+avoine+soja (z expandant V38, poids figés ex-ante) PERD les 3 tests pré-déclarés vs blé seul : corr basis 0.539 vs **0.587**, AUC ADVERSE 0.665 vs 0.653 (sous marge +0.02), vitesse rho −0.01 vs **0.204** → « empiler dilue » 4e confirmation ; cross-check AUC blé recalculé = stocké V82 (0.653=0.653) ; MATIF EBM rejoint à ≥150 obs (9 auj.) ; orge/Black Sea DATA_BLOCKED ; 5 tests |
+| V169 T-BAYES | P2 | Survie bayésienne hiérarchique | R9 | **`DONE` ✅ (2026-06-11)** `v169_bayes_survival.py` — Weibull hiérarchique censure droite + logit win-rate, RWM numpy 4 chaînes (R̂ 1.00-1.06), partial pooling sur les 42 épisodes. **Q1 : EXTREME plus LENT vers z0.5 que MODERATE (47 vs 29 j, P=93 %)** — la distance domine la vitesse, réconcilie V130/V138. **Q2 : le contraste été/printemps V167 s'évapore après pooling (P=0.38)** = profondeur d'entrée, pas saison. **Q3 : win-rates ~0.80 partout** (STRONG 4/4 rétréci à 0.83) — les écarts PnL entre paliers = MAGNITUDE, pas probabilité ; k Weibull 1.10 (hazard quasi exponentiel) ; 5 tests |
+| V170 T-DAG | P3 | DAG causal formel & identifiabilité | R10 | **`DONE` ✅ (2026-06-11)** `v170_causal_dag.py` — d-séparation Bayes-ball + back-door exécutables, DAG = résultats établis. **Granger EMA→CBOT = conséquence STRUCTURELLE de la fourche latente choc-mondial** ; basis→compression identifiable EN CONTRÔLANT la jambe CBOT (justifie V105/V129) ; **CURVE→BASIS : NO_CAUSAL_PATH** (la courbe est un proxy du bilan, éclaire V166-A) ; U_LOCAL_PREMIUM = nœud irréductible (4 fair-values éliminées) ; 6 tests |
 | **V171 T-PLACEBO** | **P0** | Placebo spreads non liés | X1 | **`DONE` ✅** `v171_placebo_spreads.py` — basis EMA Sharpe/trade **0.94 (rang 1/6)** vs meilleur témoin 0.37 → **EDGE_SPECIFIC_TO_EMA_BASIS** (~2.5× le témoin) ; 4 tests verts. Témoins internes (faute de colza/canola) → falsification partielle |
 | **V172 T-OVERFIT** | **P0** | Pack anti-overfitting (DSR/PBO/SPA/purged CV) | X2,Partie 5 | `DONE` ✅ `mais/audit/overfitting.py` (PSR/DSR/PBO-CSCV, 6 tests) **+ branché sur trades réels** `v172_overfit_on_trades.py` : baseline z>1 = **32 trades, Sharpe/trade 0.22**, Sharpe ↗ avec seuil (2.0→0.54) ; **Deflated Sharpe NE survit PAS à 50 essais (0.11)** mais **PBO=0.26 ROBUST** (sélection de seuil non sur-ajustée) → `FRAGILE_UNDER_MULTIPLICITY` honnête ; 2 tests. **+ White Reality Check / Hansen SPA** : p_White 0.07 / p_SPA **0.060** (borderline, juste au-dessus de 5 %) → `NOT_SIGNIFICANT_AFTER_SNOOPING`. Défense complète : PBO 0.26 (robuste) + DSR ne survit pas + SPA limite + placebo spécifique (V171) = edge réel/spécifique mais petit après correction. Reste : recensement exhaustif des variantes |
 | V173 T-COSTGRID | P1 | Stress coûts×slippage×roll par régime | X8 | **`DONE` ✅ (2026-06-11)** `v173_cost_grid.py` sur les 42 trades réels : **coût de mort global 5 €/t/jambe (slip 0.5)** ; survit à 8 en EXTREME (brut 29.9), été jul_aug (20.4) et CBOT above_trend (20.4) ; meurt à 1-3 en apr_jun/MODERATE/below_trend. Cohérent V167/V10-E ; descriptif, baseline intouchée ; 3 tests |
@@ -141,6 +141,19 @@ sur du code. Le code/la machinerie sont prêts ou triviaux une fois la donnée l
   `docs/V176_COMPOSITE_INDICATOR.md`.
 
 ## ÉTAT D'AVANCEMENT (mis à jour à chaque session)
+
+- 2026-06-11 (session 5, « pousser l'étude au maximum ») : **les 4 derniers tickets P2/P3 exécutés**.
+  **V168** ✅ NO_GO honnête (le blé seul bat le panier blé+avoine+soja sur les 3 tests pré-déclarés —
+  4e « empiler dilue »), **V169** ✅ (survie bayésienne hiérarchique : EXTREME plus lent vers z0.5 que
+  MODERATE P=93 % — distance > vitesse, réconcilie V130/V138 ; contraste saisonnier V167 = profondeur
+  d'entrée P=0.38 ; win-rates ~0.80 partout = les écarts PnL sont de la magnitude), **V166** ✅
+  CHAIN_NOT_SUPPORTED (CY proxy = 4e fair-value éliminée ; maillon bilan→courbe TIENT imports +0.33 ;
+  test décisif reporté à la courbe officielle ≥150 sessions), **V170** ✅ (DAG exécutable : Granger
+  structurellement non causal, basis→compression à contrôler par CBOT, CURVE=proxy pas cause).
+  Rapport maître mis à jour (prime locale ×4, rejets +3, nuances V130/V167). 21 tests neufs verts.
+  **Il ne reste AUCUN ticket exécutable sans donnée nouvelle** : tout le reste est data-gated
+  (V144 paires, V165/V166-officiel courbe ≥150 sessions, V155 été n≥150, MATIF ≥150 obs) ou
+  externe (e-mails V158).
 
 - 2026-06-11 (session 2, « continue les tickets intégralement ») : **V174** ✅ (BCE horodaté, écart max
   0.19 €/t vs yfinance), **V173** ✅ (coût de mort 5 €/t/jambe global ; 8 en EXTREME/été/above_trend,

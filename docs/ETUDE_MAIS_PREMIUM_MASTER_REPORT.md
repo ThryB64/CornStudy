@@ -78,8 +78,9 @@ TAILLE ne survit pas à la correction de multiplicité sur ~30 trades.** D'où l
 
 ## 7. Ce qui est REJETÉ (ne pas rouvrir sans donnée nouvelle)
 
-Timing ex-ante du départ de compression (3 angles : V153 START AUC 0.549, V164 HMM triangule le label
-mais pas la prédiction, V175 aucun discriminant d'escalade) · inversion saisonnière V8 (falsifiée OOF) ·
+Timing ex-ante du départ de compression (3 angles : V153 START AUC OOF **0.515** — canonique de
+l'artefact, vs IN_PROGRESS 0.789 qui RECONNAÎT la compression en cours ; V164 HMM triangule le label
+mais pas la prédiction ; V175 aucun discriminant d'escalade) · inversion saisonnière V8 (falsifiée OOF) ·
 H90 (V10) · filtre régime forward (V11) · fair-value macro (V16) · parité d'import comme ancre (V161) ·
 météo RÉALISÉE → CBOT (V45, price-in) · COT seul OOS (VNEXT) · hazard timing (V106) · meta-model V6
 (overfit/leakage, V8) · demi-vie analytique = horizon trade (V138).

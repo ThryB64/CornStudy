@@ -40,6 +40,5 @@
   "n_revisions_logged": 1,
   "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-06-11, SHORT_PREMIUM_STRONG, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
-  "status": "RESEARCH_ONLY_NOT_TRADING",
-  "revision": null
+  "status": "RESEARCH_ONLY_NOT_TRADING"
 }

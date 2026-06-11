@@ -46,11 +46,20 @@ def classify_record_status(price_date: Any, as_of: Any) -> str:
 
 
 def detect_duplicates(j: pd.DataFrame) -> list[str]:
+    """Vrai doublon = même date ET même record_status.
+
+    Depuis V150, une date peut légitimement porter PROVISIONAL puis REVISED (upgrade append-only du
+    soir) : ce n'est PAS un doublon, c'est la politique de révision. Sans colonne statut, on retombe
+    sur la détection par date seule (journaux pré-V150).
+    """
     if "price_date" not in j.columns or len(j) == 0:
         return []
+    if "record_status" in j.columns:
+        key = j["price_date"].astype(str) + "|" + j["record_status"].astype(str)
+        dup_idx = key[key.duplicated(keep=False)].index
+        return sorted(j.loc[dup_idx, "price_date"].astype(str).unique().tolist())
     s = j["price_date"].astype(str)
-    dup = s[s.duplicated(keep=False)].unique().tolist()
-    return sorted(dup)
+    return sorted(s[s.duplicated(keep=False)].unique().tolist())
 
 
 def _append_revision_log(entry: dict[str, Any]) -> None:
@@ -60,7 +69,7 @@ def _append_revision_log(entry: dict[str, Any]) -> None:
 
 
 def revise_same_day(record: dict[str, Any], as_of: Any, force: bool = False) -> dict[str, Any]:
-    """Révise la ligne du jour courant si un settlement révisé change les champs. Refuse une date FINAL."""
+    """DÉTECTE une révision intraday du jour courant (audit-only ; V27 est le seul writer du journal)."""
     if record.get("verdict") != "OFFICIAL_SIGNAL_COMPUTED":
         return {"status": "SKIP", "reason": record.get("verdict")}
     if not JOURNAL_PARQUET.exists():
@@ -77,7 +86,12 @@ def revise_same_day(record: dict[str, Any], as_of: Any, force: bool = False) -> 
         return {"status": "REFUSED_FINAL", "price_date": pd_str,
                 "note": "Date settlée (passée) immuable : on ne réécrit jamais le passé (anti look-ahead)."}
 
-    idx = j.index[mask][0]
+    # comparaison vs la ligne CANONIQUE du jour (REVISED > FINAL > SETTLING > PROVISIONAL)
+    sub = j[mask]
+    if "record_status" in sub.columns and len(sub) > 1:
+        prio = {"REVISED": 3, "FINAL": 2, "SETTLING": 1, "PROVISIONAL": 0}
+        sub = sub.assign(_prio=sub["record_status"].astype(str).map(prio).fillna(-1)).sort_values("_prio")
+    idx = sub.index[-1]
     changes = {}
     for f in REVISABLE_FIELDS:
         old = j.at[idx, f] if f in j.columns else None
@@ -89,20 +103,18 @@ def revise_same_day(record: dict[str, Any], as_of: Any, force: bool = False) -> 
         return {"status": "NO_CHANGE", "price_date": pd_str, "record_status": status,
                 "signal_tier": _scalar(j.at[idx, "signal_tier"]) if "signal_tier" in j.columns else None}
 
-    for f, ch in changes.items():
-        j.at[idx, f] = ch["new"]
-    if "record_status" not in j.columns:
-        j["record_status"] = ""
-    j.at[idx, "record_status"] = "REVISED"
-    if "warnings" in j.columns and isinstance(record.get("warnings"), list):
-        j.at[idx, "warnings"] = ";".join(record["warnings"])
-    j.to_parquet(JOURNAL_PARQUET, index=False)
-
+    # CONSOLIDATION 2026-06-11 : V122 ne réécrit PLUS le journal. L'édition in-place (valeurs + statut
+    # REVISED sur la ligne du matin) contredisait l'append-only V150 et a produit, le 06-10, un parquet
+    # divergent du JSONL (2 lignes REVISED). V27 est le SEUL writer : l'upgrade effectif est la nouvelle
+    # ligne REVISED du run du soir. Ici on DÉTECTE et on JOURNALISE pour l'audit, rien d'autre.
     entry = {"price_date": pd_str, "revised_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
-             "as_of": str(pd.Timestamp(as_of).date()), "record_status": "REVISED", "changes": changes}
+             "as_of": str(pd.Timestamp(as_of).date()), "record_status": "CHANGES_DETECTED",
+             "changes": changes,
+             "note": "détection V122 (audit-only) ; upgrade append-only par V27 au run du soir"}
     _append_revision_log(entry)
-    return {"status": "REVISED", "price_date": pd_str, "changes": changes,
-            "new_signal_tier": _scalar(j.at[idx, "signal_tier"]) if "signal_tier" in j.columns else None}
+    return {"status": "CHANGES_DETECTED_APPEND_ONLY", "price_date": pd_str, "changes": changes,
+            "new_signal_tier": record.get("signal_tier"),
+            "note": "journal NON modifié (V27 seul writer, append-only V150)"}
 
 
 def _equal(a: Any, b: Any) -> bool:
@@ -149,8 +161,14 @@ def consistency_check(as_of: Any | None = None) -> dict[str, Any]:
     if len(j) == 0:
         return {"version": "V122-CONSISTENCY", "verdict": "EMPTY_JOURNAL"}
     as_of = pd.Timestamp(as_of).normalize() if as_of is not None else pd.Timestamp(j["price_date"].iloc[-1]).normalize()
-    last = j.iloc[-1]
-    ref_date = str(last["price_date"])
+    ref_date = str(j["price_date"].iloc[-1])
+    # référence = enregistrement CANONIQUE du dernier jour (REVISED > FINAL > SETTLING > PROVISIONAL)
+    same_day = j[j["price_date"].astype(str) == ref_date]
+    if "record_status" in same_day.columns and len(same_day) > 1:
+        prio = {"REVISED": 3, "FINAL": 2, "SETTLING": 1, "PROVISIONAL": 0}
+        same_day = same_day.assign(
+            _prio=same_day["record_status"].astype(str).map(prio).fillna(-1)).sort_values("_prio")
+    last = same_day.iloc[-1]
     ref_tier = _scalar(last.get("signal_tier"))
 
     layers = []

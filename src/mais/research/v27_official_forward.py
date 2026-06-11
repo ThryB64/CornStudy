@@ -198,6 +198,28 @@ def append_forward_journal(record: dict[str, Any]) -> dict[str, Any]:
             "n_total": int(len(combined)), "signal_tier": record["signal_tier"]}
 
 
+def rebuild_parquet_from_jsonl() -> dict[str, Any]:
+    """Reconstruit le parquet dérivé depuis le JSONL append-only (seule source légitime).
+
+    Répare toute divergence historique (ex. 2026-06-10 : l'ancienne édition in-place V122 avait
+    réécrit la ligne PROVISIONAL du matin en REVISED dans le parquet, contredisant le JSONL).
+    """
+    if not JOURNAL_JSONL.exists():
+        return {"status": "NO_JOURNAL"}
+    recs = [json.loads(ln) for ln in JOURNAL_JSONL.read_text(encoding="utf-8").splitlines() if ln.strip()]
+    rows = []
+    for r in recs:
+        row = {k: v for k, v in r.items() if not isinstance(v, list)}
+        row["warnings"] = ";".join(r.get("warnings", [])) if isinstance(r.get("warnings"), list) \
+            else r.get("warnings", "")
+        rows.append(row)
+    df = pd.DataFrame(rows)
+    df.to_parquet(JOURNAL_PARQUET, index=False)
+    statuses = df["record_status"].value_counts().to_dict() if "record_status" in df.columns else {}
+    return {"status": "REBUILT_FROM_JSONL", "n_rows": int(len(df)),
+            "status_counts": {str(k): int(v) for k, v in statuses.items()}}
+
+
 def load_forward_journal(final_only: bool = False) -> pd.DataFrame:
     """Journal forward. final_only=True ne garde, pour chaque date, que le dernier FINAL/REVISED.
 

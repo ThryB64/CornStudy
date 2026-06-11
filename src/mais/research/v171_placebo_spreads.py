@@ -118,3 +118,109 @@ def run_v171_placebo(df: pd.DataFrame) -> dict[str, Any]:
     }
     (V171_DIR / "v171_placebo.json").write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
     return out
+
+
+# ---------------------------------------------------------------------------
+# V171-EXT (P8 consolidation 2026-06-11) : univers de témoins élargi + placebos structurels
+# ---------------------------------------------------------------------------
+
+# paires SANS maïs construites depuis les clôtures brutes : si la réversion de spread « marche
+# partout », l'edge EMA n'a rien de spécial.
+EXTRA_PAIRS = [("wheat_close", "soy_close"), ("wheat_close", "oil_close"), ("soy_close", "oil_close"),
+               ("wheat_close", "oats_close"), ("soy_close", "gas_close"),
+               ("wheat_close", "usd_index_close"), ("soy_close", "usd_index_close"),
+               ("oats_close", "soy_close"), ("oats_close", "oil_close")]
+N_RANDOM_DRAWS = 500
+SHIFT_DAYS = 30
+
+
+def build_extra_pair_columns(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+    for a, b in EXTRA_PAIRS:
+        if a in df.columns and b in df.columns:
+            num = pd.to_numeric(df[a], errors="coerce")
+            den = pd.to_numeric(df[b], errors="coerce")
+            out[f"placebo_{a.split('_')[0]}_{b.split('_')[0]}"] = num / den
+    return out
+
+
+def _random_entry_sharpes(s: pd.Series, n_trades: int, draws: int = N_RANDOM_DRAWS,
+                          seed: int = 0) -> np.ndarray:
+    """Distribution de Sharpe/trade sous entrées ALÉATOIRES (même n, même moteur de sortie max_hold)."""
+    sv = s.to_numpy(dtype=float)
+    valid = np.where(~np.isnan(sv[:-MAX_HOLD]))[0]
+    rng = np.random.default_rng(seed)
+    out = []
+    for _ in range(draws):
+        picks = np.sort(rng.choice(valid, size=min(n_trades, len(valid)), replace=False))
+        pnls, busy = [], -1
+        for i in picks:
+            if i <= busy:
+                continue
+            j = min(i + MAX_HOLD, len(sv) - 1)
+            if np.isnan(sv[j]):
+                continue
+            pnls.append(-(sv[j] - sv[i]))
+            busy = j
+        if len(pnls) >= 5:
+            st = sharpe_stats(np.array(pnls))
+            out.append(st["sharpe"])
+    return np.array(out, dtype=float)
+
+
+def run_v171_extended(df: pd.DataFrame) -> dict[str, Any]:
+    """Falsification élargie : ~14 spreads témoins + signal décalé + sens inversé + entrées aléatoires."""
+    assert_no_holdout(df)
+    dfx = build_extra_pair_columns(df)
+    real = _run_one(dfx, REAL)
+    if real is None or real.get("insufficient"):
+        return {"version": "V171-EXT", "verdict": "REAL_SPREAD_UNAVAILABLE"}
+
+    extra_cols = [c for c in dfx.columns if c.startswith("placebo_")]
+    all_placebo_cols = PLACEBOS + extra_cols
+    placebos = [r for c in all_placebo_cols
+                if (r := _run_one(dfx, c)) is not None and not r.get("insufficient")]
+    real_sr = real["sharpe_per_trade"]
+    beating = sum(1 for p in placebos if p["sharpe_per_trade"] >= real_sr)
+    rank = 1 + beating
+
+    s = pd.to_numeric(dfx[REAL], errors="coerce")
+    z = _zscore(s)
+    # placebo structurel 1 : signal DÉCALÉ de 30 j (le timing ne devrait plus rien valoir)
+    shifted_pnl = _reversion_trades(s, z.shift(SHIFT_DAYS))
+    shifted = (sharpe_stats(shifted_pnl)["sharpe"] if len(shifted_pnl) >= 5 else None)
+    # placebo structurel 2 : sens INVERSÉ (long le spread sur z>1 — devrait être négatif)
+    flipped_pnl = -_reversion_trades(s, z)
+    flipped = (sharpe_stats(flipped_pnl)["sharpe"] if len(flipped_pnl) >= 5 else None)
+    # placebo structurel 3 : entrées ALÉATOIRES (même n, distribution de Sharpe)
+    rnd = _random_entry_sharpes(s, real["n_trades"])
+    p_random = (round(float((rnd >= real_sr).mean()), 4) if len(rnd) else None)
+
+    specific = (beating <= 1) and (p_random is not None and p_random <= 0.10)
+    out = {
+        "version": "V171-EXT",
+        "verdict": "EDGE_SPECIFIC_CONFIRMED_EXTENDED" if specific else "EDGE_SPECIFICITY_WEAKENED",
+        "real": real,
+        "n_placebo_spreads": len(placebos),
+        "real_rank_among_spreads": rank,
+        "n_spreads_beating_real": beating,
+        "placebos_sorted": sorted(placebos, key=lambda p: -p["sharpe_per_trade"]),
+        "structural": {
+            "shifted_signal_30d_sharpe": (round(shifted, 4) if shifted is not None else None),
+            "flipped_direction_sharpe": (round(flipped, 4) if flipped is not None else None),
+            "random_entries": {"n_draws": int(len(rnd)),
+                               "mean_sharpe": round(float(rnd.mean()), 4) if len(rnd) else None,
+                               "p_value_real_vs_random": p_random},
+        },
+        "interpretation": (
+            f"Basis EMA Sharpe/trade {real_sr} : rang {rank}/{1+len(placebos)} dans l'univers élargi ; "
+            f"{beating} témoin(s) >= réel. Signal décalé 30 j : {shifted} ; sens inversé : {flipped} ; "
+            f"p(random >= réel) = {p_random}. "
+            + ("Spécificité CONFIRMÉE sur l'univers élargi." if specific
+               else "Spécificité AFFAIBLIE sur l'univers élargi — à dire honnêtement.")),
+        "note": "Même moteur exact que V171 (z causal shift(1), 1 trade à la fois, max90). Témoins en "
+                "unités hétérogènes -> Sharpe scale-free seul comparé.",
+        "status": "RESEARCH_ONLY_NOT_TRADING",
+    }
+    (V171_DIR / "v171_extended.json").write_text(json.dumps(out, indent=2, default=str), encoding="utf-8")
+    return out

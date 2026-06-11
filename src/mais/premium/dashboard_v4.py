@@ -37,6 +37,9 @@ def run_v146_dashboard() -> dict[str, Any]:
         f"cycle {head.get('LIFECYCLE_STATE')})",
         f"- Objectif : **{head['TARGET_RECOMMENDATION']}** · horizon ~"
         f"{he.get('estimated_days_to_z05') or he.get('median_horizon_days_seasonal')} j",
+        f"- Qualité : **{head.get('SIGNAL_QUALITY') or 'NONE'}**"
+        + (f" · score composite **{head.get('COMPOSITE_SCORE')}/5** (V176, qualifie sans remplacer la "
+           f"baseline z>1)" if head.get("COMPOSITE_SCORE") is not None else ""),
         "", "## Contexte",
         f"- ADVERSE_RISK {_d('ADVERSE_RISK')} · CBOT_SUPPORT {_d('CBOT_SUPPORT')} · "
         f"PHYSICAL_TENSION {_d('PHYSICAL_TENSION')}",
@@ -44,6 +47,8 @@ def run_v146_dashboard() -> dict[str, Any]:
         "", "## Qualité & jalons",
         f"- Cohérence {head['consistency']['verdict']} · fraîcheur {head['freshness']['verdict']} · "
         f"scope_clean {head.get('scope_clean')}",
+        f"- Diagnostics bloqués (stale) : {head['freshness'].get('disabled') or 'aucun'} · couches "
+        f"reporting-only en retard : {head['consistency'].get('stale_reporting_only_layers') or 'aucune'}",
         f"- Jours officiels {ms['n_official_days']} · prochain jalon {ms['next_milestone']} "
         f"({ms['next_meaning']}) · z rolling officiel {ms['rolling_official_z_available']}",
         "", f"_Warnings : {head.get('warnings')}_", "",

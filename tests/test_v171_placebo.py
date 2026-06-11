@@ -43,3 +43,23 @@ def test_engine_profits_on_mean_reverting_series():
     pnl = v171._reversion_trades(s, z)
     assert len(pnl) >= 3
     assert pnl.mean() > 0
+
+
+def test_extended_universe_and_structural(monkeypatch, tmp_path):
+    import mais.research.v171_placebo_spreads as v171x
+    monkeypatch.setattr(v171x, "V171_DIR", tmp_path)
+    monkeypatch.setattr(v171x, "N_RANDOM_DRAWS", 30)
+    df = _synth()
+    # paires témoins synthétiques : bruits sans mean-reversion structurée
+    import numpy as np
+    rng = np.random.default_rng(3)
+    for c in ("wheat_close", "soy_close", "oats_close", "oil_close", "gas_close", "usd_index_close"):
+        df[c] = 100 + np.cumsum(rng.normal(0, 1.0, len(df)))
+    out = v171x.run_v171_extended(df)
+    assert out["verdict"] in ("EDGE_SPECIFIC_CONFIRMED_EXTENDED", "EDGE_SPECIFICITY_WEAKENED")
+    assert out["n_placebo_spreads"] >= 5
+    st = out["structural"]
+    assert st["random_entries"]["n_draws"] > 0
+    # le sens inversé doit être l'opposé du réel
+    assert st["flipped_direction_sharpe"] is None or st["flipped_direction_sharpe"] <= 0 \
+        or out["real"]["sharpe_per_trade"] <= 0

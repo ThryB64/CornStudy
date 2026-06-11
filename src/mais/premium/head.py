@@ -76,12 +76,25 @@ def build_premium_head() -> dict[str, Any]:
         "PRIME_NATURE": sm.get("prime_nature"),
         "LIFECYCLE_STATE": sm.get("lifecycle_state"),
         "HEADLINE_STATE": sm.get("headline_state"),
+        # qualité V176/V131 : qualifie la baseline z>1, ne la remplace jamais
+        "SIGNAL_QUALITY": sm.get("signal_quality"),
+        "COMPOSITE_SCORE": sm.get("composite_score"),
+        "WATCH_STATE": sm.get("watch_state"),
         "TARGET_RECOMMENDATION": v132.get("TARGET_RECOMMENDATION"),
         "HORIZON_ESTIMATE": v132.get("HORIZON_ESTIMATE"),
         "diagnostics": v132.get("diagnostics"),
         "warnings": v132.get("warnings"),
-        "consistency": {"verdict": cons.get("verdict"), "reference_date": cons.get("reference_date"),
-                        "stale_layers": [s.get("layer") for s in cons.get("stale_layers", [])]},
+        # V122 role-aware : seule une couche AUTORITATIVE stale/divergente est un problème de vérité ;
+        # v99/v101/daily_latest sont REPORTING_ONLY (cf. LAYER_ROLES) -> listées à part, sans dégrader.
+        "consistency": {
+            "verdict": cons.get("verdict"), "reference_date": cons.get("reference_date"),
+            "stale_authoritative_layers": [
+                s.get("layer") for s in cons.get("stale_layers", [])
+                if s.get("layer") not in ("v99", "v101", "daily_latest")],
+            "stale_reporting_only_layers": [
+                s.get("layer") for s in cons.get("stale_layers", [])
+                if s.get("layer") in ("v99", "v101", "daily_latest")],
+        },
         "freshness": {"verdict": fresh.get("verdict"), "context_lag_days": fresh.get("context_lag_days"),
                       "disabled": fresh.get("disabled_diagnostics", [])},
         "session_truth": session_truth,

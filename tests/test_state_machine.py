@@ -56,3 +56,22 @@ def test_run(tmp_path, monkeypatch):
     assert out["lifecycle_state"] == "COMPRESSION_HEALTHY"
     block = sm.state_machine_report_block()
     assert "V139" in block
+
+
+def test_signal_quality_levels():
+    assert sm.derive_signal_quality(None)["signal_quality"] == "NONE"
+    assert sm.derive_signal_quality(0.9)["signal_quality"] == "NONE"
+    assert sm.derive_signal_quality(1.1)["signal_quality"] == "BASELINE_SIGNAL"
+    assert sm.derive_signal_quality(1.3)["signal_quality"] == "CONFIRMED_SIGNAL"
+    assert sm.derive_signal_quality(1.7, composite_score=3)["signal_quality"] == "STRONG_SIGNAL"
+    assert sm.derive_signal_quality(2.3)["signal_quality"] == "EXTREME_SIGNAL"
+    # marginal -> note WAIT_CONFIRMATION (V131)
+    assert "V131" in (sm.derive_signal_quality(1.05).get("quality_note") or "")
+
+
+def test_watch_state_when_inactive():
+    s = sm.derive_states("NO_SIGNAL", 0.8, None, None, None, None)
+    assert s["headline_state"] == "NO_ACTIVE_SIGNAL"
+    assert s["watch_state"] == "PRE_SIGNAL"
+    assert sm.derive_states("NO_SIGNAL", 0.6, None, None, None, None)["watch_state"] == "WATCHLIST"
+    assert sm.derive_states("NO_SIGNAL", 0.1, None, None, None, None)["watch_state"] == "NORMAL"

@@ -38,8 +38,13 @@ def derive_states(signal_tier: str, basis_z: float | None, health_status: str | 
     """Règles d'état (aucun fit). Renvoie nature + cycle de vie + état headline."""
     active = signal_tier in ("SHORT_PREMIUM_MODERATE", "SHORT_PREMIUM_STRONG", "SHORT_PREMIUM_EXTREME")
     if not active:
+        # sous-état de veille (paliers d'étude V175 — la baseline z>1 reste le seul signal)
+        watch = None
+        if basis_z is not None:
+            watch = ("PRE_SIGNAL" if basis_z >= 0.75 else
+                     "WATCHLIST" if basis_z >= 0.5 else "NORMAL")
         return {"prime_nature": "NO_SIGNAL", "lifecycle_state": "NO_ACTIVE_SIGNAL",
-                "headline_state": "NO_ACTIVE_SIGNAL"}
+                "headline_state": "NO_ACTIVE_SIGNAL", "watch_state": watch}
 
     nature = "PRIME_PHYSICALLY_JUSTIFIED" if physical_tension == "HIGH" else "PRIME_EXCESSIVE"
 
@@ -67,6 +72,27 @@ def derive_states(signal_tier: str, basis_z: float | None, health_status: str | 
     return {"prime_nature": nature, "lifecycle_state": life, "headline_state": headline}
 
 
+def derive_signal_quality(basis_z: float | None, composite_score: int | None = None) -> dict[str, Any]:
+    """Niveau de QUALITÉ du signal (V176/V131) — qualifie la baseline z>1, ne la remplace JAMAIS.
+
+    BASELINE_SIGNAL (1<z<1.2, marginal V131) < CONFIRMED_SIGNAL (z>=1.2) < STRONG_SIGNAL (z>=1.5)
+    < EXTREME_SIGNAL (z>=2). Le score composite V176 (-1..5) est un gradient contextuel par-dessus.
+    """
+    if basis_z is None or basis_z <= 1.0:
+        return {"signal_quality": "NONE", "composite_score": composite_score}
+    if basis_z >= 2.0:
+        q = "EXTREME_SIGNAL"
+    elif basis_z >= 1.5:
+        q = "STRONG_SIGNAL"
+    elif basis_z >= 1.2:
+        q = "CONFIRMED_SIGNAL"
+    else:
+        q = "BASELINE_SIGNAL"  # marginal : V131 recommande WAIT_CONFIRMATION
+    return {"signal_quality": q, "composite_score": composite_score,
+            "quality_note": ("marginal z<1.2 (V131 : sous-performe, attendre confirmation)"
+                             if q == "BASELINE_SIGNAL" else None)}
+
+
 def run_v139_state_machine() -> dict[str, Any]:
     if not OFFICIAL_JOURNAL.exists():
         return {"version": "V139-STATE-MACHINE", "verdict": "NO_JOURNAL"}
@@ -82,6 +108,8 @@ def run_v139_state_machine() -> dict[str, Any]:
     curve = _read("v125/v125_curve_accumulation.json").get("spread_trend")
     compression = health.get("compression_realized_eur_t")
     states = derive_states(tier, basis_z, health.get("status"), tension, curve, compression)
+    v176 = _read("v176/v176_live.json")
+    quality = derive_signal_quality(basis_z, v176.get("composite_score"))
 
     out = {
         "version": "V139-STATE-MACHINE",
@@ -92,6 +120,7 @@ def run_v139_state_machine() -> dict[str, Any]:
         "inputs": {"health_status": health.get("status"), "physical_tension": tension,
                    "curve_trend": curve, "compression_realized": compression},
         **states,
+        **quality,
         "interpretation": (
             f"Au {pd.Timestamp(last['price_date']).date()} : {tier} (z {basis_z}). Nature **{states['prime_nature']}** "
             f"(tension {tension}), cycle de vie **{states['lifecycle_state']}** (santé {health.get('status')}, "
@@ -108,10 +137,13 @@ def state_machine_report_block() -> str:
     s = run_v139_state_machine()
     if s.get("verdict") != "STATE_MACHINE_BUILT" or s.get("lifecycle_state") == "NO_ACTIVE_SIGNAL":
         return ""
+    qual = (f" · qualité **{s.get('signal_quality')}**"
+            + (f" (score composite {s.get('composite_score')}/5)" if s.get("composite_score") is not None
+               else "")) if s.get("signal_quality") not in (None, "NONE") else ""
     return (
         "### 🔄 Machine d'état de l'indicateur (V139)\n"
         f"- **{s['as_of']} · {s['signal_tier']}** (z {s['basis_z']}) → nature **{s['prime_nature']}**, "
-        f"cycle **{s['lifecycle_state']}**\n"
+        f"cycle **{s['lifecycle_state']}**{qual}\n"
         f"- État headline : **{s['headline_state']}** "
         f"(santé {s['inputs']['health_status']}, tension {s['inputs']['physical_tension']}, "
         f"courbe {s['inputs']['curve_trend']})\n"

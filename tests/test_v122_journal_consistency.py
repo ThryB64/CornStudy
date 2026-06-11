@@ -36,7 +36,7 @@ def test_record_status():
     assert v122.classify_record_status("2026-06-01", "2026-06-02") == "FINAL"
 
 
-def test_revise_same_day_extreme_to_strong(tmp_path, monkeypatch):
+def test_revision_detected_append_only(tmp_path, monkeypatch):
     # journal a 2026-06-01 EXTREME (z 2.039) ; recalcul du même jour -> STRONG (z 1.88, settlement révisé)
     jp = _journal(tmp_path, tier="SHORT_PREMIUM_EXTREME", z=2.039, settle=227.0)
     _patch(monkeypatch, tmp_path, jp)
@@ -44,14 +44,14 @@ def test_revise_same_day_extreme_to_strong(tmp_path, monkeypatch):
                   "signal_tier": "SHORT_PREMIUM_STRONG", "basis_z_used": 1.88,
                   "official_front_settlement": 224.25, "warnings": ["NON_REVERSION_RISK_HIGH"]}
     res = v122.revise_same_day(recomputed, as_of="2026-06-01")
-    assert res["status"] == "REVISED"
+    # consolidation 2026-06-11 : V122 est AUDIT-ONLY, V27 reste le seul writer (append-only V150)
+    assert res["status"] == "CHANGES_DETECTED_APPEND_ONLY"
     assert res["new_signal_tier"] == "SHORT_PREMIUM_STRONG"
     assert "signal_tier" in res["changes"] and "basis_z_used" in res["changes"]
-    # le journal est mis à jour et tracé
+    # le journal n'est PAS modifié ; la détection est tracée dans le log de révision
     j = pd.read_parquet(jp)
     row = j[j["price_date"].astype(str) == "2026-06-01"].iloc[0]
-    assert row["signal_tier"] == "SHORT_PREMIUM_STRONG"
-    assert row["record_status"] == "REVISED"
+    assert row["signal_tier"] == "SHORT_PREMIUM_EXTREME"
     log = (tmp_path / "revision_log.jsonl").read_text().strip().splitlines()
     assert len(log) == 1
     assert json.loads(log[0])["changes"]["signal_tier"]["old"] == "SHORT_PREMIUM_EXTREME"

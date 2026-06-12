@@ -3,7 +3,7 @@
   "gate_days": 40,
   "n_official_days": 11,
   "n_pairs": 3,
-  "n_final_or_revised": 3,
+  "n_final_or_revised": 4,
   "thresholds_frozen_2026_06_11": {
     "validated": {
       "mae_price_eur_t": 2.0,

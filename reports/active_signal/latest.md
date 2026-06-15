@@ -5,15 +5,15 @@ _Généré au 2026-06-15 · RESEARCH_ONLY_NOT_TRADING_
 **Statut : HEALTHY** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 17 j
 
 ## Trajectoire
-- basis 76.15 → 74.42 €/t (compression réalisée **1.73 €/t**)
-- z 2.056 → 1.921 · distance z→0.5 : **1.421** · z→0 : 1.921
-- MFE 3.99 €/t · MAE 0.28 €/t · horizon médian 23 j
+- basis 76.15 → 68.37 €/t (compression réalisée **7.78 €/t**)
+- z 2.056 → 1.448 · distance z→0.5 : **0.948** · z→0 : 1.448
+- MFE 7.78 €/t · MAE 0.28 €/t · horizon médian 23 j
 
 ## Machine d'état & contexte
 - nature : **PRIME_PHYSICALLY_JUSTIFIED** · cycle : **COMPRESSION_HEALTHY**
-- objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : HIGH · CBOT support : LOW · ADVERSE : MEDIUM
-- météo US : UNKNOWN · météo EU : HIGH
+- objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : HIGH · CBOT support : LOW · ADVERSE : HIGH
+- météo US : LOW · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -29,7 +29,8 @@ _Généré au 2026-06-15 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-06-10 | REVISED | 73.50 | 1.85 | SHORT_PREMIUM_STRONG | 143.00 | 9.25 | BACKWARDATION | 0.93 |
 | 2026-06-11 | REVISED | 75.53 | 2.01 | SHORT_PREMIUM_EXTREME | 139.72 | 9.75 | BACKWARDATION | 0.94 |
 | 2026-06-12 | REVISED | 72.16 | 1.74 | SHORT_PREMIUM_STRONG | 140.59 | 8.75 | BACKWARDATION | 0.94 |
-| 2026-06-15 | PROVISIONAL | 74.42 | 1.92 | SHORT_PREMIUM_STRONG | 138.33 | 8.75 | BACKWARDATION | 0.94 |
+| 2026-06-15 | REVISED | 68.37 | 1.45 | SHORT_PREMIUM_MODERATE | 141.13 | 6.25 | BACKWARDATION | 0.94 |
 
 ## Warnings
 - prime adossée à une tension physique (backwardation) -> compression plus lente
+- ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer

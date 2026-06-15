@@ -22,3 +22,4 @@
 {"date": "2026-06-10", "cbot_at_eu_settle": 421.0, "cbot_us_close": 419.25, "move": -1.75, "logged_at": "2026-06-10 21:08:20 UTC"}
 {"date": "2026-06-11", "cbot_at_eu_settle": 418.25, "cbot_us_close": 418.25, "move": 0.0, "logged_at": "2026-06-11 09:51:24 UTC"}
 {"date": "2026-06-12", "cbot_at_eu_settle": 410.25, "cbot_us_close": 410.25, "move": 0.0, "logged_at": "2026-06-12 09:43:45 UTC"}
+{"date": "2026-06-15", "cbot_at_eu_settle": 408.0, "cbot_us_close": 408.0, "move": 0.0, "logged_at": "2026-06-15 11:30:39 UTC"}

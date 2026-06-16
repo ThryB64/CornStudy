@@ -4,18 +4,18 @@
   "entry_date": "2026-05-29",
   "current_date": "2026-06-16",
   "days_since_entry": 18,
-  "n_official_days_in_episode": 17,
+  "n_official_days_in_episode": 18,
   "entry_tier": "SHORT_PREMIUM_EXTREME",
   "current_tier": "SHORT_PREMIUM_MODERATE",
   "entry_z": 2.056,
-  "current_z": 1.048,
+  "current_z": 1.326,
   "entry_basis_eur_t": 76.15,
-  "current_basis_eur_t": 63.26,
-  "compression_realized_eur_t": 12.89,
+  "current_basis_eur_t": 66.82,
+  "compression_realized_eur_t": 9.33,
   "mfe_eur_t": 12.89,
   "mae_eur_t": 0.28,
-  "distance_to_z05": 0.548,
-  "distance_to_z0": 1.048,
+  "distance_to_z05": 0.826,
+  "distance_to_z0": 1.326,
   "median_horizon_days": 23,
   "status": "HEALTHY",
   "thresholds": {
@@ -25,7 +25,7 @@
     "delayed_ge": 30,
     "mfe_adverse_lt": 5.0
   },
-  "interpretation": "Signal actif 18 j (17 jours officiels). Compression 12.89 \u20ac/t, MFE 12.89, MAE 0.28, z 2.056\u21921.048. Statut **HEALTHY** (horizon m\u00e9dian saisonnier 23 j). Compression en cours, dans les temps.",
+  "interpretation": "Signal actif 18 j (18 jours officiels). Compression 9.33 \u20ac/t, MFE 12.89, MAE 0.28, z 2.056\u21921.326. Statut **HEALTHY** (horizon m\u00e9dian saisonnier 23 j). Compression en cours, dans les temps.",
   "note": "R\u00e9utilise l'isolement d'\u00e9pisode V102. Paliers calibr\u00e9s sur V82/V120, pas sur le PnL. Descriptif, jamais un veto. Se densifie avec le forward.",
   "status_research": "RESEARCH_ONLY_NOT_TRADING"
 }

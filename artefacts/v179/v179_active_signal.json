@@ -4,34 +4,34 @@
   "signal_status": "HEALTHY",
   "core": {
     "entry_date": "2026-05-29",
-    "current_date": "2026-06-15",
-    "days_since_entry": 17,
+    "current_date": "2026-06-16",
+    "days_since_entry": 18,
     "entry_tier": "SHORT_PREMIUM_EXTREME",
     "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 2.056,
-    "current_z": 1.448,
+    "current_z": 1.048,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 68.37,
-    "compression_realized_eur_t": 7.78,
-    "mfe_eur_t": 7.78,
+    "current_basis_eur_t": 63.26,
+    "compression_realized_eur_t": 12.89,
+    "mfe_eur_t": 12.89,
     "mae_eur_t": 0.28,
-    "distance_to_z05": 0.948,
-    "distance_to_z0": 1.448,
+    "distance_to_z05": 0.548,
+    "distance_to_z0": 1.048,
     "median_horizon_days": 23
   },
   "state_machine": {
-    "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
+    "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "COMPRESSION_HEALTHY",
     "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.448
+    "basis_z": 1.048
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "CONFIRMED_SIGNAL",
+    "signal_quality": "BASELINE_SIGNAL",
     "composite_score": null,
-    "weather_us": "LOW",
+    "weather_us": "MEDIUM",
     "weather_eu": "UNKNOWN",
-    "physical_tension": "HIGH",
+    "physical_tension": "LOW",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
     "adverse_risk": "HIGH"
@@ -168,10 +168,20 @@
       "curve_spread": 6.25,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9436
+    },
+    {
+      "date": "2026-06-16",
+      "basis": 63.26,
+      "z": 1.048,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 139.99,
+      "session": "PROVISIONAL",
+      "curve_spread": -4.75,
+      "curve_shape": "CONTANGO",
+      "matif_wheat_corn": 0.9828
     }
   ],
   "warnings": [
-    "prime adoss\u00e9e \u00e0 une tension physique (backwardation) -> compression plus lente",
     "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
   ],
   "status": "RESEARCH_ONLY_NOT_TRADING"

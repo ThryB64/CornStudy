@@ -1,19 +1,19 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-06-15 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-06-16 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : HEALTHY** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 17 j
+**Statut : HEALTHY** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 18 j
 
 ## Trajectoire
-- basis 76.15 → 68.37 €/t (compression réalisée **7.78 €/t**)
-- z 2.056 → 1.448 · distance z→0.5 : **0.948** · z→0 : 1.448
-- MFE 7.78 €/t · MAE 0.28 €/t · horizon médian 23 j
+- basis 76.15 → 63.26 €/t (compression réalisée **12.89 €/t**)
+- z 2.056 → 1.048 · distance z→0.5 : **0.548** · z→0 : 1.048
+- MFE 12.89 €/t · MAE 0.28 €/t · horizon médian 23 j
 
 ## Machine d'état & contexte
-- nature : **PRIME_PHYSICALLY_JUSTIFIED** · cycle : **COMPRESSION_HEALTHY**
-- objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : HIGH · CBOT support : LOW · ADVERSE : HIGH
-- météo US : LOW · météo EU : UNKNOWN
+- nature : **PRIME_EXCESSIVE** · cycle : **COMPRESSION_HEALTHY**
+- objectif : z->0.5 · qualité : BASELINE_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : LOW · CBOT support : LOW · ADVERSE : HIGH
+- météo US : MEDIUM · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -30,7 +30,7 @@ _Généré au 2026-06-15 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-06-11 | REVISED | 75.53 | 2.01 | SHORT_PREMIUM_EXTREME | 139.72 | 9.75 | BACKWARDATION | 0.94 |
 | 2026-06-12 | REVISED | 72.16 | 1.74 | SHORT_PREMIUM_STRONG | 140.59 | 8.75 | BACKWARDATION | 0.94 |
 | 2026-06-15 | REVISED | 68.37 | 1.45 | SHORT_PREMIUM_MODERATE | 141.13 | 6.25 | BACKWARDATION | 0.94 |
+| 2026-06-16 | PROVISIONAL | 63.26 | 1.05 | SHORT_PREMIUM_MODERATE | 139.99 | -4.75 | CONTANGO | 0.98 |
 
 ## Warnings
-- prime adossée à une tension physique (backwardation) -> compression plus lente
 - ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer

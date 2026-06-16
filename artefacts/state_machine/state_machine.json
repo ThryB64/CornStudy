@@ -1,22 +1,22 @@
 {
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
-  "as_of": "2026-06-15",
+  "as_of": "2026-06-16",
   "signal_tier": "SHORT_PREMIUM_MODERATE",
-  "basis_z": 1.448,
+  "basis_z": 1.048,
   "inputs": {
     "health_status": "HEALTHY",
-    "physical_tension": "HIGH",
+    "physical_tension": "LOW",
     "curve_trend": "NARROWING",
-    "compression_realized": 7.78
+    "compression_realized": 12.89
   },
-  "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
+  "prime_nature": "PRIME_EXCESSIVE",
   "lifecycle_state": "COMPRESSION_HEALTHY",
   "headline_state": "COMPRESSION_HEALTHY",
-  "signal_quality": "CONFIRMED_SIGNAL",
-  "composite_score": 1,
-  "quality_note": null,
-  "interpretation": "Au 2026-06-15 : SHORT_PREMIUM_MODERATE (z 1.448). Nature **PRIME_PHYSICALLY_JUSTIFIED** (tension HIGH), cycle de vie **COMPRESSION_HEALTHY** (sant\u00e9 HEALTHY, compression 7.78). \u00c9tat headline : **COMPRESSION_HEALTHY**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "signal_quality": "BASELINE_SIGNAL",
+  "composite_score": 0,
+  "quality_note": "marginal z<1.2 (V131 : sous-performe, attendre confirmation)",
+  "interpretation": "Au 2026-06-16 : SHORT_PREMIUM_MODERATE (z 1.048). Nature **PRIME_EXCESSIVE** (tension LOW), cycle de vie **COMPRESSION_HEALTHY** (sant\u00e9 HEALTHY, compression 12.89). \u00c9tat headline : **COMPRESSION_HEALTHY**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

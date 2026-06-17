@@ -9,21 +9,21 @@
     "entry_tier": "SHORT_PREMIUM_EXTREME",
     "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 2.056,
-    "current_z": 1.275,
+    "current_z": 1.25,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 66.16,
-    "compression_realized_eur_t": 9.99,
+    "current_basis_eur_t": 65.85,
+    "compression_realized_eur_t": 10.3,
     "mfe_eur_t": 12.89,
     "mae_eur_t": 0.28,
-    "distance_to_z05": 0.775,
-    "distance_to_z0": 1.275,
+    "distance_to_z05": 0.75,
+    "distance_to_z0": 1.25,
     "median_horizon_days": 23
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "COMPRESSION_HEALTHY",
     "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.275
+    "basis_z": 1.25
   },
   "context": {
     "objective": "z->0.5",
@@ -182,12 +182,12 @@
     },
     {
       "date": "2026-06-17",
-      "basis": 66.16,
-      "z": 1.275,
+      "basis": 65.85,
+      "z": 1.25,
       "tier": "SHORT_PREMIUM_MODERATE",
-      "cbot_eur_t": 141.09,
-      "session": "PROVISIONAL",
-      "curve_spread": -3.75,
+      "cbot_eur_t": 144.15,
+      "session": "REVISED",
+      "curve_spread": -3.0,
       "curve_shape": "CONTANGO",
       "matif_wheat_corn": 0.9771
     }

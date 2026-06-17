@@ -4,33 +4,33 @@
   "signal_status": "HEALTHY",
   "core": {
     "entry_date": "2026-05-29",
-    "current_date": "2026-06-16",
-    "days_since_entry": 18,
+    "current_date": "2026-06-17",
+    "days_since_entry": 19,
     "entry_tier": "SHORT_PREMIUM_EXTREME",
     "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 2.056,
-    "current_z": 1.326,
+    "current_z": 1.275,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 66.82,
-    "compression_realized_eur_t": 9.33,
+    "current_basis_eur_t": 66.16,
+    "compression_realized_eur_t": 9.99,
     "mfe_eur_t": 12.89,
     "mae_eur_t": 0.28,
-    "distance_to_z05": 0.826,
-    "distance_to_z0": 1.326,
+    "distance_to_z05": 0.775,
+    "distance_to_z0": 1.275,
     "median_horizon_days": 23
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "COMPRESSION_HEALTHY",
     "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.326
+    "basis_z": 1.275
   },
   "context": {
     "objective": "z->0.5",
     "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
-    "weather_us": "MEDIUM",
-    "weather_eu": "HIGH",
+    "weather_us": "LOW",
+    "weather_eu": "UNKNOWN",
     "physical_tension": "LOW",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
@@ -179,6 +179,17 @@
       "curve_spread": -3.75,
       "curve_shape": "CONTANGO",
       "matif_wheat_corn": 0.9828
+    },
+    {
+      "date": "2026-06-17",
+      "basis": 66.16,
+      "z": 1.275,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 141.09,
+      "session": "PROVISIONAL",
+      "curve_spread": -3.75,
+      "curve_shape": "CONTANGO",
+      "matif_wheat_corn": 0.9771
     }
   ],
   "warnings": [

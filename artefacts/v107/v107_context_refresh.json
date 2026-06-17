@@ -1,7 +1,7 @@
 {
   "version": "V107-CONTEXT-REFRESH",
-  "signal_date": "2026-06-16",
-  "market_data_date": "2026-06-16",
+  "signal_date": "2026-06-17",
+  "market_data_date": "2026-06-17",
   "context_lag_days": 0,
   "fresh_within_gate": true,
   "cbot_support_v2_live": "LOW",
@@ -32,7 +32,7 @@
     "PHYSICAL_TENSION (courbe EMA officielle)"
   ],
   "verdict": "CONTEXT_REFRESHED_FRESH",
-  "interpretation": "Contexte MARCH\u00c9 rafra\u00eechi au 2026-06-16 (signal officiel 2026-06-16, retard 0 j). CBOT_SUPPORT v2 live = **LOW** (recalcul\u00e9 sur ZC/ZW/ZS 2026, le facteur PIVOT). Les diagnostics d\u00e9pendant de la courbe EMA officielle / du basis historique restent en retard tant que la courbe officielle ne s'accumule pas. Le retard de 311 j sur le pivot CBOT_SUPPORT est ainsi LEV\u00c9.",
+  "interpretation": "Contexte MARCH\u00c9 rafra\u00eechi au 2026-06-17 (signal officiel 2026-06-17, retard 0 j). CBOT_SUPPORT v2 live = **LOW** (recalcul\u00e9 sur ZC/ZW/ZS 2026, le facteur PIVOT). Les diagnostics d\u00e9pendant de la courbe EMA officielle / du basis historique restent en retard tant que la courbe officielle ne s'accumule pas. Le retard de 311 j sur le pivot CBOT_SUPPORT est ainsi LEV\u00c9.",
   "note": "Donn\u00e9es Yahoo 5 ans, d\u00e9riv\u00e9es sma50/logret/vol calcul\u00e9es sur la s\u00e9rie fra\u00eeche. ENSO optionnel.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

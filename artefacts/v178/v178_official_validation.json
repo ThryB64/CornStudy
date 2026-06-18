@@ -1,7 +1,7 @@
 {
   "version": "V178-OFFICIAL-VALIDATION",
   "gate_days": 40,
-  "n_official_days": 14,
+  "n_official_days": 15,
   "n_pairs": 6,
   "n_final_or_revised": 7,
   "thresholds_frozen_2026_06_11": {
@@ -16,7 +16,7 @@
     }
   },
   "status": "RESEARCH_ONLY_NOT_TRADING",
-  "verdict": "ACCUMULATING_14_OF_40",
+  "verdict": "ACCUMULATING_15_OF_40",
   "preliminary_metrics_not_a_verdict": {
     "n_pairs": 6,
     "price": {

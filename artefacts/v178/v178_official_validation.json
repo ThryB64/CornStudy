@@ -2,8 +2,8 @@
   "version": "V178-OFFICIAL-VALIDATION",
   "gate_days": 40,
   "n_official_days": 15,
-  "n_pairs": 6,
-  "n_final_or_revised": 7,
+  "n_pairs": 7,
+  "n_final_or_revised": 8,
   "thresholds_frozen_2026_06_11": {
     "validated": {
       "mae_price_eur_t": 2.0,
@@ -18,19 +18,19 @@
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "verdict": "ACCUMULATING_15_OF_40",
   "preliminary_metrics_not_a_verdict": {
-    "n_pairs": 6,
+    "n_pairs": 7,
     "price": {
-      "mae": 0.792,
-      "rmse": 1.094,
-      "bias": 0.292
+      "mae": 0.679,
+      "rmse": 1.013,
+      "bias": 0.25
     },
     "basis": {
-      "mae": 0.792,
-      "rmse": 1.094,
-      "bias": 0.292
+      "mae": 0.679,
+      "rmse": 1.013,
+      "bias": 0.25
     },
     "basis_z": {
-      "mean_abs_diff": 0.062,
+      "mean_abs_diff": 0.0531,
       "max_abs_diff": 0.1565
     },
     "tier_agreement": 1.0

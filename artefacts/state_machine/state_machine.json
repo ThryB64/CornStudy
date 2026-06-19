@@ -2,21 +2,21 @@
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
   "as_of": "2026-06-19",
-  "signal_tier": "SHORT_PREMIUM_MODERATE",
-  "basis_z": 1.469,
+  "signal_tier": "SHORT_PREMIUM_STRONG",
+  "basis_z": 1.562,
   "inputs": {
     "health_status": "HEALTHY",
     "physical_tension": "LOW",
     "curve_trend": "NARROWING",
-    "compression_realized": 7.51
+    "compression_realized": 6.32
   },
   "prime_nature": "PRIME_EXCESSIVE",
   "lifecycle_state": "COMPRESSION_HEALTHY",
   "headline_state": "COMPRESSION_HEALTHY",
-  "signal_quality": "CONFIRMED_SIGNAL",
-  "composite_score": 2,
+  "signal_quality": "STRONG_SIGNAL",
+  "composite_score": 3,
   "quality_note": null,
-  "interpretation": "Au 2026-06-19 : SHORT_PREMIUM_MODERATE (z 1.469). Nature **PRIME_EXCESSIVE** (tension LOW), cycle de vie **COMPRESSION_HEALTHY** (sant\u00e9 HEALTHY, compression 7.51). \u00c9tat headline : **COMPRESSION_HEALTHY**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "interpretation": "Au 2026-06-19 : SHORT_PREMIUM_STRONG (z 1.562). Nature **PRIME_EXCESSIVE** (tension LOW), cycle de vie **COMPRESSION_HEALTHY** (sant\u00e9 HEALTHY, compression 6.32). \u00c9tat headline : **COMPRESSION_HEALTHY**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

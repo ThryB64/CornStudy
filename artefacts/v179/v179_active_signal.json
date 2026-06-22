@@ -1,36 +1,36 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "HEALTHY",
+  "signal_status": "SLOW",
   "core": {
     "entry_date": "2026-05-29",
     "current_date": "2026-06-22",
     "days_since_entry": 24,
     "entry_tier": "SHORT_PREMIUM_EXTREME",
-    "current_tier": "SHORT_PREMIUM_STRONG",
+    "current_tier": "SHORT_PREMIUM_EXTREME",
     "entry_z": 2.056,
-    "current_z": 1.612,
+    "current_z": 2.171,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 70.47,
-    "compression_realized_eur_t": 5.68,
+    "current_basis_eur_t": 77.62,
+    "compression_realized_eur_t": -1.47,
     "mfe_eur_t": 12.89,
-    "mae_eur_t": 0.28,
-    "distance_to_z05": 1.112,
-    "distance_to_z0": 1.612,
+    "mae_eur_t": 1.47,
+    "distance_to_z05": 1.671,
+    "distance_to_z0": 2.171,
     "median_horizon_days": 23
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
-    "lifecycle_state": "COMPRESSION_HEALTHY",
-    "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.612
+    "lifecycle_state": "COMPRESSION_DELAYED",
+    "signal_tier": "SHORT_PREMIUM_EXTREME",
+    "basis_z": 2.171
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "STRONG_SIGNAL",
+    "signal_quality": "EXTREME_SIGNAL",
     "composite_score": null,
     "weather_us": "UNKNOWN",
-    "weather_eu": "MEDIUM",
+    "weather_eu": "HIGH",
     "physical_tension": "LOW",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
@@ -215,18 +215,16 @@
     },
     {
       "date": "2026-06-22",
-      "basis": 70.47,
-      "z": 1.612,
-      "tier": "SHORT_PREMIUM_STRONG",
-      "cbot_eur_t": 142.53,
-      "session": "PROVISIONAL",
-      "curve_spread": -2.75,
+      "basis": 77.62,
+      "z": 2.171,
+      "tier": "SHORT_PREMIUM_EXTREME",
+      "cbot_eur_t": 141.63,
+      "session": "REVISED",
+      "curve_spread": -3.0,
       "curve_shape": "CONTANGO",
       "matif_wheat_corn": 0.9448
     }
   ],
-  "warnings": [
-    "diagnostics p\u00e9rim\u00e9s (non frais) : ['cot']"
-  ],
+  "warnings": [],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

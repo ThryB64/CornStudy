@@ -2,18 +2,18 @@
 
 _Généré au 2026-06-22 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : HEALTHY** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 24 j
+**Statut : SLOW** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 24 j
 
 ## Trajectoire
-- basis 76.15 → 70.47 €/t (compression réalisée **5.68 €/t**)
-- z 2.056 → 1.612 · distance z→0.5 : **1.112** · z→0 : 1.612
-- MFE 12.89 €/t · MAE 0.28 €/t · horizon médian 23 j
+- basis 76.15 → 77.62 €/t (compression réalisée **-1.47 €/t**)
+- z 2.056 → 2.171 · distance z→0.5 : **1.671** · z→0 : 2.171
+- MFE 12.89 €/t · MAE 1.47 €/t · horizon médian 23 j
 
 ## Machine d'état & contexte
-- nature : **PRIME_EXCESSIVE** · cycle : **COMPRESSION_HEALTHY**
-- objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : None
+- nature : **PRIME_EXCESSIVE** · cycle : **COMPRESSION_DELAYED**
+- objectif : z->0.5 · qualité : EXTREME_SIGNAL · composite : None
 - courbe : NARROWING · tension physique : LOW · CBOT support : LOW · ADVERSE : MEDIUM
-- météo US : UNKNOWN · météo EU : MEDIUM
+- météo US : UNKNOWN · météo EU : HIGH
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -34,7 +34,4 @@ _Généré au 2026-06-22 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-06-17 | REVISED | 65.85 | 1.25 | SHORT_PREMIUM_MODERATE | 144.15 | -3.00 | CONTANGO | 0.98 |
 | 2026-06-18 | REVISED | 68.51 | 1.46 | SHORT_PREMIUM_MODERATE | 143.49 | -3.00 | CONTANGO | 0.97 |
 | 2026-06-19 | REVISED | 69.83 | 1.56 | SHORT_PREMIUM_STRONG | 143.17 | -2.75 | CONTANGO | 0.96 |
-| 2026-06-22 | PROVISIONAL | 70.47 | 1.61 | SHORT_PREMIUM_STRONG | 142.53 | -2.75 | CONTANGO | 0.94 |
-
-## Warnings
-- diagnostics périmés (non frais) : ['cot']
+| 2026-06-22 | REVISED | 77.62 | 2.17 | SHORT_PREMIUM_EXTREME | 141.63 | -3.00 | CONTANGO | 0.94 |

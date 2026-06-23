@@ -17,8 +17,8 @@
     },
     {
       "layer": "daily_latest",
-      "as_of": "2026-06-22",
-      "signal_tier": "SHORT_PREMIUM_EXTREME"
+      "as_of": "2026-06-23",
+      "signal_tier": "SHORT_PREMIUM_MODERATE"
     }
   ],
   "duplicate_dates": [],
@@ -32,11 +32,6 @@
     {
       "layer": "v99",
       "as_of": "2026-06-01",
-      "signal_tier": "SHORT_PREMIUM_EXTREME"
-    },
-    {
-      "layer": "daily_latest",
-      "as_of": "2026-06-22",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
     }
   ],

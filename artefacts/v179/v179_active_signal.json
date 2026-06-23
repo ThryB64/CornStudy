@@ -1,40 +1,40 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "SLOW",
+  "signal_status": "HEALTHY",
   "core": {
     "entry_date": "2026-05-29",
-    "current_date": "2026-06-22",
-    "days_since_entry": 24,
+    "current_date": "2026-06-23",
+    "days_since_entry": 25,
     "entry_tier": "SHORT_PREMIUM_EXTREME",
-    "current_tier": "SHORT_PREMIUM_EXTREME",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 2.056,
-    "current_z": 2.171,
+    "current_z": 1.313,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 77.62,
-    "compression_realized_eur_t": -1.47,
+    "current_basis_eur_t": 66.65,
+    "compression_realized_eur_t": 9.5,
     "mfe_eur_t": 12.89,
     "mae_eur_t": 1.47,
-    "distance_to_z05": 1.671,
-    "distance_to_z0": 2.171,
+    "distance_to_z05": 0.813,
+    "distance_to_z0": 1.313,
     "median_horizon_days": 23
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
-    "lifecycle_state": "COMPRESSION_DELAYED",
-    "signal_tier": "SHORT_PREMIUM_EXTREME",
-    "basis_z": 2.171
+    "lifecycle_state": "COMPRESSION_HEALTHY",
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.313
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "EXTREME_SIGNAL",
+    "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
-    "weather_us": "UNKNOWN",
-    "weather_eu": "HIGH",
+    "weather_us": "HIGH",
+    "weather_eu": "UNKNOWN",
     "physical_tension": "LOW",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
-    "adverse_risk": "MEDIUM"
+    "adverse_risk": "HIGH"
   },
   "daily_table": [
     {
@@ -223,8 +223,21 @@
       "curve_spread": -3.0,
       "curve_shape": "CONTANGO",
       "matif_wheat_corn": 0.9448
+    },
+    {
+      "date": "2026-06-23",
+      "basis": 66.65,
+      "z": 1.313,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 152.6,
+      "session": "PROVISIONAL",
+      "curve_spread": -3.0,
+      "curve_shape": "CONTANGO",
+      "matif_wheat_corn": 0.9453
     }
   ],
-  "warnings": [],
+  "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+  ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

@@ -1,9 +1,9 @@
 {
   "version": "V42-PUBLIC-BACKFILL",
-  "n_days": 18,
+  "n_days": 19,
   "date_range": [
     "2026-05-29",
-    "2026-06-23"
+    "2026-06-24"
   ],
   "n_contracts_seen": 11,
   "contracts_seen": [

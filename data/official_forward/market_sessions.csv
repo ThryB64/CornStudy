@@ -53,3 +53,4 @@ date,weekday,session,trading_session
 2026-06-22,Monday,TRADING_SESSION,True
 2026-06-23,Tuesday,TRADING_SESSION,True
 2026-06-24,Wednesday,TRADING_SESSION,True
+2026-06-25,Thursday,TRADING_SESSION,True

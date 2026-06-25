@@ -1,21 +1,21 @@
 # 📊 Dashboard indicateur premium v5 — 2026-06-25
-_Généré 2026-06-25 08:39:22 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-06-25 20:33:52 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_EXTREME** · basis 81.55 €/t · z 2.479 (proxy_implied)
-- Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **EXTREME_SIGNAL** · score composite **3/5** (V176, qualifie sans remplacer la baseline)
-- Machine d'état : **COMPRESSION_DELAYED** · nature **PRIME_EXCESSIVE** · cycle **COMPRESSION_DELAYED**
+- **SHORT_PREMIUM_STRONG** · basis 74.44 €/t · z 1.923 (proxy_implied)
+- Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **STRONG_SIGNAL** · score composite **2/5** (V176, qualifie sans remplacer la baseline)
+- Machine d'état : **COMPRESSION_HEALTHY** · nature **PRIME_EXCESSIVE** · cycle **COMPRESSION_HEALTHY**
 - Objectif **z->0.5** · horizon ~23 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-05-29 (z 2.056) · 27 j · statut **SLOW**
-- Compression réalisée **-5.4 €/t** · MFE 12.89 · MAE 5.4 · distance z→0.5 : 1.979
+- Entrée 2026-05-29 (z 2.056) · 27 j · statut **HEALTHY**
+- Compression réalisée **1.71 €/t** · MFE 12.89 · MAE 5.4 · distance z→0.5 : 1.423
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next -1.25 €/t, CONTANGO)
+- Courbe EMA : NARROWING (spread front-next -0.25 €/t, CONTANGO)
 - MATIF blé/maïs : 0.943 · substitution DATA_BLOCKED
 - CBOT_SUPPORT LOW · ADVERSE_RISK MEDIUM · PHYSICAL_TENSION LOW
-- Météo US MEDIUM · Météo EU UNKNOWN (stale)
+- Météo US HIGH · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
 - Jours officiels **20** · prochain jalon **40** (z-score officiel rolling) · z rolling officiel False
@@ -23,7 +23,7 @@ _Généré 2026-06-25 08:39:22 UTC · RESEARCH_ONLY_NOT_TRADING_
 - Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 20/150', 'V168_MATIF': 'ACCUMULATING 19/150', 'V155_SUMMER': 'ACCUMULATING 107/150'}
 
 ## Santé du système
-- Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
+- Cohérence LIVE_SIGNAL_INCONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
 - Diagnostics bloqués : aucun
 - Warnings : aucun
 

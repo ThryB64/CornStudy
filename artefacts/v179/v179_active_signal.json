@@ -4,37 +4,37 @@
   "signal_status": "HEALTHY",
   "core": {
     "entry_date": "2026-05-29",
-    "current_date": "2026-06-25",
-    "days_since_entry": 27,
+    "current_date": "2026-06-26",
+    "days_since_entry": 28,
     "entry_tier": "SHORT_PREMIUM_EXTREME",
-    "current_tier": "SHORT_PREMIUM_STRONG",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 2.056,
-    "current_z": 1.923,
+    "current_z": 1.461,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 74.44,
-    "compression_realized_eur_t": 1.71,
+    "current_basis_eur_t": 68.54,
+    "compression_realized_eur_t": 7.61,
     "mfe_eur_t": 12.89,
     "mae_eur_t": 5.4,
-    "distance_to_z05": 1.423,
-    "distance_to_z0": 1.923,
+    "distance_to_z05": 0.961,
+    "distance_to_z0": 1.461,
     "median_horizon_days": 23
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "COMPRESSION_HEALTHY",
-    "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.923
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.461
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "STRONG_SIGNAL",
+    "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
     "weather_us": "HIGH",
     "weather_eu": "UNKNOWN",
     "physical_tension": "LOW",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
-    "adverse_risk": "MEDIUM"
+    "adverse_risk": "HIGH"
   },
   "daily_table": [
     {
@@ -256,8 +256,21 @@
       "curve_spread": -0.25,
       "curve_shape": "CONTANGO",
       "matif_wheat_corn": 0.9426
+    },
+    {
+      "date": "2026-06-26",
+      "basis": 68.54,
+      "z": 1.461,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 152.71,
+      "session": "PROVISIONAL",
+      "curve_spread": -0.25,
+      "curve_shape": "CONTANGO",
+      "matif_wheat_corn": 0.9311
     }
   ],
-  "warnings": [],
+  "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+  ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

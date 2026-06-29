@@ -2,21 +2,21 @@
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
   "as_of": "2026-06-29",
-  "signal_tier": "SHORT_PREMIUM_STRONG",
-  "basis_z": 1.663,
+  "signal_tier": "SHORT_PREMIUM_EXTREME",
+  "basis_z": 2.188,
   "inputs": {
-    "health_status": "HEALTHY",
+    "health_status": "DELAYED",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "compression_realized": 5.03
+    "compression_realized": -1.68
   },
   "prime_nature": "PRIME_EXCESSIVE",
-  "lifecycle_state": "COMPRESSION_HEALTHY",
-  "headline_state": "COMPRESSION_HEALTHY",
-  "signal_quality": "STRONG_SIGNAL",
-  "composite_score": 2,
+  "lifecycle_state": "COMPRESSION_DELAYED",
+  "headline_state": "COMPRESSION_DELAYED",
+  "signal_quality": "EXTREME_SIGNAL",
+  "composite_score": 3,
   "quality_note": null,
-  "interpretation": "Au 2026-06-29 : SHORT_PREMIUM_STRONG (z 1.663). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **COMPRESSION_HEALTHY** (sant\u00e9 HEALTHY, compression 5.03). \u00c9tat headline : **COMPRESSION_HEALTHY**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "interpretation": "Au 2026-06-29 : SHORT_PREMIUM_EXTREME (z 2.188). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **COMPRESSION_DELAYED** (sant\u00e9 DELAYED, compression -1.68). \u00c9tat headline : **COMPRESSION_DELAYED**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

@@ -1,12 +1,12 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-06-29 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-06-30 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : DELAYED** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 31 j
+**Statut : DELAYED** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 32 j
 
 ## Trajectoire
-- basis 76.15 → 77.83 €/t (compression réalisée **-1.68 €/t**)
-- z 2.056 → 2.188 · distance z→0.5 : **1.688** · z→0 : 2.188
+- basis 76.15 → 76.27 €/t (compression réalisée **-0.12 €/t**)
+- z 2.056 → 2.066 · distance z→0.5 : **1.566** · z→0 : 2.066
 - MFE 12.89 €/t · MAE 5.4 €/t · horizon médian 23 j
 
 ## Machine d'état & contexte
@@ -40,6 +40,7 @@ _Généré au 2026-06-29 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-06-25 | REVISED | 74.44 | 1.92 | SHORT_PREMIUM_STRONG | 146.81 | -0.25 | CONTANGO | 0.94 |
 | 2026-06-26 | REVISED | 75.69 | 2.02 | SHORT_PREMIUM_EXTREME | 145.31 | 0.25 | BACKWARDATION | 0.93 |
 | 2026-06-29 | REVISED | 77.83 | 2.19 | SHORT_PREMIUM_EXTREME | 147.67 | 2.00 | BACKWARDATION | 0.92 |
+| 2026-06-30 | PROVISIONAL | 76.27 | 2.07 | SHORT_PREMIUM_EXTREME | 149.23 | 2.00 | BACKWARDATION | 0.90 |
 
 ## Warnings
 - santé du signal DELAYED (signature lente/adverse)

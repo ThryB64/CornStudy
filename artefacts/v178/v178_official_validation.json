@@ -1,8 +1,8 @@
 {
   "version": "V178-OFFICIAL-VALIDATION",
   "gate_days": 40,
-  "n_official_days": 22,
-  "n_pairs": 14,
+  "n_official_days": 23,
+  "n_pairs": 15,
   "n_final_or_revised": 15,
   "thresholds_frozen_2026_06_11": {
     "validated": {
@@ -16,23 +16,23 @@
     }
   },
   "status": "RESEARCH_ONLY_NOT_TRADING",
-  "verdict": "ACCUMULATING_22_OF_40",
+  "verdict": "ACCUMULATING_23_OF_40",
   "preliminary_metrics_not_a_verdict": {
-    "n_pairs": 14,
+    "n_pairs": 15,
     "price": {
-      "mae": 1.107,
-      "rmse": 1.584,
-      "bias": -0.321
+      "mae": 1.033,
+      "rmse": 1.53,
+      "bias": -0.3
     },
     "basis": {
-      "mae": 1.107,
-      "rmse": 1.584,
-      "bias": -0.321
+      "mae": 1.033,
+      "rmse": 1.53,
+      "bias": -0.3
     },
     "basis_z": {
-      "mean_abs_diff": 0.0866,
+      "mean_abs_diff": 0.0809,
       "max_abs_diff": 0.313
     },
-    "tier_agreement": 0.714
+    "tier_agreement": 0.733
   }
 }

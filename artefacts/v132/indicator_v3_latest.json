@@ -2,9 +2,9 @@
   "version": "V132-SYNTHESIS-V3",
   "verdict": "INDICATOR_V3_BUILT",
   "as_of": "2026-06-30",
-  "PREMIUM_STATE": "SHORT_PREMIUM_EXTREME",
-  "basis_z": 2.066,
-  "basis_eur_t": 76.27,
+  "PREMIUM_STATE": "SHORT_PREMIUM_STRONG",
+  "basis_z": 1.976,
+  "basis_eur_t": 75.12,
   "official_proxy_status": "proxy_implied",
   "diagnostics": {
     "ADVERSE_RISK": {
@@ -24,15 +24,15 @@
       "fresh": true
     },
     "WEATHER_WARNING_US": {
-      "value": "MEDIUM",
-      "fresh": true
-    },
-    "WEATHER_WARNING_EU": {
       "value": "UNKNOWN",
       "fresh": false
     },
+    "WEATHER_WARNING_EU": {
+      "value": "LOW",
+      "fresh": true
+    },
     "ACTIVE_SIGNAL_HEALTH": {
-      "value": "DELAYED",
+      "value": "HEALTHY",
       "fresh": true
     },
     "CURVE_TREND": {
@@ -47,10 +47,8 @@
     "estimated_days_to_z05": null,
     "note": "horizon primaire = saisonnier V27 ; demi-vie par tier V130 (l'extr\u00eame r\u00e9verse plus vite) ; estimation cal\u00e9e V138 jusqu'\u00e0 z\u21920.5 (l'analytique AR(1) pur sous-pr\u00e9dit)"
   },
-  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 76.27 \u20ac/t, z 2.066, proxy_implied). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT LOW, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal DELAYED. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~23 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "warnings": [
-    "sant\u00e9 du signal DELAYED (signature lente/adverse)"
-  ],
+  "explanation": "Prime SHORT_PREMIUM_STRONG (basis 75.12 \u20ac/t, z 1.976, proxy_implied). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT LOW, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US UNKNOWN/EU LOW. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~23 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "warnings": [],
   "n_fresh_diagnostics": 7,
   "n_stale_or_unknown": 1,
   "research_only": true,

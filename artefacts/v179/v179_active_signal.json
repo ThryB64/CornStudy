@@ -1,36 +1,36 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "DELAYED",
+  "signal_status": "HEALTHY",
   "core": {
     "entry_date": "2026-05-29",
     "current_date": "2026-06-30",
     "days_since_entry": 32,
     "entry_tier": "SHORT_PREMIUM_EXTREME",
-    "current_tier": "SHORT_PREMIUM_EXTREME",
+    "current_tier": "SHORT_PREMIUM_STRONG",
     "entry_z": 2.056,
-    "current_z": 2.066,
+    "current_z": 1.976,
     "entry_basis_eur_t": 76.15,
-    "current_basis_eur_t": 76.27,
-    "compression_realized_eur_t": -0.12,
+    "current_basis_eur_t": 75.12,
+    "compression_realized_eur_t": 1.03,
     "mfe_eur_t": 12.89,
     "mae_eur_t": 5.4,
-    "distance_to_z05": 1.566,
-    "distance_to_z0": 2.066,
+    "distance_to_z05": 1.476,
+    "distance_to_z0": 1.976,
     "median_horizon_days": 23
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
-    "lifecycle_state": "COMPRESSION_DELAYED",
-    "signal_tier": "SHORT_PREMIUM_EXTREME",
-    "basis_z": 2.066
+    "lifecycle_state": "COMPRESSION_HEALTHY",
+    "signal_tier": "SHORT_PREMIUM_STRONG",
+    "basis_z": 1.976
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "EXTREME_SIGNAL",
+    "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
-    "weather_us": "MEDIUM",
-    "weather_eu": "UNKNOWN",
+    "weather_us": "UNKNOWN",
+    "weather_eu": "LOW",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
@@ -281,18 +281,16 @@
     },
     {
       "date": "2026-06-30",
-      "basis": 76.27,
-      "z": 2.066,
-      "tier": "SHORT_PREMIUM_EXTREME",
-      "cbot_eur_t": 149.23,
-      "session": "PROVISIONAL",
-      "curve_spread": 2.0,
+      "basis": 75.12,
+      "z": 1.976,
+      "tier": "SHORT_PREMIUM_STRONG",
+      "cbot_eur_t": 150.38,
+      "session": "REVISED",
+      "curve_spread": 1.0,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.898
     }
   ],
-  "warnings": [
-    "sant\u00e9 du signal DELAYED (signature lente/adverse)"
-  ],
+  "warnings": [],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

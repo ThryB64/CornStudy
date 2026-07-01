@@ -42,14 +42,14 @@
   },
   "proxy_vs_official": {
     "version": "V42-PROXY-VS-OFFICIAL",
-    "n_official_days": 39,
+    "n_official_days": 40,
     "signal_agreement_rate": null,
     "milestones": {
       "first": 10,
       "serious": 40,
       "conclusion": 90
     },
-    "verdict": "FIRST_COMPARISON_10D",
+    "verdict": "SERIOUS_COMPARISON_40D_PLUS",
     "note": "Comparaison proxy vs officiel : cr\u00e9dibilise (ou non) le backtest proxy en conditions r\u00e9elles.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },

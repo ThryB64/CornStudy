@@ -2,22 +2,22 @@
   "version": "V132-SYNTHESIS-V3",
   "verdict": "INDICATOR_V3_BUILT",
   "as_of": "2026-07-02",
-  "PREMIUM_STATE": "NO_SIGNAL",
-  "basis_z": 0.264,
-  "basis_eur_t": 73.46,
+  "PREMIUM_STATE": "SHORT_PREMIUM_MODERATE",
+  "basis_z": 1.102,
+  "basis_eur_t": 76.99,
   "official_proxy_status": "official_rolling",
   "diagnostics": {
     "ADVERSE_RISK": {
-      "value": "UNKNOWN",
-      "fresh": false
-    },
-    "CBOT_SUPPORT": {
       "value": "HIGH",
       "fresh": true
     },
+    "CBOT_SUPPORT": {
+      "value": "MEDIUM",
+      "fresh": true
+    },
     "PHYSICAL_TENSION": {
-      "value": "UNKNOWN",
-      "fresh": false
+      "value": "MEDIUM",
+      "fresh": true
     },
     "SUBSTITUTION_SUPPORT": {
       "value": "DATA_BLOCKED",
@@ -32,7 +32,7 @@
       "fresh": false
     },
     "ACTIVE_SIGNAL_HEALTH": {
-      "value": "HEALTHY",
+      "value": "ACTIVE_EARLY",
       "fresh": true
     },
     "CURVE_TREND": {
@@ -40,17 +40,19 @@
       "fresh": true
     }
   },
-  "TARGET_RECOMMENDATION": "UNKNOWN",
+  "TARGET_RECOMMENDATION": "z->0.5",
   "HORIZON_ESTIMATE": {
     "median_horizon_days_seasonal": 47,
     "half_life_days_for_tier": null,
     "estimated_days_to_z05": null,
     "note": "horizon primaire = saisonnier V27 ; demi-vie par tier V130 (l'extr\u00eame r\u00e9verse plus vite) ; estimation cal\u00e9e V138 jusqu'\u00e0 z\u21920.5 (l'analytique AR(1) pur sous-pr\u00e9dit)"
   },
-  "explanation": "Prime NO_SIGNAL (basis 73.46 \u20ac/t, z 0.264, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US HIGH/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "warnings": [],
-  "n_fresh_diagnostics": 5,
-  "n_stale_or_unknown": 3,
+  "explanation": "Prime SHORT_PREMIUM_MODERATE (basis 76.99 \u20ac/t, z 1.102, official_rolling). Contexte : ADVERSE HIGH, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US HIGH/EU UNKNOWN. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+  ],
+  "n_fresh_diagnostics": 7,
+  "n_stale_or_unknown": 1,
   "research_only": true,
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

@@ -2,21 +2,21 @@
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
   "as_of": "2026-07-02",
-  "signal_tier": "NO_SIGNAL",
-  "basis_z": 0.264,
+  "signal_tier": "SHORT_PREMIUM_MODERATE",
+  "basis_z": 1.102,
   "inputs": {
-    "health_status": "HEALTHY",
-    "physical_tension": "NO_SIGNAL",
+    "health_status": "ACTIVE_EARLY",
+    "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "compression_realized": 3.15
+    "compression_realized": 0.0
   },
-  "prime_nature": "NO_SIGNAL",
-  "lifecycle_state": "NO_ACTIVE_SIGNAL",
-  "headline_state": "NO_ACTIVE_SIGNAL",
-  "watch_state": "NORMAL",
-  "signal_quality": "NONE",
+  "prime_nature": "PRIME_EXCESSIVE",
+  "lifecycle_state": "ACTIVE_EARLY",
+  "headline_state": "PRIME_EXCESSIVE",
+  "signal_quality": "BASELINE_SIGNAL",
   "composite_score": 1,
-  "interpretation": "Au 2026-07-02 : NO_SIGNAL (z 0.264). Nature **NO_SIGNAL** (tension NO_SIGNAL), cycle de vie **NO_ACTIVE_SIGNAL** (sant\u00e9 HEALTHY, compression 3.15). \u00c9tat headline : **NO_ACTIVE_SIGNAL**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "quality_note": "marginal z<1.2 (V131 : sous-performe, attendre confirmation)",
+  "interpretation": "Au 2026-07-02 : SHORT_PREMIUM_MODERATE (z 1.102). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **ACTIVE_EARLY** (sant\u00e9 ACTIVE_EARLY, compression 0.0). \u00c9tat headline : **PRIME_EXCESSIVE**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

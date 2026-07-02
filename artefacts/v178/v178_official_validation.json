@@ -3,7 +3,7 @@
   "gate_days": 40,
   "n_official_days": 25,
   "n_pairs": 17,
-  "n_final_or_revised": 17,
+  "n_final_or_revised": 18,
   "thresholds_frozen_2026_06_11": {
     "validated": {
       "mae_price_eur_t": 2.0,
@@ -20,19 +20,19 @@
   "preliminary_metrics_not_a_verdict": {
     "n_pairs": 17,
     "price": {
-      "mae": 0.941,
-      "rmse": 1.443,
-      "bias": -0.294
+      "mae": 1.088,
+      "rmse": 1.565,
+      "bias": -0.441
     },
     "basis": {
-      "mae": 0.941,
-      "rmse": 1.443,
-      "bias": -0.294
+      "mae": 1.088,
+      "rmse": 1.565,
+      "bias": -0.441
     },
     "basis_z": {
-      "mean_abs_diff": 0.0737,
+      "mean_abs_diff": 0.0852,
       "max_abs_diff": 0.313
     },
-    "tier_agreement": 0.765
+    "tier_agreement": 0.706
   }
 }

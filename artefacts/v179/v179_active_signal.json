@@ -1,5 +1,56 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
-  "verdict": "NO_ACTIVE_SIGNAL",
+  "verdict": "REPORT_BUILT",
+  "signal_status": "ACTIVE_EARLY",
+  "core": {
+    "entry_date": "2026-07-02",
+    "current_date": "2026-07-02",
+    "days_since_entry": 0,
+    "entry_tier": "SHORT_PREMIUM_MODERATE",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
+    "entry_z": 1.102,
+    "current_z": 1.102,
+    "entry_basis_eur_t": 76.99,
+    "current_basis_eur_t": 76.99,
+    "compression_realized_eur_t": 0.0,
+    "mfe_eur_t": 0.0,
+    "mae_eur_t": 0.0,
+    "distance_to_z05": 0.602,
+    "distance_to_z0": 1.102,
+    "median_horizon_days": 47
+  },
+  "state_machine": {
+    "prime_nature": "PRIME_EXCESSIVE",
+    "lifecycle_state": "ACTIVE_EARLY",
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.102
+  },
+  "context": {
+    "objective": "z->0.5",
+    "signal_quality": "BASELINE_SIGNAL",
+    "composite_score": null,
+    "weather_us": "HIGH",
+    "weather_eu": "UNKNOWN",
+    "physical_tension": "MEDIUM",
+    "curve_trend": "NARROWING",
+    "cbot_support": "MEDIUM",
+    "adverse_risk": "HIGH"
+  },
+  "daily_table": [
+    {
+      "date": "2026-07-02",
+      "basis": 76.99,
+      "z": 1.102,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 151.76,
+      "session": "REVISED",
+      "curve_spread": 1.75,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.8972
+    }
+  ],
+  "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+  ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

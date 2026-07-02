@@ -1,45 +1,45 @@
 {
   "version": "V123-FRESHNESS",
-  "signal_as_of": "2026-07-01",
+  "signal_as_of": "2026-07-02",
   "gate_days": 5,
   "layers": {
     "cbot": {
-      "as_of": "2026-07-01",
+      "as_of": "2026-07-02",
       "lag_days": 0,
       "fresh": true,
       "action": "ACTIVE"
     },
     "ema_curve": {
-      "as_of": "2026-07-01",
+      "as_of": "2026-07-02",
       "lag_days": 0,
       "fresh": true,
       "action": "ACTIVE"
     },
     "matif_ratio": {
-      "as_of": "2026-07-01",
+      "as_of": "2026-07-02",
       "lag_days": 0,
       "fresh": true,
       "action": "ACTIVE"
     },
     "weather": {
-      "as_of": "2026-07-01",
+      "as_of": "2026-07-02",
       "lag_days": 0,
       "fresh": true,
       "action": "ACTIVE"
     },
     "cot": {
       "as_of": "2026-06-23",
-      "lag_days": 8,
+      "lag_days": 9,
       "fresh": true,
       "action": "ACTIVE"
     }
   },
-  "context_lag_days": 8,
+  "context_lag_days": 9,
   "n_active": 5,
   "n_disabled": 0,
   "verdict": "CONTEXT_COHERENT",
   "disabled_diagnostics": [],
-  "interpretation": "Signal de r\u00e9f\u00e9rence 2026-07-01. Retard max du contexte 8 j. Toutes les couches sont dans leur gate -> contexte coh\u00e9rent (base 5 j, COT hebdo 10 j).",
+  "interpretation": "Signal de r\u00e9f\u00e9rence 2026-07-02. Retard max du contexte 9 j. Toutes les couches sont dans leur gate -> contexte coh\u00e9rent (base 5 j, COT hebdo 10 j).",
   "note": "Lecture des as_of des artefacts/journaux ; aucune donn\u00e9e recalcul\u00e9e. M\u00e9ta-fra\u00eecheur, pas un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

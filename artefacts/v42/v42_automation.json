@@ -1,21 +1,21 @@
 {
   "version": "V42-OFFICIAL-AUTOMATION",
-  "as_of": "2026-06-11",
+  "as_of": "2026-07-03",
   "session_today": "TRADING_SESSION",
   "collect_expected_today": true,
   "monitoring_status": "TRADING_DAY_COLLECT_EXPECTED",
   "market_sessions": {
-    "n_days": 41,
-    "trading_days": 29,
-    "no_session_days": 12,
-    "last_date": "2026-06-11"
+    "n_days": 63,
+    "trading_days": 45,
+    "no_session_days": 18,
+    "last_date": "2026-07-03"
   },
   "public_backfill_coverage": {
     "version": "V42-PUBLIC-BACKFILL",
-    "n_days": 10,
+    "n_days": 26,
     "date_range": [
       "2026-05-29",
-      "2026-06-11"
+      "2026-07-03"
     ],
     "n_contracts_seen": 11,
     "contracts_seen": [
@@ -42,14 +42,14 @@
   },
   "proxy_vs_official": {
     "version": "V42-PROXY-VS-OFFICIAL",
-    "n_official_days": 11,
+    "n_official_days": 43,
     "signal_agreement_rate": null,
     "milestones": {
       "first": 10,
       "serious": 40,
       "conclusion": 90
     },
-    "verdict": "FIRST_COMPARISON_10D",
+    "verdict": "SERIOUS_COMPARISON_40D_PLUS",
     "note": "Comparaison proxy vs officiel : cr\u00e9dibilise (ou non) le backtest proxy en conditions r\u00e9elles.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },

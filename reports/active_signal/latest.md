@@ -1,33 +1,22 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-06-11 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-07-03 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : HEALTHY** · entrée 2026-05-29 (SHORT_PREMIUM_EXTREME, z 2.056) · 13 j
+**Statut : ACTIVE_EARLY** · entrée 2026-07-02 (SHORT_PREMIUM_MODERATE, z 1.102) · 1 j
 
 ## Trajectoire
-- basis 76.15 → 73.79 €/t (compression réalisée **2.36 €/t**)
-- z 2.056 → 1.872 · distance z→0.5 : **1.372** · z→0 : 1.872
-- MFE 3.56 €/t · MAE 0.28 €/t · horizon médian 23 j
+- basis 76.99 → 82.75 €/t (compression réalisée **-5.76 €/t**)
+- z 1.102 → 2.442 · distance z→0.5 : **1.942** · z→0 : 2.442
+- MFE 0.0 €/t · MAE 5.76 €/t · horizon médian 47 j
 
 ## Machine d'état & contexte
-- nature : **PRIME_PHYSICALLY_JUSTIFIED** · cycle : **COMPRESSION_HEALTHY**
-- objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : 2
-- courbe : NARROWING · tension physique : HIGH · CBOT support : MEDIUM · ADVERSE : MEDIUM
-- météo US : UNKNOWN · météo EU : UNKNOWN
+- nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
+- objectif : z->0.5 · qualité : EXTREME_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : MEDIUM · CBOT support : LOW · ADVERSE : LOW
+- météo US : MEDIUM · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
 |---|---|---|---|---|---|---|---|---|
-| 2026-05-29 | FINAL | 76.15 | 2.06 | SHORT_PREMIUM_EXTREME | 150.85 | 15.25 | BACKWARDATION |  |
-| 2026-06-01 | PROVISIONAL | 75.93 | 2.04 | SHORT_PREMIUM_EXTREME | 151.07 | 11.75 | BACKWARDATION | 0.91 |
-| 2026-06-02 | PROVISIONAL | 75.02 | 1.97 | SHORT_PREMIUM_STRONG | 149.23 | 12.50 | BACKWARDATION | 0.92 |
-| 2026-06-03 | PROVISIONAL | 73.41 | 1.84 | SHORT_PREMIUM_STRONG | 149.09 | 9.75 | BACKWARDATION | 0.92 |
-| 2026-06-04 | PROVISIONAL | 73.52 | 1.85 | SHORT_PREMIUM_STRONG | 144.48 | 12.00 | BACKWARDATION | 0.93 |
-| 2026-06-05 | PROVISIONAL | 73.46 | 1.85 | SHORT_PREMIUM_STRONG | 142.79 | 12.00 | BACKWARDATION | 0.93 |
-| 2026-06-08 | PROVISIONAL | 76.43 | 2.08 | SHORT_PREMIUM_EXTREME | 142.32 | 11.25 | BACKWARDATION | 0.92 |
-| 2026-06-09 | PROVISIONAL | 73.67 | 1.86 | SHORT_PREMIUM_STRONG | 143.33 | 10.25 | BACKWARDATION | 0.93 |
-| 2026-06-10 | REVISED | 73.50 | 1.85 | SHORT_PREMIUM_STRONG | 143.00 | 9.25 | BACKWARDATION | 0.93 |
-| 2026-06-11 | PROVISIONAL | 73.79 | 1.87 | SHORT_PREMIUM_STRONG | 142.71 | 9.25 | BACKWARDATION | 0.94 |
-
-## Warnings
-- prime adossée à une tension physique (backwardation) -> compression plus lente
+| 2026-07-02 | REVISED | 76.99 | 1.10 | SHORT_PREMIUM_MODERATE | 151.76 | 1.75 | BACKWARDATION | 0.90 |
+| 2026-07-03 | PROVISIONAL | 82.75 | 2.44 | SHORT_PREMIUM_EXTREME | 146.00 | 1.75 | BACKWARDATION | 0.88 |

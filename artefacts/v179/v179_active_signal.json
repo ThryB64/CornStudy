@@ -4,37 +4,37 @@
   "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-07-02",
-    "current_date": "2026-07-02",
-    "days_since_entry": 0,
+    "current_date": "2026-07-03",
+    "days_since_entry": 1,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_MODERATE",
+    "current_tier": "SHORT_PREMIUM_EXTREME",
     "entry_z": 1.102,
-    "current_z": 1.102,
+    "current_z": 2.442,
     "entry_basis_eur_t": 76.99,
-    "current_basis_eur_t": 76.99,
-    "compression_realized_eur_t": 0.0,
+    "current_basis_eur_t": 82.75,
+    "compression_realized_eur_t": -5.76,
     "mfe_eur_t": 0.0,
-    "mae_eur_t": 0.0,
-    "distance_to_z05": 0.602,
-    "distance_to_z0": 1.102,
+    "mae_eur_t": 5.76,
+    "distance_to_z05": 1.942,
+    "distance_to_z0": 2.442,
     "median_horizon_days": 47
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "ACTIVE_EARLY",
-    "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.102
+    "signal_tier": "SHORT_PREMIUM_EXTREME",
+    "basis_z": 2.442
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "BASELINE_SIGNAL",
+    "signal_quality": "EXTREME_SIGNAL",
     "composite_score": null,
-    "weather_us": "HIGH",
+    "weather_us": "MEDIUM",
     "weather_eu": "UNKNOWN",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "cbot_support": "MEDIUM",
-    "adverse_risk": "HIGH"
+    "cbot_support": "LOW",
+    "adverse_risk": "LOW"
   },
   "daily_table": [
     {
@@ -47,10 +47,19 @@
       "curve_spread": 1.75,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8972
+    },
+    {
+      "date": "2026-07-03",
+      "basis": 82.75,
+      "z": 2.442,
+      "tier": "SHORT_PREMIUM_EXTREME",
+      "cbot_eur_t": 146.0,
+      "session": "PROVISIONAL",
+      "curve_spread": 1.75,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.8831
     }
   ],
-  "warnings": [
-    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
-  ],
+  "warnings": [],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

@@ -1,21 +1,21 @@
 # 📊 Dashboard indicateur premium v5 — 2026-07-03
-_Généré 2026-07-03 08:37:45 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-07-03 20:00:42 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_EXTREME** · basis 82.75 €/t · z 2.442 (official_rolling)
+- **SHORT_PREMIUM_EXTREME** · basis 84.52 €/t · z 2.658 (official_rolling)
 - Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **EXTREME_SIGNAL** · score composite **4/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **PRIME_EXCESSIVE** · nature **PRIME_EXCESSIVE** · cycle **ACTIVE_EARLY**
 - Objectif **z->0.5** · horizon ~47 j
 
 ## Signal actif (V124/V179)
 - Entrée 2026-07-02 (z 1.102) · 1 j · statut **ACTIVE_EARLY**
-- Compression réalisée **-5.76 €/t** · MFE 0.0 · MAE 5.76 · distance z→0.5 : 1.942
+- Compression réalisée **-7.53 €/t** · MFE 0.0 · MAE 7.53 · distance z→0.5 : 2.158
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next 1.75 €/t, BACKWARDATION)
+- Courbe EMA : NARROWING (spread front-next 2.0 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.883 · substitution DATA_BLOCKED
 - CBOT_SUPPORT LOW · ADVERSE_RISK LOW · PHYSICAL_TENSION MEDIUM
-- Météo US MEDIUM · Météo EU UNKNOWN (stale)
+- Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
 - Jours officiels **26** · prochain jalon **40** (z-score officiel rolling) · z rolling officiel False

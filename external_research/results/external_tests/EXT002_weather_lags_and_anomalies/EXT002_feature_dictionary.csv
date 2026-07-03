@@ -1,0 +1,12 @@
+feature,description
+tavg_anom_7,Anomalie z de la temperature moyenne glissante 7j
+prcp_anom_7,Anomalie z du cumul de pluie glissant 7j (deficit<0 / exces>0)
+tavg_anom_14,Anomalie z de la temperature moyenne glissante 14j
+prcp_anom_14,Anomalie z du cumul de pluie glissant 14j (deficit<0 / exces>0)
+tavg_anom_30,Anomalie z de la temperature moyenne glissante 30j
+prcp_anom_30,Anomalie z du cumul de pluie glissant 30j (deficit<0 / exces>0)
+tavg_anom_60,Anomalie z de la temperature moyenne glissante 60j
+prcp_anom_60,Anomalie z du cumul de pluie glissant 60j (deficit<0 / exces>0)
+tavg_anom_90,Anomalie z de la temperature moyenne glissante 90j
+prcp_anom_90,Anomalie z du cumul de pluie glissant 90j (deficit<0 / exces>0)
+heat30_anom,Anomalie z du nombre de jours tmax>32C sur 30j (stress thermique)

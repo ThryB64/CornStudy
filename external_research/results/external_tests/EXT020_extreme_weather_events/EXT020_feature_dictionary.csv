@@ -1,0 +1,8 @@
+feature,description
+heat_streak,Longueur de la sequence consecutive de jours tmax>32C en cours
+dry_streak,Longueur de la sequence consecutive de jours prcp<1mm en cours
+heatwave_anom_ytd,Anomalie z des jours canicule (tmax>35C) cumules dans l'annee
+heatwave_anom_pollination,Anomalie z des jours canicule cumules en juillet (pollinisation)
+heatwave_anom_fill,Anomalie z des jours canicule cumules en aout (remplissage)
+dry_anom_pollination,Anomalie z des jours secs cumules en juillet (stress hydrique pollinisation)
+wet_excess_anom,Anomalie z des jours d'exces de pluie (prcp>25mm) cumules avr-oct

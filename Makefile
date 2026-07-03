@@ -95,7 +95,7 @@ migrate-legacy: venv
 # Phase 3: Training & evaluation
 # ----------------------------------------------------------------------
 
-.PHONY: train train-all stack backtest factors factor-analysis study daily status ui
+.PHONY: train train-all stack backtest factors factor-analysis study sale-score euronext-indicator study-report discovery-visuals synthese-decouvertes risk-indicator indicator-fusion validate-pistes daily status ui
 
 train: venv
 	$(PY) -m mais.cli train --model ridge_reg --target y_logret_h20 --trials 20
@@ -117,6 +117,30 @@ factor-analysis: venv
 
 study: venv
 	$(PY) -m mais.cli study
+
+sale-score: venv
+	$(PY) -m mais.cli sale-score --holdout
+
+euronext-indicator: venv
+	$(PY) -m mais.cli euronext-indicator
+
+study-report: venv
+	$(PY) scripts/build_study_report.py
+
+discovery-visuals: venv
+	$(PY) scripts/build_discovery_visuals.py
+
+validate-pistes: risk-indicator
+	$(PY) scripts/validate_pistes.py
+
+synthese-decouvertes: discovery-visuals indicator-fusion validate-pistes
+	$(PY) scripts/build_discovery_synthese.py
+
+risk-indicator: venv
+	$(PY) scripts/build_risk_indicator.py
+
+indicator-fusion: risk-indicator
+	$(PY) scripts/build_indicator_fusion.py
 
 daily: venv
 	$(PY) -m mais.cli daily-run

@@ -1,0 +1,58 @@
+version: "cbot_sale_score_v1"
+objective: "sale_direction_risk_score"
+price_forecast_enabled: false
+
+# Frontiere holdout : jamais utilisee pour entrainer/selectionner/tuner (regle 12).
+holdout_start: "2024-01-01"
+eval_start: "2008-01-01"
+min_train: 750            # ~3 ans avant la 1re prediction (walk-forward)
+logit_C: 1.0              # L2, fixe ex ante (aucun tuning)
+
+horizons:
+  direction_h40: 40
+  direction_h90: 90
+
+# Variables autorisees = final_selected_features.csv (figees avant holdout).
+features:
+  base:
+    - base_sin
+    - base_cos
+  h40:                    # WASDE stocks-to-use (etat de bilan lent)
+    - s2u_z
+    - s2u_pctile
+    - s2u_slow_chg
+    - base_sin
+    - base_cos
+  h90:                    # Crop Condition (coeur du signal directionnel)
+    - cond_gd_ex_anom
+    - cond_dev5y
+    - cond_poor_vp
+    - base_sin
+    - base_cos
+  volatility:
+    - rv_w
+    - rv_m
+    - rv_q
+  regimes:                # confiance seulement (post-hoc, risque moyen)
+    - regime_uptrend
+    - regime_low_vol
+    - regime_bilan_extreme
+
+# Seuils figes ex ante. Le decile de vol est estime sur <=2023 puis gele.
+rules:
+  sell_partial_threshold: 0.58   # P(baisse) H90 minimale pour SELL_PARTIAL
+  wait_threshold: 0.55           # P(hausse) au-dessus -> WAIT (pas de risque baissier)
+  risk_high_vol_decile: 0.90     # vol prevue dans le decile haut -> RISK_HIGH
+  min_confidence: 0.50           # confiance minimale pour emettre SELL_PARTIAL
+  sell_fraction: 0.33            # part vendue sur SELL_PARTIAL (backtest)
+
+# Backtest decisionnel (pas un bot). cooldown = nb de seances minimum entre deux ventes
+# (evite de liquider toute la recolte sur des signaux consecutifs). windows = decoupages
+# de campagne compares (annee civile + campagnes agricoles).
+backtest:
+  sell_cooldown_sessions: 20
+  cooldown_grid: [0, 20]
+  windows: ["calendar", "sep_aug", "oct_sep"]
+
+outputs:
+  directory: "artefacts/final_cbot_sale_score"

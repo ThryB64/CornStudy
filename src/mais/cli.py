@@ -248,12 +248,15 @@ def cli_data_quality(
 
 @app.command("clean")
 def cli_clean() -> None:
-    """Clean raw -> interim (validate, dedupe, harmonise frequencies)."""
-    from mais.clean import migrate_legacy
+    """Clean raw -> interim : migre le legacy si besoin puis etend database.parquet."""
+    from mais.clean import migrate_legacy, refresh_database
+    from mais.paths import INTERIM_DIR
     ensure_dirs()
-    typer.echo("Note: full raw->interim cleaning pipeline not yet implemented.")
-    typer.echo("Falling back to legacy migration (works on csv/corrige/).")
-    migrate_legacy()
+    if not (INTERIM_DIR / "database.parquet").exists():
+        typer.echo("database.parquet absent -> migration legacy (csv/corrige/).")
+        migrate_legacy()
+    res = refresh_database()
+    typer.echo(f"database.parquet etendu : +{res['appended']} lignes (derniere date {res['last']})")
 
 
 @app.command("features")
@@ -452,6 +455,43 @@ def cli_advise(
     """Print the current sell/store/wait recommendation for today."""
     from mais.decision import advise_today
     typer.echo(advise_today(horizon=horizon, farmer_state=farmer_state))
+
+
+@app.command("sale-score")
+def cli_sale_score(
+    holdout: Annotated[bool, typer.Option("--holdout", help="Evaluer le holdout 2024+ (1 fois).")] = False,
+    latest: Annotated[bool, typer.Option("--latest", help="Afficher seulement le dernier score.")] = False,
+) -> None:
+    """Score de vente / direction / risque CBOT (etape 7, aide a la decision, pas un bot)."""
+    from mais.indicator.cbot_sale_score_report import finalize
+    ensure_dirs()
+    if latest:
+        from mais.indicator import cbot_sale_score as sale
+        from mais.indicator import cbot_sale_score_features as feats
+        cfg = sale.load_config()
+        df, _ = feats.build_frame()
+        frame = sale.score_timeseries(df, sale.build_models(df, cfg))
+        typer.echo(json.dumps(sale.latest_record(frame, cfg), ensure_ascii=False, indent=2))
+        return
+    res = finalize(do_holdout=holdout)
+    typer.echo(f"VERDICT: {res['verdict']}")
+    typer.echo(res["reason"])
+    typer.echo(f"Dernier signal: {res['latest']['recommendation']} "
+               f"(p_down_h90={res['latest']['p_down_h90']})")
+    typer.echo("Artefacts: artefacts/final_cbot_sale_score/")
+
+
+@app.command("euronext-indicator")
+def cli_euronext_indicator() -> None:
+    """Indicateur Euronext visuel (score de vente CBOT applique a l'historique EMA) + dashboard HTML."""
+    from mais.indicator.euronext_indicator_dashboard import finalize
+    ensure_dirs()
+    res = finalize()
+    typer.echo(f"VERDICT: {res['verdict']}")
+    typer.echo(res["reason"])
+    typer.echo(f"Dernier signal: {res['latest']['recommendation']} au {res['latest']['signal_date']} "
+               f"({res['latest']['euronext_price']} EUR/t)")
+    typer.echo("Dashboard: artefacts/final_euronext_indicator/euronext_indicator_dashboard.html")
 
 
 # ---------------------------------------------------------------------------

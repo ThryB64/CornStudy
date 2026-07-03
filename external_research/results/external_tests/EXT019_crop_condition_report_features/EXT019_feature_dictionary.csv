@@ -1,0 +1,9 @@
+feature,description
+cond_gd_ex,Niveau condition good+excellent (%)
+cond_poor_vp,Niveau condition poor+very poor (%)
+cond_gd_ex_chg,Variation hebdo de good+excellent
+cond_gd_ex_anom,Anomalie z de good+excellent vs climatologie par semaine
+cond_surprise,Surprise = variation hebdo vs variation attendue (climatologie)
+progress_gap_5y,Ecart d'avancement vs moyenne 5 ans
+silking_pct,Pourcentage en floraison (silking)
+harvested_pct,Pourcentage recolte

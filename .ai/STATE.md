@@ -1,5 +1,311 @@
 # État du projet — Etude Mais
 
+## Mise à jour 2026-06-20 — FIX collecte journalière (yfinance multi-index + retry)
+
+- **Symptôme** : collecte du 2026-06-19 en FAIL (`cbot_corn` essentiel → `Empty download for ZC=F`),
+  pipeline avorté `status=FAIL steps=2`, données figées au 11/06.
+- **Cause 1** : yfinance 1.3.0 renvoie des colonnes **MultiIndex** `('Close','ZC=F')` non gérées par
+  `_normalise` → CSV écrit **vide** (6488 lignes blanches) **sans erreur** (échec silencieux).
+- **Cause 2** : pas de retry → un throttling transitoire de Yahoo (`period="max"` vide) bloque tout.
+- **Fix** (`src/mais/collect/yfinance_collector.py`) : aplatissement MultiIndex (level 0) ;
+  retry x4 backoff sur `period="max"` ; repli périodes courtes **fusionnées** avec le CSV existant ;
+  garde-fou « pas de colonnes valeur → RuntimeError » (échec bruyant rattrapé par le check essentiel).
+- **Vérif** : `daily-run --collect` → `cbot_corn OK (6486 rows)`, pipeline `PASS_WITH_WARNINGS steps=11`,
+  8 fichiers yfinance reconstitués (corn/wheat/soy/oats/brent/wti/natgas/rbob). Tests collecte 26 OK, ruff OK.
+- Note : `daily-run` renvoie `exit 1` quand statut != PASS (PASS_WITH_WARNINGS inclus) — convention
+  préexistante, non bloquante pour le cron local.
+
+## Mise à jour 2026-06-17 — PISTES TRANCHÉES : 3 catégories nettes (plus d'entre-deux)
+
+- **Retour user** : supprimer « Prometteur » (entre-deux). Chaque ancienne piste doit devenir
+  **Robuste (validée)** ou **Limite** après VRAIE validation, puis tout intégrer dans la synthèse.
+- **`scripts/validate_pistes.py`** (`make validate-pistes`) : walk-forward strict (AUC + IC bootstrap
+  + part d'années positives + placebo) sur les pistes directionnelles testables. Règle a priori :
+  ROBUSTE si IC_bas > 0.52 ET >=60 % d'années positives ET placebo dans [0.45 ; 0.55], sinon LIMITE.
+  - **crop_h90 -> ROBUSTE** : AUC 0.588, IC95 [0.568 ; 0.609], 75 % années+, placebo 0.518 (le
+    holdout 0.816 tombe à 0.588 en WF mais TIENT). **wheat_corn -> ROBUSTE** : AUC 0.590, IC95
+    [0.571 ; 0.611], 75 % années+, placebo 0.477.
+  - **wasde_h40 -> LIMITE** : AUC 0.576 mais seulement 58 % années+ (instable). Les 10 pistes
+    prime/épisodes/oracle/stratégie -> LIMITE par règle (proxy 97 %, 42 épisodes, oracle, hors-crise).
+- **Synthèse réécrite (`build_discovery_synthese.py`) en 3 catégories** : Découverte validée (13) /
+  Garde-fou méthodologique (5) / Limite importante (14). Lecture des verdicts JSON, reclassement auto,
+  **nettoyage des tokens interdits** dans les validées (à produire/backlog/holdout court/42 épisodes/
+  oracle/hors-crise) via overrides + chiffres walk-forward. Chaque validée : ce que ça démontre /
+  pourquoi ça a changé l'étude / conséquence indicateur. Chaque limite : la raison du non-classement.
+- index.html : 0 mention « Prometteur », 0 token interdit en validées, 71 images, 0 caractère suspect.
+  CSV `inventaire_decouvertes.csv` à colonnes Catégorie + Raison. Makefile : synthese-decouvertes
+  dépend de validate-pistes.
+
+## Mise à jour 2026-06-17 — INDEX.HTML enrichi (découvertes expliquées + indicateur final)
+
+- **Retour user** : `artefacts/decouvertes/index.html` pas assez explicite, manque les résultats et
+  l'indicateur final. **`build_discovery_synthese.py` est désormais propriétaire de `index.html`**
+  (canonique, riche) ; `build_discovery_visuals.py` écrit maintenant `galerie.html` (plus de conflit).
+- Chaque découverte = phrase simple (lead) + **bloc Résultat vert (chiffres + baseline/période/n +
+  CBOT + Euronext)** + fiche (question/méthode/interprétation/décision) + 2 images. Intro « comment
+  lire ». 7 blocs + classification (11/13/5/3) conservés.
+- **Section finale « Au final : l'indicateur produit »** : lit `artefacts/indicator_v1/summary.json`
+  + `fusion_summary.json` + `snapshot_live.json` (nouveaux résumés JSON exportés par risk-indicator
+  et indicator-fusion). Affiche : M1 AUC 0.646 IC95, M3 RMSE -15.1 %, placebo 0.498, **table backtest
+  fusion** (BEARISH 0.58 / NEUTRAL 0.28 / UNCERTAIN 0.43), table coûts M4, snapshot live + 7 visuels.
+- Makefile : `synthese-decouvertes` dépend de `discovery-visuals` ET `indicator-fusion` (la section
+  indicateur est toujours peuplée). index.html : 71 images (toutes présentes), 0 caractère suspect.
+
+## Mise à jour 2026-06-17 — FUSION INDICATEUR + backlog terminé (signal unique)
+
+- **`scripts/build_indicator_fusion.py`** (`make indicator-fusion`) : fusionne M1/M3/M4 en un
+  **signal unique BEARISH_RISK / NEUTRAL / UNCERTAIN** par seuils figés a priori ancrés sur la base
+  rate (~0.37) : BEARISH si p>0.50, NEUTRAL si p<0.30, UNCERTAIN entre. Réutilise le moteur eng.
+- **Backtest fusion (OOS 2014-2025)** monotone et propre : BEARISH n=376 (13 %) P(down)=**0.58**
+  (lift +0.21), NEUTRAL n=1527 (54 %) **0.28** (−0.09), UNCERTAIN n=942 (33 %) **0.43** (≈base).
+  L'indicateur sélectif sépare bien le risque ; l'abstention (UNCERTAIN) revient au hasard.
+- **Backlog terminé** : (a) **placebo étendu** (permutation labels) AUC **0.498** = signal réel non
+  fortuit ; (b) **M3 calibration** R² **0.06** (modeste, honnête : ordonne les régimes, calibre mal
+  le niveau) ; (c) **M3 seuils de régime figés** 2014-2018 (CALME/NORMAL/VOLATIL/EXTREME) ;
+  (d) **M4 coûts réels CORRIGÉS** (PnL = compression du basis €/t, pas prix EMA) : brut +15.7 ->
+  net +11.7 (2 €/t) -> +5.7 (5 €/t) = mur des coûts visible, research-only.
+- **Snapshot live** (carte type maquette user) : 2025-07-25 = NEUTRAL, conf 55 %, vol NORMAL 24.5 %,
+  basis z +1.70 prime normale. `snapshot_live.json` + `carte_live.png`.
+- Corrections clés vs 1er jet : gate recentré sur base rate (UNCERTAIN n'était pas ≈base), M4 sur
+  basis €/t (signe), ordre imports. Livrables : `docs/INDICATOR_V1_FUSION.md`, 4 PNG fusion +
+  index.html régénéré. ruff PASS.
+- **PIPELINE COMPLET (make)** : study-report -> discovery-visuals -> synthese-decouvertes ->
+  risk-indicator -> indicator-fusion. **Reste (vrai forward)** : paper-trading live, vrais prix EMA
+  + base locale (sortir M4 du proxy 97 %), placebo multi-cibles/cultures.
+
+## Mise à jour 2026-06-17 — INDICATEUR V1 : validation walk-forward (P2+P3+P4 faits)
+
+- **`scripts/build_risk_indicator.py`** (`make risk-indicator`) : vraie validation OOS 2014-2025,
+  anti-leakage strict (refit annuel, **purge = horizon** train/test, standardisation **train-only**),
+  sklearn LogisticRegression/Ridge. Données : features.parquet + targets.parquet (fondamentaux ffill).
+- **M1 CBOT Downside Risk** (cible baisse >3 % H60) : **AUC 0.646, IC95 bootstrap [0.627 ; 0.666]**,
+  base 0.37, n=2845. H30 plus faible (0.569). **Par année** : fort 2016-2021 (0.72-0.91), ÉCHEC 2023
+  (0.36, année base 0.74), moyen 2024 (0.66) -> **ce n'est PAS qu'une seule année** mais pas uniforme.
+- **Confidence Gate / abstention (livrable P4)** : DA monte de **0.651** (tous les jours) à **0.711**
+  (|p-0.5|>=0.20, couverture 56 %) — la thèse « les signaux confiants sont meilleurs » est validée.
+- **M3 Volatility** (cible vol réalisée H20) : RMSE 0.102 vs baseline persistance 0.120 (**-15.1 %**),
+  bat la baseline quasi chaque année. **M4 Premium** (research-only) : basis haut -> retour EMA
+  négatif vs basis bas positif (ordonne les retours), reversion du basis_z confirmée.
+- Honnêteté : chiffres **plus conservateurs** que les « holdout » documentés (0.74/-24 %) car
+  refaits de zéro en walk-forward strict. Backlog **fait** pour M1/M3 : IC bootstrap, perf/année,
+  calibration, abstention. Reste : fusion modules (gate unique), coûts réels M4, placebo étendu.
+- Livrables : `artefacts/indicator_v1/` (6 fiches PNG format prix+zones+score+AUC/IC/n, 5 CSV,
+  index.html, snapshot.json), `docs/INDICATOR_V1_VALIDATION.md`. ruff PASS.
+
+## Mise à jour 2026-06-17 — SYNTHÈSE SCIENTIFIQUE (story + classification + archi indicateur)
+
+- **Retour user (fond)** : trop de découvertes à plat, l'histoire scientifique pas claire. Pivot à
+  mettre en scène : on ne prédit pas le prix exact, on prédit des RISQUES/CONTEXTES ; viser un
+  **indicateur sélectif** avec **mode UNCERTAIN obligatoire**. Priorité 1 traitée (story+table).
+- **`scripts/build_discovery_synthese.py`** (`make synthese-decouvertes`) : importe les 32
+  découvertes de [build_discovery_visuals], y ajoute une **table analytique** (question, marché,
+  cible, horizon, métrique, résultat, baseline, période, n, statut, décision, module) et range tout
+  en **7 blocs** narratifs. Statuts : **11 Robuste / 13 Prometteur / 5 Garde-fou / 3 Limite**.
+- Livrables : `docs/SYNTHESE_SCIENTIFIQUE.md`, `artefacts/decouvertes/synthese.html` (64 images
+  regroupées par bloc + fiche standard Question/Méthode/Résultat/Interprétation/Décision/Module),
+  `artefacts/decouvertes/inventaire_decouvertes.csv` (32 lignes). ruff PASS.
+- **Architecture indicateur proposée (NON implémentée)** : M1 CBOT Downside Risk, M2 Bullish
+  Potential (prudent), M3 Volatility regime, M4 Euronext Premium (research-only) + Confidence Gate
+  (aucune action si confiance faible). **Backlog validation** listé honnêtement : IC bootstrap,
+  perf par année, calibration/Brier, placebo étendu, coûts brut/net/+2/+5 €/t, n+période explicites.
+- **RESTE (proposé, non fait)** : Priorité 2 (refaire graphes des ~10 clés au format fiche+IC),
+  Priorité 3 (construire V1 modules M1/M3/M4 avec seuils pré-définis), Priorité 4 (backtest
+  walk-forward AVEC abstention, DA par niveau de confiance). À lancer sur go-ahead user.
+
+## Mise à jour 2026-06-17 — VISUELS DÉCOUVERTES (2 images par découverte/modèle)
+
+- **MODE CAVEMAN.** Générateur `scripts/build_discovery_visuals.py` (`make discovery-visuals`) :
+  pour **32 découvertes + modèles performants** (issus de l'arbre/conclusion), **2 images chacune** :
+  (1) `*_1_decouverte.png` = ce que la découverte fait (mécanisme + chiffres réels) ;
+  (2) `*_2_courbes.png` = report sur les **vraies courbes CBOT (cbot_eur_t) ET Euronext
+  (ema_liquid_price)** en 2 panneaux, avec le **résultat annoté par marché**.
+- **64 PNG** + `index.html` autonome + `INDEX.md` dans `artefacts/decouvertes/`. Données réelles :
+  features.parquet (2010-2025) + high_basis_episodes.parquet (42 épisodes, marqueurs par famille).
+  Overlays réels : basis z>2 (shading), event-study reversion (37 épisodes), crop/vol/stocks/ratio
+  blé-maïs (twin axes), drawdowns, saisons. ruff PASS, matplotlib Agg.
+- Couvre : 10 modèles/résultats (random walk, V9/V10, crop H90, WASDE H40, vol, drawdown, ADVERSE,
+  reversion, sell-high), 12 découvertes (compression CBOT 6x, asymétrie, support CBOT, épisodes,
+  exit z0.5, prime locale, spécificité +0.59/-0.46, demi-vie extrême, marginaux, CBOT baisses,
+  météo extrême, wheat_corn), 7 falsifications, 3 limites (mur coûts, FRAGILE, Euronext RO).
+
+## Mise à jour 2026-06-16 — ARBRE v6 : fiches rédigées par fichier (310/310 FAITS)
+
+- **MODE CAVEMAN.** Rédaction MANUELLE des détails par fichier dans `arbre_etude.html` (dict
+  `CURATED` du générateur), à la demande user : ton clair, pas de mots familiers (« bête/malin »
+  retirés), et une **SOUS-QUESTION** par fichier (la question précise que ce fichier traite).
+- Chaque fiche curatée = sous-question + 4 sections (1. ce qu'on fait, 2. comment + quelles
+  données, 3. résultats et analyse, 4. conclusion). Affichage : encadré orange « Sous-question ».
+- **TERMINÉ : 310 fiches, 13 questions.** Q-DATA (34) + Q1 (20) + Q2 (35) + Q3 (31) + Q4 (23) +
+  Q2b (22) + Q2c (4) + Q5 (16) + Q6 (9) + Q-LIVE (83) + Q7 (27) + Q8 (3) + Q9 (3). Plus aucun
+  fichier sans sous-question (vérifié : `Fichiers SANS sous-question: AUCUN / total 310`).
+- **Re-bucketing** : Q-DATA nettoyé de 56 -> 34 (basis-> Q3, module_a/consensus/indicator-> Q-LIVE,
+  rapports de synthèse-> Q2) pour que chaque sous-question colle à sa question. Benchmarks -> OUTIL.
+- **Vérifs finales** : ruff clean, HTML autonome, 310 fichiers tracés, SUSPECTS=AUCUN, VULG=AUCUN.
+- **CONCLUSION enrichie (exhaustivité des découvertes)** : ajout intégral des découvertes
+  manquantes dans le bloc synthèse : support CBOT ÷2 risque ADVERSE / réversion ~29j sous support
+  (V41/V86/V72), spécificité EU (+0.59 basis vs -0.46 CBOT), CBOT prédit mieux ses baisses,
+  signal météo dans les EXTRÊMES prévus (dôme chaleur +0.31, V48), wheat_corn_z 0.653,
+  caractérisation épisodes (CBOT_DRIVEN/EMA_DRIVEN/ADVERSE, V82), exit z->0.5, parcimonie 2 vars,
+  WASDE@H40, asymétrie short>>long ; falsifications ajoutées : demi-vie niveau != horizon (V138 x3),
+  placebo (V171), sur-ajustement PSR/DSR/PBO (V172), inversion saisonnière ; nouveau bloc
+  « limites et coûts » : mur des coûts, score FRAGILE (ne bat pas saisonnalité 0.752), Euronext
+  RESEARCH_ONLY (AUC 0.561, 97% proxy), live ANALYTIQUE + pistes data-gated. HTML+markdown régénérés.
+
+## Mise à jour 2026-06-14 — RAPPORT DE DÉMARCHE (présentation école)
+
+- **MODE CAVEMAN.** `docs/RAPPORT_ETUDE_COMPLETE.md` : retrace toute l'étude en schéma
+  **question → test → analyse → nouvelle question** (9 questions Q1-Q9), liste les **feuilles
+  vides** (tests abandonnés), section données (sources+variables).
+- **Générateur** `scripts/build_study_report.py` (`make study-report`) scanne les **286 tests +
+  24 EXT = 310 expériences**, extrait la docstring de chaque test (description honnête, non
+  inventée), classe par phase/thème/verdict. Sorties : `inventaire_tests.csv`,
+  `tests_performants.html` (barres AUC/DA + réduction RMSE vol).
+- **ARBRE DE CHEMINEMENT** (v2 après retour user + exemple Arbre.png) : flowchart où chaque couche
+  = **❓question (bleu) → 📄fichiers de tests → 🔎analyse des résultats → question(s) suivante(s)**,
+  une question peut en générer plusieurs. **LES 310 FICHIERS SONT TOUS RATTACHÉS** à une question
+  (mapping mot-clé+phase, couverture asserttée, aucun oublié) : 44 gardés 🟢, 41 abandonnés 🔴,
+  225 tests ⚪. Rendu : `artefacts/rapport_etude/arbre_etude.html` (flowchart CSS pur, 198 Ko,
+  autonome) + `docs/ARBRE_ETUDE.md` (texte exhaustif). 13 questions :
+  Q-DATA→Q1→Q2→{Q3,Q4,Q2b,Q2c}→Q5→Q6→Q-LIVE→Q7→Q8→Q9.
+- **v3 (interactif)** : chaque couche = intro (pourquoi+comment on répond) → 📄 fichiers →
+  🔎 analyse enrichie (ce qu'on retient/déduit + chiffres) → question suivante. **Chips
+  CLIQUABLES** → panneau détail 4 sections (① Pourquoi/en quoi ça répond ② Comment = docstring
+  ③ Résultats & analyse ④ Conclusion). 310 détails JSON inline, couverture asserttée 310/310.
+- **v4 (catégories claires, retour user)** : fini le gris fourre-tout « test/feuille » -> **5
+  catégories** : gardé (44), abandonné (41), bloqué-données (26), outil/audit (32),
+  exploration/cadrage (167). Légende explicite, résumé sans label.
+- **v5 (nettoyage + détail, retour user)** : titre = « Cheminement de l'étude », sous-titre
+  supprimé, **tous les caractères suspects IA retirés** (em-dash, flèches, emojis, guillemets
+  courbes, symboles maths -> fonction `clean()`, vérifié AUCUN restant). Détail par fichier en
+  4 sections claires : 1. ce qu'on fait, 2. comment + quelles données (note `QDATA` par couche),
+  3. résultats et analyse, 4. conclusion ; boilerplate « s'inscrit dans la question » supprimé.
+  Résultats curatés étendus (~80 fichiers ont une analyse documentée). **Conclusion enrichie** :
+  ce qu'on sait détecter sur le CBOT (direction H90 AUC 0.816, drawdown 0.74, vol -24%, ADVERSE
+  0.72), ce qu'on garde sur l'Euronext/basis (réversion, short basis-haut, AUC 0.656-0.694),
+  découvertes (prime locale, demi-vie qui rétrécit), et ce qu'on a falsifié (prix, météo, COT,
+  surprise WASDE, mécanisme compression, trend/stacking/DL, Granger).
+- Répartition : 43 gardés, 165 explorés, 33 infra, 29 bloqués, **40 abandonnés**.
+- **Conclusion quantifiée honnête** : SELL_PARTIAL → prix baisse à H90 dans **72.6 %** des cas,
+  mais **~1 épisode/an** (17 en 16 ans). Prédire le prix = impossible ; indicateur fiable = très
+  dur ; bons résultats = direction H40-H90 (Crop AUC 0.816 holdout) + volatilité (−24 % RMSE).
+- ruff clean (générateur + tout src/mais). Point d'entrée global : `docs/FINAL_STUDY_OVERVIEW.md`.
+
+## Mise à jour 2026-06-14 — INDICATEUR EURONEXT VISUEL (dashboard HTML) — verdict RESEARCH_ONLY
+
+- **MODE CAVEMAN.** Score de vente CBOT **appliqué et visualisé sur l'historique Euronext**. `DONE`.
+- **Données** : `data/processed/euronext/ema_liquid_continuous_adjusted.parquet` (3377 j, 2010→2026-05,
+  €/t) — **⚠️ 97 % proxy** (barchart), seulement 102 lignes officielles. Audit : `docs/EURONEXT_DATA_AUDIT.md`.
+  Verdict données : USABLE_EXPLORATORY (pas DATA_BLOCKED, pas officiel).
+- **Module** : `mais.indicator.euronext_indicator_{features,backtest,dashboard}.py`, `config/euronext_indicator.yaml`,
+  CLI `mais euronext-indicator` + `make euronext-indicator`. Score CBOT aligné sur calendrier Euronext par
+  `merge_asof` backward (anti-fuite) ; retours futurs Euronext = évaluation seulement ; `target_date=index[i+h]`.
+  Drapeau `score_stale` (score CBOT figé au-delà du 2025-07-25).
+- **🟢 RÉSULTAT honnête** : les recommandations **séparent bien les retours futurs** (SELL_PARTIAL −5.8 %,
+  WAIT +5.1 %, WATCH +3.3 %, RISK_HIGH −4.0 % à H90 ; down_rate après SELL_PARTIAL 73 %). MAIS **OOS 2024+
+  AUC 0.561** (faible) + prix **proxy** → **VERDICT RESEARCH_ONLY** (visualisation, pas validation).
+- **Dashboard HTML autonome** (Plotly, JS inline, **aucune image**) : 10 graphiques (prix+reco, score,
+  downside, composantes, retours par reco, confusion H90, table signaux, backtest, par campagne).
+  `artefacts/final_euronext_indicator/euronext_indicator_dashboard.html` (6.2 Mo, self-contained).
+- **Tests** : 12 (loader, target_date, anti-fuite, reco, backtest no-short/cooldown/≤100%, dashboard autonome)
+  **PASS** ; **26 tests indicateurs au total** PASS ; ruff clean sur tout `src/mais/`.
+- **Synthèse maîtresse de toute l'étude** : `docs/FINAL_STUDY_OVERVIEW.md` (point d'entrée unique reliant
+  recherche → score CBOT FRAGILE → Euronext RESEARCH_ONLY). Dernier signal Euronext : WATCH au 2026-05-20.
+
+## Mise à jour 2026-06-13 — ÉTAPE 7 bis : corrections post-revue (HAR purge + backtest)
+
+- **MODE CAVEMAN.** 4 corrections demandées en revue, `DONE`. Verdict inchangé : **FRAGILE**.
+- **Fuite HAR corrigée** : `har_vol_forecast` purge les fenêtres de vol dont la vraie date de fin
+  `index[i+h]` ≥ holdout (helper `har_train_mask`). Effet gate négligeable (0.1922→0.1923),
+  métriques directionnelles inchangées. Nouveau test anti-fuite HAR → **14 tests PASS**, ruff clean.
+- **Backtest revu** : cooldown de vente (config `backtest.sell_cooldown_sessions=20`, évite de
+  liquider en 4 jours) + campagnes **calendar / sep_aug / oct_sep** comparées (×cooldown).
+  Découverte : **le résultat dépend du cadrage** (Sep-Aug : score bat tout +17 à +49 ; année
+  civile : perd vs vente précoce −19) ; cooldown réduit légèrement la perf (pas de free lunch).
+  → renforce FRAGILE. Nouveaux artefacts `final_backtest_comparison.csv`/`_by_window.csv`.
+- **Limites explicitées** : données arrêtées **2025-07-25** (dernier signal WATCH non à jour,
+  non exploitable tel quel) ; score en **CBOT ¢/bu** non converti en prix ferme €/t (eurusd+basis).
+- **Suite (hors scope code, nécessite data)** : MAJ données → forward validation → données premium
+  (consensus WASDE, options, courbe, basis, météo prévue, exports). Docs FINAL_* + STEP7_* à jour.
+
+## Mise à jour 2026-06-13 — ÉTAPE 7 : score de vente CBOT (CLÔTURE DE L'ÉTUDE) — verdict FRAGILE
+
+- **MODE CAVEMAN.** Étape 7 `DONE` = clôture. Intégration des **seules briques validées** (5bis/6)
+  en un **score de vente / direction / risque H40-H90** dans `src/mais/indicator/cbot_sale_score*`.
+  **Pas une prévision de prix, pas un bot.** Modèle principal/holdout/résultats externes intacts.
+- **Livrable** : 5 modules (`_features/_model/.py/_backtest/_report`), `config/cbot_sale_score.yaml`,
+  CLI `mais sale-score [--holdout|--latest]`, `make sale-score`, 13 tests (anti-fuite, sorties,
+  config, reproductibilité) **PASS**, ruff **clean**. 9 artefacts dans `artefacts/final_cbot_sale_score/`.
+- **Signaux intégrés** : Crop Condition@H90 (`cond_gd_ex_anom/dev5y/poor_vp`), WASDE s2u@H40
+  (`s2u_z/pctile/slow_chg`), saison, vol HAR + gate décile haut, régimes (confiance seulement).
+  Logit L2 parcimonieux. Sorties : SELL_PARTIAL/WAIT/WATCH/RISK_HIGH/NO_SIGNAL (jamais BUY).
+- **🔴 HOLDOUT 2024+ (utilisé 1 fois)** : score crop@H90 **DA 0.686 / AUC 0.816** (n=303), bat la
+  random walk (+18 pts) et économiquement cohérent — MAIS **saison seule (0.752) et marché seul
+  (0.752/AUC 0.878) font MIEUX** → les fondamentaux **n'ajoutent pas de valeur démontrable** sur
+  ce holdout court (~1,5 an, cycle baissier 2024). Backtest vendeur mitigé (bat tiers/DCA/attente,
+  perd vs vente-récolte ; 2 ans). **VERDICT = FRAGILE** (honnête, non caché).
+- **Dernier signal** : WATCH au 2025-07-25 (p_down_h90 0.486). `price_forecast_enabled=false`.
+- **Docs** : `STEP7_FINALIZATION_PLAN/TEST_REPORT/FINAL_EXECUTION_REPORT`, `FINAL_HOLDOUT_2024_VALIDATION`,
+  `FINAL_FARMER_DECISION_BACKTEST`, `FINAL_CBOT_SALE_SCORE_{STUDY,PROTOCOL,LIMITS,USER_GUIDE,
+  TECHNICAL_SUMMARY}`, `FINAL_CBOT_STUDY_CLOSURE`. README + 2 sections (résultat final + données futures).
+- **Conclusion étude** : prix non prédictible (RW imbattable) ; le seul exploitable = score
+  directionnel/risque H40-H90, **FRAGILE**, à reconfirmer en forward. Données à acquérir : eurusd
+  (FRED), prévisions météo forward, exports (gratuits) ; consensus WASDE, options (payants). **Pas d'étape 8.**
+
+## Mise à jour 2026-06-13 — EXT-RESEARCH-05bis + 06 (correction fuite + synthèse finale)
+
+- **MODE CAVEMAN.** Étape 5 bis + étape 6 `DONE`. Modèle principal/data interne intacts ; holdout 2024+ jamais touché.
+- **🔴 FUITE CORRIGÉE (étape 5 bis)** : la date cible de purge utilisait des **jours calendaires** (`index + h j`) au lieu de la vraie **ligne de marché** `index[i+h]`. Effet : **14 lignes (H40) / 28 lignes (H90)** de fin 2023 dont la cible tombe en 2024 entraient dans l'éval (0,4–0,7 %). Corrigée à la racine (helper `target_dates_from_index`, 6 fichiers : ext_harness, ext_harness_dir, vol_utils, run_EXT015/011/010). Les 8 expériences P2 re-runnées. Manifeste : `step5_sample_manifest_corrected.csv` (holdout_2024_excluded=True partout). Doc : `step5_correction_report.md`.
+- **✅ TOUS LES VERDICTS SURVIVENT** (écarts ≤ 1 pt) : crop@H90 même **renforcé** (DA 0.658→**0.669**, AUC 0.713→**0.724**, stable 0.632/0.707). HAR/EGARCH −22 à −24 % RMSE. Stacking toujours instable (REJECT). Aucun verdict rétrogradé FRAGILE/LEAKAGE_RISK.
+- **Collision EXT028 résolue** : EXT028 (satellite) ET EXT029 (corn-crush) réservés au catalogue → stacking renommé **EXT050** (hors plage EXT001-045). Dossiers/script/matrices/READMEs alignés ; lignes catalogue intactes.
+- **🟢 ÉTAPE 6 — SYNTHÈSE FINALE = PIVOT (Option B)** : prix exact **NON prédictible** (RW imbattable, 0/36 DM) ; signal **directionnel modeste mais stable H40-H90** (Crop Condition @ H90 DA 0.669 le meilleur ; WASDE stocks-to-use @ H40) ; **volatilité solide** (HAR/EGARCH, gate de risque actionnable). → **abandonner la prévision de prix, construire un score de vente/direction/risque H40-H90** conditionné régime + gaté vol. Pas un bot autonome : aide à la décision. Complexité (stacking/DL) = sur-apprend, parcimonie gagne. Bloqués faute de données : courbe (EXT005), basis/VECM (EXT013), OU (EXT012), vraie surprise WASDE, météo prévue (EXT033).
+- **Étape 7 (non codée)** : formaliser le score, valider sur holdout 2024+ (ticket humain, règle 12), sourcer data débloquantes (eurusd FRED, prévisions météo forward, exports gratuits ; consensus WASDE + options payants).
+- **Livrables** : `docs/step6_{final_audit,data_family_synthesis,signal_synthesis,strategic_decision,integration_recommendation_for_step7,missing_data_recommendations,final_synthesis}.md` + matrices `final_experiment_verdicts.csv`, `final_selected_features.csv`, `rejected_features.csv`, `data_blocked_ideas.csv` ; `ideas_matrix`/`experiment_candidates` enrichies (final_verdict/step7_action). Toutes les CSV parsent. ruff : 0 erreur réelle (F), 30 stylistiques pré-existantes (vars Xtr, dict(), alias).
+
+## Mise à jour 2026-06-13 — EXT-RESEARCH-04 (étape 4 : familles fondamentales P1) — RÉPONSE HONNÊTE : peu de signal
+
+- **EXT-RESEARCH-04 — `DONE`** : 11 expériences P1 codées+exécutées dans `external_research/{experiments,results}/external_tests/` (modèle principal et data interne intacts). Harnais commun `_common/ext_harness.py` (+wx/wasde/series utils) : walk-forward expandant, refit annuel purgé, Ridge α=10 fixe, train-only, holdout 2024+ exclu, DM-test, stabilité 2 sous-périodes. Cible = log-retour CBOT H5/H20/H40/H90. BASE marché seul vs BASE+FAMILLE.
+- **🔴 CONCLUSION : aucune famille ne bat la RW en RMSE, aucun KEEP.** La plupart des fondamentaux DÉGRADENT le RMSE OOS (R² négatif = surapprentissage).
+- **2 IMPROVE (direction seulement, horizon moyen/long, stable 2 sous-périodes)** : **EXT007 WASDE niveaux de bilan** (ΔDA +6.1 pts H20, RMSE pire car niveaux non-stationnaires) et **EXT019 Crop Condition** (ΔDA +4.4 pts H90, RMSE neutre). Variables d'état d'offre LENT. → cible direction/score de vente, pas régression de niveau.
+- **6 REJECT** : météo réalisée sous toutes formes (EXT001 agronomique / EXT002 lags-anomalies / EXT020 extrêmes — **confirme V45**, price-in), surprise WASDE (EXT008, révisions), COT (EXT003, **dossier clos honnêtement**, MM disaggregated inclus), crush éthanol proxys (EXT004).
+- **2 DATA_BLOCKED** : courbe futures (EXT005, pas de contrats CBOT par maturité ni courbe EMA suffisante) ; basis/transmission (EXT013, pas d'eurusd quotidien ni spot UE). Audits + plans d'acquisition écrits.
+- **1 PARTIAL_DATA** : prime météo new-crop (EXT018) — **descriptif CONFIRMÉ** (Janzen : biais baissier pré-récolte normal vs rally stress) mais **prédictif REJECT** (stress connu seulement en contemporain, pas ex ante → cf. V45).
+- **PIVOT D'OBJECTIF recommandé** : ces fondamentaux n'aident pas le NIVEAU/RMSE mais portent un signal DIRECTIONNEL lent → viser direction/score de vente H40-H90 + volatilité pour les gates. Étape 5 (P2) : reprendre EXT007+EXT019 dans VAR supply-demand (EXT024)/regimes + SHAP-in-split (EXT015) ; prioriser vol GARCH/HAR (EXT009). Étape 5 NON codée.
+- Docs : `step4_execution_plan.md`, `step4_results_summary.md` ; matrices à jour (`experiment_candidates.csv` +colonnes data_status/leakage/best_metric_gain, +5 lignes EXT001/002/008/019/020 ; `ideas_matrix.csv` 11 statuts done_step4). ruff : 30 restants purement stylistiques (alias H/W, vars Xtr/doy).
+
+## Mise à jour 2026-06-12 — EXT-RESEARCH-03 (étape 3 : exécution P0) ⚠️ 2 DÉCOUVERTES CRITIQUES
+
+- **EXT-RESEARCH-03 — `DONE`** : 3 expériences P0 codées et exécutées dans `external_research/{experiments,results}/external_tests/` (modèle principal intact, ruff PASS sur les scripts EXT).
+- **🔴 DÉCOUVERTE 1 — FUITE WASDE INTERNE (EXT026)** : `data/interim/wasde.parquet` expose les valeurs **~8 jours AVANT la publication réelle** (143/160 rapports, expansion calée sur le 1er du mois au lieu du ~10). Toute feature `wasde_*` interne était en avance d'information. Nuance : V18 NO_GO WASDE reste valide (test optimiste déjà négatif). **Ticket correctif interne à créer** : recaler sur publication_date+1BD via `wasde_vintage_dataset.csv` (207 rapports vintage 2002-2025 construit et VALIDÉ 24/24 vs bruts USDA). Verdict EXT026 : KEEP.
+- **🟠 DÉCOUVERTE 2 — ARTEFACTS DE ROLL EMA (EXT006)** : `ema_front_continuous_raw` saute en moyenne **10,2 €/t les jours de roll** (69 rolls, 6,6× le mouvement normal, p<1e-6, max 97,5 €/t ; 27/68 rolls flippent le momentum 20j) = même ordre de grandeur que l'edge des trades basis. `adjusted_price` existe et réduit à 2,5×. CBOT vendeur : aucun artefact détecté. **Ticket d'audit interne à créer** : quelle série alimente basis_z en amont ? Règle EXT : adjusted_price ou exclusion des 69 dates de roll. Reconstruction volume-based historique DATA_BLOCKED (front-only 2010-2024) ; prototype causal 2025+ opérationnel (45 % jours divergents du front-expiry). Verdict : IMPROVE.
+- **EXT025 — KEEP** : tableau de référence des baselines produit (CBOT 2000-2023 + EMA 2010-2023, H5→H90) — **la RW est imbattable par toutes les baselines naïves (0/36, DM p<0.10)**, RMSE de référence : CBOT H40=56,6 ¢/bu, EMA H40=22,2 €/t. Tout EXT futur s'y compare. Basis sans tableau (pas d'eurusd quotidien en interim — à identifier). Holdout 2024+ jamais comparé.
+- **Étape 4 (P1)** : GO recommandé après validation humaine, avec re-scoping : EXT007/EXT027 prêtes ; EXT018/EXT005 limitées par l'absence de contrats CBOT historiques. Docs : `step3_execution_plan.md`, `step3_results_summary.md` ; matrices à jour (verdicts + next_action) ; wasdeparser cloné (MIT).
+
+## Mise à jour 2026-06-12 — EXT-RESEARCH-02 (étape 2 : analyse des sources)
+
+- **EXT-RESEARCH-02 — `DONE`** : analyse complète des sources prioritaires (zéro code EXT, modèle principal intact). **34 fiches sources remplies** (9 repos, 23 papers, 2 brevets), `ideas_matrix.csv` enrichie **37→45 idées** (8 nouvelles EXT038-EXT045 : stocks-to-use, full carry, COT MM extrêmes, météo→notation 2 étages, prime US↔prime EMA, offre régionale→prime, vitesses VECM, EGARCH inverse-leverage), **`experiment_candidates.csv` créé (18 expériences cadrées)**.
+- **Ordre étape 3** : P0 = EXT025 (baselines RW/futures/DM) → EXT006 (roll causal J-1) → EXT026 (WASDE vintages, cloner wasdeparser) ; P1 = EXT027 (Lehecka crop progress, feature la plus actionnable), EXT018+EXT042 (prime new-crop ↔ prime EMA), EXT007 (calendrier USDA élargi Grain Stocks/Acreage), EXT005+EXT039 (full carry).
+- **Convergences externes↔internes** : prime locale persistante confirmée (crush par localisation ≈ V16), révisions de prévision > réalisé (CropProphet ≈ V45/V136), simplicité gagne OOS (Brignoli ≈ V11), prime d'assurance qui se dissipe = jumeau publié de notre objet (Li-Hayes-Jacobs), régimes instables (Carter ≈ prudence V31+). **2 tests inédits sur la prime** : EXT042 (corrélation prime météo US), EXT043 (anomalies offre UE+Ukraine, AGRICAF).
+- **Pièges anti-fuite consignés** : COT mardi→publication vendredi (calendrier à construire+prouver, V18 NO_GO ne couvrait que le net total), WASDE vintages obligatoires, notations lundi 16h ET→J+1, roll volume J-1. Data manquantes : vintages WASDE, calendrier COT, spot UE (FranceAgriMer), DDG (`not_ready` EXT030), satellite (`not_ready` EXT022). ⚠️ Fiches papers fondées sur abstracts+littérature (PDF à vérifier avant citation : Singh, Brignoli, AGRICAF).
+- Docs : `external_research/docs/{source_analysis_progress, external_research_review_step2, step2_conclusions}.md`.
+
+## Mise à jour 2026-06-12 — EXT-RESEARCH-01 (audit initial Claude)
+
+- **EXT-RESEARCH-01 — `DONE`** : audit complet de `external_research/` (étape 1, zéro code EXT, modèle principal intact). Verdict : **PRÊT POUR L'ÉTAPE 2** avec 4 corrections mineures non bloquantes (brevets découverts = 7 requêtes 503 placeholders, 4 doublons seed/découverts à fusionner, `__pycache__` à ignorer, ids YAML découverts non stables).
+- Structure vérifiée : 131 sources cataloguées (comptes README tous exacts), 131 fiches, 37 idées EXT001→EXT037 sans trou, 11/11 repos seed clonés. `PriceAnalysis` (sparse) exploitable — chapitres basis/ethanol/DDG/hedge/stockage présents, pas un problème bloquant. ⚠️ 5 repos sans licence (idées oui, copie code/données non) ; les 1180 CSV de RollFutures = méthode seulement.
+- Livrables : `external_research/docs/claude_initial_audit.md`, `external_research/matrices/review_priority.csv` (131 classées : 49 KEEP_CORE / 22 KEEP_METHOD / 37 LOW_PRIORITY / 14 REJECT / 9 MANUAL_REVIEW, ordre de lecture `claude_order`), `external_research/docs/claude_next_step_plan.md` (7 blocs de lecture A-G, 10 premières fiches, 10 idées EXT à enrichir, critères de sortie).
+- Top lectures : PriceAnalysis+PAPER018 → PAPER027 (baseline RW, EXT025) → RollFutures+PAPER015 (courbe/roll) → wasdeparser+bloc WASDE → Lehecka crop progress → prime météo → Singh → CropProphet archive prévisions (EXT033, aligné V136/V45).
+
+## Mise à jour 2026-06-11 — EXT-RESEARCH-00
+
+- **EXT-RESEARCH-00 — `NEEDS_REVIEW`** : bibliothèque de recherche externe créée dans `external_research/`, sans modification du modèle principal ni des datasets existants. Structure complète : sources, repos GitHub, fiches sources, summaries, matrices, scripts, docs, experiments/results externes.
+- Seeds catalogués : `11` repos GitHub, `42` études/articles/rapports/thèses, `10` brevets. Découverte automatique exécutée : `16` repos, `27` papiers, `7` requêtes brevets en revue manuelle (Google Patents `503` sur la passe finale). Fiches sources générées : `113`.
+- Clonage seed : `10/11` repos clonés en shallow clone ; `mindymallory/PriceAnalysis` a échoué au checkout et reste tracé dans `external_research/sources/repo_clone_log.csv`.
+- Matrices créées : `ideas_matrix.csv` avec `25` idées EXT initiales, `implementation_candidates.csv` avec `5` priorités, `source_inventory.csv`, `source_inventory_catalog.csv`.
+- Scripts créés : `clone_seed_repos.py`, `scan_repo_metadata.py`, `search_more_github_repos.py`, `search_more_papers.py`, `search_more_patents.py`, `build_source_inventory.py`, `generate_source_card_templates.py`.
+- Vérifications : compilation Python des scripts PASS ; parsing YAML PASS. `ruff` non lancé car indisponible dans l'environnement (`python3 -m ruff` et binaire `ruff` absents).
+- **Addendum EXT-RESEARCH-00 — `NEEDS_REVIEW`** : `mindymallory/PriceAnalysis` récupéré après échec du checkout complet via clone partiel `--filter=blob:none --no-checkout` + sparse checkout ciblé. Local : `external_research/github_repos/mindymallory__PriceAnalysis` (`68` fichiers, `17M`). Chapitres utiles récupérés : grain/corn, commodity intro, futures & hedging, basis/space-time prices, fundamental analysis/storage/stocks, forecasting use of corn, ending stocks, ethanol/DDG, nearby futures construction. Log mis à jour en `cloned_sparse_partial`, README et fiche source REPO003 enrichis. Vérifications : worktree sparse propre, `remote.origin.promisor=true`, inventaire rescanné (`11` repos).
+- **Addendum EXT-RESEARCH-00 — veille élargie `NEEDS_REVIEW`** : nouvelles sources ajoutées directement aux catalogues externes : `10` repos curatés (WASDE parser, corn futures/yield/weather, climate-risk challenge, calendar spreads, yield benchmark, weather commodities, FAO FPMA, regime benchmark) et `10` études/rapports curatés (USDA crop progress, satellite→USDA, corn-crush hedging, DDG, biofuel/storage, USDA report impact, weather forecast archive). Totaux après régénération : `24` repos découverts/référencés, `37` papiers découverts/référencés, `131` fiches sources, `37` idées EXT, `10` candidats d'implémentation. Vérifications : YAML PASS, fiches/inventaire régénérés.
+
 ## Mission — objectif final (pivot 2026-05-20)
 
 Mener une **étude statistique et économique complète du cours du maïs CBOT et Euronext EMA**.

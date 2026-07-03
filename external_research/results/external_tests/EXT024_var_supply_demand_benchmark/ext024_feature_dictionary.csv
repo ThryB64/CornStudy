@@ -1,0 +1,17 @@
+feature,description
+s2u,Stocks-to-use ratio WASDE (ratio ~stationnaire)
+s2u_z,z-score expandant du stocks-to-use
+s2u_pctile,Percentile expandant du stocks-to-use
+s2u_slow_chg,Variation lente du bilan (3 rapports)
+s2u_yoy,Variation annuelle du bilan (~12 rapports)
+s2u_dev_hist,Écart du stocks-to-use à sa moyenne passée
+bilan_tight,Bilan tendu (percentile s2u < 0.33) = haussier
+bilan_loose,Bilan large (percentile s2u > 0.66) = baissier
+cond_gd_ex,Condition good+excellent (%)
+cond_poor_vp,Condition poor+very poor (%)
+cond_gd_ex_chg,Variation hebdo good+excellent
+cond_gd_ex_anom,Anomalie z good+excellent vs climatologie par semaine
+cond_dev5y,Écart good+excellent vs moyenne 5 ans (passé)
+progress_gap_5y,Écart d'avancement vs moyenne 5 ans
+silking_pct,Avancement floraison
+harvested_pct,Avancement récolte

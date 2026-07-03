@@ -1,0 +1,7 @@
+feature,description
+eth_prod_z,z-score expandant production ethanol (demande corn)
+eth_prod_yoy,Variation YoY production ethanol
+eth_stocks_z,z-score expandant stocks ethanol
+eth_stocks_chg,Variation hebdo stocks ethanol
+oil_corn_z,z-score ratio petrole/corn (proxy energie-corn)
+gas_corn_z,z-score ratio gaz/corn (proxy cout/energie-corn)

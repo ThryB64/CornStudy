@@ -1,0 +1,16 @@
+feature,description
+rev_ending_stocks,Revision M-M-1 du chiffre ending_stocks (proxy surprise non-consensus)
+revz_ending_stocks,Revision ending_stocks standardisee par vol expandante des revisions
+rev_stocks_to_use_ratio,Revision M-M-1 du chiffre stocks_to_use_ratio (proxy surprise non-consensus)
+revz_stocks_to_use_ratio,Revision stocks_to_use_ratio standardisee par vol expandante des revisions
+rev_production,Revision M-M-1 du chiffre production (proxy surprise non-consensus)
+revz_production,Revision production standardisee par vol expandante des revisions
+rev_yield_per_acre,Revision M-M-1 du chiffre yield_per_acre (proxy surprise non-consensus)
+revz_yield_per_acre,Revision yield_per_acre standardisee par vol expandante des revisions
+rev_exports,Revision M-M-1 du chiffre exports (proxy surprise non-consensus)
+revz_exports,Revision exports standardisee par vol expandante des revisions
+rev_use_total,Revision M-M-1 du chiffre use_total (proxy surprise non-consensus)
+revz_use_total,Revision use_total standardisee par vol expandante des revisions
+rev_avg_farm_price,Revision M-M-1 du chiffre avg_farm_price (proxy surprise non-consensus)
+revz_avg_farm_price,Revision avg_farm_price standardisee par vol expandante des revisions
+balance_surprise_dir,"Direction surprise bilan: +1 stocks en hausse (baissier), -1 baisse (haussier)"

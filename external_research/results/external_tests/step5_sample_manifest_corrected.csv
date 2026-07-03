@@ -1,0 +1,5 @@
+horizon,n_before,n_after,n_removed,max_decision_date_before,max_decision_date_after,true_target_date_max_before,true_target_date_max_after,holdout_2024_excluded
+5,4020,4018,2,2023-12-26,2023-12-21,2024-01-03,2023-12-29,True
+20,4010,4003,7,2023-12-11,2023-11-30,2024-01-10,2023-12-29,True
+40,3997,3983,14,2023-11-21,2023-11-01,2024-01-22,2023-12-29,True
+90,3961,3933,28,2023-10-02,2023-08-22,2024-02-09,2023-12-29,True

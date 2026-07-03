@@ -1,0 +1,5 @@
+feature,description
+preharvest_flag,Phase pre-recolte (avr-aout) ou la prime meteo se dissipe
+july_heat_stress,Anomalie z des jours canicule de juillet (stress pollinisation)
+stocks_tightness,Tension de bilan = -z(stocks-to-use) WASDE
+premium_pressure,Interaction pre-recolte x stress x tension (proxy prime new-crop)

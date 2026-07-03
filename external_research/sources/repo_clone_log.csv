@@ -1,0 +1,12 @@
+id,repo,url,local_path,status,message,timestamp_utc
+REPO001,PrayusShrestha/crop-price-prediction,https://github.com/PrayusShrestha/crop-price-prediction,github_repos/PrayusShrestha__crop-price-prediction,cloned,ok,2026-06-11T21:03:17Z
+REPO002,squeeze-team/AgriJedi,https://github.com/squeeze-team/AgriJedi,github_repos/squeeze-team__AgriJedi,cloned,ok,2026-06-11T21:03:18Z
+REPO003,mindymallory/PriceAnalysis,https://github.com/mindymallory/PriceAnalysis,github_repos/mindymallory__PriceAnalysis,cloned_sparse_partial,"Full checkout failed on problematic asset path; recovered via partial clone --filter=blob:none --no-checkout plus sparse checkout of corn/ethanol/DDG/basis/hedging/storage/nearby futures chapters and supporting files.",2026-06-11T21:40:14Z
+REPO004,mindymallory/RollFutures,https://github.com/mindymallory/RollFutures,github_repos/mindymallory__RollFutures,cloned,ok,2026-06-11T21:04:12Z
+REPO005,NDelventhal/cot_reports,https://github.com/NDelventhal/cot_reports,github_repos/NDelventhal__cot_reports,cloned,ok,2026-06-11T21:04:12Z
+REPO006,YavuzAkbay/Ornstein-Uhlenbeck,https://github.com/YavuzAkbay/Ornstein-Uhlenbeck,github_repos/YavuzAkbay__Ornstein-Uhlenbeck,cloned,ok,2026-06-11T21:04:13Z
+REPO007,chrism2671/PyTrendFollow,https://github.com/chrism2671/PyTrendFollow,github_repos/chrism2671__PyTrendFollow,cloned,ok,2026-06-11T21:04:15Z
+REPO008,quantiacs/strategy-futures-trend-following,https://github.com/quantiacs/strategy-futures-trend-following,github_repos/quantiacs__strategy-futures-trend-following,cloned,ok,2026-06-11T21:04:16Z
+REPO009,amstrdm/mlm-trend-following,https://github.com/amstrdm/mlm-trend-following,github_repos/amstrdm__mlm-trend-following,cloned,ok,2026-06-11T21:04:17Z
+REPO010,AsyncAlgoTrading/aat,https://github.com/AsyncAlgoTrading/aat,github_repos/AsyncAlgoTrading__aat,cloned,ok,2026-06-11T21:04:19Z
+REPO011,cchallu/nbeatsx,https://github.com/cchallu/nbeatsx,github_repos/cchallu__nbeatsx,cloned,ok,2026-06-11T21:04:22Z

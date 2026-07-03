@@ -1,0 +1,12 @@
+id,repo,local_path,has_readme,has_license,languages_detected,notebooks_count,python_files_count,r_files_count,data_files_count,last_scan_date,notes
+asyncalgotrading-aat,AsyncAlgoTrading/aat,github_repos/AsyncAlgoTrading__aat,True,True,cpp;python,0,134,0,0,2026-06-11T21:40:14Z,"Skipped dirs: .git, csv, data"
+ndelventhal-cot_reports,NDelventhal/cot_reports,github_repos/NDelventhal__cot_reports,True,True,python,0,3,0,0,2026-06-11T21:40:14Z,Skipped dirs: .git
+prayusshrestha-crop-price-prediction,PrayusShrestha/crop-price-prediction,github_repos/PrayusShrestha__crop-price-prediction,True,False,notebook;python,2,2,0,0,2026-06-11T21:40:14Z,"Skipped dirs: .git, __pycache__, data"
+yavuzakbay-ornstein-uhlenbeck,YavuzAkbay/Ornstein-Uhlenbeck,github_repos/YavuzAkbay__Ornstein-Uhlenbeck,True,True,python,0,2,0,0,2026-06-11T21:40:14Z,Skipped dirs: .git
+amstrdm-mlm-trend-following,amstrdm/mlm-trend-following,github_repos/amstrdm__mlm-trend-following,True,False,python,0,1,0,0,2026-06-11T21:40:14Z,Skipped dirs: .git
+cchallu-nbeatsx,cchallu/nbeatsx,github_repos/cchallu__nbeatsx,True,False,notebook;python,3,12,0,0,2026-06-11T21:40:14Z,"Skipped dirs: .git, data"
+chrism2671-pytrendfollow,chrism2671/PyTrendFollow,github_repos/chrism2671__PyTrendFollow,True,True,notebook;python,6,29,0,0,2026-06-11T21:40:14Z,"Skipped dirs: .git, data"
+mindymallory-priceanalysis,mindymallory/PriceAnalysis,github_repos/mindymallory__PriceAnalysis,True,False,,0,0,0,7,2026-06-11T21:40:14Z,Skipped dirs: .git
+mindymallory-rollfutures,mindymallory/RollFutures,github_repos/mindymallory__RollFutures,True,False,r,0,0,5,22,2026-06-11T21:40:14Z,"Skipped dirs: .git, data"
+quantiacs-strategy-futures-trend-following,quantiacs/strategy-futures-trend-following,github_repos/quantiacs__strategy-futures-trend-following,True,True,notebook,1,0,0,0,2026-06-11T21:40:14Z,Skipped dirs: .git
+squeeze-team-agrijedi,squeeze-team/AgriJedi,github_repos/squeeze-team__AgriJedi,True,False,javascript;python;typescript,0,29,0,1,2026-06-11T21:40:14Z,"Skipped dirs: .git, data"

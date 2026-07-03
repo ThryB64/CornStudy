@@ -1,0 +1,13 @@
+feature_name,family,source_experiment,source_file,target_horizon,signal_type,reason_selected,risk_level,integration_status,notes
+cond_gd_ex_anom,Crop Condition,EXT024/EXT019/EXT015,external_research/experiments/external_tests/_common/features_p2.py,H90,direction,Coeur du signal directionnel: anomalie good/excellent stable 16/16 ans; crop@H90 DA 0.669 AUC 0.724,low,recommended_step7,signal le plus fort du programme
+cond_dev5y,Crop Condition,EXT024/EXT015,features_p2.py,H90,direction,Deviation 5 ans de la condition; stable train-only,low,recommended_step7,complete cond_gd_ex_anom
+cond_poor_vp,Crop Condition,EXT024/EXT015,features_p2.py,H90,direction,Queue basse poor/very-poor; stable train-only,low,recommended_step7,-
+s2u_z,WASDE stocks-to-use,EXT007/EXT024/EXT015,features_p2.py (vintage EXT026),H40,direction,Etat de bilan lent z-score expandant; +6.1 pts DA H20 stable,low,recommended_step7,re-encode stationnaire obligatoire (niveaux bruts degradent RMSE)
+s2u_pctile,WASDE stocks-to-use,EXT007/EXT024/EXT015,features_p2.py,H40,direction,Percentile expandant stocks-to-use; ressort train-only,low,recommended_step7,-
+s2u_slow_chg,WASDE stocks-to-use,EXT024/EXT015,features_p2.py,H40,direction,Variation lente stocks-to-use,low,recommended_step7,-
+base_sin,Saison,EXT024 (BASE),ext_harness.py,H40/H90,direction,Saisonnalite porte une part de l'edge; passe-only,low,recommended_step7,jour de l'annee
+base_cos,Saison,EXT024 (BASE),ext_harness.py,H40/H90,direction,idem base_sin,low,recommended_step7,-
+rv_w;rv_m;rv_q (HAR),Volatilite,EXT010,vol_utils.py,H20-H90,volatilite/risque,HAR bat RW-vol -22% RMSE tous H; gate de risque,low,recommended_step7,vol realisee 5/22/66 j
+egarch_vol,Volatilite,EXT009,EXT009 run,H20-H90,volatilite/risque,EGARCH -23.7% RMSE; asymetrie; filtre vol 0.669->0.699,low,recommended_step7,alternative a HAR si asymetrie voulue
+vol_filter_high_decile,Volatilite (gate),EXT009,EXT009 run,H90,risque,Decile haut de vol prevue: le signal s'inverse (DA 0.41 PnL<0) -> ne pas vendre,low,recommended_step7,drapeau RISQUE ELEVE du score
+regime_uptrend;regime_low_vol;regime_bilan_extreme,Regimes,EXT017,EXT017 run,H90,conditionnement,Confiance haute en uptrend/low-vol/bilan extreme; nulle en neutre,medium,validate_forward_first,decoupage post-hoc -> valider forward avant activation

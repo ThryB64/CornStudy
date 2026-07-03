@@ -1,0 +1,31 @@
+version: "euronext_indicator_v1"
+objective: "visual_sale_risk_indicator"
+price_forecast_enabled: false
+
+# Serie de prix Euronext (cf. docs/EURONEXT_DATA_AUDIT.md). ~97% proxy exploratoire.
+euronext_price_parquet: "data/processed/euronext/ema_liquid_continuous_adjusted.parquet"
+euronext_date_col: "date"
+euronext_price_col: "price"
+holdout_start: "2024-01-01"        # CBOT score entraine <=2023 ; 2024+ = hors echantillon
+
+horizons:
+  h20: 20
+  h40: 40
+  h90: 90
+
+thresholds:
+  sell_partial_downside_h90: 0.58
+  wait_upside_h90: 0.55
+  risk_high_volatility: 0.90
+  min_confidence: 0.50
+
+cooldown:
+  sell_partial_days: 20
+
+backtest:
+  sell_fraction: 0.33
+  windows: ["calendar", "sep_aug", "oct_sep"]
+  cooldown_grid: [0, 20]
+
+outputs:
+  directory: "artefacts/final_euronext_indicator"

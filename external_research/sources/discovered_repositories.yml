@@ -1,0 +1,393 @@
+- repo: ClyCites/ClyCites-Experiment
+  url: https://github.com/ClyCites/ClyCites-Experiment
+  description: 'This repository serves as a platform for training and testing machine
+    learning models for various agricultural applications. Our primary focus is on
+    developing models for the following tasks:  Price Prediction of Agriculture Commodities
+    Disease and Pest Detection in Crops Weather Forecasting for Agricultural Regions'
+  stars: 2
+  forks: 0
+  language: JavaScript
+  last_update: '2024-10-24T09:23:31Z'
+  query: crop price prediction weather machine learning
+  relevance_score: 0.829
+  reason_to_keep: 'Keyword match: commodities, forecast, forecasting, prediction,
+    weather'
+  status: discovered
+- repo: bideeen/Building-A-Trading-Strategy-With-Python
+  url: https://github.com/bideeen/Building-A-Trading-Strategy-With-Python
+  description: "trading strategy is a fixed plan to go long or short in markets, \
+    \ there are two common trading strategies: the momentum strategy and the reversion\
+    \ strategy. Firstly, the momentum strategy is also called divergence or trend\
+    \ trading. When you follow this strategy, you do so because you believe the movement\
+    \ of a quantity will continue in its current direction. Stated differently, you\
+    \ believe that stocks have momentum or upward or downward trends, that you can\
+    \ detect and exploit. Some examples of this strategy are the moving average crossover,\
+    \ the dual moving average crossover, and turtle trading:  The moving average crossover\
+    \ is when the price of an asset moves from one side of a moving average to the\
+    \ other. This crossover represents a change in momentum and can be used as a point\
+    \ of making the decision to enter or exit the market. You\u2019ll see an example\
+    \ of this strategy, which is the \u201Chello world\u201D of quantitative trading\
+    \ later on in this tutorial. The dual moving average crossover occurs when a short-term\
+    \ average crosses a long-term average. This signal is used to identify that momentum\
+    \ is shifting in the direction of the short-term average. A buy signal is generated\
+    \ when the short-term average crosses the long-term average and rises above it,\
+    \ while a sell signal is triggered by a short-term average crossing long-term\
+    \ average and falling below it. Turtle trading is a popular trend following strategy\
+    \ that was initially taught by Richard Dennis. The basic strategy is to buy futures\
+    \ on a 20-day high and sell on a 20-day low.  Secondly, the reversion strategy,\
+    \ which is also known as convergence or cycle trading. This strategy departs from\
+    \ the belief that the movement of a quantity will eventually reverse. This might\
+    \ seem a little bit abstract, but will not be so anymore when you take the example.\
+    \ Take a look at the mean reversion strategy, where you actually believe that\
+    \ stocks return to their mean and that you can exploit when it deviates from that\
+    \ mean.  That already sounds a whole lot more practical, right?  Another example\
+    \ of this strategy, besides the mean reversion strategy, is the pairs trading\
+    \ mean-reversion, which is similar to the mean reversion strategy. Whereas the\
+    \ mean reversion strategy basically stated that stocks return to their mean, the\
+    \ pairs trading strategy extends this and states that if two stocks can be identified\
+    \ that have a relatively high correlation, the change in the difference in price\
+    \ between the two stocks can be used to signal trading events if one of the two\
+    \ moves out of correlation with the other. That means that if the correlation\
+    \ between two stocks has decreased, the stock with the higher price can be considered\
+    \ to be in a short position. It should be sold because the higher-priced stock\
+    \ will return to the mean. The lower-priced stock, on the other hand, will be\
+    \ in a long position because the price will rise as the correlation will return\
+    \ to normal.  Besides these two most frequent strategies, there are also other\
+    \ ones that you might come across once in a while, such as the forecasting strategy,\
+    \ which attempts to predict the direction or value of a stock, in this case, in\
+    \ subsequent future time periods based on certain historical factors. There\u2019\
+    s also the High-Frequency Trading (HFT) strategy, which exploits the sub-millisecond\
+    \ market microstructure.  That\u2019s all music for the future for now; Let\u2019\
+    s focus on developing your first trading strategy for now!  A Simple Trading Strategy\
+    \ As you read above, you\u2019ll start with the \u201Chello world\u201D of quantitative\
+    \ trading: the moving average crossover. The strategy that you\u2019ll be developing\
+    \ is simple: you create two separate Simple Moving Averages (SMA) of a time series\
+    \ with differing lookback periods, let\u2019s say, 40 days and 100 days. If the\
+    \ short moving average exceeds the long moving average then you go long, if the\
+    \ long moving average exceeds the short moving average then you exit.  Remember\
+    \ that when you go long, you think that the stock price will go up and will sell\
+    \ at a higher price in the future (= buy signal); When you go short, you sell\
+    \ your stock, expecting that you can buy it back at a lower price and realize\
+    \ a profit (= sell signal).  This simple strategy might seem quite complex when\
+    \ you\u2019re just starting out, but let\u2019s take this step by step:  First\
+    \ define your two different lookback periods: a short window and a long window.\
+    \ You set up two variables and assign one integer per variable. Make sure that\
+    \ the integer that you assign to the short window is shorter than the integer\
+    \ that you assign to the long window variable! Next, make an empty signals DataFrame,\
+    \ but do make sure to copy the index of your aapl data so that you can start calculating\
+    \ the daily buy or sell signal for your aapl data. Create a column in your empty\
+    \ signals DataFrame that is named signal and initialize it by setting the value\
+    \ for all rows in this column to 0.0. After the preparatory work, it\u2019s time\
+    \ to create the set of short and long simple moving averages over the respective\
+    \ long and short time windows. Make use of the rolling() function to start your\
+    \ rolling window calculations: within the function, specify the window and the\
+    \ min_period, and set the center argument. In practice, this will result in a\
+    \ rolling() function to which you have passed either short_window or long_window,\
+    \ 1 as the minimum number of observations in the window that are required to have\
+    \ a value, and False, so that the labels are not set at the center of the window.\
+    \ Next, don\u2019t forget to also chain the mean() function so that you calculate\
+    \ the rolling mean. After you have calculated the mean average of the short and\
+    \ long windows, you should create a signal when the short moving average crosses\
+    \ the long moving average, but only for the period greater than the shortest moving\
+    \ average window. In Python, this will result in a condition: signals['short_mavg'][short_window:]\
+    \ > signals['long_mavg'][short_window:]. Note that you add the [short_window:]\
+    \ to comply with the condition \u201Conly for the period greater than the shortest\
+    \ moving average window\u201D. When the condition is true, the initialized value\
+    \ 0.0 in the signal column will be overwritten with 1.0. A \u201Csignal\u201D\
+    \ is created! If the condition is false, the original value of 0.0 will be kept\
+    \ and no signal is generated. You use the NumPy where() function to set up this\
+    \ condition. Much the same like you read just now, the variable to which you assign\
+    \ this result is signals['signal'][short_window], because you only want to create\
+    \ signals for the period greater than the shortest moving average window! Lastly,\
+    \ you take the difference of the signals in order to generate actual trading orders.\
+    \ In other words, in this column of your signals DataFrame, you\u2019ll be able\
+    \ to distinguish between long and short positions, whether you\u2019re buying\
+    \ or selling stock."
+  stars: 64
+  forks: 19
+  language: Jupyter Notebook
+  last_update: '2026-05-05T08:06:26Z'
+  query: futures trend following python
+  relevance_score: 0.828
+  reason_to_keep: 'Keyword match: forecast, forecasting, futures, roll'
+  status: discovered
+- repo: Prathik-16/Smart-Farmer-Assistant
+  url: https://github.com/Prathik-16/Smart-Farmer-Assistant
+  description: In recent years, due to uncertain climatic variations, natural calamities,
+    and other issues, crop prices have varied to a larger extent. Farmers are uninformed
+    of these uncertainties, which causes massive losses. The developed Crop Price
+    Forecasting System is a well-designed system that provides results in predicting
+    the price and yield of the crop.  Agriculture planning plays a significant role
+    in the economic growth and food security of the agro-based country. Price prediction
+    depends on various parameters such as seed rate, market price, and government
+    policies. Many researchers studied the prediction of crop yield, prediction of
+    weather, soil classification, and crop classification for agriculture planning
+    using statistical methods or machine learning techniques. The proposed method
+    may improve the net yield rate of crops.
+  stars: 4
+  forks: 1
+  language: Python
+  last_update: '2024-09-18T02:10:07Z'
+  query: crop price prediction weather machine learning
+  relevance_score: 0.708
+  reason_to_keep: 'Keyword match: forecast, forecasting, prediction, weather'
+  status: discovered
+- repo: SakshiB71/Farmassit_ml
+  url: https://github.com/SakshiB71/Farmassit_ml
+  description: FarmAssist is an agri-tech backend system that uses machine learning
+    to provide crop recommendations and commodity price forecasts. It leverages soil
+    and weather data for prediction and exposes scalable REST APIs using FastAPI.
+  stars: 1
+  forks: 0
+  language: HTML
+  last_update: '2026-03-17T13:56:14Z'
+  query: crop price prediction weather machine learning
+  relevance_score: 0.702
+  reason_to_keep: 'Keyword match: commodity, forecast, prediction, weather'
+  status: discovered
+- repo: josephchamakal/CFTC-web-scraper
+  url: https://github.com/josephchamakal/CFTC-web-scraper
+  description: A Python Scrapy-based web scraper that automatically extracts and processes
+    Commitments of Traders (COT) reports from the U.S. Commodity Futures Trading Commission
+    (CFTC) website.
+  stars: 0
+  forks: 0
+  language: Python
+  last_update: '2025-11-29T08:37:35Z'
+  query: CFTC COT futures python
+  relevance_score: 0.7
+  reason_to_keep: 'Keyword match: cftc, commodity, cot, futures'
+  status: discovered
+- repo: MikolajGolowski/financial-cot-data-fetcher
+  url: https://github.com/MikolajGolowski/financial-cot-data-fetcher
+  description: A Python utility aimed at traders and analysts to automatically fetch,
+    aggregate, and structure historical Commitments of Traders (COT) data for Financial
+    Futures from the U.S. Commodity Futures Trading Commission (CFTC).
+  stars: 0
+  forks: 0
+  language: Python
+  last_update: '2026-01-28T10:16:06Z'
+  query: CFTC COT futures python
+  relevance_score: 0.7
+  reason_to_keep: 'Keyword match: cftc, commodity, cot, futures'
+  status: discovered
+- repo: vishalskyfall/Crop_PRICE-YIELD_Prediction
+  url: https://github.com/vishalskyfall/Crop_PRICE-YIELD_Prediction
+  description: "In today\u2019s world technology like Machine Learning can help us\
+    \ to predict almost anything. Farmers of our country are always helpful to us\
+    \ in every way and that\u2019s why we\u2019d like to help them with their problem\
+    \ of crop prices. Like, what will be the price of cotton in next season. Some\
+    \ experienced farmers sometimes fail due to unconditional weather and due to acts\
+    \ of GOD. Machine also fails in that situation but M.L. can predict prices upto\
+    \ 80% and with their own experiences they can select which crop to grow. We\u2019\
+    re also helping the Government to import or export crops with our Crop Yield Prediction"
+  stars: 7
+  forks: 1
+  language: JavaScript
+  last_update: '2025-12-08T11:21:00Z'
+  query: crop price prediction weather machine learning
+  relevance_score: 0.589
+  reason_to_keep: 'Keyword match: cot, prediction, weather'
+  status: discovered
+- repo: engineerinvestor/systematic-trend-following-with-managed-futures
+  url: https://github.com/engineerinvestor/systematic-trend-following-with-managed-futures
+  description: 'Modular Python scaffold for systematic trend-following/managed-futures
+    research: validates multi-asset futures data, builds continuous contracts, runs
+    configurable backtests via CLI/API, simulates trading costs and rolls, and delivers
+    institutional-grade analytics and reports.'
+  stars: 5
+  forks: 1
+  language: Python
+  last_update: '2026-05-29T22:16:21Z'
+  query: futures trend following python
+  relevance_score: 0.585
+  reason_to_keep: 'Keyword match: backtest, futures, roll'
+  status: discovered
+- repo: BistonN/tg-preco-milho
+  url: https://github.com/BistonN/tg-preco-milho
+  description: "This repository stores the code developed in the final graduation\
+    \ project of Jo\xE3o Vitor Biston Nunes, in the Big Data in Agribusiness program,\
+    \ which aims to evaluate machine learning algorithms in the prediction of the\
+    \ price of corn futures contracts traded on the Brazilian stock exchange (B3)."
+  stars: 0
+  forks: 0
+  language: Python
+  last_update: '2025-09-04T13:01:11Z'
+  query: corn futures prediction machine learning
+  relevance_score: 0.575
+  reason_to_keep: 'Keyword match: corn, futures, prediction'
+  status: discovered
+- repo: alekhya-puli14/Agricultural-Commodity-Futures-Price-Prediction
+  url: https://github.com/alekhya-puli14/Agricultural-Commodity-Futures-Price-Prediction
+  description: ''
+  stars: 0
+  forks: 0
+  language: Jupyter Notebook
+  last_update: '2026-01-02T06:57:21Z'
+  query: agricultural commodity price prediction futures
+  relevance_score: 0.575
+  reason_to_keep: 'Keyword match: commodity, futures, prediction'
+  status: discovered
+- repo: capitalfear/Fredfacts
+  url: https://github.com/capitalfear/Fredfacts
+  description: 'Locally-run RAG assistant for ES/NQ futures research. Ingests FRED
+    macro series, CFTC CoT positioning, and Fed RSS; embeds ~850 chunks into ChromaDB;
+    answers via Claude Haiku 4.5 over a LangChain retriever. CLI: update / query /
+    digest.'
+  stars: 0
+  forks: 0
+  language: Python
+  last_update: '2026-04-24T11:30:26Z'
+  query: CFTC COT futures python
+  relevance_score: 0.575
+  reason_to_keep: 'Keyword match: cftc, cot, futures'
+  status: discovered
+- repo: SirFrancisG/Commodity-Seasonality-Backtest
+  url: https://github.com/SirFrancisG/Commodity-Seasonality-Backtest
+  description: Python framework for seasonal commodity futures backtesting using yfinance
+    and walk-forward validation
+  stars: 0
+  forks: 0
+  language: Python
+  last_update: '2026-01-09T12:35:13Z'
+  query: commodity futures backtesting python
+  relevance_score: 0.575
+  reason_to_keep: 'Keyword match: backtest, commodity, futures'
+  status: discovered
+- repo: tauadjm/FuturesAI
+  url: https://github.com/tauadjm/FuturesAI
+  description: "\u4E2D\u56FD\u5546\u54C1\u671F\u8D27ai\u81EA\u52A8\u4EA4\u6613\u7CFB\
+    \u7EDF / AI Automated Trading System for Chinese Commodity Futures"
+  stars: 9
+  forks: 2
+  language: Python
+  last_update: '2026-05-21T09:07:42Z'
+  query: commodity futures backtesting python
+  relevance_score: 0.468
+  reason_to_keep: 'Keyword match: commodity, futures'
+  status: discovered
+- repo: dinalUdagedara/SriGrow
+  url: https://github.com/dinalUdagedara/SriGrow
+  description: ' "Sri Grow" is a web app for rural agricultural officers in Sri Lanka.
+    It uses machine learning for accurate weather predictions, crop guidance, pest
+    alerts, and market prices. Powered by React and MongoDB, it offers a user-friendly
+    interface for seamless interaction and data management, with tailored updates
+    on soil and weather for different crops'
+  stars: 1
+  forks: 0
+  language: Jupyter Notebook
+  last_update: '2024-12-04T07:58:13Z'
+  query: crop price prediction weather machine learning
+  relevance_score: 0.452
+  reason_to_keep: 'Keyword match: prediction, weather'
+  status: discovered
+- repo: fdfoneill/wasdeparser
+  url: https://github.com/fdfoneill/wasdeparser
+  description: Python package that facilitates access to and use of data from the USDA World Agricultural Supply and Demand Estimates.
+  stars: 8
+  forks: 3
+  language: Python
+  last_update: '2025-03-20T18:13:53Z'
+  query: USDA WASDE corn futures python parser
+  relevance_score: 0.94
+  reason_to_keep: WASDE parser useful for vintage-aware supply/demand features and release-lag discipline.
+  status: curated_added_2026-06-11
+- repo: cstainbrook/Corn-Futures-Capstone
+  url: https://github.com/cstainbrook/Corn-Futures-Capstone
+  description: Corn futures capstone using corn market and weather data to predict potential corn prices and evaluate hedging/speculation limits.
+  stars: 5
+  forks: 3
+  language: Python
+  last_update: '2022-05-17T18:11:05Z'
+  query: corn futures weather hedging prediction capstone
+  relevance_score: 0.91
+  reason_to_keep: Direct corn futures/weather project with hedging framing; useful for external-feature review.
+  status: curated_added_2026-06-11
+- repo: SeemaKanuri/Corn-Yield-and-Futures-Price-Prediction
+  url: https://github.com/SeemaKanuri/Corn-Yield-and-Futures-Price-Prediction
+  description: Public-data project for predicting corn futures prices using futures, climate indices, yield, planting progress, CPI and stocks/supply data.
+  stars: 20
+  forks: 4
+  language: Jupyter Notebook
+  last_update: '2026-05-17T13:31:17Z'
+  query: corn futures yield weather planting progress stocks prediction
+  relevance_score: 0.96
+  reason_to_keep: Direct mapping of public USDA/weather/stock variables to corn futures forecasts.
+  status: curated_added_2026-06-11
+- repo: helios-sc/helios-corn-futures-climate-risk-challenge
+  url: https://github.com/helios-sc/helios-corn-futures-climate-risk-challenge
+  description: Participant code and results for a corn futures climate-risk Kaggle challenge.
+  stars: 0
+  forks: 1
+  language: Jupyter Notebook
+  last_update: '2026-02-11T03:11:35Z'
+  query: corn futures climate risk challenge weather forecast archive
+  relevance_score: 0.89
+  reason_to_keep: Climate-risk modeling ideas for corn futures; useful for stress-weather and forecast-archive experiments.
+  status: curated_added_2026-06-11
+- repo: facundoallia/calendar-spread-time-series-forecasting
+  url: https://github.com/facundoallia/calendar-spread-time-series-forecasting
+  description: Time Series Forecasting in Calendar Spread Strategies; includes an application in the Argentine corn market.
+  stars: 5
+  forks: 4
+  language: Jupyter Notebook
+  last_update: '2025-03-29T17:53:17Z'
+  query: corn calendar spread futures time series forecasting
+  relevance_score: 0.88
+  reason_to_keep: Calendar-spread strategy template relevant to nearby/deferred curve and basis ideas.
+  status: curated_added_2026-06-11
+- repo: WUR-AI/AgML-CY-Bench
+  url: https://github.com/WUR-AI/AgML-CY-Bench
+  description: CY-Bench crop yield benchmark with standardized public subnational yield statistics and spatio-temporal predictors.
+  stars: 48
+  forks: 22
+  language: Jupyter Notebook
+  last_update: '2026-06-09T14:24:50Z'
+  query: crop yield benchmark weather remote sensing public data
+  relevance_score: 0.86
+  reason_to_keep: Benchmark discipline and yield-feature engineering for weather/satellite inputs feeding futures models.
+  status: curated_added_2026-06-11
+- repo: ccaspar/weather_commodities
+  url: https://github.com/ccaspar/weather_commodities
+  description: Study of weather effects on commodity prices, including corn, cotton and wheat.
+  stars: 7
+  forks: 1
+  language: Jupyter Notebook
+  last_update: '2024-08-04T17:57:52Z'
+  query: weather effect commodity prices corn wheat python
+  relevance_score: 0.84
+  reason_to_keep: Simple weather-to-commodity-price exploratory workflow to mine for feature windows.
+  status: curated_added_2026-06-11
+- repo: quantiacs/strategy-futures-commodity
+  url: https://github.com/quantiacs/strategy-futures-commodity
+  description: Template using external IMF commodity data for an algorithmic futures strategy.
+  stars: 3
+  forks: 0
+  language: Jupyter Notebook
+  last_update: '2025-07-28T22:07:47Z'
+  query: commodity futures strategy IMF data python
+  relevance_score: 0.73
+  reason_to_keep: Lightweight commodity-futures strategy template for benchmark hygiene and result packaging.
+  status: curated_added_2026-06-11
+- repo: tezamo/FPMA
+  url: https://github.com/tezamo/FPMA
+  description: Python scripts to fetch, clean and archive monthly food commodity price data from the FAO GIEWS FPMA API.
+  stars: 4
+  forks: 1
+  language: Jupyter Notebook
+  last_update: '2026-05-28T08:16:33Z'
+  query: FAO GIEWS FPMA food commodity prices API python
+  relevance_score: 0.76
+  reason_to_keep: Potential external physical/food-price context for international maize and EU premium analysis.
+  status: curated_added_2026-06-11
+- repo: prochalo/commodity-regime-bench
+  url: https://github.com/prochalo/commodity-regime-bench
+  description: Reproducible benchmark of regime-switching models for agricultural commodity prices, with walk-forward testing and significance tests.
+  stars: 0
+  forks: 0
+  language: Python
+  last_update: '2026-05-14T07:39:31Z'
+  query: agricultural commodity regime switching benchmark walk-forward
+  relevance_score: 0.82
+  reason_to_keep: Regime-switching benchmark patterns for testing whether corn/EMA premium signals are regime-dependent.
+  status: curated_added_2026-06-11

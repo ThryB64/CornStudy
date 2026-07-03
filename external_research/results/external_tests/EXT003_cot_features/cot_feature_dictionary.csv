@@ -1,0 +1,10 @@
+feature,description
+mm_net_pct_oi,Managed Money net / open interest
+pm_net_pct_oi,Producer/Merchant net / open interest
+mm_net_z,z-score expandant du MM net
+mm_net_pctile,Percentile expandant du MM net (extremes)
+mm_net_chg,Flux hebdo du MM net
+oi_z,z-score expandant de l'open interest
+mm_long_pct,MM long / OI
+mm_short_pct,MM short / OI
+spec_comm_ratio,Ratio positions speculateurs (MM) / commerciaux (PM)

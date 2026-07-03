@@ -1,0 +1,11 @@
+id,idea_id,experiment_id,priority,difficulty,required_data,status,decision_rule,notes
+CAND001,EXT025_random_walk_and_futures_price_benchmark,EXT025,very_high,low,prices and futures curves,queued,Must be a baseline for all EXT work,First candidate for Claude to validate
+CAND002,EXT006_roll_method_volume_based,EXT006,very_high,medium,contract OHLCV and volume,queued,Keep if roll artifacts decline,Foundational data hygiene
+CAND003,EXT003_cot_features,EXT003,very_high,medium,CFTC COT with release dates,queued,Keep only if OOF gain survives latency,Publication lag is the core risk
+CAND004,EXT007_wasde_release_features,EXT007,very_high,medium,WASDE calendar,queued,Keep only if OOF event windows beat baseline,Do not use revised numbers
+CAND005,EXT018_weather_risk_premium_new_crop,EXT018,very_high,medium,new-crop futures and weather,queued,Keep if seasonal weather premium is robust,Strong economic prior
+CAND006,EXT033_weather_forecast_archive_features,EXT033,very_high,high,historical forecast archive and futures,queued,Keep only if archived forecasts beat realized-weather proxy,Directly aligned with current forward-validation needs
+CAND007,EXT027_crop_progress_condition_surprises,EXT027,very_high,medium,NASS crop progress and condition releases,queued,Keep if publication-lagged surprises add OOF signal,Weekly public crop information is a natural CBOT driver
+CAND008,EXT026_wasde_parser_vintage_pipeline,EXT026,very_high,medium,WASDE files and release calendar,queued,Keep as infra if vintage/release-dated ingestion is cleaner than current proxies,Foundation for trustworthy WASDE tests
+CAND009,EXT029_corn_crush_location_basis,EXT029,high,high,ethanol corn DDG gas basis,queued,Keep if crush/location pressure explains demand or basis regimes,Useful for ethanol-driven corn demand and local basis
+CAND010,EXT034_calendar_spread_strategy_benchmark,EXT034,medium_high,medium,contract-level futures curve,queued,Keep if spread/roll benchmark improves curve hygiene,Relevant to CBOT nearby and EMA curve fragments

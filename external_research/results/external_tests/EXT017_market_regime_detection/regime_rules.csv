@@ -1,0 +1,7 @@
+regime_dim,rule_past_only,values
+vol_regime,rv20 vs médiane expandante (passé),high_vol / low_vol
+trend_regime,"momentum 120j, bande neutre ±0.02",uptrend / downtrend / neutral_trend
+season_regime,mois de croissance mai-sep,growing / off_season
+stocks_regime,percentile expandant stocks-to-use,tight<0.33 / normal / loose>0.66
+crop_regime,anomalie condition good/excellent,good>0.5 / normal / bad<-0.5
+wasde_regime,jours depuis dernier WASDE (calendrier ex ante),near<=10j / far

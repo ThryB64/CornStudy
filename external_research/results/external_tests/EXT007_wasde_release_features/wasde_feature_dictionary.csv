@@ -1,0 +1,13 @@
+feature,description
+wasde_ending_stocks,Niveau WASDE publie (vintage): ending_stocks
+wasde_stocks_to_use_ratio,Niveau WASDE publie (vintage): stocks_to_use_ratio
+wasde_production,Niveau WASDE publie (vintage): production
+wasde_exports,Niveau WASDE publie (vintage): exports
+wasde_use_total,Niveau WASDE publie (vintage): use_total
+wasde_avg_farm_price,Niveau WASDE publie (vintage): avg_farm_price
+is_wasde_day,Indicateur jour de publication WASDE (calendrier ex ante)
+days_since_last_wasde,Jours depuis le dernier WASDE
+days_to_next_wasde,Jours avant le prochain WASDE
+is_grain_stocks_day,Indicateur jour Grain Stocks
+is_acreage_day,Indicateur jour Acreage/Plantings
+wasde_post_window,"Fenetre post-rapport [J, J+10]"

@@ -1,0 +1,9 @@
+column,definition,leakage_rule
+publication_date,date de publication reelle (links table USDA Cornell),valeur inconnue avant cette date
+available_from,"publication + 1 jour ouvre (conservateur, publication 12h ET)",premiere date d'usage en feature quotidienne close-to-close
+pub_date_source,links_table ou fallback_day12,"fallback = jour 12 du mois, jamais avant la vraie date moyenne"
+marketing_year_approx,campagne sep->aout deduite du mois de rapport,approximation; le rapport melange old/new crop de mai a sept
+production,"production US mais, million bu, telle que publiee","vintage, jamais revisee retroactivement"
+ending_stocks,"stocks fin de campagne US, million bu, tels que publies",idem
+stocks_to_use_calc,ending_stocks/use_total recalcule,derive de valeurs vintage uniquement
+*_chg_m1 / *_pct_m1,variation vs rapport precedent (proxy de surprise EXT008),disponible a available_from du rapport M

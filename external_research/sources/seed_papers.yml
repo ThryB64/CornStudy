@@ -1,0 +1,462 @@
+- id: PAPER001
+  title: Sriramjee Singh - Weather, soil and machine learning for CBOT corn futures prices
+  type: paper_or_thesis
+  authors_or_owner: Sriramjee Singh
+  year: null
+  topic: Weather, soil and machine learning for CBOT corn futures.
+  source_query: Sriramjee Singh weather soil machine learning CBOT corn futures prices
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Direct testbed for crop windows, lagged weather, drought, heat and GDD.
+  status: seed
+- id: PAPER002
+  title: Machine learning to predict grains futures prices
+  type: paper
+  authors_or_owner: Brignoli, Varacca, Gardebroek, Sckokai
+  year: 2024
+  topic: LSTM-RNN versus classical econometric models on grain futures.
+  source_query: Brignoli Varacca Gardebroek Sckokai machine learning grains futures prices 2024
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Tests deep learning under trend and seasonality issues.
+  status: seed
+- id: PAPER003
+  title: The Impact of Public Information on Commodity Market Performance
+  type: institutional_report
+  authors_or_owner: USDA ERS
+  year: 2021
+  topic: Response of corn futures to USDA corn production forecasts.
+  source_query: USDA ERS public information corn futures production forecasts 2021
+  url_if_known: ""
+  priority: very_high
+  why_relevant: WASDE and USDA release windows are core anti-leakage features.
+  status: seed
+- id: PAPER004
+  title: Impact of WASDE and NASS reports on corn and soybean futures
+  type: paper
+  authors_or_owner: Isengildina-Massa, Irwin, Good, Gomez
+  year: 2008
+  topic: USDA announcement effects on futures prices and volatility.
+  source_query: Isengildina-Massa Irwin Good Gomez WASDE NASS corn soybean futures 2008
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Event-study design for WASDE/NASS surprises.
+  status: seed
+- id: PAPER005
+  title: The Value of USDA Announcements in the Electronically Traded Corn Futures Market
+  type: paper
+  authors_or_owner: Huang, Serra, Garcia
+  year: 2021
+  topic: Economic value of USDA surprises in electronic corn futures.
+  source_query: Huang Serra Garcia value USDA announcements electronically traded corn futures 2021
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Tests risk-adjusted announcement value and joint NASS-WASDE events.
+  status: seed
+- id: PAPER006
+  title: Does public information facilitate price consensus?
+  type: paper
+  authors_or_owner: Bunek, Janzen
+  year: 2024
+  topic: USDA announcement effects using implied and realized volatility.
+  source_query: Bunek Janzen public information price consensus USDA realized volatility 2024
+  url_if_known: ""
+  priority: high
+  why_relevant: Motivates realized-volatility windows around USDA releases.
+  status: seed
+- id: PAPER007
+  title: The weather premium in the U.S. corn market
+  type: paper
+  authors_or_owner: Li, Hayes, Jacobs
+  year: 2018
+  topic: Weather premium in U.S. corn futures.
+  source_query: Li Hayes Jacobs weather premium US corn market 2018 Journal of Futures Markets
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Weather premium, carryout, expected yield and December new-crop futures.
+  status: seed
+- id: PAPER008
+  title: The Weather Risk Premium in New-Crop Corn Futures Prices
+  type: article
+  authors_or_owner: Janzen
+  year: 2021
+  topic: Weather risk premium in December new-crop corn futures.
+  source_query: Janzen weather risk premium new crop corn futures prices farmdoc 2021
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Seasonal pre-harvest versus harvest price premium benchmark.
+  status: seed
+- id: PAPER009
+  title: Forecasting Volatility of Returns for Corn Using GARCH Models
+  type: paper
+  authors_or_owner: Musunuru, Yu, Larson
+  year: null
+  topic: GARCH, TGARCH and EGARCH volatility forecasts for corn.
+  source_query: Musunuru Yu Larson forecasting volatility returns corn GARCH TGARCH EGARCH
+  url_if_known: ""
+  priority: high
+  why_relevant: Volatility target and asymmetric volatility benchmark.
+  status: seed
+- id: PAPER010
+  title: Price Volatility Forecasts for Agricultural Commodities
+  type: paper
+  authors_or_owner: Benavides
+  year: 2004
+  topic: Corn and wheat futures volatility with GARCH, BEKK and implied volatility.
+  source_query: Benavides price volatility forecasts agricultural commodities corn wheat futures 2004
+  url_if_known: ""
+  priority: medium_high
+  why_relevant: Composite volatility benchmark before complex models.
+  status: seed
+- id: PAPER011
+  title: "Forecasting the Spot Price of Corn: Methods and Assessment"
+  type: thesis
+  authors_or_owner: Halonen
+  year: 2016
+  topic: Corn spot forecasting at 1, 3, 6, 9 and 12 month horizons.
+  source_query: Halonen Forecasting the Spot Price of Corn Methods and Assessment 2016
+  url_if_known: ""
+  priority: high
+  why_relevant: AR, VAR and supply-demand baselines by horizon.
+  status: seed
+- id: PAPER012
+  title: "Weather to Buy or Sell: Extreme Weather Impact on Corn Futures Market"
+  type: thesis
+  authors_or_owner: Filimon
+  year: 2011
+  topic: Extreme weather events and corn futures.
+  source_query: Filimon Weather to Buy or Sell Extreme Weather Impact Corn Futures 2011
+  url_if_known: ""
+  priority: high
+  why_relevant: Event definitions for heat, drought and weather shocks.
+  status: seed
+- id: PAPER013
+  title: Extreme heat, corn and soybean yields, prices and farm revenues
+  type: paper
+  authors_or_owner: Lee
+  year: 2026
+  topic: Extreme heat, yield shocks, received prices and farm revenues.
+  source_query: Lee extreme heat corn soybean yields prices farm revenues 2026
+  url_if_known: ""
+  priority: medium_high
+  why_relevant: Heat-day yield shock proxies and natural price-yield hedge.
+  status: seed
+- id: PAPER014
+  title: Price discovery between futures and spot markets for U.S. corn
+  type: paper
+  authors_or_owner: Miljkovic et al.
+  year: 2026
+  topic: Futures-spot price discovery, turbulent periods and reproductive phase.
+  source_query: Miljkovic price discovery futures spot US corn 2026
+  url_if_known: ""
+  priority: medium
+  why_relevant: Spot-futures and basis regimes around pollination.
+  status: seed
+- id: PAPER015
+  title: Measuring Price Discovery between Nearby and Deferred Contracts
+  type: paper
+  authors_or_owner: Hu, Mallory, Serra, Garcia
+  year: null
+  topic: Nearby versus deferred contracts in storable and non-storable commodity futures.
+  source_query: Hu Mallory Serra Garcia nearby deferred contracts corn price discovery volume 50 percent
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Volume-based roll and nearby dominance before expiration.
+  status: seed
+- id: PAPER016
+  title: Futures-spot price transmission in EU corn markets
+  type: paper
+  authors_or_owner: Penone, Giampietri, Trestini
+  year: 2022
+  topic: Transmission from CBOT and Euronext futures to EU spot corn prices.
+  source_query: Penone Giampietri Trestini futures spot price transmission EU corn markets 2022
+  url_if_known: ""
+  priority: high
+  why_relevant: Direct Europe adaptation via cointegration and VECM.
+  status: seed
+- id: PAPER017
+  title: How Market Efficiency and the Theory of Storage Link Corn and Ethanol Markets
+  type: paper
+  authors_or_owner: Mallory, Hayes, Irwin
+  year: null
+  topic: Corn, ethanol, natural gas and storage theory.
+  source_query: Mallory Hayes Irwin market efficiency theory of storage corn ethanol markets
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Ethanol crush spread, DDG, natural gas and carry hypotheses.
+  status: seed
+- id: PAPER018
+  title: "Price Analysis: A Fundamental Approach to the Study of Commodity Prices"
+  type: book_or_course
+  authors_or_owner: Mindy Mallory
+  year: null
+  topic: Fundamental commodity price analysis.
+  source_query: Mindy Mallory Price Analysis Fundamental Approach Commodity Prices
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Basis, hedge ratios, nearby price, ethanol, DDG and storage foundations.
+  status: seed
+- id: PAPER019
+  title: LSTM on Dalian corn futures
+  type: paper
+  authors_or_owner: Gu, Li
+  year: 2024
+  topic: Chinese corn futures, spot, ethanol, soybean meal and search index.
+  source_query: Gu Li LSTM Dalian corn futures spot ethanol soybean meal Baidu Search Index 2024
+  url_if_known: ""
+  priority: medium
+  why_relevant: Sentiment/search and related-product features.
+  status: seed
+- id: PAPER020
+  title: Text-based corn futures price forecasting using improved NBEATSx
+  type: paper
+  authors_or_owner: Wang, An, Li
+  year: 2024
+  topic: Weibo sentiment, NBEATSx and SHAP for Dalian corn futures.
+  source_query: Wang An Li text-based corn futures forecasting improved NBEATSx 2024
+  url_if_known: ""
+  priority: high
+  why_relevant: News/sentiment and interpretable deep learning benchmark.
+  status: seed
+- id: PAPER021
+  title: Novel forecasting of white maize futures volatility with hybrid GARCH-BLSTM
+  type: paper
+  authors_or_owner: Huang, Sayed
+  year: 2025
+  topic: South African white maize futures volatility.
+  source_query: Huang Sayed white maize futures volatility hybrid GARCH BLSTM 2025
+  url_if_known: ""
+  priority: medium_high
+  why_relevant: Hybrid volatility model and cross-market variables.
+  status: seed
+- id: PAPER022
+  title: Speculative ratios and returns volatility in South African white maize futures
+  type: paper
+  authors_or_owner: Sayed, Auret
+  year: 2022
+  topic: Speculation, hedging ratios, volume, open interest and volatility.
+  source_query: Sayed Auret speculative ratios returns volatility South African white maize futures 2022
+  url_if_known: ""
+  priority: high
+  why_relevant: Volume/open-interest and speculative ratio features.
+  status: seed
+- id: PAPER023
+  title: Volatility spillovers in the South African white maize market
+  type: paper
+  authors_or_owner: Sayed, Auret
+  year: null
+  topic: Spillovers among white maize, yellow maize, wheat, sunflower, FX and rates.
+  source_query: Sayed Auret volatility spillovers South African white maize market
+  url_if_known: ""
+  priority: medium
+  why_relevant: Cross-market spillover design.
+  status: seed
+- id: PAPER024
+  title: Random Forest on spot and futures corn prices in Brazil
+  type: paper
+  authors_or_owner: Lima
+  year: 2025
+  topic: Brazil corn prices, dollar, soybeans and random forest.
+  source_query: Lima random forest spot futures corn prices Brazil dollar soybean 2025
+  url_if_known: ""
+  priority: low_medium
+  why_relevant: Local market and FX/soybean features.
+  status: seed
+- id: PAPER025
+  title: External shocks and international corn price fluctuations
+  type: paper
+  authors_or_owner: Liu, Liu, Ge
+  year: 2024
+  topic: External shocks, COVID, ARCH and TVP-VAR.
+  source_query: Liu Liu Ge external shocks international corn price fluctuations 2024
+  url_if_known: ""
+  priority: medium
+  why_relevant: Exogenous shock and regime modeling ideas.
+  status: seed
+- id: PAPER026
+  title: Multiscale correlation of Sino-US corn futures and crude oil
+  type: paper
+  authors_or_owner: unknown
+  year: null
+  topic: Multiscale correlations among China, U.S. corn futures and oil.
+  source_query: multiscale correlation Sino-US corn futures crude oil wavelet
+  url_if_known: ""
+  priority: medium
+  why_relevant: Wavelet or multiscale cross-market correlations.
+  status: seed
+- id: PAPER027
+  title: Evaluating the Forecasting Performance of Commodity Futures Prices
+  type: institutional_report
+  authors_or_owner: Reeve, Vigfusson
+  year: 2011
+  topic: Futures prices versus random walk benchmarks.
+  source_query: Reeve Vigfusson Evaluating Forecasting Performance Commodity Futures Prices 2011
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Random walk and futures-price baseline discipline.
+  status: seed
+- id: PAPER028
+  title: Predicting Agricultural Commodities Prices with Machine Learning
+  type: review
+  authors_or_owner: Tran et al.
+  year: 2023
+  topic: Review of ML research on agricultural commodity prices.
+  source_query: Tran Predicting Agricultural Commodities Prices Machine Learning Review 2023
+  url_if_known: ""
+  priority: high
+  why_relevant: Literature map and limits of ML approaches.
+  status: seed
+- id: PAPER029
+  title: "Democratising Agricultural Commodity Price Forecasting: The AGRICAF Approach"
+  type: paper
+  authors_or_owner: Zelingher
+  year: 2024
+  topic: Explainable ML plus econometrics for maize, soybean and wheat.
+  source_query: Zelingher Democratising Agricultural Commodity Price Forecasting AGRICAF 2024
+  url_if_known: ""
+  priority: very_high
+  why_relevant: Horizon-specific explainable forecasting approach.
+  status: seed
+- id: PAPER030
+  title: The Promise of Time-Series Foundation Models for Agricultural Forecasting
+  type: paper
+  authors_or_owner: Wang, Zhang
+  year: 2026
+  topic: Chronos, TimesFM, Time-MoE and Moirai on USDA ERS agricultural prices.
+  source_query: Wang Zhang Time-Series Foundation Models Agricultural Forecasting corn soybeans 2026
+  url_if_known: ""
+  priority: medium
+  why_relevant: Zero-shot TSFM benchmark with high leakage and memorization risk.
+  status: seed
+- id: PAPER031
+  title: Analysis of Agricultural Commodities Prices with New Bayesian Model Combination Schemes
+  type: paper
+  authors_or_owner: Drachal
+  year: 2019
+  topic: Dynamic model averaging and Bayesian model averaging.
+  source_query: Drachal agricultural commodities prices Bayesian model combination schemes 2019
+  url_if_known: ""
+  priority: high
+  why_relevant: Variable uncertainty and time-varying model weights.
+  status: seed
+- id: PAPER032
+  title: Agricultural futures prices combination forecasting with whole-process interpretable method
+  type: paper
+  authors_or_owner: unknown
+  year: 2025
+  topic: Mutual information, SHAP and multi-objective optimization.
+  source_query: agricultural futures prices combination forecasting whole-process interpretable method 2025
+  url_if_known: ""
+  priority: high
+  why_relevant: Interpretable feature selection and model combination.
+  status: seed
+- id: PAPER033
+  title: Multi-step commodity forecasts using deep learning
+  type: paper
+  authors_or_owner: Bora, Katchova
+  year: 2024
+  topic: Multi-horizon agricultural commodity forecasts.
+  source_query: Bora Katchova multi-step commodity forecasts deep learning 2024
+  url_if_known: ""
+  priority: medium
+  why_relevant: Long-horizon forecast comparison against USDA baseline.
+  status: seed
+- id: PAPER034
+  title: CNN and aerial images for wheat futures
+  type: paper
+  authors_or_owner: Thaker, Chan, Sonner
+  year: 2024
+  topic: Aerial or satellite imagery for wheat futures.
+  source_query: Thaker Chan Sonner CNN aerial images wheat futures 2024
+  url_if_known: ""
+  priority: low_medium
+  why_relevant: Optional NDVI/satellite path for agricultural futures.
+  status: seed
+- id: PAPER035
+  title: Adaptive market efficiency of agricultural futures
+  type: paper
+  authors_or_owner: Coronado-Ramirez et al.
+  year: 2014
+  topic: Adaptive market efficiency in agricultural futures.
+  source_query: Coronado-Ramirez adaptive market efficiency agricultural futures 2014
+  url_if_known: ""
+  priority: medium
+  why_relevant: Signal stability by regime and period.
+  status: seed
+- id: PAPER036
+  title: Extreme Measures of Agricultural Financial Risk
+  type: paper
+  authors_or_owner: Cotter, Dowd, Morgan
+  year: null
+  topic: VaR, expected shortfall and spectral risk for corn and soybeans.
+  source_query: Cotter Dowd Morgan Extreme Measures Agricultural Financial Risk corn soybeans
+  url_if_known: ""
+  priority: medium
+  why_relevant: Extreme risk, EVT, drawdown and expected shortfall targets.
+  status: seed
+- id: PAPER037
+  title: COMEX Copper Futures Volatility Forecasting
+  type: paper
+  authors_or_owner: unknown
+  year: 2024
+  topic: Econometric models and deep learning for copper futures volatility.
+  source_query: COMEX Copper Futures Volatility Forecasting Econometric Models Deep Learning 2024
+  url_if_known: ""
+  priority: medium
+  why_relevant: HAR and GARCH as volatility baselines before complex models.
+  status: seed
+- id: PAPER038
+  title: Energy markets with GARCH and machine learning
+  type: paper
+  authors_or_owner: unknown
+  year: 2024
+  topic: Oil, gas, macro and environmental variables.
+  source_query: energy markets GARCH machine learning macro environmental variables 2024
+  url_if_known: ""
+  priority: medium
+  why_relevant: Oil, natural gas and energy variables linked to corn/ethanol.
+  status: seed
+- id: PAPER039
+  title: Commodity futures curves with Nelson-Siegel
+  type: paper
+  authors_or_owner: unknown
+  year: 2023
+  topic: Level, slope and curvature of commodity futures curves.
+  source_query: commodity futures curves Nelson Siegel level slope curvature 2023
+  url_if_known: ""
+  priority: medium
+  why_relevant: Term structure features, spreads and contango/backwardation.
+  status: seed
+- id: PAPER040
+  title: Kriging and interpolation of commodity futures curves
+  type: paper
+  authors_or_owner: unknown
+  year: 2021
+  topic: Interpolation of commodity futures curves.
+  source_query: kriging interpolation commodity futures curves 2021
+  url_if_known: ""
+  priority: low_medium
+  why_relevant: Useful only if enough maturities become available.
+  status: seed
+- id: PAPER041
+  title: A stochastic model for commodity pairs trading
+  type: paper
+  authors_or_owner: Goncu, Akyildirim
+  year: 2016
+  topic: OU-Levy pairs trading on commodity futures with transaction costs.
+  source_query: Goncu Akyildirim stochastic model commodity pairs trading OU Levy 2016
+  url_if_known: ""
+  priority: medium
+  why_relevant: Mean-reverting spreads such as corn/soybean and corn/wheat.
+  status: seed
+- id: PAPER042
+  title: Seasonal Stochastic Volatility and Samuelson Effect in Agricultural Futures Markets
+  type: paper
+  authors_or_owner: Schneider, Tavin
+  year: 2018
+  topic: Seasonal volatility and Samuelson effect in agricultural futures.
+  source_query: Schneider Tavin Seasonal Stochastic Volatility Samuelson Effect Agricultural Futures 2018
+  url_if_known: ""
+  priority: high
+  why_relevant: Volatility seasonality and maturity effects for futures curves.
+  status: seed

@@ -1,0 +1,132 @@
+- id: REPO001
+  title: PrayusShrestha/crop-price-prediction
+  type: github_repository
+  authors_or_owner: PrayusShrestha
+  repo: PrayusShrestha/crop-price-prediction
+  year: null
+  topic: Corn futures price prediction with weather and commodity data.
+  source_query: crop price prediction corn futures weather machine learning
+  url_if_known: https://github.com/PrayusShrestha/crop-price-prediction
+  priority: very_high
+  why_relevant: Compare our weather and ML blocks against a corn futures focused project.
+  status: seed
+- id: REPO002
+  title: squeeze-team/AgriJedi
+  type: github_repository
+  authors_or_owner: squeeze-team
+  repo: squeeze-team/AgriJedi
+  year: null
+  topic: Agricultural AI agent combining satellite, weather, yield and market signals.
+  source_query: AgriJedi agricultural AI satellite weather commodity signals
+  url_if_known: https://github.com/squeeze-team/AgriJedi
+  priority: high
+  why_relevant: Useful architecture reference for agriculture plus AI plus market data.
+  status: seed
+- id: REPO003
+  title: mindymallory/PriceAnalysis
+  type: github_repository
+  authors_or_owner: mindymallory
+  repo: mindymallory/PriceAnalysis
+  year: null
+  topic: Fundamental commodity price analysis materials.
+  source_query: Mindy Mallory PriceAnalysis commodity prices basis ethanol storage
+  url_if_known: https://github.com/mindymallory/PriceAnalysis
+  priority: very_high
+  why_relevant: Basis, hedge, ethanol, DDG and storage concepts are central to the study.
+  status: seed
+- id: REPO004
+  title: mindymallory/RollFutures
+  type: github_repository
+  authors_or_owner: mindymallory
+  repo: mindymallory/RollFutures
+  year: null
+  topic: Construction of nearby and rolled futures series.
+  source_query: RollFutures volume based roll futures contracts
+  url_if_known: https://github.com/mindymallory/RollFutures
+  priority: very_high
+  why_relevant: Roll method can bias every continuous-contract result.
+  status: seed
+- id: REPO005
+  title: NDelventhal/cot_reports
+  type: github_repository
+  authors_or_owner: NDelventhal
+  repo: NDelventhal/cot_reports
+  year: null
+  topic: CFTC Commitments of Traders data retrieval.
+  source_query: CFTC COT reports python legacy supplemental disaggregated
+  url_if_known: https://github.com/NDelventhal/cot_reports
+  priority: very_high
+  why_relevant: COT publication latency and report types are important anti-leakage inputs.
+  status: seed
+- id: REPO006
+  title: YavuzAkbay/Ornstein-Uhlenbeck
+  type: github_repository
+  authors_or_owner: YavuzAkbay
+  repo: YavuzAkbay/Ornstein-Uhlenbeck
+  year: null
+  topic: Ornstein-Uhlenbeck mean reversion models on commodities.
+  source_query: Ornstein Uhlenbeck commodities mean reversion futures python
+  url_if_known: https://github.com/YavuzAkbay/Ornstein-Uhlenbeck
+  priority: medium
+  why_relevant: Benchmark mean-reversion methods for basis and spread work.
+  status: seed
+- id: REPO007
+  title: chrism2671/PyTrendFollow
+  type: github_repository
+  authors_or_owner: chrism2671
+  repo: chrism2671/PyTrendFollow
+  year: null
+  topic: Systematic trend-following on futures.
+  source_query: futures trend following python commodities
+  url_if_known: https://github.com/chrism2671/PyTrendFollow
+  priority: medium
+  why_relevant: Provides a simple benchmark family for futures trend signals.
+  status: seed
+- id: REPO008
+  title: quantiacs/strategy-futures-trend-following
+  type: github_repository
+  authors_or_owner: quantiacs
+  repo: quantiacs/strategy-futures-trend-following
+  year: null
+  topic: Reproducible futures trend-following strategy.
+  source_query: futures trend following strategy python Quantiacs
+  url_if_known: https://github.com/quantiacs/strategy-futures-trend-following
+  priority: medium
+  why_relevant: Benchmark technical futures strategy with clean implementation style.
+  status: seed
+- id: REPO009
+  title: amstrdm/mlm-trend-following
+  type: github_repository
+  authors_or_owner: amstrdm
+  repo: amstrdm/mlm-trend-following
+  year: null
+  topic: Mount Lucas style futures trend-following strategy.
+  source_query: Mount Lucas futures trend following moving average volatility IBKR
+  url_if_known: https://github.com/amstrdm/mlm-trend-following
+  priority: medium
+  why_relevant: Moving-average and volatility filters are useful baseline comparators.
+  status: seed
+- id: REPO010
+  title: AsyncAlgoTrading/aat
+  type: github_repository
+  authors_or_owner: AsyncAlgoTrading
+  repo: AsyncAlgoTrading/aat
+  year: null
+  topic: Event-driven backtesting and live trading framework.
+  source_query: event driven futures backtesting python framework
+  url_if_known: https://github.com/AsyncAlgoTrading/aat
+  priority: low_medium
+  why_relevant: Architecture inspiration for research-only backtests and risk handling.
+  status: seed
+- id: REPO011
+  title: cchallu/nbeatsx
+  type: github_repository
+  authors_or_owner: cchallu
+  repo: cchallu/nbeatsx
+  year: null
+  topic: NBEATSx model with exogenous variables.
+  source_query: NBEATSx exogenous variables time series forecasting
+  url_if_known: https://github.com/cchallu/nbeatsx
+  priority: medium
+  why_relevant: Candidate interpretable deep learning model with covariates.
+  status: seed

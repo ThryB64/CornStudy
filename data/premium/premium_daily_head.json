@@ -2,51 +2,51 @@
   "version": "PREMIUM-HEAD",
   "verdict": "PREMIUM_HEAD_BUILT",
   "scope": "PREMIUM_ONLY",
-  "as_of": "2026-06-11",
-  "PREMIUM_STATE": "SHORT_PREMIUM_STRONG",
-  "basis_z": 1.872,
-  "basis_eur_t": 73.79,
-  "official_proxy_status": "proxy_implied",
-  "PRIME_NATURE": "PRIME_PHYSICALLY_JUSTIFIED",
-  "LIFECYCLE_STATE": "COMPRESSION_HEALTHY",
-  "HEADLINE_STATE": "COMPRESSION_HEALTHY",
-  "SIGNAL_QUALITY": "STRONG_SIGNAL",
-  "COMPOSITE_SCORE": 2,
+  "as_of": "2026-07-03",
+  "PREMIUM_STATE": "SHORT_PREMIUM_EXTREME",
+  "basis_z": 2.442,
+  "basis_eur_t": 82.75,
+  "official_proxy_status": "official_rolling",
+  "PRIME_NATURE": "PRIME_EXCESSIVE",
+  "LIFECYCLE_STATE": "ACTIVE_EARLY",
+  "HEADLINE_STATE": "PRIME_EXCESSIVE",
+  "SIGNAL_QUALITY": "EXTREME_SIGNAL",
+  "COMPOSITE_SCORE": 4,
   "WATCH_STATE": null,
   "TARGET_RECOMMENDATION": "z->0.5",
   "HORIZON_ESTIMATE": {
-    "median_horizon_days_seasonal": 23,
-    "half_life_days_for_tier": 4.9,
-    "estimated_days_to_z05": 29.2,
+    "median_horizon_days_seasonal": 47,
+    "half_life_days_for_tier": null,
+    "estimated_days_to_z05": null,
     "note": "horizon primaire = saisonnier V27 ; demi-vie par tier V130 (l'extr\u00eame r\u00e9verse plus vite) ; estimation cal\u00e9e V138 jusqu'\u00e0 z\u21920.5 (l'analytique AR(1) pur sous-pr\u00e9dit)"
   },
   "diagnostics": {
     "ADVERSE_RISK": {
-      "value": "MEDIUM",
+      "value": "LOW",
       "fresh": true
     },
     "CBOT_SUPPORT": {
-      "value": "MEDIUM",
+      "value": "LOW",
       "fresh": true
     },
     "PHYSICAL_TENSION": {
-      "value": "HIGH",
+      "value": "MEDIUM",
       "fresh": true
     },
     "SUBSTITUTION_SUPPORT": {
-      "value": "SUBSTITUTION_SIGNAL_READY",
+      "value": "DATA_BLOCKED",
       "fresh": true
     },
     "WEATHER_WARNING_US": {
-      "value": "UNKNOWN",
-      "fresh": false
+      "value": "MEDIUM",
+      "fresh": true
     },
     "WEATHER_WARNING_EU": {
       "value": "UNKNOWN",
       "fresh": false
     },
     "ACTIVE_SIGNAL_HEALTH": {
-      "value": "HEALTHY",
+      "value": "ACTIVE_EARLY",
       "fresh": true
     },
     "CURVE_TREND": {
@@ -54,34 +54,33 @@
       "fresh": true
     }
   },
-  "warnings": [
-    "prime adoss\u00e9e \u00e0 une tension physique (backwardation) -> compression plus lente"
-  ],
+  "warnings": [],
   "consistency": {
     "verdict": "LIVE_SIGNAL_CONSISTENT",
-    "reference_date": "2026-06-11",
+    "reference_date": "2026-07-03",
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99"
+      "v99",
+      "daily_latest"
     ]
   },
   "freshness": {
     "verdict": "CONTEXT_COHERENT",
-    "context_lag_days": 9,
+    "context_lag_days": 10,
     "disabled": []
   },
   "session_truth": {
-    "n_days": 10,
-    "n_final_days": 2,
-    "last_date": "2026-06-11",
-    "last_final_date": "2026-06-10",
+    "n_days": 26,
+    "n_final_days": 18,
+    "last_date": "2026-07-03",
+    "last_final_date": "2026-07-02",
     "last_record_status": "PROVISIONAL",
     "last_day_provisional": true,
     "session_status_counts": {
-      "PROVISIONAL": 9,
-      "FINAL": 1,
-      "REVISED": 1
+      "PROVISIONAL": 25,
+      "REVISED": 17,
+      "FINAL": 1
     }
   },
   "session_warning": "DERNIER JOUR PROVISOIRE (settlement non final, voir DSP 18:30 CET)",
@@ -98,8 +97,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime SHORT_PREMIUM_STRONG (basis 73.79 \u20ac/t, z 1.872, proxy_implied). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION HIGH (tendance courbe NARROWING), substitution SUBSTITUTION_SIGNAL_READY, m\u00e9t\u00e9o US UNKNOWN/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~23 j (demi-vie tier 4.9 j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-06-11 20:16:27 UTC",
+  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 82.75 \u20ac/t, z 2.442, official_rolling). Contexte : ADVERSE LOW, CBOT_SUPPORT LOW, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-07-03 08:37:45 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

@@ -1,0 +1,110 @@
+- id: PATENT001
+  title: US11138677B2 - Machine learning in an online agricultural system
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Agricultural system with price model, weather, satellite and remote sensing.
+  source_query: US11138677B2 agricultural machine learning price weather satellite
+  url_if_known: https://patents.google.com/patent/US11138677B2
+  priority: medium
+  why_relevant: System design reference for agriculture data fusion.
+  status: seed
+- id: PATENT002
+  title: KR102765471B1 - Agricultural price prediction with satellite data
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Satellite-based agricultural price prediction.
+  source_query: KR102765471B1 crop price prediction satellite
+  url_if_known: https://patents.google.com/patent/KR102765471B1
+  priority: medium
+  why_relevant: Candidate remote-sensing feature family.
+  status: seed
+- id: PATENT003
+  title: KR102634529B1 - Multi-stage time series agricultural price prediction
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Multi-stage time series prediction of agricultural prices.
+  source_query: KR102634529B1 agricultural price time series prediction
+  url_if_known: https://patents.google.com/patent/KR102634529B1
+  priority: low_medium
+  why_relevant: Ensemble or staged architecture idea, to be reviewed cautiously.
+  status: seed
+- id: PATENT004
+  title: CN115730980A - Commodity price prediction by multi-model fusion
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Multi-model fusion for commodity price prediction.
+  source_query: CN115730980A commodity price prediction multi model fusion
+  url_if_known: https://patents.google.com/patent/CN115730980A
+  priority: medium
+  why_relevant: Ensemble and fusion idea to compare against simple baselines.
+  status: seed
+- id: PATENT005
+  title: US7693801B2 - Forecasting commodity prices using capacity utilization
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Commodity price forecasting with capacity and market tightness variables.
+  source_query: US7693801B2 forecast commodity prices capacity utilization
+  url_if_known: https://patents.google.com/patent/US7693801B2
+  priority: low_medium
+  why_relevant: Market tightness and momentum concepts may inspire features.
+  status: seed
+- id: PATENT006
+  title: WO2019224347A1 / US20210208307A1 - Field-level weather ML
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Weather and field or sub-field machine learning.
+  source_query: WO2019224347A1 US20210208307A1 field weather machine learning agriculture
+  url_if_known: https://patents.google.com/patent/WO2019224347A1
+  priority: low_medium
+  why_relevant: Fine weather resolution and remote sensing ideas.
+  status: seed
+- id: PATENT007
+  title: US9087312B1 - Drying, weather, moisture and storage costs
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Weather, moisture, drying and storage cost modeling for agricultural commodities.
+  source_query: US9087312B1 grain drying weather moisture storage cost
+  url_if_known: https://patents.google.com/patent/US9087312B1
+  priority: high
+  why_relevant: Storage and drying cost logic can support farm economics modules.
+  status: seed
+- id: PATENT008
+  title: US7702597B2 / US20220067614A1 - Crop yield prediction
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Crop yield prediction with weather and ML.
+  source_query: US7702597B2 US20220067614A1 crop yield prediction machine learning
+  url_if_known: https://patents.google.com/patent/US7702597B2
+  priority: medium
+  why_relevant: Yield shock proxies are relevant to weather premium hypotheses.
+  status: seed
+- id: PATENT009
+  title: US11393029B2 / US11367152B2 - Futures margin modeling and seasonality
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Futures margin, volatility and seasonality modeling.
+  source_query: US11393029B2 futures margin volatility seasonality commodity
+  url_if_known: https://patents.google.com/patent/US11393029B2
+  priority: low_medium
+  why_relevant: Risk, margin and volatility features may inform stress tests.
+  status: seed
+- id: PATENT010
+  title: AU2011202458B8 - Basis futures
+  type: patent
+  authors_or_owner: unknown
+  year: null
+  topic: Basis, hedging and local price versus futures.
+  source_query: AU2011202458B8 basis futures agricultural hedging
+  url_if_known: https://patents.google.com/patent/AU2011202458B8
+  priority: high
+  why_relevant: Basis and hedge mechanics are directly relevant to EMA/CBOT premium work.
+  status: seed

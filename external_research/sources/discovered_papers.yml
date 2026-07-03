@@ -1,0 +1,776 @@
+- title: AI-Driven News-Enhanced Machine Learning for Short-Term Corn Futures Price
+    Forecasting
+  authors: Asterios Theofilou, Stefanos A. Nastis, Konstadinos Mattas, Konstantinos
+    Theofilou
+  year: 2026
+  venue: Applied Sciences
+  doi: 10.3390/app16031337
+  url: https://doi.org/10.3390/app16031337
+  abstract_if_available: "<jats:p>Accurately forecasting agricultural commodity prices\
+    \ is a complex and persistent problem for producers, traders, and policymakers.\
+    \ In this study we examine how artificial intelligence can be combined with large-scale\
+    \ global news data to refine daily corn price forecasts. A Long Short-Term Memory\
+    \ (LSTM) neural network was trained on Chicago corn futures between 2021 and 2024\
+    \ to capture price dynamics, while agriculture-related news features were derived\
+    \ from the Global Database of Events, Language, and Tone (GDELT). Rather than\
+    \ sentiment polarity, the analysis shows that attention-based indicators, such\
+    \ as article volume, rolling intensity measures, and persistence of elevated coverage,\
+    \ carry stronger predictive information. These features are incorporated through\
+    \ a Ridge regression residual correction applied to the LSTM predictions, forming\
+    \ a lightweight two-stage hybrid model. While absolute forecast accuracy remains\
+    \ comparable to the price-only baseline (RMSE \u2248 9 \xA2/bu; MAE \u2248 5.8\
+    \ \xA2/bu; R2 \u2248 0.99), the hybrid framework improves directional accuracy\
+    \ by approximately 2.4 percentage points, with gains concentrated during periods\
+    \ of moderate news intensity. Feature attribution results indicate that media\
+    \ attention intensity and persistence dominate sentiment-tone variables, which\
+    \ receive zero weight under regularization. Overall, the proposed framework offers\
+    \ a transparent, computationally efficient, and reproducible approach for integrating\
+    \ open global news data into short-term agricultural price forecasting.</jats:p>"
+  query: corn futures price forecasting machine learning
+  relevance_score: 0.462
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Estimating the impact of weather on CBOT corn futures prices using machine
+    learning
+  authors: S. Singh
+  year: 2020
+  venue: ''
+  doi: 10.31274/td-20240329-290
+  url: https://www.semanticscholar.org/paper/6a8f26c8075989e9a086c53facf25f39e4680cf9
+  abstract_if_available: 'We apply machine learning methods to weather and soil data
+    to evaluate their impact on Chicago Board of Trade (CBOT) corn futures prices.
+    We try to find out which weather information: historical, current or future affects
+    the prices most. The weather information category which predicts the futures prices
+    most precisely is considered as the most relevant information for the traders.
+    We extend our study to the discovery of directional price movements in the market.
+    The input variables, which include county-level, hourly weather data and county-level,
+    time-independent soil data for all major corn producing US states, have spatial
+    as well as temporal dimensions. We base our study on the reasoning that weather
+    conditions affect corn production and expected production levels impact futures
+    prices in the market. We use a coefficient-of-correlation test for features selection
+    and employ a fully connected neural network on multiple inputs to forecast percentage
+    change in daily futures prices. Our findings suggest that more specialized and
+    focused training of the data by incorporating spatial attributes using a convolutional
+    neural network delivers better results. Our study also shows that not all counties
+    provide useful model information some only create noise. Finally, we employ various
+    classification models to find'
+  query: CBOT corn futures WASDE announcement impact
+  relevance_score: 0.462
+  reason_to_keep: Semantic Scholar search result
+  status: discovered
+- title: 'Forecasting Natural Gas Futures Price Movements Using Machine Learning and
+    Deep Learning Models: A Comparative Study'
+  authors: Jae Hyung Kim, Sang Gun Lee, Jinhwa Kim
+  year: ''
+  venue: ''
+  doi: 10.2139/ssrn.5095474
+  url: https://doi.org/10.2139/ssrn.5095474
+  abstract_if_available: "<jats:p>Purpose: This study aims to evaluate the predictive\
+    \ performance of traditional statistical, machine learning (ML), and deep learning\
+    \ (DL) models in forecasting natural gas futures price movements. In particular,\
+    \ it investigates the role of hybrid modeling using both structured time-series\
+    \ data and unstructured sentiment data to address vola tility and non-linearity\
+    \ in energy markets.&amp;nbsp;\n&lt;div&gt;\n &lt;br&gt;\n&lt;/div&gt;\n&lt;div&gt;\n\
+    \ Design/methodology/approach: The research integrates SARIMA models with ML techniques\
+    \ such as Logistic Regression, Decision Trees, and Random Forests, along with\
+    \ DL architectures including Neural Networks, Recurrent Neural Networks (RNNs),\
+    \ and Convolutional Neural Networks (CNNs). The dataset includes daily records\
+    \ of natural gas futures from January 2023 to June 2024, alongside sentiment data\
+    \ extracted from online forums. Textual senti ment data were preprocessed through\
+    \ tokenization, stop-word removal, and lemmatization. For CNN models, visual inputs\
+    \ such as word clouds and trend graphs were employed to reflect sentiment and\
+    \ price dynamics.&amp;nbsp;\n&lt;/div&gt;\n&lt;div&gt;\n &lt;br&gt;\n&lt;/div&gt;\n\
+    &lt;div&gt;\n Findings: Neural Networks achieved the highest average accuracy\
+    \ (86.52%), followed by SARIMA (81.54%), con firming the strength of traditional\
+    \ models in capturing seasonal trends. Random Forests exhibited robust performance\
+    \ (78.26%), while sentiment-enhanced CNNs reached 70.00% (word clouds) and 59.38%\
+    \ (price graphs). Logistic Regression and RNN models achieved 69.39% and 58.12%,\
+    \ respectively. Wilcoxon signed-rank tests showed that the Neural Network significantly\
+    \ outperformed Decision Tree, Logistic Regression, both CNN variants, and RNN\
+    \ (p&amp;lt;.05), while differences versus SARIMA (p=0.492) and Random Forest\
+    \ (p=0.051) were not statistically significant.&amp;nbsp;\n&lt;/div&gt;\n&lt;div&gt;\n\
+    \ &lt;br&gt;\n&lt;/div&gt;\n&lt;div&gt;\n Research limitations/implications: Although\
+    \ this study demonstrates the utility of combining structured and un structured\
+    \ data, it is limited to a specific commodity and a defined period. Future studies\
+    \ should explore transformer- based language models and incorporate macroeconomic\
+    \ indicators to improve robustness and generalizability.&amp;nbsp;\n&lt;/div&gt;\n\
+    &lt;div&gt;\n &lt;br&gt;\n&lt;/div&gt;\n&lt;div&gt;\n Originality/value: This\
+    \ paper contributes to the growing literature on hybrid forecasting methodologies\
+    \ in commod ity markets. It offers a novel approach by combining time-series analysis,\
+    \ sentiment modeling, and image-based representations. The findings provide actionable\
+    \ insights for practitioners and researchers seeking to enhance fore casting accuracy\
+    \ in highly volatile energy sectors\n&lt;/div&gt;</jats:p>"
+  query: agricultural futures price forecasting deep learning
+  relevance_score: 0.462
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Research on Stock and Futures Price Forecasting Based on Machine Learning
+  authors: Wendi Wang
+  year: 2025
+  venue: Finance &amp; Economics
+  doi: 10.61173/n939gc07
+  url: https://doi.org/10.61173/n939gc07
+  abstract_if_available: <jats:p>Impact on their decision-making process. Applying
+    machine learning techniques to futures price forecasting can assist investors
+    in making more rational investment decisions. Based on this, this paper selects
+    the trading data of the "CSI 300 Futures" from 9:31:00 on January 3, 2017, to
+    15:00:00 on December 31, 2021, as a sample, and uses the Transformer model, Prophet
+    model, and XGBoost model to predict and analyze its stock price trends. The final
+    evaluation results show that the XGBoost model performs best in terms of prediction
+    accuracy, while the Transformer model shows greater potential.</jats:p>
+  query: corn futures price forecasting machine learning
+  relevance_score: 0.385
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Do Corn Options Update Volatility Expectations in the Wake of USDA Reports?
+  authors: Yao Yang, Andrew McKenzie
+  year: 2025
+  venue: Journal of Futures Markets
+  doi: 10.1002/fut.70020
+  url: https://doi.org/10.1002/fut.70020
+  abstract_if_available: "<jats:title>ABSTRACT</jats:title>\n                  <jats:p>This\
+    \ paper investigates the information value of U.S. Department of Agriculture (USDA)\
+    \ crop reports in terms of their impact\_on rational agents' expectations of future\
+    \ realized price volatility. While it is well known that uncertainty\u2014proxied\
+    \ by options market implied volatility\u2014is reduced in the wake of USDA reports,\
+    \ this is the first study to examine whether the information contained in USDA\
+    \ reports impacts market agents' ex ante expectations of realized volatility (RV).\
+    \ We use a Hamilton\u2010type approach to reveal how August crop reports refine\
+    \ volatility expectations, and movements in RV in the post report period mirror\
+    \ these expectations. Importantly, in the wake of the USDA report releases, corn\
+    \ options partially reflect updates in volatility expectations. These updates\
+    \ are not instantaneous, highlighting potential short\u2010term pricing misalignments\
+    \ over the first 2\u2009days following the report release.</jats:p>"
+  query: USDA WASDE corn futures volatility
+  relevance_score: 0.385
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: 'Exploring calendar effects: the impact of WASDE releases on grain futures
+    market volatility'
+  authors: Keehyun Lee, Eunchun Park
+  year: 2026
+  venue: Applied Economics Letters
+  doi: 10.1080/13504851.2024.2373337
+  url: https://doi.org/10.1080/13504851.2024.2373337
+  abstract_if_available: ''
+  query: USDA WASDE corn futures volatility
+  relevance_score: 0.385
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: The weather premium in the U.S. corn market
+  authors: Ziran Li, Dermot J. Hayes, Keri L. Jacobs
+  year: 2018
+  venue: Journal of Futures Markets
+  doi: 10.1002/fut.21884
+  url: https://doi.org/10.1002/fut.21884
+  abstract_if_available: "<jats:sec><jats:label/><jats:p>We show that the weather\
+    \ premium, an anecdotal phenomenon in the U.S. corn futures market, can arise\
+    \ from a convex demand function. We further show that the magnitude of the weather\
+    \ premium depends on the carryout and expected yield at harvest. We use data from\
+    \ 1968 to 2015 to evaluate the accuracy of the December futures price as a forecast\
+    \ of the harvest price. A predictable component in the forecast error is consistent\
+    \ with the existence of a time\u2010varying weather premium. We demonstrate that\
+    \ a passive strategy of routinely shorting the corn December futures does not\
+    \ provide an attractive risk\u2010adjusted return.</jats:p></jats:sec>"
+  query: corn futures weather premium
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: 'Forecasting Thai Agricultural Price: A Deep Learning Approach for Key Commodities'
+  authors: ''
+  year: 2026
+  venue: International Journal of Machine Learning
+  doi: 10.18178/ijml.2026.16.1.1185
+  url: https://doi.org/10.18178/ijml.2026.16.1.1185
+  abstract_if_available: ''
+  query: agricultural futures price forecasting deep learning
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Agricultural Commodity Price Forecasting Using Comprehensive Machine-Learning
+    Techniques
+  authors: ', Rotem Zelingher'
+  year: ''
+  venue: ''
+  doi: 10.70675/c4a6e99az622dz4b06zaec6zd7fc901b1aa3
+  url: https://doi.org/10.70675/c4a6e99az622dz4b06zaec6zd7fc901b1aa3
+  abstract_if_available: "<jats:title>Pr\xE9vision des prix des produits agricoles\
+    \ \xE0 l'aide de techniques d'apprentissage automatique</jats:title>\n       \
+    \         <jats:p xml:lang=\"fr\">Serait-il possible de d\xE9velopper un outil\
+    \ de pr\xE9vision des prix des produits agricoles de base qui soit \xE0 la fois\
+    \ pr\xE9cis, interpr\xE9table et accessible au plus grand nombre ? Un tel outil\
+    \ permettrait \xE0 ceux qui n'ont pas la capacit\xE9 financi\xE8re ou le bagage\
+    \ technique appropri\xE9s de pr\xE9voir les prix des produits agricoles de base,\
+    \ un ou plusieurs mois \xE0 l'avance. Ce doctorat explore la faisabilit\xE9 de\
+    \ cette id\xE9e en trois parties : L'objectif de la premi\xE8re partie est de\
+    \ tester la capacit\xE9 de plusieurs mod\xE8les statistiques et d'apprentissage\
+    \ automatique \xE0 simuler les variations du prix du ma\xEFs en fonction des variations\
+    \ annuelles de production et de rendement du ma\xEFs observ\xE9es dans les principales\
+    \ r\xE9gions productrices. Dans la deuxi\xE8me partie de la th\xE8se, les mod\xE8\
+    les d\xE9velopp\xE9s dans la premi\xE8re partie sont adapt\xE9s pour effectuer\
+    \ des pr\xE9visions mensuelles de prix du ma\xEFs. Nous comparons les performances\
+    \ de ces mod\xE8les \xE0 celles de techniques pr\xE9dictives souvent utilis\xE9\
+    es pour l'analyse des s\xE9ries chronologiques. Enfin, dans la troisi\xE8me partie,\
+    \ nous \xE9tendons le travail r\xE9alis\xE9 sur le ma\xEFs \xE0 deux autres cultures\
+    \ tr\xE8s diff\xE9rentes - le et le cacao. Nous analysons la capacit\xE9 des techniques\
+    \ de pr\xE9vision mises au point dans la partie pr\xE9c\xE9dente \xE0 pr\xE9dire\
+    \ les variations de prix du soja et du cacao et nous analysons \xE9galement l'effet\
+    \ de l'\xE9chelle g\xE9ographique consid\xE9r\xE9e pour calculer les variations\
+    \ de production. Dans cette partie \xE9galement, nous montrons comment les m\xE9\
+    thodes d'apprentissage machine peuvent \xEAtre utilis\xE9es pour identifier les\
+    \ chocs de production \xE0 l'origine des chocs de prix. Globalement, cette th\xE8\
+    se montre que les m\xE9thodes d'apprentissage automatique sont des outils potentiellement\
+    \ utiles \xE0 la fois pour comprendre l'impact de la production agricole sur les\
+    \ variations de prix et pour pr\xE9dire ces variations plusieurs mois \xE0 l'avance.\
+    \ Ces approches sont assez faciles \xE0 appliquer et peuvent \xEAtre calibr\xE9\
+    es avec des donn\xE9es de prix et de production publiquement accessibles. Elles\
+    \ peuvent ainsi contribuer \xE0 d\xE9mocratiser l'analyse et la pr\xE9vision des\
+    \ variations de prix agricoles</jats:p>"
+  query: agricultural commodity price forecasting explainable machine learning
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Forecasting agricultural commodity prices from satellite data satellite data
+    using machine learning
+  authors: ', Florian Teste'
+  year: ''
+  venue: ''
+  doi: 10.70675/c559c3afzd62cz423azaeebz7e1171876efc
+  url: https://doi.org/10.70675/c559c3afzd62cz423azaeebz7e1171876efc
+  abstract_if_available: "<jats:title>Pr\xE9vision des prix des produits agricoles\
+    \ \xE0 partir de donn\xE9es satellitaires par apprentissage automatique</jats:title>\n\
+    \                <jats:p xml:lang=\"fr\">Cette th\xE8se d\xE9veloppe un cadre\
+    \ m\xE9thodologique innovant destin\xE9 \xE0 la pr\xE9vision des prix et des rendements\
+    \ agricoles \xE0 l'\xE9chelle mondiale, en s'appuyant exclusivement sur l'analyse\
+    \ de donn\xE9es satellitaires et l'utilisation d'algorithmes d'apprentissage automatique\
+    \ avanc\xE9s. Alors que les mod\xE8les pr\xE9visionnels conventionnels reposent\
+    \ sur une combinaison de donn\xE9es m\xE9t\xE9orologiques, d'analyses \xE9conom\xE9\
+    triques et de rapports agricoles \u2014 sources souvent affect\xE9es par des d\xE9\
+    lais et des impr\xE9cisions \u2014 notre approche propose une alternative robuste\
+    \ et en temps r\xE9el.Notre m\xE9thodologie s'articule autour de l'exploitation\
+    \ de trois param\xE8tres biophysiques cl\xE9s d\xE9riv\xE9s des observations satellitaires\
+    \ : la Production Primaire Brute (GPP), l'Indice de Surface Foliaire (LAI) et\
+    \ la Fraction de Radiation Photosynth\xE9tiquement Active Absorb\xE9e (FAPAR).\
+    \ Ces indicateurs permettent une \xE9valuation pr\xE9cise des conditions environnementales\
+    \ locales et une pr\xE9diction fiable des variations de rendements et de prix,\
+    \ s'affranchissant ainsi des limitations inh\xE9rentes aux rapports traditionnels.L'originalit\xE9\
+    \ de notre approche r\xE9side dans l'application d'algorithmes d'apprentissage\
+    \ automatique sophistiqu\xE9s, coupl\xE9e \xE0 des techniques avanc\xE9es de r\xE9\
+    duction de la dimensionnalit\xE9. Nous explorons notamment l'utilisation des Fonctions\
+    \ Orthogonales Empiriques, des Autoencodeurs classiques et des Autoencodeurs Variationnels\
+    \ pour extraire les caract\xE9ristiques essentielles des donn\xE9es satellitaires\
+    \ complexes. La validation approfondie de notre cadre pr\xE9dictif, r\xE9alis\xE9\
+    e sur diff\xE9rentes cultures strat\xE9giques (ma\xEFs et soja) et diverses zones\
+    \ g\xE9ographiques (\xC9tats-Unis, Afrique du Sud, Malawi), d\xE9montre sa polyvalence\
+    \ et son adaptabilit\xE9.Les r\xE9sultats empiriques confirment la remarquable\
+    \ efficacit\xE9 de notre approche exclusivement satellitaire. Les pr\xE9visions\
+    \ de rendement atteignent des niveaux de pr\xE9cision exceptionnels, avec des\
+    \ coefficients de d\xE9termination (( R\xB2 )) de 0,90 pour le ma\xEFs et 0,79\
+    \ pour le soja. Les pr\xE9dictions de prix d\xE9montrent \xE9galement une performance\
+    \ significative, avec des ( R\xB2 ) de 0,48 et 0,46 respectivement pour le ma\xEF\
+    s et le soja, surpassant notablement les m\xE9thodes conventionnelles pour les\
+    \ pr\xE9visions pr\xE9coces et m\xE9dianes de la saison.Ce travail de recherche\
+    \ apporte une contribution majeure au domaine de la pr\xE9vision agricole en proposant\
+    \ un outil analytique alliant \xE9volutivit\xE9, r\xE9activit\xE9 et pr\xE9cision.\
+    \ Au-del\xE0 des avanc\xE9es m\xE9thodologiques, notre approche offre un potentiel\
+    \ consid\xE9rable pour am\xE9liorer la stabilit\xE9 des march\xE9s agricoles mondiaux\
+    \ en fournissant des indicateurs pr\xE9coces et fiables sur les tendances de production\
+    \ et de prix. Ces informations strat\xE9giques permettront aux acteurs du secteur\
+    \ d'optimiser leur prise de d\xE9cision et de mieux anticiper les dynamiques du\
+    \ march\xE9.</jats:p>"
+  query: agricultural commodity price forecasting explainable machine learning
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Measuring price discovery between nearby and deferred contracts in storable
+    and nonstorable commodity futures markets
+  authors: Zhepeng Hu, Mindy Mallory, Teresa Serra, Philip Garcia
+  year: 2020
+  venue: Agricultural Economics
+  doi: 10.1111/agec.12594
+  url: https://doi.org/10.1111/agec.12594
+  abstract_if_available: "<jats:title>Abstract</jats:title><jats:p>Using price discovery\
+    \ measures, including Putni\u0146\u0161\u2019 (2013) information leadership share\
+    \ and intraday data, we quantify the proportional contribution of nearby and deferred\
+    \ contracts in price discovery in the corn and live cattle futures markets. On\
+    \ average, nearby contracts reflect information more quickly than deferred contracts\
+    \ in the corn market, but have a relatively less dominant role in the live cattle\
+    \ market. In both markets, the nearby contract loses dominance when its relative\
+    \ volume share dips below 50%, which typically occurs when the nearby is close\
+    \ to maturity. Regression results indicate that the share of price discovery is\
+    \ mainly related to trading volume and time to expiration in both markets. In\
+    \ the corn market, price discovery share between nearby and deferred contracts\
+    \ is also related to inverse carrying charges, crop year differences, USDA announcements,\
+    \ market crashes, and commodity index position rolls. Differences between corn\
+    \ and live cattle markets are consistent with differences in the contracts\u2019\
+    \ liquidity and commodity storability.</jats:p>"
+  query: futures curve corn nearby deferred price discovery
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: "Futures\u2013spot price transmission in EU corn markets"
+  authors: Carlotta Penone, Elisa Giampietri, Samuele Trestini
+  year: 2022
+  venue: Agribusiness
+  doi: 10.1002/agr.21735
+  url: https://doi.org/10.1002/agr.21735
+  abstract_if_available: "<jats:title>Abstract</jats:title><jats:p>Price transmission\
+    \ between futures and spot prices is a relevant issue, dealing with derivatives\
+    \ exchange for price management practices and efficient price discovery. Indeed,\
+    \ due to the increased market orientation of the Common Agricultural Policy, the\
+    \ development of new market strategies is of utmost importance for European farmers.\
+    \ In this context, this study examines the degree of transmission for the corn\
+    \ commodity between global futures price in either the Chicago Board of Trade\
+    \ or Euronext\_and the spot prices for a selection of Member States of the European\
+    \ Union. This study provides critical insights into the shape of the futures\u2013\
+    spot price transmission, confirming a long\u2010run relationship and a cointegrating\
+    \ behaviour of price sets. [EconLit Citations: Q02,\_Q14,\_E3].</jats:p>"
+  query: corn basis futures spot price transmission
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Examining Bitcoin Price Volatility Transmission between Spot and Futures
+    Markets
+  authors: George Apostolakis
+  year: ''
+  venue: ''
+  doi: 10.2139/ssrn.4390742
+  url: https://doi.org/10.2139/ssrn.4390742
+  abstract_if_available: ''
+  query: corn basis futures spot price transmission
+  relevance_score: 0.308
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: The Reaction of Corn Futures Markets to US and Brazilian Crop Reports
+  authors: "R. L. F. Silveira, Renato Moraes Silva, F. Mattos, J. C. C. J\xFAnior,\
+    \ D. Capitani"
+  year: 2025
+  venue: Journal of futures markets
+  doi: 10.1002/fut.22601
+  url: https://www.semanticscholar.org/paper/d8924a4a2293f65d5264c96da87280fd19e4dacb
+  abstract_if_available: "The purpose of this study is to examine the impact of US\
+    \ (WASDE) and Brazilian (CONAB) crop reports on corn futures prices and trading\
+    \ volumes in both the US and Brazilian markets. Employing an intraday announcement\
+    \ analysis, we investigate how return volatilities and trading volumes respond\
+    \ to the release of these reports. Specifically, we compare prices and volume\
+    \ behavior on report days with the 5\u2009days preceding and following the announcements.\
+    \ Using both parametric and nonparametric tests, our results indicate that WASDE\
+    \ report announcements significantly influence returns and trading volumes in\
+    \ both markets. In contrast, the effects of CONAB reports are less pronounced\
+    \ than those associated with WASDE releases."
+  query: CBOT corn futures WASDE announcement impact
+  relevance_score: 0.231
+  reason_to_keep: Semantic Scholar search result
+  status: discovered
+- title: 'VOLATILITY SPILLOVER BETWEEN BIST 30 FUTURES AND SPOT MARKETS: A DCC-GARCH
+    ANALYSES Volatility Spillover between Bist 30 Futures and Spot Markets: A DCC-GARCH
+    Analyses'
+  authors: "Esen KARA, Adem ANBAR, \xD6zer ARABACI"
+  year: 2022
+  venue: "Y\xF6netim Bilimleri Dergisi"
+  doi: 10.35408/comuybd.827041
+  url: https://doi.org/10.35408/comuybd.827041
+  abstract_if_available: "<jats:p xml:lang=\"en\">In terms of investors, it is essential\
+    \ to be aware of the flow of information across markets and build up investment\
+    \ policies in line with this information. The volatility spillover relationships\
+    \ between futures and spot markets contain important information in the context\
+    \ of optimal portfolio composing. In this study, the relevant relationship between\
+    \ futures and spot markets in Turkey were investigated in the context of BIST\
+    \ 30 index, using the end-of-day pricing data for the period from 2 February 2006\
+    \ to 30 April 2020. \nThe volatility spillover effects and the time-varying dynamic\
+    \ conditional relationship between markets was investigated by DCC-GARCH method.\
+    \ The results indicate that there is a strong dependence between markets' return\
+    \ volatilities. Also a significant bidirectional relationship is found in volatility\
+    \ transmissions between the markets. The results of GJR-GARCH analysis, in order\
+    \ to examine the effect of negative and positive shocks on the markets' volatilities\
+    \ indicate that both markets responded more strongly to their negative shocks\
+    \ than to positive shocks. Findings generally indicate that there is a bidirectional\
+    \ causality relationship between price and volatility changes of the markets.\
+    \ This result supports the hypothesis that both markets play a role in volatility\
+    \ spillover.</jats:p>"
+  query: corn futures GARCH volatility
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: 'Volatility Dynamics and Futures Pricing: A GARCH-Based Analysis of CAC40
+    Markets'
+  authors: BOUGHABI Houssam
+  year: ''
+  venue: ''
+  doi: 10.21203/rs.3.rs-5869763/v1
+  url: https://doi.org/10.21203/rs.3.rs-5869763/v1
+  abstract_if_available: "<title>Abstract</title>\n        <p>The futures market is\
+    \ wavering with uncertainty during an hesitating interest rate monetary policy,\
+    \ France had sorted out from a hard Euro debt crisis between 2016 and 2019, which\
+    \ had left interest rate in chaos, we have experienced an econometrics model using\
+    \ the software technology, by calibrating our model with the futures prices of\
+    \ CAC40. \nThe futures market proves to be stable in the beginning of calibration,\
+    \ indeed our model had respectively shown that the futures market could set a\
+    \ smart alarm for the monetary policy in France. The market of CAC40 index is\
+    \ volatile under those circumstances which finds more information in spinning\
+    \ a beautiful benchmark for political manoeuvring using interest rate as a way\
+    \ of adjusting France economics to the monetary scheme. We have estimated volatility\
+    \ using the Garch variant which proves empirically to be more suitable, we had\
+    \ found persistence and non vulnerability to past shocks.</p>"
+  query: corn futures GARCH volatility
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Research on Multivariate Futures Price Forecasting Based on IMAT-LSTM Model
+  authors: ''
+  year: 2023
+  venue: Academic Journal of Computing &amp; Information Science
+  doi: 10.25236/ajcis.2023.060103
+  url: https://doi.org/10.25236/ajcis.2023.060103
+  abstract_if_available: ''
+  query: grain futures price forecasting LSTM
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Application of CEEMDAN and LSTM for Futures Price Forecasting
+  authors: Peiying Quan, Wenzhuo Shi
+  year: 2024
+  venue: 2024 International Conference on Machine Intelligence and Digital Applications
+  doi: 10.1145/3662739.3662740
+  url: https://doi.org/10.1145/3662739.3662740
+  abstract_if_available: ''
+  query: grain futures price forecasting LSTM
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: 'Investor Sentiment and Forecasting Ability: Evidence from COT Reports in
+    Precious Metal Futures Markets'
+  authors: Yang Zhang
+  year: ''
+  venue: SSRN Electronic Journal
+  doi: 10.2139/ssrn.2382299
+  url: https://doi.org/10.2139/ssrn.2382299
+  abstract_if_available: ''
+  query: CFTC COT agricultural futures forecasting
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: 'Regulatory Structure in Futures Markets:  Jurisdictional Competition Among
+    the SEC, the CFTC, and Other Agencies'
+  authors: Edward Kane
+  year: 1984
+  venue: ''
+  doi: 10.3386/w1331
+  url: https://doi.org/10.3386/w1331
+  abstract_if_available: ''
+  query: CFTC COT agricultural futures forecasting
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: '''Explosions'' of Corn Futures Prices'
+  authors: Valerii Salov
+  year: ''
+  venue: SSRN Electronic Journal
+  doi: 10.2139/ssrn.3479685
+  url: https://doi.org/10.2139/ssrn.3479685
+  abstract_if_available: ''
+  query: weather shocks corn futures prices
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: 'Weather and corn: Crop condition reports are not enough'
+  authors: Elwynn Taylor
+  year: 2010
+  venue: Proceedings of the Integrated Crop Management Conference
+  doi: 10.31274/icm-180809-37
+  url: https://doi.org/10.31274/icm-180809-37
+  abstract_if_available: ''
+  query: crop condition reports corn futures
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: AI-driven agricultural commodity price forecasting with hybrid models and
+    scalable data infrastructure
+  authors: "\u0391\u03C3\u03C4\u03AD\u03C1\u03B9\u03BF\u03C2 \u0398\u03B5\u03BF\u03C6\
+    \u03AF\u03BB\u03BF\u03C5"
+  year: ''
+  venue: ''
+  doi: 10.12681/eadd/61646
+  url: https://doi.org/10.12681/eadd/61646
+  abstract_if_available: "<jats:p>\u03A3\u03BA\u03BF\u03C0\u03CC\u03C2 \u03C4\u03B7\
+    \u03C2 \u03C0\u03B1\u03C1\u03BF\u03CD\u03C3\u03B1\u03C2 \u03B4\u03B9\u03B4\u03B1\
+    \u03BA\u03C4\u03BF\u03C1\u03B9\u03BA\u03AE\u03C2 \u03B4\u03B9\u03B1\u03C4\u03C1\
+    \u03B9\u03B2\u03AE\u03C2 \u03AE\u03C4\u03B1\u03BD \u03B7 \u03BC\u03B5\u03BB\u03AD\
+    \u03C4\u03B7 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03AC\u03C0\u03C4\u03C5\u03BE\u03B7\
+    \ \u03BC\u03B5\u03B8\u03BF\u03B4\u03BF\u03BB\u03BF\u03B3\u03B9\u03CE\u03BD \u03BC\
+    \u03B7\u03C7\u03B1\u03BD\u03B9\u03BA\u03AE\u03C2 \u03BC\u03AC\u03B8\u03B7\u03C3\
+    \u03B7\u03C2 \u03B3\u03B9\u03B1 \u03C4\u03B7\u03BD \u03C0\u03C1\u03CC\u03B2\u03BB\
+    \u03B5\u03C8\u03B7 \u03C4\u03C9\u03BD \u03C4\u03B9\u03BC\u03CE\u03BD \u03B1\u03B3\
+    \u03C1\u03BF\u03C4\u03B9\u03BA\u03CE\u03BD \u03B5\u03BC\u03C0\u03BF\u03C1\u03B5\
+    \u03C5\u03BC\u03AC\u03C4\u03C9\u03BD, \u03BC\u03B5 \u03AD\u03BC\u03C6\u03B1\u03C3\
+    \u03B7 \u03C3\u03C4\u03B1 \u03C3\u03B9\u03C4\u03B7\u03C1\u03AC \u03BA\u03B1\u03B9\
+    \ \u03B9\u03B4\u03B9\u03B1\u03AF\u03C4\u03B5\u03C1\u03B1 \u03C3\u03C4\u03BF \u03BA\
+    \u03B1\u03BB\u03B1\u03BC\u03C0\u03CC\u03BA\u03B9, \u03C4\u03BF \u03C3\u03B9\u03C4\
+    \u03AC\u03C1\u03B9 \u03BA\u03B1\u03B9 \u03C4\u03BF \u03C1\u03CD\u03B6\u03B9. \u0391\
+    \u03C1\u03C7\u03B9\u03BA\u03AC \u03C0\u03C1\u03B1\u03B3\u03BC\u03B1\u03C4\u03BF\
+    \u03C0\u03BF\u03B9\u03AE\u03B8\u03B7\u03BA\u03B5 \u03C3\u03C5\u03C3\u03C4\u03B7\
+    \u03BC\u03B1\u03C4\u03B9\u03BA\u03AE \u03B2\u03B9\u03B2\u03BB\u03B9\u03BF\u03B3\
+    \u03C1\u03B1\u03C6\u03B9\u03BA\u03AE \u03B1\u03BD\u03B1\u03C3\u03BA\u03CC\u03C0\
+    \u03B7\u03C3\u03B7 \u03C4\u03B7\u03C2 \u03B4\u03B9\u03B5\u03B8\u03BD\u03BF\u03CD\
+    \u03C2 \u03B5\u03C0\u03B9\u03C3\u03C4\u03B7\u03BC\u03BF\u03BD\u03B9\u03BA\u03AE\
+    \u03C2 \u03B2\u03B9\u03B2\u03BB\u03B9\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1\
+    \u03C2 \u03BC\u03B5 \u03C3\u03C4\u03CC\u03C7\u03BF \u03C4\u03B7\u03BD \u03BA\u03B1\
+    \u03C4\u03B1\u03B3\u03C1\u03B1\u03C6\u03AE \u03BA\u03B1\u03B9 \u03B1\u03BE\u03B9\
+    \u03BF\u03BB\u03CC\u03B3\u03B7\u03C3\u03B7 \u03C4\u03C9\u03BD \u03C4\u03B5\u03C7\
+    \u03BD\u03B9\u03BA\u03CE\u03BD \u03C0\u03C1\u03CC\u03B2\u03BB\u03B5\u03C8\u03B7\
+    \u03C2 \u03C0\u03BF\u03C5 \u03C7\u03C1\u03B7\u03C3\u03B9\u03BC\u03BF\u03C0\u03BF\
+    \u03B9\u03BF\u03CD\u03BD\u03C4\u03B1\u03B9 \u03C3\u03C4\u03B7\u03BD \u03B1\u03B3\
+    \u03C1\u03BF\u03C4\u03B9\u03BA\u03AE \u03BF\u03B9\u03BA\u03BF\u03BD\u03BF\u03BC\
+    \u03AF\u03B1, \u03CC\u03C0\u03C9\u03C2 \u03C0\u03B1\u03C1\u03B1\u03B4\u03BF\u03C3\
+    \u03B9\u03B1\u03BA\u03AC \u03C3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\
+    \u03AC \u03BC\u03BF\u03BD\u03C4\u03AD\u03BB\u03B1, \u03BC\u03AD\u03B8\u03BF\u03B4\
+    \u03BF\u03B9 \u03BC\u03B7\u03C7\u03B1\u03BD\u03B9\u03BA\u03AE\u03C2 \u03BC\u03AC\
+    \u03B8\u03B7\u03C3\u03B7\u03C2, ensemble learning \u03BA\u03B1\u03B9 \u03C4\u03B5\
+    \u03C7\u03BD\u03B9\u03BA\u03AD\u03C2 \u03B2\u03B1\u03B8\u03B9\u03AC\u03C2 \u03BC\
+    \u03AC\u03B8\u03B7\u03C3\u03B7\u03C2. \u03A3\u03C4\u03B7 \u03C3\u03C5\u03BD\u03AD\
+    \u03C7\u03B5\u03B9\u03B1 \u03B5\u03BE\u03B5\u03C4\u03AC\u03C3\u03C4\u03B7\u03BA\
+    \u03B1\u03BD \u03BF\u03B9 \u03BA\u03C5\u03C1\u03B9\u03CC\u03C4\u03B5\u03C1\u03B5\
+    \u03C2 \u03C0\u03B7\u03B3\u03AD\u03C2 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\
+    \u03C9\u03BD \u03C0\u03BF\u03C5 \u03BC\u03C0\u03BF\u03C1\u03BF\u03CD\u03BD \u03BD\
+    \u03B1 \u03B5\u03C0\u03B7\u03C1\u03B5\u03AC\u03C3\u03BF\u03C5\u03BD \u03C4\u03B9\
+    \u03C2 \u03C4\u03B9\u03BC\u03AD\u03C2 \u03C4\u03C9\u03BD \u03B1\u03B3\u03C1\u03BF\
+    \u03C4\u03B9\u03BA\u03CE\u03BD \u03C0\u03C1\u03BF\u03CA\u03CC\u03BD\u03C4\u03C9\
+    \u03BD, \u03CC\u03C0\u03C9\u03C2 \u03B9\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03AC\
+    \ \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1 \u03C4\u03B9\u03BC\u03CE\u03BD\
+    , \u03BC\u03B5\u03C4\u03B5\u03C9\u03C1\u03BF\u03BB\u03BF\u03B3\u03B9\u03BA\u03AC\
+    \ \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03B1, \u03B4\u03B5\u03B4\u03BF\u03BC\
+    \u03AD\u03BD\u03B1 \u03C0\u03B1\u03C1\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2, \u03B5\
+    \u03B9\u03B4\u03B7\u03C3\u03B5\u03BF\u03B3\u03C1\u03B1\u03C6\u03B9\u03BA\u03CC\
+    \ \u03BA\u03B1\u03B9 \u03BA\u03BF\u03B9\u03BD\u03C9\u03BD\u03B9\u03BA\u03CC \u03C3\
+    \u03C5\u03BD\u03B1\u03AF\u03C3\u03B8\u03B7\u03BC\u03B1, \u03BA\u03B1\u03B8\u03CE\
+    \u03C2 \u03BA\u03B1\u03B9 \u03BC\u03B1\u03BA\u03C1\u03BF\u03BF\u03B9\u03BA\u03BF\
+    \u03BD\u03BF\u03BC\u03B9\u03BA\u03BF\u03AF \u03B4\u03B5\u03AF\u03BA\u03C4\u03B5\
+    \u03C2. \u03A0\u03B1\u03C1\u03AC\u03BB\u03BB\u03B7\u03BB\u03B1 \u03C3\u03C7\u03B5\
+    \u03B4\u03B9\u03AC\u03C3\u03C4\u03B7\u03BA\u03B5 \u03BA\u03B1\u03B9 \u03C5\u03BB\
+    \u03BF\u03C0\u03BF\u03B9\u03AE\u03B8\u03B7\u03BA\u03B5 \u03BC\u03AF\u03B1 \u03B5\
+    \u03C0\u03B5\u03BA\u03C4\u03AC\u03C3\u03B9\u03BC\u03B7 \u03B1\u03C1\u03C7\u03B9\
+    \u03C4\u03B5\u03BA\u03C4\u03BF\u03BD\u03B9\u03BA\u03AE \u03B1\u03C0\u03BF\u03B8\
+    \u03AE\u03BA\u03B7\u03C2 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03C9\u03BD\
+    \ \u03B3\u03B9\u03B1 \u03C4\u03B7 \u03B4\u03B9\u03B1\u03C7\u03B5\u03AF\u03C1\u03B9\
+    \u03C3\u03B7 \u03BC\u03B5\u03B3\u03AC\u03BB\u03BF\u03C5 \u03CC\u03B3\u03BA\u03BF\
+    \u03C5 \u03B1\u03B3\u03C1\u03BF\u03C4\u03B9\u03BA\u03CE\u03BD \u03B4\u03B5\u03B4\
+    \u03BF\u03BC\u03AD\u03BD\u03C9\u03BD \u03BC\u03B5 \u03C7\u03C1\u03AE\u03C3\u03B7\
+    \ \u03C4\u03B5\u03C7\u03BD\u03BF\u03BB\u03BF\u03B3\u03B9\u03CE\u03BD big data\
+    \ \u03BA\u03B1\u03B9 \u03C5\u03C0\u03BF\u03B4\u03BF\u03BC\u03CE\u03BD \u03BA\u03B1\
+    \u03C4\u03B1\u03BD\u03B5\u03BC\u03B7\u03BC\u03AD\u03BD\u03B7\u03C2 \u03B5\u03C0\
+    \u03B5\u03BE\u03B5\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1\u03C2. \u0397 \u03AD\u03C1\
+    \u03B5\u03C5\u03BD\u03B1 \u03B5\u03C0\u03B9\u03BA\u03B5\u03BD\u03C4\u03C1\u03CE\
+    \u03B8\u03B7\u03BA\u03B5 \u03B5\u03C0\u03AF\u03C3\u03B7\u03C2 \u03C3\u03C4\u03B7\
+    \ \u03C3\u03CD\u03B3\u03BA\u03C1\u03B9\u03C3\u03B7 \u03B4\u03B9\u03B1\u03C6\u03BF\
+    \u03C1\u03B5\u03C4\u03B9\u03BA\u03CE\u03BD \u03B1\u03BB\u03B3\u03BF\u03C1\u03AF\
+    \u03B8\u03BC\u03C9\u03BD \u03C0\u03C1\u03CC\u03B2\u03BB\u03B5\u03C8\u03B7\u03C2\
+    \ \u03C9\u03C2 \u03C0\u03C1\u03BF\u03C2 \u03C4\u03B7\u03BD \u03B1\u03BA\u03C1\u03AF\
+    \u03B2\u03B5\u03B9\u03B1, \u03C4\u03B7\u03BD \u03B5\u03C0\u03B5\u03BA\u03C4\u03B1\
+    \u03C3\u03B9\u03BC\u03CC\u03C4\u03B7\u03C4\u03B1 \u03BA\u03B1\u03B9 \u03C4\u03B7\
+    \u03BD \u03B9\u03BA\u03B1\u03BD\u03CC\u03C4\u03B7\u03C4\u03B1 \u03B3\u03B5\u03BD\
+    \u03AF\u03BA\u03B5\u03C5\u03C3\u03B7\u03C2 \u03C3\u03B5 \u03C0\u03C1\u03B1\u03B3\
+    \u03BC\u03B1\u03C4\u03B9\u03BA\u03AC \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\
+    \u03B1 \u03C7\u03C1\u03BF\u03BD\u03BF\u03C3\u03B5\u03B9\u03C1\u03CE\u03BD. \u0395\
+    \u03C0\u03B9\u03C0\u03BB\u03AD\u03BF\u03BD \u03B1\u03BD\u03B1\u03BB\u03CD\u03B8\
+    \u03B7\u03BA\u03B1\u03BD \u03B6\u03B7\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1 \u03C0\
+    \u03C1\u03BF\u03B5\u03C0\u03B5\u03BE\u03B5\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1\
+    \u03C2 \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03C9\u03BD, \u03B5\u03C0\u03B9\
+    \u03BB\u03BF\u03B3\u03AE\u03C2 \u03C7\u03B1\u03C1\u03B1\u03BA\u03C4\u03B7\u03C1\
+    \u03B9\u03C3\u03C4\u03B9\u03BA\u03CE\u03BD \u03BA\u03B1\u03B9 \u03B1\u03BE\u03B9\
+    \u03BF\u03BB\u03CC\u03B3\u03B7\u03C3\u03B7\u03C2 \u03BC\u03BF\u03BD\u03C4\u03AD\
+    \u03BB\u03C9\u03BD, \u03BC\u03B5 \u03C3\u03C4\u03CC\u03C7\u03BF \u03C4\u03B7 \u03B4\
+    \u03B7\u03BC\u03B9\u03BF\u03C5\u03C1\u03B3\u03AF\u03B1 \u03B1\u03BE\u03B9\u03CC\
+    \u03C0\u03B9\u03C3\u03C4\u03C9\u03BD \u03C3\u03C5\u03C3\u03C4\u03B7\u03BC\u03AC\
+    \u03C4\u03C9\u03BD \u03C0\u03C1\u03CC\u03B2\u03BB\u03B5\u03C8\u03B7\u03C2 \u03B3\
+    \u03B9\u03B1 \u03C4\u03B7\u03BD \u03C5\u03C0\u03BF\u03C3\u03C4\u03AE\u03C1\u03B9\
+    \u03BE\u03B7 \u03B1\u03C0\u03BF\u03C6\u03AC\u03C3\u03B5\u03C9\u03BD \u03C3\u03C4\
+    \u03BF\u03BD \u03B1\u03B3\u03C1\u03BF\u03C4\u03B9\u03BA\u03CC \u03C4\u03BF\u03BC\
+    \u03AD\u03B1. \u03A4\u03B1 \u03B1\u03C0\u03BF\u03C4\u03B5\u03BB\u03AD\u03C3\u03BC\
+    \u03B1\u03C4\u03B1 \u03C4\u03B7\u03C2 \u03B4\u03B9\u03B1\u03C4\u03C1\u03B9\u03B2\
+    \u03AE\u03C2 \u03B1\u03BD\u03B1\u03B4\u03B5\u03B9\u03BA\u03BD\u03CD\u03BF\u03C5\
+    \u03BD \u03C4\u03B7 \u03C3\u03B7\u03BC\u03B1\u03C3\u03AF\u03B1 \u03C4\u03B7\u03C2\
+    \ \u03B1\u03BE\u03B9\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7\u03C2 \u03C0\u03C1\
+    \u03BF\u03B7\u03B3\u03BC\u03AD\u03BD\u03C9\u03BD \u03C4\u03B5\u03C7\u03BD\u03B9\
+    \u03BA\u03CE\u03BD \u03BC\u03B7\u03C7\u03B1\u03BD\u03B9\u03BA\u03AE\u03C2 \u03BC\
+    \u03AC\u03B8\u03B7\u03C3\u03B7\u03C2 \u03BA\u03B1\u03B9 \u03BF\u03BB\u03BF\u03BA\
+    \u03BB\u03B7\u03C1\u03C9\u03BC\u03AD\u03BD\u03C9\u03BD \u03C5\u03C0\u03BF\u03B4\
+    \u03BF\u03BC\u03CE\u03BD \u03B4\u03B5\u03B4\u03BF\u03BC\u03AD\u03BD\u03C9\u03BD\
+    \ \u03B3\u03B9\u03B1 \u03C4\u03B7 \u03B2\u03B5\u03BB\u03C4\u03AF\u03C9\u03C3\u03B7\
+    \ \u03C4\u03B7\u03C2 \u03C0\u03C1\u03CC\u03B2\u03BB\u03B5\u03C8\u03B7\u03C2 \u03C4\
+    \u03C9\u03BD \u03B1\u03B3\u03C1\u03BF\u03C4\u03B9\u03BA\u03CE\u03BD \u03C4\u03B9\
+    \u03BC\u03CE\u03BD \u03BA\u03B1\u03B9 \u03C4\u03B7\u03BD \u03B5\u03BD\u03AF\u03C3\
+    \u03C7\u03C5\u03C3\u03B7 \u03C4\u03B7\u03C2 \u03B1\u03B3\u03C1\u03BF\u03C4\u03B9\
+    \u03BA\u03AE\u03C2 \u03BF\u03B9\u03BA\u03BF\u03BD\u03BF\u03BC\u03B9\u03BA\u03AE\
+    \u03C2 \u03B1\u03BD\u03AC\u03BB\u03C5\u03C3\u03B7\u03C2.</jats:p>"
+  query: agricultural commodity price foundation models
+  relevance_score: 0.231
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Price Discovery in the Chinese Corn Futures Market, With Comparisons to Soybean
+    Futures
+  authors: Yunxian Yan, Michael Reed
+  year: 2014
+  venue: Agribusiness
+  doi: 10.1002/agr.21376
+  url: https://doi.org/10.1002/agr.21376
+  abstract_if_available: "<jats:title>ABSTRACT</jats:title><jats:p>The Chinese corn\
+    \ futures market is the second largest after the CBOT in terms of trading volume\
+    \ in contracts. In 2012, the trading volume of corn futures was 37 million contracts\
+    \ (or 378 million metric tons). The relationship between Chinese corn futures\
+    \ and spot prices is studied to gauge the price discovery process. Formal statistical\
+    \ tests are conducted based on Johansen's co\u2010integration, Granger causality\
+    \ and the Garbade\u2010Silber approach for the corn spot prices and futures prices.\
+    \ All empirical analysis is also performed for GMO and non\u2010GMO soybeans to\
+    \ provide a contrast with the corn futures market. The results suggest that Chinese\
+    \ corn futures prices guide the spot prices; that is, the corn futures market\
+    \ can serve as legitimate guide for future cash prices. This conclusion is valid\
+    \ for GMO futures market, but is not found to be the case for non\u2010GMO soybeans,\
+    \ where spot prices guide futures prices.</jats:p>"
+  query: futures curve corn nearby deferred price discovery
+  relevance_score: 0.154
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Main Challenges of Price Volatility in Agricultural Commodity Markets
+  authors: Monika Tothova
+  year: 2011
+  venue: Methods to Analyse Agricultural Commodity Price Volatility
+  doi: 10.1007/978-1-4419-7634-5_2
+  url: https://doi.org/10.1007/978-1-4419-7634-5_2
+  abstract_if_available: ''
+  query: agricultural commodity price foundation models
+  relevance_score: 0.154
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: Cellulosic ethanol price catches up with corn ethanol
+  authors: ''
+  year: 2010
+  venue: Focus on Catalysts
+  doi: 10.1016/s1351-4180(10)70336-6
+  url: https://doi.org/10.1016/s1351-4180(10)70336-6
+  abstract_if_available: ''
+  query: corn ethanol DDG price relationship
+  relevance_score: 0.077
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: '''Water'' in the U.S. Ethanol Tax Credit and Mandate: Implications for Rectangular
+    Deadweight Costs and the Corn-Oil Price Relationship'
+  authors: Harry de Gorter, David R. Just
+  year: ''
+  venue: SSRN Electronic Journal
+  doi: 10.2139/ssrn.1071067
+  url: https://doi.org/10.2139/ssrn.1071067
+  abstract_if_available: ''
+  query: corn ethanol DDG price relationship
+  relevance_score: 0.077
+  reason_to_keep: Crossref fallback after Semantic Scholar failure
+  status: discovered
+- title: The Value of USDA Crop Progress and Condition Information
+  authors: Georg Lehecka
+  year: 2014
+  venue: Journal of Agricultural and Resource Economics
+  doi: 10.22004/ag.econ.186845
+  url: https://ageconsearch.umn.edu/record/186845
+  abstract_if_available: Study of market value in USDA crop progress and condition information for major crops.
+  query: USDA crop progress condition information corn futures market value
+  relevance_score: 0.92
+  reason_to_keep: Directly motivates weekly crop-progress and condition surprise features with publication-lag controls.
+  status: curated_added_2026-06-11
+- title: Can Satellite Data Forecast Valuable Information from USDA Reports?
+  authors: Michael Piette
+  year: 2019
+  venue: Working paper
+  doi: ''
+  url: https://www.michaelpiette.com/files/crop_satellite.pdf
+  abstract_if_available: Tests whether satellite information can anticipate USDA crop information and commodity-market reactions.
+  query: satellite data forecast USDA crop reports corn futures
+  relevance_score: 0.88
+  reason_to_keep: Concrete bridge from satellite/NDVI to USDA report surprises and futures-market information.
+  status: curated_added_2026-06-11
+- title: Corn-Crush Hedging; Does Location Matter?
+  authors: Roger A. Dahlgran, Manish Gupta
+  year: 2019
+  venue: NCCC-134 Conference on Applied Commodity Price Analysis, Forecasting, and Market Risk Management
+  doi: 10.22004/ag.econ.285393
+  url: https://ageconsearch.umn.edu/record/285393
+  abstract_if_available: Corn-crush hedging analysis for ethanol plants, including location/basis effects and hedge performance.
+  query: corn crush hedging ethanol location basis futures
+  relevance_score: 0.9
+  reason_to_keep: Turns ethanol/DDG/natural-gas economics into hedge-margin and local-basis hypotheses.
+  status: curated_added_2026-06-11
+- title: "Distillers' Grains: Past, Present, and Future Economic Analyses"
+  authors: Christine L. Gertner
+  year: 2021
+  venue: University of Nebraska-Lincoln dissertation
+  doi: ''
+  url: https://digitalcommons.unl.edu/dissertations/AAI28861372/
+  abstract_if_available: Economic analyses of distillers grains, livestock demand, ethanol co-products and market relationships.
+  query: distillers grains DDG corn ethanol economic analysis thesis
+  relevance_score: 0.84
+  reason_to_keep: DDG is a missing co-product channel for ethanol crush economics and feed substitution.
+  status: curated_added_2026-06-11
+- title: Commodity Storage and the Market Effects of Biofuel Policies
+  authors: Colin A. Carter, Gordon C. Rausser, Aaron Smith
+  year: 2017
+  venue: American Journal of Agricultural Economics
+  doi: 10.1093/ajae/aaw010
+  url: https://escholarship.org/uc/item/1zq1g0jd
+  abstract_if_available: Storage-theory analysis of how biofuel policies affect commodity markets and price dynamics.
+  query: commodity storage market effects biofuel policies corn ethanol
+  relevance_score: 0.9
+  reason_to_keep: Connects ethanol policy, storage and corn price behavior; useful for long-run regime and tightness hypotheses.
+  status: curated_added_2026-06-11
+- title: Simulating corn futures market reaction and prices under weekly USDA crop progress and condition reports
+  authors: Francis Tsiboe, Terry Griffin, Shannon Ferrell, Nathan Thompson
+  year: 2023
+  venue: Applied Economic Perspectives and Policy
+  doi: 10.1002/aepp.13384
+  url: https://onlinelibrary.wiley.com/doi/10.1002/aepp.13384
+  abstract_if_available: Simulates corn futures market reactions under higher-frequency crop-progress and condition reporting.
+  query: simulating corn futures reaction weekly USDA crop progress condition reports
+  relevance_score: 0.87
+  reason_to_keep: Gives an experiment template for crop-condition release frequency and futures reaction windows.
+  status: curated_added_2026-06-11
+- title: What Do We Know About the Accuracy and Impact of USDA Reports Relevant to the Corn Market?
+  authors: Olga Isengildina Massa, Scott H. Irwin, Dwight R. Sanders, Darrel L. Good
+  year: 2022
+  venue: National Corn Growers Association report
+  doi: ''
+  url: https://corn.org/wp-content/uploads/2022/06/USDA_Report_Accuracy_Impact_Study_Final_Report_6_8_22.pdf
+  abstract_if_available: Review and empirical assessment of USDA report accuracy and market impact for corn.
+  query: USDA report accuracy impact corn market study
+  relevance_score: 0.89
+  reason_to_keep: Consolidated guide for which USDA reports deserve event-study features.
+  status: curated_added_2026-06-11
+- title: When does USDA information have the most impact on crop and livestock markets?
+  authors: Olga Isengildina Massa, Berna Karali, Scott H. Irwin
+  year: 2021
+  venue: Journal of Commodity Markets
+  doi: 10.1016/j.jcomm.2021.100195
+  url: https://doi.org/10.1016/j.jcomm.2021.100195
+  abstract_if_available: Analyzes when USDA information has the strongest market impact across crop and livestock markets.
+  query: USDA information impact crop livestock markets report timing commodity markets
+  relevance_score: 0.82
+  reason_to_keep: Helps rank USDA release types and avoid overusing low-impact announcements.
+  status: curated_added_2026-06-11
+- title: Using Sentinel-2 data to predict the return of grain futures and build a profitable strategy
+  authors: European Space Agency
+  year: 2023
+  venue: ESA Phi-Lab stories
+  doi: ''
+  url: https://philab.esa.int/using-sentinel-2-data-to-predict-the-return-of-grain-futures-and-build-a-profitable-strategy/
+  abstract_if_available: Industry/research note on using Sentinel-2 satellite data to predict grain futures returns.
+  query: Sentinel-2 grain futures returns strategy satellite data
+  relevance_score: 0.7
+  reason_to_keep: Useful satellite-feature inspiration; must be treated as exploratory and reviewed for leakage/selection bias.
+  status: curated_added_2026-06-11
+- title: Corn Futures Trading Strategy Using Weather Forecast Archive
+  authors: CropProphet
+  year: 2026
+  venue: Industry case study
+  doi: ''
+  url: https://www.cropprophet.com/corn-futures-trading-strategy-using-weather-forecast-archive/
+  abstract_if_available: Case study using archived weather forecasts to evaluate corn futures trading signals.
+  query: corn futures trading weather forecast archive strategy
+  relevance_score: 0.66
+  reason_to_keep: Practical reminder that predictive weather work needs archived forecasts, not realized weather.
+  status: curated_added_2026-06-11

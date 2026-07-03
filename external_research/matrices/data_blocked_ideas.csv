@@ -1,0 +1,13 @@
+idea,source_experiment,missing_data,why_needed,possible_provider,priority,notes
+Futures curve / spreads / full carry,EXT005,Contrats CBOT par maturite (courbe profonde >=250j),Spread nearby-deferred et distance au full carry contiennent l'info de stockage,CME DataMine / Barchart / Nasdaq Data Link,1,front-only actuellement; courbe EMA ~2 semaines
+Basis / transmission spot-futures (VECM),EXT013,EUR/USD quotidien historique + spot UE quotidien,Reconstruire le basis EUR/t et estimer la vitesse d'ajustement EMA->equilibre (V21),FRED DEXUSEU + ECB (gratuit) ; FranceAgriMer/Bologne (spot),1,eurusd gratuit = quick win; spot UE plus dur
+OU mean-reversion sur basis,EXT012,Basis quotidien (depend EXT013),Formaliser la demi-vie V10/V138 et le timing de sortie,idem EXT013,1,aucune simulation artificielle d'un basis absent
+Vraie surprise WASDE,EXT008,Consensus analystes pre-rapport,Surprise = publie - attendu; la revision M-M-1 ne suffit pas,Reuters/Refinitiv poll ; Bloomberg,1,payant; reouvre EXT008
+Volatilite implicite / options maïs,nouvelle,"Vol implicite, skew, open interest options",Gate de risque ex ante superieur a HAR/EGARCH; sentiment,CME (partiel) ; ORATS ; IVolatility,1,ameliore le score volatilite/risque
+Meteo prevue (revisions de previsions),EXT033,Archive de previsions forward profonde,Seule voie meteo predictive (V45); revisions chaud/sec -> direction H1-H10,Open-Meteo previous-runs (gratuit) ; GFS/ECMWF,1,gratuit forward mais archive courte; accumuler
+Prix physiques FOB / cash bids,nouvelle,Cash bids historiques,Vraie transmission spot-futures et basis local,DTN ; USDA AMS (partiel) ; FranceAgriMer,2,partiel gratuit
+Prix ethanol + DDG,EXT004,Prix ethanol CME/EIA + DDG AMS,Vraie marge crush (variable d'etat lente de la demande),CME ; EIA ; USDA AMS,2,reouvre EXT004
+Satellite / NDVI,EXT028 (catalogue),Series NDVI horodatees acquisition+publication,Proxy de sante de culture plus precoce que Crop Condition,NASA MODIS ; Sentinel-2 (gratuit brut),2,timestamp acquisition vs publication crucial (anti-fuite)
+Crop Condition par Etat (granulaire),EXT027,NASS QuickStats par Etat,Surprises hebdo ponderees production fines,USDA NASS QuickStats API (gratuit),2,reouvre EXT027 (non lance)
+Export flows / inspections,nouvelle,USDA FAS Export Sales / Grain Inspections,Demande export hebdo anticipe-t-elle la direction ?,USDA FAS (gratuit),2,quick win gratuit
+Contrats decembre (prime new-crop),EXT018,Contrats CBOT Z par annee,Trajectoire saisonniere de la prime new-crop,CME DataMine ; Barchart,2,+ besoin de previsions forward pour le predictif

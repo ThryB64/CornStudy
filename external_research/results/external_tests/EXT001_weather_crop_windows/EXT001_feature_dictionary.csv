@@ -1,0 +1,12 @@
+feature,description
+gdd_anom_planting,"Anomalie z du cumul GDD saison-a-date, fenetre planting ([4, 5])"
+prcp_anom_planting,"Anomalie z du cumul precip saison-a-date, fenetre planting ([4, 5])"
+gdd_anom_vegetative,"Anomalie z du cumul GDD saison-a-date, fenetre vegetative ([6])"
+prcp_anom_vegetative,"Anomalie z du cumul precip saison-a-date, fenetre vegetative ([6])"
+gdd_anom_pollination,"Anomalie z du cumul GDD saison-a-date, fenetre pollination ([7])"
+prcp_anom_pollination,"Anomalie z du cumul precip saison-a-date, fenetre pollination ([7])"
+heat_anom_pollination,Anomalie z des jours tmax>32C cumules en pollinisation (juillet)
+gdd_anom_fill,"Anomalie z du cumul GDD saison-a-date, fenetre fill ([8])"
+prcp_anom_fill,"Anomalie z du cumul precip saison-a-date, fenetre fill ([8])"
+gdd_anom_harvest,"Anomalie z du cumul GDD saison-a-date, fenetre harvest ([9, 10])"
+prcp_anom_harvest,"Anomalie z du cumul precip saison-a-date, fenetre harvest ([9, 10])"

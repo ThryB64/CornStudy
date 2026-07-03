@@ -1,0 +1,14 @@
+feature_name_or_family,source_experiment,reason_rejected,evidence,can_be_retested_with_new_data,notes
+meteo realisee (fenetres agronomiques),EXT001,Degrade le RMSE; price-in par anticipation,dRMSE +8.5%; dDA +0.017 H5 negligeable,non (realise reste price-in),contexte seulement
+meteo realisee (lags/anomalies),EXT002,Gain DA ponctuel mais R2 negatif et instable,dRMSE +7%; R2 OOS negatif,non,instable
+meteo realisee (extremes),EXT020,Degrade fortement le RMSE,dRMSE +32 a +116%; R2 OOS jusqu'a -3.4,non,garder en contexte (basis moins compressible)
+surprise WASDE (revisions M-M-1),EXT008,Sans consensus analystes la surprise n'est pas captable en quotidien,dDA -16 pts; RMSE pire,OUI avec consensus analystes pre-WASDE,Huang-Serra-Garcia: ajustement intraday
+COT (Managed Money disaggregated),EXT003,Aucun signal de second ordre; dossier clos,degrade RMSE et DA tous horizons (eval 2016+),non (donnee deja testee proprement),calendrier vendredi applique
+ethanol/DDG/energie (proxys),EXT004,Proxys sans vrai prix ethanol/DDG inutiles,degradent RMSE et DA,OUI avec vrais prix ethanol CME/EIA + DDG AMS,vraie marge crush non constructible
+trend-following (EWMAC/MA/momentum),EXT011,Le mais ne tend pas,tous DA<0.5 (mom120 ~0.39); Sharpe<=0.20,non,negative control: l'edge EXT024 n'est PAS du momentum
+dummies bilan_tight/loose,EXT015,Importance train-only quasi nulle / instable,frac_in_topk faible; importance ~0,non,jeter au profit de s2u_z continu
+momentum court (base_ret_5d),EXT015,Faible importance directionnelle long horizon,perm importance proche 0 a H90,non,garder vol_20 et saison
+stacking ensemble (meta-logit),EXT050,Sur-apprend avec un edge faible,1re moitie <=0.5 (0.484/0.500); < moyenne simple < meilleur membre,non,parcimonie > empilement
+RF kitchen-sink (toutes variables),EXT015,Sur-apprend; sous le logit top-6,RF H90 0.552 < logit top6 0.658 < marche 0.604,non,confirme parcimonie
+NBEATSx / deep learning,EXT016,Non justifie vu l'edge faible; sur-apprentissage attendu,non lance; complexite deja nuisible (RF/stacking),OUI avec donnees plus riches (intraday/options/courbe) + regularisation forte,NOT_WORTH_YET
+prime meteo new-crop (predictif),EXT018,"Stress connu seulement en contemporain (juillet), pas ex ante au printemps",descriptif confirme mais predictif non ex ante,partiel avec contrats Dec + previsions forward,volet descriptif (Janzen) valide

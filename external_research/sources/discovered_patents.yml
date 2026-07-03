@@ -1,0 +1,72 @@
+- patent_id: ''
+  title: Manual Google Patents search - agricultural commodity price prediction machine
+    learning patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(agricultural%20commodity%20price%20prediction%20machine%20learning%20patent)
+  query: agricultural commodity price prediction machine learning patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28agricultural+commodity+price+prediction+machine+learning+patent%29'
+  status: manual_search_required
+- patent_id: ''
+  title: Manual Google Patents search - crop price forecasting satellite patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(crop%20price%20forecasting%20satellite%20patent)
+  query: crop price forecasting satellite patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28crop+price+forecasting+satellite+patent%29'
+  status: manual_search_required
+- patent_id: ''
+  title: Manual Google Patents search - futures price prediction commodity machine
+    learning patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(futures%20price%20prediction%20commodity%20machine%20learning%20patent)
+  query: futures price prediction commodity machine learning patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28futures+price+prediction+commodity+machine+learning+patent%29'
+  status: manual_search_required
+- patent_id: ''
+  title: Manual Google Patents search - agricultural futures risk management patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(agricultural%20futures%20risk%20management%20patent)
+  query: agricultural futures risk management patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28agricultural+futures+risk+management+patent%29'
+  status: manual_search_required
+- patent_id: ''
+  title: Manual Google Patents search - basis futures agricultural patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(basis%20futures%20agricultural%20patent)
+  query: basis futures agricultural patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28basis+futures+agricultural+patent%29'
+  status: manual_search_required
+- patent_id: ''
+  title: Manual Google Patents search - grain storage drying weather price patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(grain%20storage%20drying%20weather%20price%20patent)
+  query: grain storage drying weather price patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28grain+storage+drying+weather+price+patent%29'
+  status: manual_search_required
+- patent_id: ''
+  title: Manual Google Patents search - crop yield price prediction patent
+  authors_or_owner: ''
+  year: ''
+  url: https://patents.google.com/?q=(crop%20yield%20price%20prediction%20patent)
+  query: crop yield price prediction patent
+  relevance_score: 0
+  reason_to_keep: 'Automated search failed: 503 Server Error: Service Unavailable
+    for url: https://patents.google.com/xhr/query?url=q%3D%28crop+yield+price+prediction+patent%29'
+  status: manual_search_required

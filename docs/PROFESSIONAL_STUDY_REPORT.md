@@ -1,219 +1,219 @@
 # Étude professionnelle du prix du maïs CBOT
 
-- Générée le: `2026-07-03 10:39:54 UTC`
-- Période étudiée: `2000-10-25` -> `2025-07-25`
-- Données: 6192 observations, 370 features brutes, 19 facteurs.
+- Générée le: `2026-07-03 14:01:40 UTC`
+- Période étudiée: `2000-10-25` -> `2026-07-02`
+- Données: 6427 observations, 370 features brutes, 19 facteurs.
 
 ## Synthèse
 
 L'application condense les déterminants du maïs CBOT en facteurs économiques, compare plusieurs familles de modèles en walk-forward avec embargo, estime un régime de marché exploitable et transforme les prévisions en décision agricole.
-- Dernière décision (2025-06-26): **SELL_NOW**, fraction de vente 70%, régime `bull`.
-- Cash price estimé: 3.99 USD/bu ; q50 J+20: 3.92 USD/bu.
+- Dernière décision (2025-07-25): **SELL_NOW**, fraction de vente 100%, régime `bear`.
+- Cash price estimé: 4.05 USD/bu ; q50 J+20: 3.95 USD/bu.
 
 ## Benchmark modèles
 
 | Horizon | Modèle | Input | RMSE | MAE | R2 | DA | Période test |
 |---:|---|---|---:|---:|---:|---:|---|
-| J+5 | `elasticnet_factors` | `factors` | 0.03495 | 0.02545 | 0.0593 | 0.548 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `bayesian_ridge_factors` | `factors` | 0.03497 | 0.02560 | 0.0577 | 0.542 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `extratrees_factors` | `factors` | 0.03498 | 0.02529 | 0.0573 | 0.537 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `lasso_factors` | `factors` | 0.03500 | 0.02529 | 0.0563 | 0.551 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `ridge_factors` | `factors` | 0.03501 | 0.02573 | 0.0556 | 0.541 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `rf_factors` | `factors` | 0.03549 | 0.02591 | 0.0297 | 0.520 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `baseline_zero_return` | `none` | 0.03603 | 0.02570 | -0.0000 | 0.006 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `baseline_momentum_20d` | `none` | 0.03603 | 0.02570 | -0.0000 | 0.006 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `baseline_historical_mean` | `none` | 0.03604 | 0.02567 | -0.0009 | 0.523 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `hgb_factors` | `factors` | 0.03615 | 0.02661 | -0.0068 | 0.504 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `baseline_seasonal_naive` | `none` | 0.03643 | 0.02616 | -0.0226 | 0.526 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `xgb_factors` | `factors` | 0.03663 | 0.02685 | -0.0336 | 0.510 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `sarimax_seasonal` | `timeseries` | 0.03685 | 0.02636 | -0.0460 | 0.477 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `lgbm_factors` | `factors` | 0.03699 | 0.02753 | -0.0540 | 0.510 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `arima_auto` | `timeseries` | 0.03766 | 0.02640 | -0.0928 | 0.513 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `ridge_raw` | `raw` | 0.10433 | 0.07166 | -7.3849 | 0.484 | 2015-09-10 -> 2025-07-18 |
-| J+5 | `garch_vol` | `timeseries` | 0.10608 | 0.10049 | -7.6685 | 0.497 | 2015-09-10 -> 2025-07-18 |
-| J+10 | `lasso_factors` | `factors` | 0.04714 | 0.03470 | 0.1146 | 0.587 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `elasticnet_factors` | `factors` | 0.04732 | 0.03502 | 0.1080 | 0.590 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `bayesian_ridge_factors` | `factors` | 0.04744 | 0.03522 | 0.1033 | 0.581 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `ridge_factors` | `factors` | 0.04751 | 0.03535 | 0.1006 | 0.579 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `extratrees_factors` | `factors` | 0.04760 | 0.03501 | 0.0973 | 0.559 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `rf_factors` | `factors` | 0.04828 | 0.03550 | 0.0715 | 0.572 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `hgb_factors` | `factors` | 0.04959 | 0.03659 | 0.0203 | 0.537 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `baseline_zero_return` | `none` | 0.05010 | 0.03586 | -0.0001 | 0.002 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `baseline_momentum_20d` | `none` | 0.05010 | 0.03586 | -0.0001 | 0.002 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `baseline_historical_mean` | `none` | 0.05014 | 0.03581 | -0.0016 | 0.528 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `xgb_factors` | `factors` | 0.05027 | 0.03725 | -0.0070 | 0.538 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `baseline_seasonal_naive` | `none` | 0.05130 | 0.03663 | -0.0484 | 0.531 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `lgbm_factors` | `factors` | 0.05148 | 0.03811 | -0.0560 | 0.527 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `sarimax_seasonal` | `timeseries` | 0.06823 | 0.04290 | -0.8549 | 0.494 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `arima_auto` | `timeseries` | 0.07049 | 0.04457 | -0.9797 | 0.506 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `garch_vol` | `timeseries` | 0.11229 | 0.10302 | -4.0241 | 0.493 | 2015-09-04 -> 2025-07-11 |
-| J+10 | `ridge_raw` | `raw` | 0.15179 | 0.10688 | -8.1800 | 0.481 | 2015-09-04 -> 2025-07-11 |
-| J+20 | `extratrees_factors` | `factors` | 0.06615 | 0.04845 | 0.1623 | 0.602 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `lasso_factors` | `factors` | 0.06665 | 0.04972 | 0.1496 | 0.616 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `elasticnet_factors` | `factors` | 0.06705 | 0.05023 | 0.1392 | 0.610 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `bayesian_ridge_factors` | `factors` | 0.06733 | 0.05058 | 0.1321 | 0.611 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `ridge_factors` | `factors` | 0.06753 | 0.05076 | 0.1271 | 0.607 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `rf_factors` | `factors` | 0.06903 | 0.05110 | 0.0878 | 0.620 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `xgb_factors` | `factors` | 0.06971 | 0.05202 | 0.0698 | 0.607 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `baseline_seasonal_naive` | `none` | 0.07105 | 0.05259 | 0.0337 | 0.555 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `hgb_factors` | `factors` | 0.07116 | 0.05293 | 0.0305 | 0.578 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `lgbm_factors` | `factors` | 0.07199 | 0.05398 | 0.0080 | 0.562 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `baseline_zero_return` | `none` | 0.07228 | 0.05291 | -0.0001 | 0.005 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `baseline_momentum_20d` | `none` | 0.07228 | 0.05291 | -0.0001 | 0.005 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `baseline_historical_mean` | `none` | 0.07238 | 0.05281 | -0.0028 | 0.533 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `garch_vol` | `timeseries` | 0.12363 | 0.10924 | -1.9260 | 0.471 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `arima_auto` | `timeseries` | 0.21781 | 0.11935 | -8.0818 | 0.511 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `ridge_raw` | `raw` | 0.25700 | 0.17684 | -11.6448 | 0.461 | 2015-08-27 -> 2025-06-26 |
-| J+20 | `sarimax_seasonal` | `timeseries` | 0.31336 | 0.21379 | -17.7981 | 0.526 | 2015-08-27 -> 2025-06-26 |
-| J+30 | `lasso_factors` | `factors` | 0.08035 | 0.06181 | 0.1830 | 0.632 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `elasticnet_factors` | `factors` | 0.08086 | 0.06249 | 0.1725 | 0.630 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `bayesian_ridge_factors` | `factors` | 0.08101 | 0.06272 | 0.1694 | 0.631 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `ridge_factors` | `factors` | 0.08130 | 0.06298 | 0.1635 | 0.627 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `extratrees_factors` | `factors` | 0.08160 | 0.06233 | 0.1574 | 0.600 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `baseline_seasonal_naive` | `none` | 0.08475 | 0.06370 | 0.0909 | 0.583 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `hgb_factors` | `factors` | 0.08490 | 0.06514 | 0.0877 | 0.596 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `xgb_factors` | `factors` | 0.08506 | 0.06530 | 0.0843 | 0.619 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `rf_factors` | `factors` | 0.08580 | 0.06509 | 0.0683 | 0.587 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `lgbm_factors` | `factors` | 0.08677 | 0.06665 | 0.0472 | 0.603 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `baseline_zero_return` | `none` | 0.08890 | 0.06647 | -0.0002 | 0.005 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `baseline_momentum_20d` | `none` | 0.08890 | 0.06647 | -0.0002 | 0.005 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `baseline_historical_mean` | `none` | 0.08909 | 0.06635 | -0.0045 | 0.534 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `garch_vol` | `timeseries` | 0.13136 | 0.11037 | -1.1837 | 0.469 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `ridge_raw` | `raw` | 0.30873 | 0.21641 | -11.0633 | 0.425 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `arima_auto` | `timeseries` | 0.52116 | 0.26746 | -33.3751 | 0.477 | 2015-08-19 -> 2025-06-11 |
-| J+30 | `sarimax_seasonal` | `timeseries` | 0.63066 | 0.37642 | -49.3364 | 0.488 | 2015-08-19 -> 2025-06-11 |
+| J+5 | `elasticnet_factors` | `factors` | 0.03494 | 0.02545 | 0.0600 | 0.549 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `bayesian_ridge_factors` | `factors` | 0.03497 | 0.02559 | 0.0584 | 0.546 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `extratrees_factors` | `factors` | 0.03498 | 0.02528 | 0.0580 | 0.535 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `lasso_factors` | `factors` | 0.03500 | 0.02529 | 0.0568 | 0.552 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `ridge_factors` | `factors` | 0.03501 | 0.02572 | 0.0562 | 0.543 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `rf_factors` | `factors` | 0.03551 | 0.02592 | 0.0295 | 0.516 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `baseline_zero_return` | `none` | 0.03604 | 0.02572 | -0.0000 | 0.006 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `baseline_momentum_20d` | `none` | 0.03604 | 0.02572 | -0.0000 | 0.006 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `baseline_historical_mean` | `none` | 0.03606 | 0.02569 | -0.0009 | 0.522 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `hgb_factors` | `factors` | 0.03619 | 0.02671 | -0.0082 | 0.513 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `sarimax_seasonal` | `timeseries` | 0.03640 | 0.02612 | -0.0199 | 0.486 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `baseline_seasonal_naive` | `none` | 0.03643 | 0.02614 | -0.0217 | 0.527 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `xgb_factors` | `factors` | 0.03685 | 0.02710 | -0.0454 | 0.526 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `arima_auto` | `timeseries` | 0.03693 | 0.02619 | -0.0501 | 0.518 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `lgbm_factors` | `factors` | 0.03709 | 0.02768 | -0.0589 | 0.512 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `ridge_raw` | `raw` | 0.10499 | 0.07199 | -7.4861 | 0.482 | 2015-09-15 -> 2025-07-25 |
+| J+5 | `garch_vol` | `timeseries` | 0.10527 | 0.09952 | -7.5319 | 0.499 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `lasso_factors` | `factors` | 0.04702 | 0.03462 | 0.1177 | 0.590 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `elasticnet_factors` | `factors` | 0.04718 | 0.03491 | 0.1116 | 0.594 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `bayesian_ridge_factors` | `factors` | 0.04730 | 0.03512 | 0.1071 | 0.585 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `ridge_factors` | `factors` | 0.04738 | 0.03525 | 0.1042 | 0.583 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `extratrees_factors` | `factors` | 0.04750 | 0.03488 | 0.0996 | 0.560 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `rf_factors` | `factors` | 0.04807 | 0.03524 | 0.0777 | 0.572 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `hgb_factors` | `factors` | 0.04891 | 0.03609 | 0.0451 | 0.540 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `xgb_factors` | `factors` | 0.04987 | 0.03668 | 0.0074 | 0.558 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `baseline_zero_return` | `none` | 0.05006 | 0.03584 | -0.0000 | 0.002 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `baseline_momentum_20d` | `none` | 0.05006 | 0.03584 | -0.0000 | 0.002 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `baseline_historical_mean` | `none` | 0.05010 | 0.03580 | -0.0018 | 0.524 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `lgbm_factors` | `factors` | 0.05107 | 0.03785 | -0.0411 | 0.539 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `baseline_seasonal_naive` | `none` | 0.05117 | 0.03655 | -0.0449 | 0.532 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `arima_auto` | `timeseries` | 0.06454 | 0.04386 | -0.6626 | 0.520 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `sarimax_seasonal` | `timeseries` | 0.06734 | 0.04375 | -0.8098 | 0.531 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `garch_vol` | `timeseries` | 0.10814 | 0.09643 | -3.6670 | 0.493 | 2015-09-15 -> 2025-07-25 |
+| J+10 | `ridge_raw` | `raw` | 0.15454 | 0.10681 | -8.5314 | 0.487 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `extratrees_factors` | `factors` | 0.06623 | 0.04869 | 0.1585 | 0.606 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `lasso_factors` | `factors` | 0.06625 | 0.04955 | 0.1577 | 0.621 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `elasticnet_factors` | `factors` | 0.06666 | 0.05004 | 0.1473 | 0.619 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `bayesian_ridge_factors` | `factors` | 0.06695 | 0.05040 | 0.1400 | 0.619 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `ridge_factors` | `factors` | 0.06715 | 0.05059 | 0.1347 | 0.613 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `hgb_factors` | `factors` | 0.06881 | 0.05093 | 0.0916 | 0.610 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `rf_factors` | `factors` | 0.06940 | 0.05138 | 0.0758 | 0.604 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `xgb_factors` | `factors` | 0.06964 | 0.05188 | 0.0693 | 0.607 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `baseline_seasonal_naive` | `none` | 0.07098 | 0.05255 | 0.0334 | 0.544 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `baseline_zero_return` | `none` | 0.07219 | 0.05291 | -0.0000 | 0.005 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `baseline_momentum_20d` | `none` | 0.07219 | 0.05291 | -0.0000 | 0.005 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `baseline_historical_mean` | `none` | 0.07232 | 0.05284 | -0.0034 | 0.526 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `lgbm_factors` | `factors` | 0.07251 | 0.05383 | -0.0087 | 0.579 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `garch_vol` | `timeseries` | 0.12443 | 0.10990 | -1.9707 | 0.478 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `arima_auto` | `timeseries` | 0.18096 | 0.10880 | -5.2831 | 0.505 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `ridge_raw` | `raw` | 0.25629 | 0.17500 | -11.6028 | 0.476 | 2015-09-15 -> 2025-07-25 |
+| J+20 | `sarimax_seasonal` | `timeseries` | 0.26404 | 0.16899 | -12.3767 | 0.517 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `lasso_factors` | `factors` | 0.07991 | 0.06145 | 0.1937 | 0.641 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `elasticnet_factors` | `factors` | 0.08046 | 0.06217 | 0.1825 | 0.639 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `bayesian_ridge_factors` | `factors` | 0.08062 | 0.06241 | 0.1794 | 0.640 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `ridge_factors` | `factors` | 0.08092 | 0.06268 | 0.1732 | 0.637 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `extratrees_factors` | `factors` | 0.08145 | 0.06219 | 0.1623 | 0.615 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `baseline_seasonal_naive` | `none` | 0.08539 | 0.06438 | 0.0793 | 0.585 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `hgb_factors` | `factors` | 0.08541 | 0.06562 | 0.0788 | 0.597 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `xgb_factors` | `factors` | 0.08551 | 0.06602 | 0.0768 | 0.600 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `rf_factors` | `factors` | 0.08700 | 0.06628 | 0.0443 | 0.586 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `lgbm_factors` | `factors` | 0.08742 | 0.06731 | 0.0349 | 0.609 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `baseline_zero_return` | `none` | 0.08899 | 0.06660 | -0.0000 | 0.005 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `baseline_momentum_20d` | `none` | 0.08899 | 0.06660 | -0.0000 | 0.005 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `baseline_historical_mean` | `none` | 0.08921 | 0.06653 | -0.0048 | 0.524 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `garch_vol` | `timeseries` | 0.13181 | 0.11248 | -1.1938 | 0.475 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `ridge_raw` | `raw` | 0.30616 | 0.21888 | -10.8359 | 0.454 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `arima_auto` | `timeseries` | 0.40034 | 0.22949 | -19.2379 | 0.508 | 2015-09-15 -> 2025-07-25 |
+| J+30 | `sarimax_seasonal` | `timeseries` | 0.60161 | 0.40295 | -44.7027 | 0.497 | 2015-09-15 -> 2025-07-25 |
 
 ## Contribution des familles factorielles
 
 | Horizon | Famille | Part coef Ridge | Delta RMSE sans famille |
 |---:|---|---:|---:|
-| J+5 | `raw_signal` | 0.213 | -0.00028 |
-| J+5 | `wasde_supply_demand` | 0.195 | -0.00043 |
-| J+5 | `weather_belt_stress` | 0.183 | 0.00007 |
-| J+5 | `cross_commodity` | 0.121 | -0.00025 |
-| J+5 | `positioning` | 0.084 | -0.00038 |
-| J+5 | `market_momentum` | 0.064 | 0.00004 |
-| J+5 | `macro_dollar_rates` | 0.063 | -0.00022 |
-| J+5 | `seasonality` | 0.048 | 0.00013 |
-| J+5 | `weather_advanced` | 0.021 | -0.00011 |
+| J+5 | `raw_signal` | 0.215 | -0.00053 |
+| J+5 | `wasde_supply_demand` | 0.193 | -0.00048 |
+| J+5 | `weather_belt_stress` | 0.183 | 0.00012 |
+| J+5 | `cross_commodity` | 0.122 | -0.00033 |
+| J+5 | `positioning` | 0.086 | -0.00034 |
+| J+5 | `market_momentum` | 0.063 | 0.00004 |
+| J+5 | `macro_dollar_rates` | 0.063 | -0.00023 |
+| J+5 | `seasonality` | 0.047 | 0.00018 |
+| J+5 | `weather_advanced` | 0.019 | -0.00007 |
 | J+5 | `wasde_surprises_z` | 0.008 | -0.00000 |
-| J+5 | `market_volatility` | 0.002 | 0.00001 |
-| J+10 | `wasde_supply_demand` | 0.236 | -0.00162 |
-| J+10 | `raw_signal` | 0.213 | -0.00072 |
-| J+10 | `weather_belt_stress` | 0.144 | -0.00052 |
-| J+10 | `cross_commodity` | 0.125 | -0.00076 |
-| J+10 | `market_momentum` | 0.071 | 0.00009 |
-| J+10 | `seasonality` | 0.064 | 0.00040 |
-| J+10 | `macro_dollar_rates` | 0.062 | -0.00041 |
-| J+10 | `positioning` | 0.060 | -0.00070 |
-| J+10 | `wasde_surprises_z` | 0.012 | -0.00001 |
-| J+10 | `weather_advanced` | 0.007 | -0.00004 |
-| J+10 | `market_volatility` | 0.006 | 0.00004 |
-| J+20 | `raw_signal` | 0.211 | -0.00028 |
-| J+20 | `wasde_supply_demand` | 0.194 | -0.00226 |
-| J+20 | `market_momentum` | 0.137 | 0.00032 |
-| J+20 | `weather_belt_stress` | 0.128 | 0.00010 |
-| J+20 | `cross_commodity` | 0.119 | -0.00155 |
-| J+20 | `positioning` | 0.079 | -0.00226 |
-| J+20 | `market_volatility` | 0.047 | 0.00076 |
-| J+20 | `macro_dollar_rates` | 0.041 | -0.00041 |
-| J+20 | `seasonality` | 0.035 | 0.00055 |
-| J+20 | `wasde_surprises_z` | 0.006 | -0.00000 |
-| J+20 | `weather_advanced` | 0.003 | 0.00000 |
-| J+30 | `raw_signal` | 0.168 | 0.00008 |
-| J+30 | `market_momentum` | 0.167 | 0.00041 |
-| J+30 | `wasde_supply_demand` | 0.164 | -0.00136 |
-| J+30 | `positioning` | 0.146 | -0.00252 |
-| J+30 | `weather_belt_stress` | 0.114 | -0.00065 |
-| J+30 | `seasonality` | 0.071 | 0.00207 |
-| J+30 | `market_volatility` | 0.054 | 0.00093 |
-| J+30 | `cross_commodity` | 0.050 | -0.00084 |
-| J+30 | `macro_dollar_rates` | 0.043 | -0.00032 |
-| J+30 | `wasde_surprises_z` | 0.015 | -0.00001 |
-| J+30 | `weather_advanced` | 0.009 | -0.00003 |
+| J+5 | `market_volatility` | 0.001 | 0.00000 |
+| J+10 | `wasde_supply_demand` | 0.235 | -0.00176 |
+| J+10 | `raw_signal` | 0.215 | -0.00135 |
+| J+10 | `weather_belt_stress` | 0.144 | -0.00047 |
+| J+10 | `cross_commodity` | 0.126 | -0.00094 |
+| J+10 | `market_momentum` | 0.069 | 0.00014 |
+| J+10 | `seasonality` | 0.064 | 0.00065 |
+| J+10 | `macro_dollar_rates` | 0.063 | -0.00046 |
+| J+10 | `positioning` | 0.062 | -0.00064 |
+| J+10 | `wasde_surprises_z` | 0.012 | -0.00000 |
+| J+10 | `weather_advanced` | 0.005 | -0.00001 |
+| J+10 | `market_volatility` | 0.005 | 0.00004 |
+| J+20 | `raw_signal` | 0.213 | -0.00164 |
+| J+20 | `wasde_supply_demand` | 0.193 | -0.00242 |
+| J+20 | `market_momentum` | 0.135 | 0.00065 |
+| J+20 | `weather_belt_stress` | 0.128 | 0.00005 |
+| J+20 | `cross_commodity` | 0.120 | -0.00181 |
+| J+20 | `positioning` | 0.080 | -0.00231 |
+| J+20 | `market_volatility` | 0.046 | 0.00099 |
+| J+20 | `macro_dollar_rates` | 0.041 | -0.00054 |
+| J+20 | `seasonality` | 0.035 | 0.00095 |
+| J+20 | `wasde_surprises_z` | 0.006 | 0.00000 |
+| J+20 | `weather_advanced` | 0.002 | 0.00000 |
+| J+30 | `raw_signal` | 0.168 | -0.00047 |
+| J+30 | `market_momentum` | 0.166 | 0.00109 |
+| J+30 | `wasde_supply_demand` | 0.164 | -0.00110 |
+| J+30 | `positioning` | 0.146 | -0.00365 |
+| J+30 | `weather_belt_stress` | 0.114 | 0.00050 |
+| J+30 | `seasonality` | 0.072 | 0.00232 |
+| J+30 | `market_volatility` | 0.053 | 0.00129 |
+| J+30 | `cross_commodity` | 0.049 | -0.00079 |
+| J+30 | `macro_dollar_rates` | 0.043 | -0.00052 |
+| J+30 | `wasde_surprises_z` | 0.015 | 0.00001 |
+| J+30 | `weather_advanced` | 0.010 | -0.00002 |
 
 ## Top facteurs Ridge
 
 | Horizon | Facteur | Famille | Part coef Ridge |
 |---:|---|---|---:|
-| J+5 | `factor_raw_signal` | `raw_signal` | 0.213 |
-| J+5 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.163 |
-| J+5 | `factor_cross_commodity` | `cross_commodity` | 0.121 |
+| J+5 | `factor_raw_signal` | `raw_signal` | 0.215 |
+| J+5 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.162 |
+| J+5 | `factor_cross_commodity` | `cross_commodity` | 0.122 |
 | J+5 | `factor_drought_severity` | `weather_belt_stress` | 0.072 |
 | J+5 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.063 |
 | J+5 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.063 |
-| J+5 | `factor_market_momentum` | `market_momentum` | 0.059 |
-| J+5 | `factor_positioning` | `positioning` | 0.056 |
-| J+10 | `factor_raw_signal` | `raw_signal` | 0.213 |
-| J+10 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.190 |
-| J+10 | `factor_cross_commodity` | `cross_commodity` | 0.125 |
-| J+10 | `factor_market_momentum` | `market_momentum` | 0.070 |
+| J+5 | `factor_market_momentum` | `market_momentum` | 0.058 |
+| J+5 | `factor_positioning` | `positioning` | 0.055 |
+| J+10 | `factor_raw_signal` | `raw_signal` | 0.215 |
+| J+10 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.189 |
+| J+10 | `factor_cross_commodity` | `cross_commodity` | 0.126 |
+| J+10 | `factor_market_momentum` | `market_momentum` | 0.069 |
 | J+10 | `factor_seasonality` | `seasonality` | 0.064 |
-| J+10 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.062 |
+| J+10 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.063 |
 | J+10 | `factor_positioning` | `positioning` | 0.057 |
 | J+10 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.054 |
-| J+20 | `factor_raw_signal` | `raw_signal` | 0.211 |
-| J+20 | `factor_market_momentum` | `market_momentum` | 0.134 |
-| J+20 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.134 |
-| J+20 | `factor_cross_commodity` | `cross_commodity` | 0.119 |
+| J+20 | `factor_raw_signal` | `raw_signal` | 0.213 |
+| J+20 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.133 |
+| J+20 | `factor_market_momentum` | `market_momentum` | 0.133 |
+| J+20 | `factor_cross_commodity` | `cross_commodity` | 0.120 |
 | J+20 | `factor_weather_belt_stress` | `weather_belt_stress` | 0.088 |
 | J+20 | `factor_positioning` | `positioning` | 0.071 |
 | J+20 | `factor_ethanol_demand` | `wasde_supply_demand` | 0.060 |
-| J+20 | `factor_market_volatility` | `market_volatility` | 0.047 |
+| J+20 | `factor_market_volatility` | `market_volatility` | 0.046 |
 | J+30 | `factor_raw_signal` | `raw_signal` | 0.168 |
-| J+30 | `factor_market_momentum` | `market_momentum` | 0.152 |
-| J+30 | `factor_positioning` | `positioning` | 0.112 |
+| J+30 | `factor_market_momentum` | `market_momentum` | 0.151 |
+| J+30 | `factor_positioning` | `positioning` | 0.113 |
 | J+30 | `factor_weather_belt_stress` | `weather_belt_stress` | 0.106 |
 | J+30 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.095 |
-| J+30 | `factor_seasonality` | `seasonality` | 0.071 |
+| J+30 | `factor_seasonality` | `seasonality` | 0.072 |
 | J+30 | `factor_ethanol_demand` | `wasde_supply_demand` | 0.069 |
-| J+30 | `factor_market_volatility` | `market_volatility` | 0.054 |
+| J+30 | `factor_market_volatility` | `market_volatility` | 0.053 |
 
 ## Top facteurs SHAP
 
 | Horizon | Facteur | Famille | Part mean(|SHAP|) |
 |---:|---|---|---:|
-| J+5 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.135 |
-| J+5 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.122 |
-| J+5 | `factor_curve_structure` | `market_momentum` | 0.105 |
-| J+5 | `factor_positioning` | `positioning` | 0.103 |
-| J+5 | `factor_market_momentum` | `market_momentum` | 0.078 |
-| J+5 | `factor_drought_severity` | `weather_belt_stress` | 0.064 |
-| J+5 | `factor_raw_signal` | `raw_signal` | 0.060 |
-| J+5 | `factor_market_volatility` | `market_volatility` | 0.053 |
-| J+10 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.141 |
-| J+10 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.121 |
-| J+10 | `factor_positioning` | `positioning` | 0.107 |
-| J+10 | `factor_curve_structure` | `market_momentum` | 0.103 |
-| J+10 | `factor_raw_signal` | `raw_signal` | 0.092 |
-| J+10 | `factor_seasonality` | `seasonality` | 0.063 |
-| J+10 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.060 |
-| J+10 | `factor_wasde_surprises_z` | `wasde_surprises_z` | 0.051 |
-| J+20 | `factor_positioning` | `positioning` | 0.164 |
-| J+20 | `factor_raw_signal` | `raw_signal` | 0.114 |
-| J+20 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.103 |
-| J+20 | `factor_curve_structure` | `market_momentum` | 0.095 |
-| J+20 | `factor_market_momentum` | `market_momentum` | 0.078 |
-| J+20 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.073 |
-| J+20 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.069 |
-| J+20 | `factor_seasonality` | `seasonality` | 0.058 |
-| J+30 | `factor_positioning` | `positioning` | 0.169 |
-| J+30 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.113 |
-| J+30 | `factor_seasonality` | `seasonality` | 0.098 |
-| J+30 | `factor_raw_signal` | `raw_signal` | 0.097 |
-| J+30 | `factor_wasde_surprises_z` | `wasde_surprises_z` | 0.084 |
-| J+30 | `factor_curve_structure` | `market_momentum` | 0.080 |
+| J+5 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.159 |
+| J+5 | `factor_curve_structure` | `market_momentum` | 0.112 |
+| J+5 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.107 |
+| J+5 | `factor_positioning` | `positioning` | 0.094 |
+| J+5 | `factor_drought_severity` | `weather_belt_stress` | 0.076 |
+| J+5 | `factor_market_momentum` | `market_momentum` | 0.070 |
+| J+5 | `factor_raw_signal` | `raw_signal` | 0.058 |
+| J+5 | `factor_market_volatility` | `market_volatility` | 0.056 |
+| J+10 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.139 |
+| J+10 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.135 |
+| J+10 | `factor_positioning` | `positioning` | 0.100 |
+| J+10 | `factor_curve_structure` | `market_momentum` | 0.094 |
+| J+10 | `factor_seasonality` | `seasonality` | 0.081 |
+| J+10 | `factor_raw_signal` | `raw_signal` | 0.080 |
+| J+10 | `factor_wasde_surprises_z` | `wasde_surprises_z` | 0.060 |
+| J+10 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.059 |
+| J+20 | `factor_positioning` | `positioning` | 0.130 |
+| J+20 | `factor_seasonality` | `seasonality` | 0.096 |
+| J+20 | `factor_crop_condition_pressure` | `weather_belt_stress` | 0.093 |
+| J+20 | `factor_wasde_supply_demand` | `wasde_supply_demand` | 0.088 |
+| J+20 | `factor_curve_structure` | `market_momentum` | 0.088 |
+| J+20 | `factor_raw_signal` | `raw_signal` | 0.087 |
+| J+20 | `factor_market_momentum` | `market_momentum` | 0.077 |
+| J+20 | `factor_weather_belt_stress` | `weather_belt_stress` | 0.066 |
+| J+30 | `factor_seasonality` | `seasonality` | 0.150 |
+| J+30 | `factor_positioning` | `positioning` | 0.138 |
+| J+30 | `factor_macro_dollar_rates` | `macro_dollar_rates` | 0.115 |
+| J+30 | `factor_wasde_surprises_z` | `wasde_surprises_z` | 0.086 |
+| J+30 | `factor_curve_structure` | `market_momentum` | 0.069 |
+| J+30 | `factor_raw_signal` | `raw_signal` | 0.065 |
+| J+30 | `factor_weather_belt_stress` | `weather_belt_stress` | 0.058 |
 | J+30 | `factor_market_momentum` | `market_momentum` | 0.058 |
-| J+30 | `factor_market_breadth` | `positioning` | 0.048 |
 
 ## Intervalles CQR
 
 | Horizon | Couverture réalisée | Largeur moyenne | N test |
 |---:|---:|---:|---:|
-| J+5 | 0.909 / cible 0.900 | 0.11287 | 2475 |
-| J+10 | 0.909 / cible 0.900 | 0.15566 | 2473 |
-| J+20 | 0.912 / cible 0.900 | 0.23607 | 2469 |
-| J+30 | 0.903 / cible 0.900 | 0.27522 | 2465 |
+| J+5 | 0.910 / cible 0.900 | 0.11300 | 2477 |
+| J+10 | 0.914 / cible 0.900 | 0.15850 | 2477 |
+| J+20 | 0.911 / cible 0.900 | 0.23587 | 2477 |
+| J+30 | 0.899 / cible 0.900 | 0.27195 | 2477 |
 
 Lecture: la CQR est exécutée et calibrée, mais la couverture réalisée reste sous 90% sur ce backtest, signe d'une forte dérive temporelle. Le résultat est donc utilisable comme diagnostic, pas comme garantie opérationnelle parfaite.
 
@@ -254,7 +254,7 @@ Ce tableau distingue ce qui est effectivement codé et exécuté de ce qui est p
 | Walk-forward temporel | ✅ Implémenté | Train historique, tests par blocs, embargo par horizon |
 | Benchmark modèles | ✅ Implémenté | Ridge, ElasticNet, RF, HGB ; boosters si installés |
 | Stacking Ridge sur meta-database | ⚠️ Hors rapport walk-forward | Disponible via `mais stack` ; non inclus dans les benchmarks de cette étude. |
-| Intervalles de confiance (split-conformal) | ✅ Implémenté | Moyenne covered_90 ≈ 0.890. |
+| Intervalles de confiance (split-conformal) | ✅ Implémenté | Moyenne covered_90 ≈ 0.888. |
 | Régime de marché (bull/bear/range) | ⚠️ Partiel | Méthode : markov_2state ; labels observés : ['bear', 'bull']. |
 | Décision agriculteur (SELL/STORE/WAIT) | ✅ Implémenté | Moteur YAML paramétrable |
 | Importance par coefficient Ridge | ✅ Implémenté | Ablation par famille |
@@ -267,7 +267,7 @@ Ce tableau distingue ce qui est effectivement codé et exécuté de ce qui est p
 | CFTC COT — impact mesuré (ablation) | ⚠️ Non mesuré | Pas d'ablation COT dédiée dans ce rapport. |
 | NDVI / indices de végétation satellite | ❌ Non implémenté | Hors périmètre actuel. |
 | ENSO / El Niño | ❌ Non implémenté | Hors périmètre actuel. |
-| Optuna LightGBM | ⚠️ Désactivé par défaut | Disponible via build_professional_study(optimize=True), désactivé sur le build normal. |
+| Optuna LightGBM | ✅ Exécuté | 4 horizons optimisés ; meilleur delta RMSE=-0.00543. |
 | XGBoost/LightGBM | ✅ Benchmark | Benchmark walk-forward : LightGBM, XGBoost actifs. |
 
 ## Conclusion opérationnelle

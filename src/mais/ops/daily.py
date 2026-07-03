@@ -132,6 +132,8 @@ def run_daily_pipeline(
         stopped = not add("collect", _collect)
 
     if not stopped:
+        stopped = not add("refresh_database", lambda: _run_refresh_database())
+    if not stopped:
         stopped = not add("features", lambda: _run_features())
     if not stopped:
         stopped = not add("targets", lambda: _run_targets())
@@ -209,6 +211,12 @@ def load_daily_status() -> dict:
     return json.loads(DAILY_STATUS_JSON.read_text(encoding="utf-8"))
 
 
+def _run_refresh_database() -> str:
+    from mais.clean import refresh_database
+    res = refresh_database()
+    return f"+{res['appended']} rows, last={res['last']}"
+
+
 def _run_features() -> str:
     from mais.features import build_features
     df = build_features()
@@ -224,25 +232,15 @@ def _run_targets() -> str:
     return f"{len(targets)} rows, {targets.shape[1] - 1} targets"
 
 
-# Features de courbe EMA éparses (>=2 contrats sur ~15% des dates), déjà shift(1) dans
-# euronext_curve.py (causales). Leur nature en escalier fait faux-positiver l'heuristique cheap
-# shift(-1) de l'audit (improvement 0.05-0.10, abs corr à peine >0.10). Exemptées du check future_dep
-# comme les features calendaires. Le basis_z de la baseline figée n'en fait PAS partie.
-_EMA_SPARSE_CURVE_FEATURES = [
-    "ema_curve_slope_6", "ema_roll_yield_ann", "ema_backwardation_flag",
-    "ema_carry_front_second", "ema_contango_flag", "ema_spread_f0_f1",
-]
-
-
 def _run_audit() -> str:
     from mais.leakage import audit_features_targets
     from mais.paths import LEAKAGE_AUDIT_PARQUET
     from mais.utils import read_parquet
+    # exemptions EMA vérifiées : VERIFIED_LAGGED_FEATURES dans mais/leakage/audit.py
     audit = audit_features_targets(
         read_parquet(FEATURES_PARQUET),
         read_parquet(TARGETS_PARQUET),
         write_report_to=LEAKAGE_AUDIT_PARQUET,
-        skip_future_dep_for=_EMA_SPARSE_CURVE_FEATURES,
     )
     if not audit.passed:
         raise RuntimeError(audit.summary())

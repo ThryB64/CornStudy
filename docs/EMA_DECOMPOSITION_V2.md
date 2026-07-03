@@ -5,8 +5,8 @@
 ## DESCRIPTIF
 
 Variables contemporaines : ΔEMA_t = β1 × ΔCBOT_t + β2 × Δbasis_t + résidu_t.
-R² CBOT + basis : 0.936.
-Gain basis : 0.724.
+R² CBOT + basis : 0.935.
+Gain basis : 0.725.
 
 Ce bloc est descriptif, NON prédictif.
 

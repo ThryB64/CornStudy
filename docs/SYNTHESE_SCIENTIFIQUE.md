@@ -8,9 +8,9 @@
 - Donc on peut creer un indicateur, mais pas un indicateur magique 'demain ca monte'. Il faut un indicateur de risque directionnel SELECTIF qui sait dire : risque de baisse eleve, contexte haussier moyen terme, volatilite a venir, prime a vendre, ou signal incertain.
 - La cle de credibilite : l'indicateur doit accepter de dire souvent JE NE SAIS PAS (mode UNCERTAIN obligatoire).
 
-## Classification finale des 32 resultats
+## Classification finale des 33 resultats
 
-- Decouvertes validees : 13  |  Garde-fous methodologiques : 5  |  Limites importantes : 14
+- Decouvertes validees : 14  |  Garde-fous methodologiques : 5  |  Limites importantes : 14
 - Les anciennes 'pistes' ont ete tranchees : chacune est devenue une decouverte validee (test walk-forward concluant) ou une limite (validation impossible avec les donnees gratuites). Plus d'entre-deux.
 
 Table complete : `artefacts/decouvertes/inventaire_decouvertes.csv`.
@@ -36,7 +36,7 @@ Aucun des 36 couples (modele x horizon) ne bat 'le prix de demain = celui d'aujo
 
 La notation d'etat des cultures US donne la direction a 90 jours.
 
-- Resultat : AUC 0.588 en walk-forward 2014-2025, IC95 [0.568 ; 0.609], positive sur 75% des annees (placebo 0.518) (baseline 0.5 (hasard), periode OOS 2014-2025, n 2815)
+- Resultat : AUC 0.604 en walk-forward 2014-2025, IC95 [0.586 ; 0.622], positive sur 77% des annees (placebo 0.508) (baseline 0.5 (hasard), periode OOS 2014-2025, n 3050)
 - Ce que ca demontre : La Crop Condition US donne une direction a 90 jours qui tient hors echantillon (walk-forward AUC 0.588, IC95 [0.568 ; 0.609], positive sur 75 % des annees).
 - Pourquoi ca a change l'etude : Un fondamental d'offre US porte un vrai signal directionnel moyen terme, plus modeste que le holdout (0.816) mais robuste sur plusieurs annees.
 - Consequence pour l'indicateur : Alimente les modules direction et risque de baisse (M1 / M2) a horizon long.
@@ -171,7 +171,7 @@ La predictabilite directionnelle est asymetrique du cote baissier.
 
 Le ratio ble/mais signale les ventes de prime qui vont mal tourner.
 
-- Resultat : AUC 0.590 en walk-forward 2014-2025, IC95 [0.571 ; 0.611], positive sur 75% des annees (placebo 0.477) (baseline 0.5 (hasard), periode OOS 2014-2025, n 2845)
+- Resultat : AUC 0.590 en walk-forward 2014-2025, IC95 [0.569 ; 0.610], positive sur 77% des annees (placebo 0.493) (baseline 0.5 (hasard), periode OOS 2014-2025, n 3080)
 - Ce que ca demontre : L'ecart de prix ble/mais signale le risque de baisse du mais hors echantillon (walk-forward AUC 0.590, IC95 [0.571 ; 0.611], positive sur 75 % des annees).
 - Pourquoi ca a change l'etude : Un signal de substitution simple aide a anticiper la baisse, la ou les modeles complexes echouent.
 - Consequence pour l'indicateur : Entre dans le module M1 (Downside Risk) comme variable de contexte.
@@ -211,6 +211,21 @@ Les mesures dediees signalent un risque eleve de sur-ajustement.
 ![decouverte](28_overfit_1_decouverte.png)
 
 ![courbes](28_overfit_2_courbes.png)
+
+### 33. La fusion des fondamentaux d'offre est le meilleur modele directionnel (H90)
+
+Crop Condition + niveaux WASDE + ratio ble/mais combines battent chaque bloc isole pour predire la direction CBOT a 90 jours ; le marche seul ne predit rien.
+
+- Resultat : AUC 0.626 en walk-forward 2014-2025, IC95 [0.606 ; 0.646], positive sur 69% des annees (placebo 0.511) (baseline 0.5 (hasard), periode OOS 2014-2025, n 3050)
+- Ce que ca demontre : La fusion des fondamentaux d'offre (Crop Condition + niveaux WASDE + ratio ble/mais) est le meilleur modele directionnel de l'etude a 90 jours (walk-forward AUC 0.626, IC95 [0.607 ; 0.646], placebo 0.489) ; le marche seul ne predit rien (0.511) et ajouter le marche dilue (0.603).
+- Pourquoi ca a change l'etude : Les trois familles d'offre portent une information complementaire ; les echecs sont lisibles (chocs demande / geopolitique : 2021, 2022) et l'abstention monte la DA de 0.63 a 0.78.
+- Consequence pour l'indicateur : Candidat coeur direction CBOT long terme (au-dessus de crop_h90 seul), avec gate d'abstention |p-0.5| < 0.15.
+- CBOT : fusion fondamentaux AUC 0.626 IC95 [0.607;0.646], placebo 0.489 ; echecs = chocs demande (2021, 2022) ; DA 0.63 -> 0.78 avec abstention.
+- Euronext : meme lecture cote Euronext : signal d'offre moyen terme, pas un signal de prime.
+
+![decouverte](33_direction_fusion_1_decouverte.png)
+
+![courbes](33_direction_fusion_2_courbes.png)
 
 ## 2. Garde-fous methodologiques (resultats negatifs utiles)
 
@@ -312,7 +327,7 @@ Deux variables suffisent : la parcimonie bat les modeles complexes.
 Le ratio stocks-sur-usage du WASDE oriente la direction a 40 jours.
 
 - Resultat : DA 0.705 (holdout) (baseline random walk 0.5, periode holdout 2024+, n a produire (par annee + IC backlog))
-- Pourquoi c'est une limite (pas validee) : AUC 0.576 mais positive sur 58% des annees seulement (instable hors echantillon, sous le seuil de robustesse).
+- Pourquoi c'est une limite (pas validee) : AUC 0.563 mais positive sur 46% des annees seulement (instable hors echantillon, sous le seuil de robustesse).
 - CBOT : stocks US bas = marche tendu ; DA 0.705 a H40 sur le holdout.
 - Euronext : l'Euronext herite de la direction US via la cointegration.
 

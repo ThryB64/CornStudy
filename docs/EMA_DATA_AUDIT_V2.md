@@ -4,7 +4,7 @@
 
 ## Verdict
 
-- Lignes contrats : 4828
+- Lignes contrats : 4848
 - Période ML fiable : NO_RELIABLE_PERIOD
 - Source quality : exploratoire_barchart_proxy
 - Dates avec >=2 contrats : 14.9%
@@ -15,7 +15,7 @@
 | Label | Lignes |
 |---|---:|
 | proxy_barchart | 4144 |
-| official_recent | 684 |
+| official_recent | 704 |
 
 ## Couverture par année
 
@@ -37,7 +37,7 @@
 | 2023 | 90.4% | 0.53 | exploratory_only |
 | 2024 | 89.7% | 0.53 | exploratory_only |
 | 2025 | 97.7% | 0.80 | research_ok |
-| 2026 | 37.2% | 0.51 | exploratory_only |
+| 2026 | 37.9% | 0.52 | exploratory_only |
 
 ## Périodes utilisables
 

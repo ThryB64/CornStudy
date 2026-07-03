@@ -13,8 +13,8 @@
 | Métrique | Valeur |
 |---|---:|
 | Corrélation niveaux | 0.941 |
-| Corrélation retours journaliers | 0.460 |
-| Demi-vie VECM | 83.3 jours |
+| Corrélation retours journaliers | 0.459 |
+| Demi-vie VECM | 82.9 jours |
 | Granger EMA→CBOT OOF | REJECTED |
 
 ## Wording obligatoire

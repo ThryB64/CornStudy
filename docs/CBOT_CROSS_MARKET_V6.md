@@ -9,18 +9,18 @@
 
 | Target | Set | n | AUC | dAUC | BA | MCC |
 |---|---|---:|---:|---:|---:|---:|
-| `y_cbot_up_h60` | `cbot_base` | 2462 | 0.518 | 0.000 | 0.498 | -0.003 |
-| `y_cbot_up_h60` | `cbot_plus_ema_premium` | 2462 | 0.569 | 0.051 | 0.544 | 0.088 |
-| `y_cbot_up_h60` | `cbot_plus_ema_meta` | 2462 | 0.536 | 0.018 | 0.515 | 0.031 |
-| `y_cbot_up_h60` | `cbot_full_cross_market` | 2462 | 0.577 | 0.059 | 0.547 | 0.092 |
-| `y_cbot_drawdown_5pct_h20` | `cbot_base` | 2476 | 0.513 | 0.000 | 0.529 | 0.051 |
-| `y_cbot_drawdown_5pct_h20` | `cbot_plus_ema_premium` | 2476 | 0.567 | 0.054 | 0.575 | 0.132 |
-| `y_cbot_drawdown_5pct_h20` | `cbot_plus_ema_meta` | 2476 | 0.511 | -0.001 | 0.529 | 0.051 |
-| `y_cbot_drawdown_5pct_h20` | `cbot_full_cross_market` | 2476 | 0.559 | 0.047 | 0.569 | 0.122 |
-| `y_cbot_large_down_3pct_h90` | `cbot_base` | 2434 | 0.580 | 0.000 | 0.550 | 0.105 |
-| `y_cbot_large_down_3pct_h90` | `cbot_plus_ema_premium` | 2434 | 0.636 | 0.056 | 0.606 | 0.221 |
-| `y_cbot_large_down_3pct_h90` | `cbot_plus_ema_meta` | 2434 | 0.579 | -0.001 | 0.541 | 0.087 |
-| `y_cbot_large_down_3pct_h90` | `cbot_full_cross_market` | 2434 | 0.633 | 0.053 | 0.604 | 0.218 |
+| `y_cbot_up_h60` | `cbot_base` | 2463 | 0.518 | 0.000 | 0.498 | -0.004 |
+| `y_cbot_up_h60` | `cbot_plus_ema_premium` | 2463 | 0.568 | 0.050 | 0.544 | 0.088 |
+| `y_cbot_up_h60` | `cbot_plus_ema_meta` | 2463 | 0.536 | 0.018 | 0.515 | 0.030 |
+| `y_cbot_up_h60` | `cbot_full_cross_market` | 2463 | 0.577 | 0.059 | 0.546 | 0.092 |
+| `y_cbot_drawdown_5pct_h20` | `cbot_base` | 2477 | 0.513 | 0.000 | 0.529 | 0.051 |
+| `y_cbot_drawdown_5pct_h20` | `cbot_plus_ema_premium` | 2477 | 0.567 | 0.054 | 0.575 | 0.132 |
+| `y_cbot_drawdown_5pct_h20` | `cbot_plus_ema_meta` | 2477 | 0.511 | -0.001 | 0.529 | 0.051 |
+| `y_cbot_drawdown_5pct_h20` | `cbot_full_cross_market` | 2477 | 0.560 | 0.047 | 0.570 | 0.122 |
+| `y_cbot_large_down_3pct_h90` | `cbot_base` | 2435 | 0.580 | 0.000 | 0.550 | 0.105 |
+| `y_cbot_large_down_3pct_h90` | `cbot_plus_ema_premium` | 2435 | 0.636 | 0.056 | 0.606 | 0.221 |
+| `y_cbot_large_down_3pct_h90` | `cbot_plus_ema_meta` | 2435 | 0.579 | -0.001 | 0.540 | 0.087 |
+| `y_cbot_large_down_3pct_h90` | `cbot_full_cross_market` | 2435 | 0.633 | 0.053 | 0.604 | 0.218 |
 
 ## EMA Impact Of CBOT Meta
 

@@ -600,6 +600,18 @@ add(32, "euronext_ro", "Limite",
     "basisz", "le score vient du CBOT (basis et EUR/USD non integres).",
     "ordonne les retours (vendre -5.8 %, attendre +5.1 %) mais AUC 0.561, prix 97 % proxy.")
 
+add(33, "direction_fusion", "Modele / resultat",
+    "La fusion des fondamentaux d'offre est le meilleur modele directionnel (H90)",
+    "Crop Condition + niveaux WASDE + ratio ble/mais combines battent chaque bloc isole "
+    "pour predire la direction CBOT a 90 jours ; le marche seul ne predit rien.",
+    {"type": "metric", "title": "Direction CBOT a 90 j : AUC walk-forward 2014-2026 par bloc",
+     "bars": [("FUSION crop+WASDE+ble", 0.626), ("Crop condition", 0.604),
+              ("Ratio ble/mais", 0.602), ("Niveaux WASDE", 0.570), ("Marche seul", 0.511)],
+     "ref": 0.5},
+    "crop", "fusion fondamentaux AUC 0.626 IC95 [0.607;0.646], placebo 0.489 ; echecs = "
+    "chocs demande (2021, 2022) ; DA 0.63 -> 0.78 avec abstention.",
+    "meme lecture cote Euronext : signal d'offre moyen terme, pas un signal de prime.")
+
 
 # --------------------------------------------------------------------------- #
 def main() -> None:

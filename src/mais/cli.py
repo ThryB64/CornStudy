@@ -295,7 +295,7 @@ def cli_targets(
     horizons: Annotated[
         str,
         typer.Option("--horizons", help="Comma-separated horizons."),
-    ] = "5,10,20,30",
+    ] = "1,5,10,20,30,60,90",
     source: Annotated[
         Path,
         typer.Option(

@@ -1,5 +1,45 @@
 # État du projet — Etude Mais
 
+## Mise à jour 2026-07-03 — DÉBLOCAGE univers figé + fusion directionnelle H90 (Session 7)
+
+- **DÉCOUVERTE INFRA** : l'étude entière était figée au **2025-07-25** — `mais clean` était un
+  stub legacy, `data/interim/database.parquet` (ancre de `build_features`) jamais rafraîchi
+  alors que les raw yfinance allaient jusqu'à juillet 2026 et les interim fondamentaux jusqu'à
+  mai 2026. **Fix** : `src/mais/clean/market_refresh.py` (+235 séances, ancre au 2026-07-02,
+  mapping vérifié oil=WTI/gas=natgas MAE 0.0000). ⇒ **~1 an de données jamais vues par aucun
+  développement du projet** = test de généralisation pur.
+- **Targets** : rebuild avec `--horizons 1,5,10,20,30,60,90` (le défaut CLI 5-30 avait écrasé
+  h60/h90 — piège à retenir).
+- **Audit anti-leakage** : 27 flags `future_dep` sur les features de courbe EMA = faux positifs
+  structurels (lag shift(1) vérifié empiriquement : valeur du jour J = brut de J-1 ; dé-shifter
+  une feature informative correctement laggée augmente mécaniquement la corrélation).
+  Liste centralisée `VERIFIED_LAGGED_FEATURES` dans `mais/leakage/audit.py` (remplace la liste
+  locale de ops/daily.py, couvre aussi le CLI). Audit final **PASS** (370 features/125 targets).
+- **Étude fusion directionnelle** (`scripts/build_direction_fusion.py`, protocole
+  validate_pistes strict) : **FOND (crop+WASDE+blé) h90 AUC 0.626 IC95 [0.607;0.646]**,
+  placebo 0.489, 69 % années+ = meilleur modèle directionnel de l'étude. Marché seul 0.51
+  (rien). FULL (marché+fond) 0.603 = dilution, parcimonie gagne. Échecs lisibles : chocs
+  demande/géopolitique (2021 : 0.11, 2022 : 0.41). Gate confiance : DA 0.625→0.777 (couv. 6 %).
+  Doc : `docs/FINAL_DIRECTION_FUSION_STUDY.md`.
+- **Re-validation pistes sur univers étendu** : crop_h90 **ROBUSTE** (0.604, en hausse vs
+  0.588), wheat_corn **ROBUSTE** (0.590 stable — mais inversé 0.36 sur l'année inédite, à
+  surveiller), wasde_h40 LIMITE inchangé.
+- **Git réconcilié** : 32 commits CI mergés (journal forward canonique jusqu'au 2026-07-03,
+  43 entrées). Signal live 2026-07-03 : basis officiel **82.75 €/t, z 2.442** (zone extrême).
+- **Intégration synthèse** : `direction_fusion` ajouté à validate_pistes (verdict officiel
+  **ROBUSTE**, reproduit indépendamment 0.626 [0.606;0.646] placebo 0.511) + découverte n°33
+  dans visuels/synthèse (14 validées / 5 garde-fous / 14 limites, index.html 73 images OK).
+- **Indicateur V1 re-validé sur l'univers étendu** : M1 H60 AUC 0.648 (stable vs 0.646),
+  fusion monotone (BEARISH 0.586 lift +0.23), placebo 0.515, **snapshot live 2026-07-02
+  NEUTRAL conf 0.52** (était figé au 2025-07-25).
+- **Pipeline durable** : étape `refresh_database` insérée dans daily-run avant features
+  (l'ancre ne peut plus se refiger) ; défaut CLI targets aligné sur 1,5,10,20,30,60,90.
+- **Dette tests** : la suite complète (288 fichiers, archive recherche) ne termine pas en
+  temps raisonnable (>2 h CPU) — protocole session = suites ciblées : **73 PASS en 27 s**
+  (unit dont test_market_refresh nouveau, integration, leakage, calendar, Étape 7).
+  Ticket futur : marquer les tests lourds `slow`.
+- daily-run PASS_WITH_WARNINGS steps=11, CQR 0.908, ruff PASS, audit anti-leakage PASS.
+
 ## Mise à jour 2026-06-20 — FIX collecte journalière (yfinance multi-index + retry)
 
 - **Symptôme** : collecte du 2026-06-19 en FAIL (`cbot_corn` essentiel → `Empty download for ZC=F`),

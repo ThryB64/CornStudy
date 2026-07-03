@@ -4,19 +4,19 @@ Un seul signal BEARISH_RISK / NEUTRAL / UNCERTAIN, par seuils figes a priori anc
 
 ## Backtest du signal fusionne (OOS 2014-2025)
 
-Base rate de baisse > 3 % a H60 : 0.37.
+Base rate de baisse > 3 % a H60 : 0.36.
 
 | signal | n | couverture | P(baisse) realisee | lift vs base |
 |---|---|---|---|---|
-| BEARISH_RISK | 376 | 13% | 0.58 | +0.21 |
-| NEUTRAL | 1527 | 54% | 0.28 | -0.09 |
-| UNCERTAIN | 942 | 33% | 0.43 | +0.06 |
+| BEARISH_RISK | 379 | 12% | 0.59 | +0.23 |
+| NEUTRAL | 1605 | 52% | 0.27 | -0.09 |
+| UNCERTAIN | 1096 | 36% | 0.42 | +0.05 |
 
 Lecture : quand le signal dit BEARISH_RISK, la baisse arrive nettement plus souvent que la base ; NEUTRAL est sous la base ; UNCERTAIN (abstention) reste proche du hasard.
 
 ## Backlog termine
 
-- Placebo etendu (permutation des labels) : AUC = **0.498** (proche de 0.5 = le signal reel n'est pas du hasard).
+- Placebo etendu (permutation des labels) : AUC = **0.515** (proche de 0.5 = le signal reel n'est pas du hasard).
 - M3 calibration : R2 (vol predite vs realisee) = **0.06**.
 - M3 seuils de regime figes sur 2014-2018 (CALME / NORMAL / VOLATIL / EXTREME).
 - M4 couts reels (vendre la prime haute, H90, research-only) :
@@ -31,13 +31,13 @@ Lecture : quand le signal dit BEARISH_RISK, la baisse arrive nettement plus souv
 
 ```json
 {
-  "date": "2025-07-25",
+  "date": "2026-07-02",
   "signal_cbot_h60": "NEUTRAL",
-  "prob_baisse_3pct_h60": 0.28,
-  "confiance": 0.55,
+  "prob_baisse_3pct_h60": 0.29,
+  "confiance": 0.52,
   "regime_volatilite": "NORMAL",
-  "vol_attendue_pct": 24.2,
-  "basis_z_euronext": 1.7,
+  "vol_attendue_pct": 23.4,
+  "basis_z_euronext": 1.16,
   "premium_status": "prime normale",
   "note": "research-only ; M4 prix EMA ~97 % proxy ; aucune action si confiance faible"
 }

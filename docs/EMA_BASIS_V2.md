@@ -6,7 +6,7 @@
 
 - Basis moyen : 37.25 €/t.
 - Basis positif : 98.9% du temps.
-- AR(1) phi : 0.970, demi-vie : 22.8 jours.
+- AR(1) phi : 0.970, demi-vie : 22.6 jours.
 - Meilleur signal OOF daily : H60 z>2.0 hit-rate 79.2%.
 
 ## Règle anti-confusion
@@ -17,9 +17,9 @@ Le basis peut revenir vers sa moyenne de 3 façons : EMA baisse, CBOT monte, ou 
 
 | Fréquence | Horizon | Seuil | n | DA | IC95 | q BH | Verdict |
 |---|---:|---:|---:|---:|---|---:|---|
-| daily | 20 | 1.0 | 791 | 60.3% | [58.7%; 61.5%] | 0.000 | GO |
-| daily | 20 | 1.5 | 303 | 61.4% | [58.3%; 64.5%] | 0.000 | GO |
-| daily | 20 | 2.0 | 107 | 73.8% | [67.6%; 80.2%] | 0.000 | GO |
+| daily | 20 | 1.0 | 792 | 60.2% | [58.7%; 61.5%] | 0.000 | GO |
+| daily | 20 | 1.5 | 304 | 61.2% | [57.9%; 64.4%] | 0.000 | GO |
+| daily | 20 | 2.0 | 108 | 73.1% | [66.9%; 79.4%] | 0.000 | GO |
 | daily | 20 | 2.5 | 26 | 65.4% | [48.1%; 83.7%] | 0.092 | NO_GO |
 | daily | 40 | 1.0 | 688 | 59.2% | [58.1%; 60.3%] | 0.000 | GO |
 | daily | 40 | 1.5 | 259 | 61.4% | [58.8%; 64.1%] | 0.000 | GO |

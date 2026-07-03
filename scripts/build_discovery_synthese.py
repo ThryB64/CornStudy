@@ -1,4 +1,4 @@
-"""Synthese scientifique : range les 32 decouvertes en 7 blocs, les classe par statut
+"""Synthese scientifique : range les 33 decouvertes en 7 blocs, les classe par statut
 (robuste / prometteur / garde-fou / limite), les rattache a un indicateur selectif a 4 modules,
 et liste honnetement le backlog de validation. Reutilise les images de build_discovery_visuals.
 Sortie : docs/SYNTHESE_SCIENTIFIQUE.md, artefacts/decouvertes/inventaire_decouvertes.csv,
@@ -126,6 +126,16 @@ EXTRA = {
    "demontre": "Les signaux faibles valent moins que les signaux forts ; confirme par la courbe de confiance de l'indicateur (DA 0.65 -> 0.71 sur les signaux confiants).",
    "change": "L'indicateur ne doit pas parler tous les jours : il attend des signaux assez forts.",
    "consequence": "Mode UNCERTAIN obligatoire (abstention sur signal faible)."},
+ "direction_fusion": {
+   "demontre": "La fusion des fondamentaux d'offre (Crop Condition + niveaux WASDE + ratio "
+               "ble/mais) est le meilleur modele directionnel de l'etude a 90 jours "
+               "(walk-forward AUC 0.626, IC95 [0.607 ; 0.646], placebo 0.489) ; "
+               "le marche seul ne predit rien (0.511) et ajouter le marche dilue (0.603).",
+   "change": "Les trois familles d'offre portent une information complementaire ; les echecs "
+             "sont lisibles (chocs demande / geopolitique : 2021, 2022) et l'abstention "
+             "monte la DA de 0.63 a 0.78.",
+   "consequence": "Candidat coeur direction CBOT long terme (au-dessus de crop_h90 seul), "
+                  "avec gate d'abstention |p-0.5| < 0.15."},
  # ---- pistes a valider ----
  "indicateur_v9": {"signal": "Indicateur basis + saison, AUC 0.656.",
    "pourquoi": "Pas de placebo ni de test apres couts, periode de test pas claire.",
@@ -229,6 +239,15 @@ META = {
    "baseline": "0.5", "periode": "a produire (backlog)", "n": "a produire (backlog)",
    "statut": "Robuste", "decision": "Integrer", "module": "M1 Downside Risk",
    "interpretation": "L'agriculteur a surtout besoin d'eviter de garder quand le risque de baisse monte."},
+ "direction_fusion": {
+   "question": "Combiner crop + WASDE + ble/mais predit-il mieux la direction a 90 jours ?",
+   "marche": "CBOT", "cible": "direction", "horizon": "H90",
+   "metrique": "AUC walk-forward", "resultat": "AUC 0.626 IC95 [0.607 ; 0.646], placebo 0.489",
+   "baseline": "0.5 (hasard) ; marche seul 0.511", "periode": "OOS 2014-2026",
+   "n": "3050", "statut": "Robuste",
+   "decision": "Coeur direction long terme + abstention", "module": "M2 Bullish Potential",
+   "interpretation": "Signal d'offre moyen terme ; aveugle aux chocs de demande (2021-2022) : "
+                     "gate de confiance obligatoire."},
  "crop_h90": {
    "question": "La Crop Condition US donne-t-elle la direction a 90 jours ?",
    "marche": "CBOT", "cible": "direction", "horizon": "H90",
@@ -408,7 +427,7 @@ META = {
    "interpretation": "RESEARCH_ONLY tant que les vrais prix Euronext et couts ne sont pas propres."},
 }
 
-# 7 blocs (couvrent les 32)
+# 7 blocs (couvrent les 33)
 BLOCKS = [
  (1, "Ce qu'on ne peut PAS faire (la prediction directe du prix est morte)",
   "On ne peut pas predire le niveau exact de maniere robuste, et les modeles complexes "
@@ -422,7 +441,7 @@ BLOCKS = [
  (3, "Les fondamentaux agricoles (signal moyen terme)",
   "La Crop Condition et le WASDE donnent un signal moyen terme prometteur (a revalider) ; "
   "la meteo aide seulement dans ses EXTREMES PREVUS, la meteo realisee arrive trop tard.",
-  ["crop_h90", "wasde_h40", "weather_extreme", "weather_priced_in"]),
+  ["direction_fusion", "crop_h90", "wasde_h40", "weather_extreme", "weather_priced_in"]),
  (4, "Le basis Euronext / CBOT (dynamique locale et mean-reverting)",
   "La prime Euronext/CBOT a une dynamique locale qui revient a la moyenne ; les signaux "
   "simples basis_z + saison battent les gros modeles, et la compression vient du CBOT.",
@@ -530,7 +549,7 @@ def main() -> None:
              "specificity": {"n": "OOF multi-annees"},
              "complex_models": {"n": "multi-modeles"},
              "marginal": {"n": "OOF (confirme par la courbe de confiance de l'indicateur)"}}
-    for pid in ("crop_h90", "wheat_corn"):
+    for pid in ("crop_h90", "wheat_corn", "direction_fusion"):
         v = verdicts.get(pid)
         if v and "auc" in v:
             clean[pid] = {"resultat": f"AUC {v['auc']:.3f} en walk-forward 2014-2025, IC95 "
@@ -574,7 +593,7 @@ def main() -> None:
     # ---- markdown ----
     md = ["# Synthese scientifique - etude mais", "", "## Verdict global", ""]
     md += [f"- {x}" for x in VERDICT]
-    md += ["", "## Classification finale des 32 resultats", "",
+    md += ["", "## Classification finale des 33 resultats", "",
            f"- Decouvertes validees : {nval}  |  Garde-fous methodologiques : {ngard}  |  "
            f"Limites importantes : {nlim}",
            "- Les anciennes 'pistes' ont ete tranchees : chacune est devenue une decouverte "

@@ -32,6 +32,10 @@ TESTABLE = {
               "y_up_h90", 90),
  "wasde_h40": (["wasde_stocks_to_use_ratio", "wasde_stocks_to_use_calc_z"], "y_up_h60", 60),
  "wheat_corn": (["corn_wheat_ratio", "spread_corn_wheat"], "y_down_gt_3pct_h60", 60),
+ "direction_fusion": (["crop_ge_zscore_seasonal", "crop_ge_5y_avg_deviation",
+                       "crop_condition_momentum_2w", "wasde_stocks_to_use_ratio",
+                       "wasde_stocks_to_use_calc_z", "corn_wheat_ratio", "spread_corn_wheat"],
+                      "y_up_h90", 90),
 }
 
 # pistes non elevables avec les donnees gratuites -> LIMITE (raison honnete)

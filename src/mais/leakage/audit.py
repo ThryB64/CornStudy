@@ -93,6 +93,18 @@ def _safe_corr(x: pd.Series, y: pd.Series) -> float:
     return float(np.corrcoef(a, b)[0, 1])
 
 
+# Features de courbe EMA au lag shift(1) vérifié empiriquement (valeur du jour J =
+# donnée brute de J-1, cf. euronext_curve.py). Le check 4 les flague mécaniquement :
+# dé-shifter une feature informative correctement laggée augmente toujours la corrélation.
+# Faux positif structurel, pas un leak — même traitement que les features calendaires.
+VERIFIED_LAGGED_FEATURES = [
+    "ema_curve_slope_3", "ema_curve_slope_6", "ema_roll_yield_ann",
+    "ema_backwardation_flag", "ema_carry_front_second", "ema_contango_flag",
+    "ema_spread_f0_f1", "ema_spread_f1_f2", "ema_spread_f0_f2",
+    "ema_third_price", "ema_spread_nov_mar",
+]
+
+
 def audit_features_targets(
     features: pd.DataFrame,
     targets: pd.DataFrame,
@@ -181,7 +193,8 @@ def audit_features_targets(
     # in advance by the USDA and are legitimately known before the event.
     _calendar_prefixes = ("is_", "days_to_")
     _auto_calendar = {c for c in feature_cols if any(c.startswith(p) for p in _calendar_prefixes)}
-    _skip_set = _auto_calendar | set(skip_future_dep_for or [])
+    _skip_set = (_auto_calendar | set(VERIFIED_LAGGED_FEATURES)
+                 | set(skip_future_dep_for or []))
     for tcol in target_cols:
         if tcol not in merged:
             continue

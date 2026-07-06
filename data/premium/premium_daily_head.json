@@ -2,18 +2,18 @@
   "version": "PREMIUM-HEAD",
   "verdict": "PREMIUM_HEAD_BUILT",
   "scope": "PREMIUM_ONLY",
-  "as_of": "2026-07-03",
-  "PREMIUM_STATE": "SHORT_PREMIUM_EXTREME",
-  "basis_z": 2.658,
-  "basis_eur_t": 84.52,
+  "as_of": "2026-07-06",
+  "PREMIUM_STATE": "NO_SIGNAL",
+  "basis_z": 0.257,
+  "basis_eur_t": 74.2,
   "official_proxy_status": "official_rolling",
-  "PRIME_NATURE": "PRIME_EXCESSIVE",
-  "LIFECYCLE_STATE": "ACTIVE_EARLY",
-  "HEADLINE_STATE": "PRIME_EXCESSIVE",
-  "SIGNAL_QUALITY": "EXTREME_SIGNAL",
-  "COMPOSITE_SCORE": 4,
-  "WATCH_STATE": null,
-  "TARGET_RECOMMENDATION": "z->0.5",
+  "PRIME_NATURE": "NO_SIGNAL",
+  "LIFECYCLE_STATE": "NO_ACTIVE_SIGNAL",
+  "HEADLINE_STATE": "NO_ACTIVE_SIGNAL",
+  "SIGNAL_QUALITY": "NONE",
+  "COMPOSITE_SCORE": 1,
+  "WATCH_STATE": "NORMAL",
+  "TARGET_RECOMMENDATION": "UNKNOWN",
   "HORIZON_ESTIMATE": {
     "median_horizon_days_seasonal": 47,
     "half_life_days_for_tier": null,
@@ -22,23 +22,23 @@
   },
   "diagnostics": {
     "ADVERSE_RISK": {
-      "value": "LOW",
-      "fresh": true
+      "value": "UNKNOWN",
+      "fresh": false
     },
     "CBOT_SUPPORT": {
-      "value": "LOW",
+      "value": "HIGH",
       "fresh": true
     },
     "PHYSICAL_TENSION": {
-      "value": "MEDIUM",
-      "fresh": true
+      "value": "UNKNOWN",
+      "fresh": false
     },
     "SUBSTITUTION_SUPPORT": {
       "value": "DATA_BLOCKED",
       "fresh": true
     },
     "WEATHER_WARNING_US": {
-      "value": "LOW",
+      "value": "MEDIUM",
       "fresh": true
     },
     "WEATHER_WARNING_EU": {
@@ -54,35 +54,40 @@
       "fresh": true
     }
   },
-  "warnings": [],
+  "warnings": [
+    "diagnostics p\u00e9rim\u00e9s (non frais) : ['cot']"
+  ],
   "consistency": {
     "verdict": "LIVE_SIGNAL_CONSISTENT",
-    "reference_date": "2026-07-03",
+    "reference_date": "2026-07-06",
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99"
+      "v99",
+      "daily_latest"
     ]
   },
   "freshness": {
-    "verdict": "CONTEXT_COHERENT",
-    "context_lag_days": 10,
-    "disabled": []
+    "verdict": "CONTEXT_DEGRADED",
+    "context_lag_days": 13,
+    "disabled": [
+      "cot"
+    ]
   },
   "session_truth": {
-    "n_days": 26,
+    "n_days": 27,
     "n_final_days": 19,
-    "last_date": "2026-07-03",
+    "last_date": "2026-07-06",
     "last_final_date": "2026-07-03",
-    "last_record_status": "REVISED",
-    "last_day_provisional": false,
+    "last_record_status": "PROVISIONAL",
+    "last_day_provisional": true,
     "session_status_counts": {
-      "PROVISIONAL": 25,
+      "PROVISIONAL": 26,
       "REVISED": 18,
       "FINAL": 1
     }
   },
-  "session_warning": null,
+  "session_warning": "DERNIER JOUR PROVISOIRE (settlement non final, voir DSP 18:30 CET)",
   "layer_roles": {
     "v132/indicator_v3_latest.json": "AUTHORITATIVE_SYNTHESIS",
     "v122/v122_consistency.json": "AUTHORITATIVE_CONSISTENCY",
@@ -96,8 +101,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 84.52 \u20ac/t, z 2.658, official_rolling). Contexte : ADVERSE LOW, CBOT_SUPPORT LOW, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US LOW/EU UNKNOWN. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-07-03 20:00:42 UTC",
+  "explanation": "Prime NO_SIGNAL (basis 74.2 \u20ac/t, z 0.257, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-07-06 09:38:50 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

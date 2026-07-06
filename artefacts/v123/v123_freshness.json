@@ -28,20 +28,18 @@
       "action": "ACTIVE"
     },
     "cot": {
-      "as_of": "2026-06-23",
-      "lag_days": 13,
-      "fresh": false,
-      "action": "DISABLED_STALE"
+      "as_of": "2026-06-30",
+      "lag_days": 6,
+      "fresh": true,
+      "action": "ACTIVE"
     }
   },
-  "context_lag_days": 13,
-  "n_active": 4,
-  "n_disabled": 1,
-  "verdict": "CONTEXT_DEGRADED",
-  "disabled_diagnostics": [
-    "cot"
-  ],
-  "interpretation": "Signal de r\u00e9f\u00e9rence 2026-07-06. Retard max du contexte 13 j. Couches d\u00e9sactiv\u00e9es (p\u00e9rim\u00e9es/manquantes) : ['cot']. Ne pas afficher ces diagnostics comme frais.",
+  "context_lag_days": 6,
+  "n_active": 5,
+  "n_disabled": 0,
+  "verdict": "CONTEXT_COHERENT",
+  "disabled_diagnostics": [],
+  "interpretation": "Signal de r\u00e9f\u00e9rence 2026-07-06. Retard max du contexte 6 j. Toutes les couches sont dans leur gate -> contexte coh\u00e9rent (base 5 j, COT hebdo 10 j).",
   "note": "Lecture des as_of des artefacts/journaux ; aucune donn\u00e9e recalcul\u00e9e. M\u00e9ta-fra\u00eecheur, pas un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

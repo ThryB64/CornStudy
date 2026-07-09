@@ -1,13 +1,13 @@
 {
-  "ran_at": "2026-07-09 08:55:31 UTC",
+  "ran_at": "2026-07-09 20:17:50 UTC",
   "as_of": "2026-07-09",
-  "mode": "retry",
+  "mode": "main",
   "session_today": "TRADING_SESSION",
   "official_snapshot": {
     "status": "OK",
     "price_date": "2026-07-09",
     "n_contracts": 10,
-    "n_added": 10,
+    "n_added": 0,
     "n_total": 300,
     "path": "/home/runner/work/CornStudy/CornStudy/data/raw/euronext_ema_official/official_daily.parquet",
     "most_liquid": "EMA_X2026"
@@ -19,15 +19,15 @@
       "verdict": "OFFICIAL_SIGNAL_COMPUTED",
       "price_date": "2026-07-09",
       "official_front_contract": "EMA_X2026",
-      "official_front_settlement": 232.25,
+      "official_front_settlement": 232.5,
       "official_front_oi": 23454,
-      "cbot_cents_bu": 451.5,
+      "cbot_cents_bu": 451.75,
       "eurusd": 1.1434,
-      "cbot_eur_t": 155.46,
-      "basis_official_eur_t": 76.79,
-      "basis_z_official_implied": 2.107,
-      "basis_z_official_rolling": 0.686,
-      "basis_z_used": 0.686,
+      "cbot_eur_t": 155.54,
+      "basis_official_eur_t": 76.96,
+      "basis_z_official_implied": 2.12,
+      "basis_z_official_rolling": 0.712,
+      "basis_z_used": 0.712,
       "z_source": "official_rolling",
       "signal_tier": "NO_SIGNAL",
       "objective_prudent": "z->0.5",
@@ -36,7 +36,7 @@
       "median_horizon_days": 47,
       "non_reversion_risk": "",
       "curve_shape": "FLAT",
-      "curve_overall": "MOSTLY_BACKWARDATION",
+      "curve_overall": "MIXED",
       "most_liquid_contract": "EMA_X2026",
       "warnings": [
         "ROLL_RISK"
@@ -46,32 +46,32 @@
     "journal_append": {
       "status": "APPENDED",
       "price_date": "2026-07-09",
-      "record_status": "PROVISIONAL",
-      "n_total": 51,
+      "record_status": "REVISED",
+      "n_total": 52,
       "signal_tier": "NO_SIGNAL"
     },
     "journal_summary": {
       "version": "V27-JOURNAL-SUMMARY",
       "n_days": 30,
-      "n_final_days": 22,
+      "n_final_days": 23,
       "first_date": "2026-05-29",
       "last_date": "2026-07-09",
-      "last_final_date": "2026-07-08",
-      "last_record_status": "PROVISIONAL",
-      "last_day_provisional": true,
+      "last_final_date": "2026-07-09",
+      "last_record_status": "REVISED",
+      "last_day_provisional": false,
       "session_status_counts": {
         "PROVISIONAL": 29,
-        "REVISED": 21,
+        "REVISED": 22,
         "FINAL": 1
       },
       "tier_counts": {
         "SHORT_PREMIUM_STRONG": 19,
         "SHORT_PREMIUM_EXTREME": 13,
         "SHORT_PREMIUM_MODERATE": 13,
-        "NO_SIGNAL": 6
+        "NO_SIGNAL": 7
       },
-      "basis_official_mean": 73.58,
-      "basis_official_last": 76.79,
+      "basis_official_mean": 73.64,
+      "basis_official_last": 76.96,
       "official_rolling_z_available": false,
       "approx_months_to_first_review": 4.6,
       "verdict": "FORWARD_ACCUMULATING",
@@ -123,7 +123,7 @@
     },
     "proxy_vs_official": {
       "version": "V42-PROXY-VS-OFFICIAL",
-      "n_official_days": 51,
+      "n_official_days": 52,
       "signal_agreement_rate": null,
       "milestones": {
         "first": 10,
@@ -139,23 +139,24 @@
   "weather_forecast": {
     "issue_date": "2026-07-09",
     "status": "OK",
-    "forecast_stress_us": 32.46,
-    "forecast_peak_tmax_us": 34.71,
-    "forecast_consecutive_hot_days_us": 5,
+    "forecast_stress_us": 31.222,
+    "forecast_peak_tmax_us": 34.11,
+    "forecast_consecutive_hot_days_us": 3,
     "n_rows_us": 600,
     "forecast_stress_eu": null,
     "error_eu": "NotImplementedError: open-meteo forecast indisponible (r\u00e9seau ?): <urlopen error _ssl.c:993: The hand",
-    "journal": "APPENDED"
+    "journal": "ALREADY_LOGGED"
   },
   "matif_ratio": {
     "status": "OK",
     "price_date": "2026-07-09",
     "matif_wheat_contract": "EBM_U2026",
-    "matif_wheat_settle": 204.5,
+    "matif_wheat_settle": 205.0,
     "matif_corn_contract": "EMA_X2026",
-    "matif_corn_settle": 232.25,
-    "matif_wheat_corn_ratio": 0.8805,
-    "appended": true
+    "matif_corn_settle": 232.5,
+    "matif_wheat_corn_ratio": 0.8817,
+    "appended": false,
+    "reason": "d\u00e9j\u00e0 journalis\u00e9"
   },
   "context_refresh": {
     "version": "V107-CONTEXT-REFRESH",
@@ -198,9 +199,9 @@
   "live_basis": {
     "version": "V108-LIVE-BASIS",
     "signal_date": "2026-07-09",
-    "basis_z_official": 0.686,
-    "basis_official_eur_t": 76.79,
-    "cbot_eur_t_reconstructed_last": 155.46,
+    "basis_z_official": 0.712,
+    "basis_official_eur_t": 76.96,
+    "cbot_eur_t_reconstructed_last": 155.56,
     "cbot_eur_t_validation": [
       {
         "date": "2026-05-29",
@@ -468,26 +469,32 @@
       },
       {
         "date": "2026-07-08",
-        "reconstructed": 150.08,
+        "reconstructed": 149.84,
         "official_journal": 159.9,
-        "abs_err": 9.82
+        "abs_err": 10.06
       },
       {
         "date": "2026-07-08",
-        "reconstructed": 150.08,
+        "reconstructed": 149.84,
         "official_journal": 156.54,
-        "abs_err": 6.46
+        "abs_err": 6.7
       },
       {
         "date": "2026-07-09",
-        "reconstructed": 155.46,
+        "reconstructed": 155.56,
         "official_journal": 155.46,
-        "abs_err": 0.0
+        "abs_err": 0.1
+      },
+      {
+        "date": "2026-07-09",
+        "reconstructed": 155.56,
+        "official_journal": 155.54,
+        "abs_err": 0.02
       }
     ],
-    "reconstruction_mean_abs_err_eur_t": 3.63,
+    "reconstruction_mean_abs_err_eur_t": 3.56,
     "reconstruction_ok": false,
-    "wheat_corn_z_live": 0.625,
+    "wheat_corn_z_live": 0.853,
     "substitution_residual_z_live": null,
     "adverse_risk_live": "NO_SIGNAL",
     "adverse_risk_components": {
@@ -495,33 +502,33 @@
       "high_substitution_wc_z_gt_0p5": 1
     },
     "verdict": "PARTIAL_OR_RECON_WEAK",
-    "interpretation": "CBOT_eur_t reconstruit (ZC=F+EUR/USD, conversion *39.3679) valid\u00e9 contre le journal officiel : erreur moyenne 3.63 \u20ac/t (ok=False). ADVERSE_RISK live = **NO_SIGNAL** (prime mod\u00e9r\u00e9e=0, r\u00e9sidu bas=None, substitution haute=1). Le basis_z officiel (0.686) \u00e9tant EXTR\u00caME (>1.5), la prime n'est pas 'mod\u00e9r\u00e9e' -> composant V32 inactif. D\u00e9bloque ADVERSE_RISK live ; PHYSICAL_TENSION reste en attente de la courbe EMA officielle.",
+    "interpretation": "CBOT_eur_t reconstruit (ZC=F+EUR/USD, conversion *39.3679) valid\u00e9 contre le journal officiel : erreur moyenne 3.56 \u20ac/t (ok=False). ADVERSE_RISK live = **NO_SIGNAL** (prime mod\u00e9r\u00e9e=0, r\u00e9sidu bas=None, substitution haute=1). Le basis_z officiel (0.712) \u00e9tant EXTR\u00caME (>1.5), la prime n'est pas 'mod\u00e9r\u00e9e' -> composant V32 inactif. D\u00e9bloque ADVERSE_RISK live ; PHYSICAL_TENSION reste en attente de la courbe EMA officielle.",
     "note": "R\u00e9sidu substitution = r\u00e9gression basis_z~wc_z ajust\u00e9e sur le master, appliqu\u00e9e au point live (z-scores, scale-consistant). CONTEXTE, jamais un veto.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
   "curve_tension": {
     "version": "V109-EMA-CURVE-TENSION",
     "as_of_curve": "2026-07-09",
-    "basis_z_official": 0.686,
+    "basis_z_official": 0.712,
     "curve": {
       "front_contract": "EMA_X2026",
-      "front_settle": 232.25,
+      "front_settle": 232.5,
       "next_contract": "EMA_H2027",
-      "next_settle": 232.0,
-      "front_next_spread": 0.25,
-      "backwardation": true,
-      "curve_shape": "BACKWARDATION",
-      "nov_mar_spread": 0.25,
+      "next_settle": 232.75,
+      "front_next_spread": -0.25,
+      "backwardation": false,
+      "curve_shape": "CONTANGO",
+      "nov_mar_spread": -0.25,
       "most_liquid_contract": "EMA_X2026",
       "front_oi": 23454
     },
     "components": {
-      "backwardation": 1,
+      "backwardation": 0,
       "strong_backwardation_ge5": 0
     },
     "physical_tension_live": "NO_SIGNAL",
     "verdict": "NO_ACTIVE_SIGNAL",
-    "interpretation": "Courbe EMA officielle live : front EMA_X2026 232.25 vs EMA_H2027 232.0 -> spread 0.25 \u20ac/t (BACKWARDATION). PHYSICAL_TENSION live = **NO_SIGNAL**. Une backwardation marqu\u00e9e (vieille r\u00e9colte ch\u00e8re vs nouvelle) traduit une tension physique R\u00c9ELLE -> la prime EMA haute est alors JUSTIFI\u00c9E, compression plus lente, objectif PRUDENT z\u21920.5 (V56). Un contango la rendrait plus probablement anomalie compressible (z\u21920).",
+    "interpretation": "Courbe EMA officielle live : front EMA_X2026 232.5 vs EMA_H2027 232.75 -> spread -0.25 \u20ac/t (CONTANGO). PHYSICAL_TENSION live = **NO_SIGNAL**. Une backwardation marqu\u00e9e (vieille r\u00e9colte ch\u00e8re vs nouvelle) traduit une tension physique R\u00c9ELLE -> la prime EMA haute est alors JUSTIFI\u00c9E, compression plus lente, objectif PRUDENT z\u21920.5 (V56). Un contango la rendrait plus probablement anomalie compressible (z\u21920).",
     "note": "Snapshot officiel du jour. PHYSICAL_TENSION live d\u00e9sormais disponible (dernier diagnostic en retard d\u00e9bloqu\u00e9). CONTEXTE, jamais un veto.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
@@ -532,14 +539,14 @@
     "first_date": "2026-05-29",
     "last_date": "2026-07-09",
     "last_front_contract": "EMA_X2026",
-    "last_front_next_spread": 0.25,
-    "last_nov_mar_spread": 0.25,
-    "last_curve_shape": "BACKWARDATION",
+    "last_front_next_spread": -0.25,
+    "last_nov_mar_spread": -0.25,
+    "last_curve_shape": "CONTANGO",
     "spread_first": 15.25,
-    "spread_delta": -15.0,
+    "spread_delta": -15.5,
     "spread_trend": "NARROWING",
-    "physical_tension_tier": "MEDIUM",
-    "interpretation": "30 jours de courbe accumul\u00e9s. Spread front-next 15.25\u21920.25 \u20ac/t (\u0394 -15.0, NARROWING), structure BACKWARDATION. PHYSICAL_TENSION structurelle = **MEDIUM**. La backwardation se D\u00c9TEND : la tension reflue, la prime devient plus probablement compressible -> objectif complet z\u21920 envisageable.",
+    "physical_tension_tier": "LOW",
+    "interpretation": "30 jours de courbe accumul\u00e9s. Spread front-next 15.25\u2192-0.25 \u20ac/t (\u0394 -15.5, NARROWING), structure CONTANGO. PHYSICAL_TENSION structurelle = **LOW**. La backwardation se D\u00c9TEND : la tension reflue, la prime devient plus probablement compressible -> objectif complet z\u21920 envisageable.",
     "note": "Lit l'historique accumul\u00e9 (append-only) ; compl\u00e8te V109 (snapshot live) par la DYNAMIQUE. Se densifie en forward. ADD_TO_DAILY_REPORT.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
@@ -563,24 +570,24 @@
       "verdict": "WEATHER_WARNING_READY",
       "region": "us",
       "issue_date": "2026-07-09",
-      "heat_days_gt32": 5,
+      "heat_days_gt32": 3,
       "heat_days_gt35": 0,
-      "precip_total_mm": 17.0,
+      "precip_total_mm": 15.9,
       "dry_deficit": 0,
-      "uncertainty_tmax_std": 4.36,
+      "uncertainty_tmax_std": 4.39,
       "pheno_window": 1,
       "stress_score": 2,
       "stress_tier": "MEDIUM",
       "revision_vs_prev": {
-        "d_heat32": -5,
-        "d_heat35": -1,
-        "d_score": -1,
-        "since_issue": "2026-07-08"
+        "d_heat32": -2,
+        "d_heat35": 0,
+        "d_score": 0,
+        "since_issue": "2026-07-09"
       },
       "revision_status": "OK",
       "channel": "CBOT_SUPPORT",
-      "journal_appended": true,
-      "interpretation": "Pr\u00e9vision 16 j (US) \u00e9mise 2026-07-09 : 5 j >32\u00b0C, 0 j >35\u00b0C, pluie 17.0 mm (d\u00e9ficit=0), incertitude 4.36\u00b0C. WEATHER_WARNING **MEDIUM** -> canal CBOT_SUPPORT. R\u00e9vision vs 2026-07-08 : \u0394score -1. Rappel V45 : le r\u00e9alis\u00e9 ne pr\u00e9dit pas le CBOT -> ceci est un WARNING d'anticipation, jamais un pr\u00e9dicteur de timing ni un veto.",
+      "journal_appended": false,
+      "interpretation": "Pr\u00e9vision 16 j (US) \u00e9mise 2026-07-09 : 3 j >32\u00b0C, 0 j >35\u00b0C, pluie 15.9 mm (d\u00e9ficit=0), incertitude 4.39\u00b0C. WEATHER_WARNING **MEDIUM** -> canal CBOT_SUPPORT. R\u00e9vision vs 2026-07-09 : \u0394score 0. Rappel V45 : le r\u00e9alis\u00e9 ne pr\u00e9dit pas le CBOT -> ceci est un WARNING d'anticipation, jamais un pr\u00e9dicteur de timing ni un veto.",
       "note": "Forecast dat\u00e9 \u00e0 l'\u00e9mission, anti-leakage, append-only. R\u00e9visions = \u0394 vs \u00e9mission pr\u00e9c\u00e9dente (archive multi-lead via historical-forecast = best-effort, souvent DATA_BLOCKED par timeout).",
       "status": "RESEARCH_ONLY_NOT_TRADING"
     },
@@ -594,22 +601,22 @@
   "intraday_align": {
     "version": "V128-INTRADAY-PROBE",
     "verdict": "WATCHLIST",
-    "intraday_window_bars": 382,
+    "intraday_window_bars": 381,
     "align_gap_stats": {
       "verdict": "ALIGNMENT_GAP_MEASURED",
-      "n_days": 21,
+      "n_days": 20,
       "settle_hour_utc": 16,
-      "mean_rel_gap": 0.00396,
-      "mean_abs_rel_gap": 0.00676,
-      "std_rel_gap": 0.01549,
-      "approx_eur_t_noise_at_200": 1.353
+      "mean_rel_gap": 0.00418,
+      "mean_abs_rel_gap": 0.00707,
+      "std_rel_gap": 0.01586,
+      "approx_eur_t_noise_at_200": 1.414
     },
-    "n_days_with_move": 21,
-    "mean_abs_settle_close_move_cents": 5.94,
+    "n_days_with_move": 20,
+    "mean_abs_settle_close_move_cents": 6.16,
     "journal_days_total": 41,
-    "journal_appended_today": 1,
+    "journal_appended_today": 0,
     "historical_status": "DATA_BLOCKED_PAID",
-    "interpretation": "Fen\u00eatre intraday gratuite : 382 barres, 21 jours. Move moyen settlement-EU\u2192close-US \u2248 5.94 cents/boisseau (borne du bruit de d\u00e9synchro int\u00e9gr\u00e9 au basis quotidien). L'historique intraday complet \u00e9tant payant, le backtest align\u00e9 sur les 42 trades reste DATA_BLOCKED -> WATCHLIST : on accumule le move en forward (journal append-only) pour trancher plus tard si l'alignement r\u00e9duit assez le bruit pour valoir l'effort.",
+    "interpretation": "Fen\u00eatre intraday gratuite : 381 barres, 20 jours. Move moyen settlement-EU\u2192close-US \u2248 6.16 cents/boisseau (borne du bruit de d\u00e9synchro int\u00e9gr\u00e9 au basis quotidien). L'historique intraday complet \u00e9tant payant, le backtest align\u00e9 sur les 42 trades reste DATA_BLOCKED -> WATCHLIST : on accumule le move en forward (journal append-only) pour trancher plus tard si l'alignement r\u00e9duit assez le bruit pour valoir l'effort.",
     "note": "R\u00e9utilise V60-intraday. Probe + accumulation forward. Voir le plan de sourcing V134.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
@@ -632,7 +639,7 @@
       },
       {
         "layer": "daily_latest",
-        "as_of": "2026-07-08",
+        "as_of": "2026-07-09",
         "signal_tier": "NO_SIGNAL"
       }
     ],
@@ -648,11 +655,6 @@
         "layer": "v99",
         "as_of": "2026-06-01",
         "signal_tier": "SHORT_PREMIUM_EXTREME"
-      },
-      {
-        "layer": "daily_latest",
-        "as_of": "2026-07-08",
-        "signal_tier": "NO_SIGNAL"
       }
     ],
     "consistent": true,
@@ -722,8 +724,8 @@
     "verdict": "INDICATOR_V3_BUILT",
     "as_of": "2026-07-09",
     "PREMIUM_STATE": "NO_SIGNAL",
-    "basis_z": 0.686,
-    "basis_eur_t": 76.79,
+    "basis_z": 0.712,
+    "basis_eur_t": 76.96,
     "official_proxy_status": "official_rolling",
     "diagnostics": {
       "ADVERSE_RISK": {
@@ -766,7 +768,7 @@
       "estimated_days_to_z05": null,
       "note": "horizon primaire = saisonnier V27 ; demi-vie par tier V130 (l'extr\u00eame r\u00e9verse plus vite) ; estimation cal\u00e9e V138 jusqu'\u00e0 z\u21920.5 (l'analytique AR(1) pur sous-pr\u00e9dit)"
     },
-    "explanation": "Prime NO_SIGNAL (basis 76.79 \u20ac/t, z 0.686, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+    "explanation": "Prime NO_SIGNAL (basis 76.96 \u20ac/t, z 0.712, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
     "warnings": [],
     "n_fresh_diagnostics": 5,
     "n_stale_or_unknown": 3,
@@ -800,10 +802,10 @@
       "available": true,
       "issue_date": "2026-07-09",
       "stress_tier": "MEDIUM",
-      "heat_days_gt32": 5,
+      "heat_days_gt32": 3,
       "heat_days_gt35": 0,
       "dry_deficit": 0,
-      "revision_d_score": -1
+      "revision_d_score": 0
     },
     "eu": {
       "available": false
@@ -824,7 +826,7 @@
     "verdict": "STATE_MACHINE_BUILT",
     "as_of": "2026-07-09",
     "signal_tier": "NO_SIGNAL",
-    "basis_z": 0.686,
+    "basis_z": 0.712,
     "inputs": {
       "health_status": "HEALTHY",
       "physical_tension": "NO_SIGNAL",
@@ -837,7 +839,7 @@
     "watch_state": "WATCHLIST",
     "signal_quality": "NONE",
     "composite_score": null,
-    "interpretation": "Au 2026-07-09 : NO_SIGNAL (z 0.686). Nature **NO_SIGNAL** (tension NO_SIGNAL), cycle de vie **NO_ACTIVE_SIGNAL** (sant\u00e9 HEALTHY, compression 0.12). \u00c9tat headline : **NO_ACTIVE_SIGNAL**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+    "interpretation": "Au 2026-07-09 : NO_SIGNAL (z 0.712). Nature **NO_SIGNAL** (tension NO_SIGNAL), cycle de vie **NO_ACTIVE_SIGNAL** (sant\u00e9 HEALTHY, compression 0.12). \u00c9tat headline : **NO_ACTIVE_SIGNAL**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
     "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
@@ -847,8 +849,8 @@
     "scope": "PREMIUM_ONLY",
     "as_of": "2026-07-09",
     "PREMIUM_STATE": "NO_SIGNAL",
-    "basis_z": 0.686,
-    "basis_eur_t": 76.79,
+    "basis_z": 0.712,
+    "basis_eur_t": 76.96,
     "official_proxy_status": "official_rolling",
     "PRIME_NATURE": "NO_SIGNAL",
     "LIFECYCLE_STATE": "NO_ACTIVE_SIGNAL",
@@ -904,8 +906,7 @@
       "stale_authoritative_layers": [],
       "stale_reporting_only_layers": [
         "v101",
-        "v99",
-        "daily_latest"
+        "v99"
       ]
     },
     "freshness": {
@@ -915,18 +916,18 @@
     },
     "session_truth": {
       "n_days": 30,
-      "n_final_days": 22,
+      "n_final_days": 23,
       "last_date": "2026-07-09",
-      "last_final_date": "2026-07-08",
-      "last_record_status": "PROVISIONAL",
-      "last_day_provisional": true,
+      "last_final_date": "2026-07-09",
+      "last_record_status": "REVISED",
+      "last_day_provisional": false,
       "session_status_counts": {
         "PROVISIONAL": 29,
-        "REVISED": 21,
+        "REVISED": 22,
         "FINAL": 1
       }
     },
-    "session_warning": "DERNIER JOUR PROVISOIRE (settlement non final, voir DSP 18:30 CET)",
+    "session_warning": null,
     "layer_roles": {
       "v132/indicator_v3_latest.json": "AUTHORITATIVE_SYNTHESIS",
       "v122/v122_consistency.json": "AUTHORITATIVE_CONSISTENCY",
@@ -940,8 +941,8 @@
       "farmer_backtest.py",
       "asymmetric_module.py"
     ],
-    "explanation": "Prime NO_SIGNAL (basis 76.79 \u20ac/t, z 0.686, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-    "generated_at": "2026-07-09 08:56:50 UTC",
+    "explanation": "Prime NO_SIGNAL (basis 76.96 \u20ac/t, z 0.712, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+    "generated_at": "2026-07-09 20:19:12 UTC",
     "status": "RESEARCH_ONLY_NOT_TRADING",
     "scope_clean": true
   },
@@ -974,7 +975,7 @@
   "monthly_report": {
     "version": "V133-MONTHLY-V2",
     "verdict": "MONTHLY_REPORT_V2_BUILT",
-    "generated_at": "2026-07-09 08:56:50 UTC",
+    "generated_at": "2026-07-09 20:19:12 UTC",
     "n_official_days": 30,
     "first_date": "2026-05-29",
     "last_date": "2026-07-09",
@@ -982,10 +983,10 @@
       "SHORT_PREMIUM_STRONG": 19,
       "SHORT_PREMIUM_EXTREME": 13,
       "SHORT_PREMIUM_MODERATE": 13,
-      "NO_SIGNAL": 6
+      "NO_SIGNAL": 7
     },
-    "basis_mean_eur_t": 73.58,
-    "basis_last_eur_t": 76.79,
+    "basis_mean_eur_t": 73.64,
+    "basis_last_eur_t": 76.96,
     "by_month": {
       "2026-05": {
         "days": 1,
@@ -1006,15 +1007,15 @@
         "basis_last": 75.12
       },
       "2026-07": {
-        "days": 13,
+        "days": 14,
         "tiers": {
-          "NO_SIGNAL": 6,
+          "NO_SIGNAL": 7,
           "SHORT_PREMIUM_STRONG": 4,
           "SHORT_PREMIUM_EXTREME": 2,
           "SHORT_PREMIUM_MODERATE": 1
         },
-        "basis_mean": 77.36,
-        "basis_last": 76.79
+        "basis_mean": 77.33,
+        "basis_last": 76.96
       }
     },
     "consistency_verdict": "LIVE_SIGNAL_CONSISTENT",
@@ -1024,7 +1025,7 @@
     "weather_us_tier": "MEDIUM",
     "matif_ratio_last": 0.8805,
     "curve_trend": "NARROWING",
-    "curve_tension_tier": "MEDIUM",
+    "curve_tension_tier": "LOW",
     "proxy_official_dashboard": null,
     "months_to_serious_review": 4.6,
     "note": "Bilan forward s\u00e9rieux \u00e0 \u22656 mois officiels. Journal append-only, pass\u00e9 jamais r\u00e9\u00e9crit. Lecture seule. RESEARCH_ONLY_NOT_TRADING.",
@@ -1032,8 +1033,8 @@
   },
   "weather_previous_runs": {
     "verdict": "REVISIONS_COLLECTED",
-    "n_rows_fetched": 2464,
-    "n_rows_archive": 32864,
+    "n_rows_fetched": 2112,
+    "n_rows_archive": 32896,
     "n_zones": 17,
     "leads": [
       0,
@@ -1045,22 +1046,22 @@
       6,
       7
     ],
-    "collected_at": "2026-07-09 08:59:08 UTC",
-    "n_errors": 3
+    "collected_at": "2026-07-09 20:22:15 UTC",
+    "n_errors": 5
   },
   "ecb_fx": {
     "verdict": "ECB_FX_COLLECTED",
-    "n_days": 33,
+    "n_days": 34,
     "first": "2026-05-25",
-    "last": "2026-07-08",
-    "collected_at": "2026-07-09 08:59:10 UTC"
+    "last": "2026-07-09",
+    "collected_at": "2026-07-09 20:22:17 UTC"
   },
   "fx_bce_audit": {
     "audit": "fx_bce",
     "verdict": "WARN",
-    "n_days_compared": 22,
+    "n_days_compared": 23,
     "max_abs_err_journal_rule_eur_t": 0.0096,
-    "mean_abs_dev_ecb_vs_journal_eur_t": 0.2751,
+    "mean_abs_dev_ecb_vs_journal_eur_t": 0.2637,
     "max_abs_dev_ecb_vs_journal_eur_t": 1.0695,
     "rule": "Taux BCE D (14:15 CET) utilisable pour le settlement D (DSP 18:30 CET) sans fuite ; recommand\u00e9 comme r\u00e8gle horodat\u00e9e de r\u00e9f\u00e9rence, l'eurusd yfinance reste le fallback.",
     "status": "RESEARCH_ONLY_NOT_TRADING"
@@ -1075,41 +1076,38 @@
     ],
     "first": "2015-01",
     "last": "2026-04",
-    "collected_at": "2026-07-09 08:59:10 UTC"
+    "collected_at": "2026-07-09 20:22:17 UTC"
   },
   "proxy_forward_quote": {
-    "verdict": "PROXY_QUOTE_LOGGED",
+    "verdict": "ALREADY_LOGGED",
     "price_date": "2026-07-09",
-    "contract": "EMA_X2026",
-    "proxy_last_price": 232.25,
-    "proxy_previous_settlement": null,
-    "n_overlap_days": 22
+    "contract": "EMA_X2026"
   },
   "forward_validation_v141_v142": {
     "version": "V141-V142-FORWARD",
-    "n_official_days_aligned": 22,
+    "n_official_days_aligned": 23,
     "min_days_for_claim": 40,
     "status": "RESEARCH_ONLY_NOT_TRADING",
     "tests_spearman_on_changes": {
       "v141_d_spread_vs_d_basis": {
-        "n": 21,
-        "rho": 0.337,
-        "p": 0.1352
+        "n": 22,
+        "rho": 0.3441,
+        "p": 0.1169
       },
       "v142_d_ratio_vs_d_basis": {
-        "n": 20,
-        "rho": -0.1398,
-        "p": 0.5565
+        "n": 21,
+        "rho": -0.1228,
+        "p": 0.596
       }
     },
-    "verdict": "ACCUMULATING_22_DAYS",
+    "verdict": "ACCUMULATING_23_DAYS",
     "note": "Gate honn\u00eate : aucun claim avant 40 jours officiels ; le module m\u00fbrit automatiquement avec le daily CI (V125 courbe + V126 MATIF + journal V27)."
   },
   "composite_v176": {
     "version": "V176-LIVE",
     "verdict": "COMPOSITE_LIVE_BUILT",
     "as_of": "2026-07-09",
-    "basis_z": 0.686,
+    "basis_z": 0.712,
     "in_baseline_signal": false,
     "components": {
       "intensity": 0,
@@ -1120,7 +1118,7 @@
     },
     "composite_score": 1,
     "qualified_confirmed_z12": false,
-    "reading": "z 0.686 (hors signal), score composite 1/5. Contexte DESCRIPTIF (stratification de qualit\u00e9), jamais un veto ni un nouveau seuil.",
+    "reading": "z 0.712 (hors signal), score composite 1/5. Contexte DESCRIPTIF (stratification de qualit\u00e9), jamais un veto ni un nouveau seuil.",
     "context_freshness": true,
     "status": "RESEARCH_ONLY_NOT_TRADING"
   },
@@ -1164,8 +1162,8 @@
       },
       "head_has_session_truth": {
         "verdict": "PASS",
-        "last_record_status": "PROVISIONAL",
-        "session_warning": "DERNIER JOUR PROVISOIRE (settlement non final, voir DSP 18:30 CET)"
+        "last_record_status": "REVISED",
+        "session_warning": null
       },
       "dashboard_reads_head_only": {
         "verdict": "PASS",
@@ -1185,8 +1183,8 @@
         "note": "WARN tant que le run quotidien V133 n'a pas tourn\u00e9 apr\u00e8s la mise en place V152"
       },
       "latest_embeds_same_head": {
-        "verdict": "WARN",
-        "latest_premium_head_as_of": "2026-07-08",
+        "verdict": "PASS",
+        "latest_premium_head_as_of": "2026-07-09",
         "head_as_of": "2026-07-09"
       }
     },

@@ -1,9 +1,9 @@
 {
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
-  "as_of": "2026-07-08",
+  "as_of": "2026-07-09",
   "signal_tier": "NO_SIGNAL",
-  "basis_z": 0.465,
+  "basis_z": 0.686,
   "inputs": {
     "health_status": "HEALTHY",
     "physical_tension": "NO_SIGNAL",
@@ -13,10 +13,10 @@
   "prime_nature": "NO_SIGNAL",
   "lifecycle_state": "NO_ACTIVE_SIGNAL",
   "headline_state": "NO_ACTIVE_SIGNAL",
-  "watch_state": "NORMAL",
+  "watch_state": "WATCHLIST",
   "signal_quality": "NONE",
   "composite_score": 1,
-  "interpretation": "Au 2026-07-08 : NO_SIGNAL (z 0.465). Nature **NO_SIGNAL** (tension NO_SIGNAL), cycle de vie **NO_ACTIVE_SIGNAL** (sant\u00e9 HEALTHY, compression 0.12). \u00c9tat headline : **NO_ACTIVE_SIGNAL**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "interpretation": "Au 2026-07-09 : NO_SIGNAL (z 0.686). Nature **NO_SIGNAL** (tension NO_SIGNAL), cycle de vie **NO_ACTIVE_SIGNAL** (sant\u00e9 HEALTHY, compression 0.12). \u00c9tat headline : **NO_ACTIVE_SIGNAL**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

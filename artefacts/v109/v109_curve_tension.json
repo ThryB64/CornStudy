@@ -1,7 +1,7 @@
 {
   "version": "V109-EMA-CURVE-TENSION",
-  "as_of_curve": "2026-07-09",
-  "basis_z_official": 0.712,
+  "as_of_curve": "2026-07-10",
+  "basis_z_official": 0.913,
   "curve": {
     "front_contract": "EMA_X2026",
     "front_settle": 232.5,
@@ -12,7 +12,7 @@
     "curve_shape": "CONTANGO",
     "nov_mar_spread": -0.25,
     "most_liquid_contract": "EMA_X2026",
-    "front_oi": 23454
+    "front_oi": 23992
   },
   "components": {
     "backwardation": 0,

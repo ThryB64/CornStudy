@@ -1,15 +1,15 @@
 # 📊 Dashboard indicateur premium v5 — 2026-07-14
-_Généré 2026-07-14 07:26:50 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-07-14 19:55:12 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_MODERATE** · basis 80.68 €/t · z 1.401 (official_rolling)
+- **SHORT_PREMIUM_MODERATE** · basis 81.18 €/t · z 1.47 (official_rolling)
 - Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **CONFIRMED_SIGNAL** · score composite **2/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **PRIME_EXCESSIVE** · nature **PRIME_EXCESSIVE** · cycle **ACTIVE_EARLY**
 - Objectif **z->0.5** · horizon ~47 j
 
 ## Signal actif (V124/V179)
 - Entrée 2026-07-13 (z 1.053) · 1 j · statut **ACTIVE_EARLY**
-- Compression réalisée **-1.75 €/t** · MFE 0.0 · MAE 1.75 · distance z→0.5 : 0.901
+- Compression réalisée **-2.25 €/t** · MFE 0.0 · MAE 2.25 · distance z→0.5 : 0.97
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next -0.5 €/t, CONTANGO)

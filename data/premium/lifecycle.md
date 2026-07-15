@@ -1,7 +1,7 @@
 # Cycle de vie du signal actif — 2026-07-15
-_Généré 2026-07-15 07:30:07 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-07-15 19:46:27 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **État** : PRIME_EXCESSIVE (nature PRIME_EXCESSIVE, cycle ACTIVE_EARLY)
 - **Âge** : 2 j · santé ACTIVE_EARLY
-- **Compression** : -1.89 €/t · MFE 0.0 · MAE 2.25
-- **Distance** : z→0.5 0.856 · z→0 1.356
+- **Compression** : -6.21 €/t · MFE 0.0 · MAE 6.21
+- **Distance** : z→0.5 1.709 · z→0 2.209

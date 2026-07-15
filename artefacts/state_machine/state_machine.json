@@ -1,14 +1,14 @@
 {
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
-  "as_of": "2026-07-14",
+  "as_of": "2026-07-15",
   "signal_tier": "SHORT_PREMIUM_MODERATE",
-  "basis_z": 1.47,
+  "basis_z": 1.356,
   "inputs": {
     "health_status": "ACTIVE_EARLY",
     "physical_tension": "LOW",
     "curve_trend": "NARROWING",
-    "compression_realized": -2.25
+    "compression_realized": -1.89
   },
   "prime_nature": "PRIME_EXCESSIVE",
   "lifecycle_state": "ACTIVE_EARLY",
@@ -16,7 +16,7 @@
   "signal_quality": "CONFIRMED_SIGNAL",
   "composite_score": 2,
   "quality_note": null,
-  "interpretation": "Au 2026-07-14 : SHORT_PREMIUM_MODERATE (z 1.47). Nature **PRIME_EXCESSIVE** (tension LOW), cycle de vie **ACTIVE_EARLY** (sant\u00e9 ACTIVE_EARLY, compression -2.25). \u00c9tat headline : **PRIME_EXCESSIVE**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "interpretation": "Au 2026-07-15 : SHORT_PREMIUM_MODERATE (z 1.356). Nature **PRIME_EXCESSIVE** (tension LOW), cycle de vie **ACTIVE_EARLY** (sant\u00e9 ACTIVE_EARLY, compression -1.89). \u00c9tat headline : **PRIME_EXCESSIVE**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

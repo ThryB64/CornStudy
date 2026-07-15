@@ -1,7 +1,7 @@
 {
   "version": "V122-CONSISTENCY",
-  "as_of": "2026-07-14",
-  "reference_date": "2026-07-14",
+  "as_of": "2026-07-15",
+  "reference_date": "2026-07-15",
   "reference_signal_tier": "SHORT_PREMIUM_MODERATE",
   "reference_record_status": "PROVISIONAL",
   "layers_checked": [
@@ -33,17 +33,22 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
+    },
+    {
+      "layer": "daily_latest",
+      "as_of": "2026-07-14",
+      "signal_tier": "SHORT_PREMIUM_MODERATE"
     }
   ],
   "consistent": true,
   "verdict": "LIVE_SIGNAL_CONSISTENT",
   "n_revisions_logged": 1,
-  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-07-14, SHORT_PREMIUM_MODERATE, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
+  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-07-15, SHORT_PREMIUM_MODERATE, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "revision": {
     "status": "NO_CHANGE",
-    "price_date": "2026-07-14",
+    "price_date": "2026-07-15",
     "record_status": "PROVISIONAL",
     "signal_tier": "SHORT_PREMIUM_MODERATE"
   }

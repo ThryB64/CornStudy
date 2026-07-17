@@ -75,3 +75,4 @@ date,weekday,session,trading_session
 2026-07-14,Tuesday,TRADING_SESSION,True
 2026-07-15,Wednesday,TRADING_SESSION,True
 2026-07-16,Thursday,TRADING_SESSION,True
+2026-07-17,Friday,TRADING_SESSION,True

@@ -5,18 +5,18 @@
   "context_lag_days": 0,
   "fresh_within_gate": true,
   "cbot_support_v2_live": "HIGH",
-  "cbot_support_score": 3,
+  "cbot_support_score": 4,
   "cot_live": {
-    "report_date": "2026-07-07",
-    "mm_net_pct_oi": -0.0088
+    "report_date": "2026-07-14",
+    "mm_net_pct_oi": 0.0067
   },
-  "cot_favorable": 0,
+  "cot_favorable": 1,
   "cbot_support_components": {
     "uptrend_sma50": 1,
     "momentum20_pos": 1,
     "corn_cheap_vs_wheat": 1,
     "la_nina": 0,
-    "cot_managed_money_favorable": 0
+    "cot_managed_money_favorable": 1
   },
   "refreshed": [
     "corn",

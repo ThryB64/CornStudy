@@ -1,7 +1,7 @@
 {
   "version": "V122-CONSISTENCY",
-  "as_of": "2026-07-20",
-  "reference_date": "2026-07-20",
+  "as_of": "2026-07-21",
+  "reference_date": "2026-07-21",
   "reference_signal_tier": "SHORT_PREMIUM_EXTREME",
   "reference_record_status": "PROVISIONAL",
   "layers_checked": [
@@ -18,17 +18,11 @@
     {
       "layer": "daily_latest",
       "as_of": "2026-07-20",
-      "signal_tier": "SHORT_PREMIUM_STRONG"
+      "signal_tier": "SHORT_PREMIUM_EXTREME"
     }
   ],
   "duplicate_dates": [],
-  "mismatched_layers": [
-    {
-      "layer": "daily_latest",
-      "as_of": "2026-07-20",
-      "signal_tier": "SHORT_PREMIUM_STRONG"
-    }
-  ],
+  "mismatched_layers": [],
   "stale_layers": [
     {
       "layer": "v101",
@@ -39,17 +33,22 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
+    },
+    {
+      "layer": "daily_latest",
+      "as_of": "2026-07-20",
+      "signal_tier": "SHORT_PREMIUM_EXTREME"
     }
   ],
-  "consistent": false,
-  "verdict": "LIVE_SIGNAL_INCONSISTENT",
+  "consistent": true,
+  "verdict": "LIVE_SIGNAL_CONSISTENT",
   "n_revisions_logged": 1,
-  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-07-20, SHORT_PREMIUM_EXTREME, PROVISIONAL). Incoh\u00e9rences : doublons [], couches divergentes ['daily_latest'].",
+  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-07-21, SHORT_PREMIUM_EXTREME, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "revision": {
     "status": "NO_CHANGE",
-    "price_date": "2026-07-20",
+    "price_date": "2026-07-21",
     "record_status": "PROVISIONAL",
     "signal_tier": "SHORT_PREMIUM_EXTREME"
   }

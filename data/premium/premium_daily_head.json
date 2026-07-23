@@ -2,14 +2,14 @@
   "version": "PREMIUM-HEAD",
   "verdict": "PREMIUM_HEAD_BUILT",
   "scope": "PREMIUM_ONLY",
-  "as_of": "2026-07-22",
+  "as_of": "2026-07-23",
   "PREMIUM_STATE": "SHORT_PREMIUM_EXTREME",
-  "basis_z": 2.639,
-  "basis_eur_t": 92.73,
+  "basis_z": 2.38,
+  "basis_eur_t": 91.96,
   "official_proxy_status": "official_rolling",
   "PRIME_NATURE": "PRIME_EXCESSIVE",
-  "LIFECYCLE_STATE": "ACTIVE_EARLY",
-  "HEADLINE_STATE": "PRIME_EXCESSIVE",
+  "LIFECYCLE_STATE": "COMPRESSION_DELAYED",
+  "HEADLINE_STATE": "COMPRESSION_DELAYED",
   "SIGNAL_QUALITY": "EXTREME_SIGNAL",
   "COMPOSITE_SCORE": 4,
   "WATCH_STATE": null,
@@ -38,15 +38,15 @@
       "fresh": true
     },
     "WEATHER_WARNING_US": {
-      "value": "HIGH",
-      "fresh": true
-    },
-    "WEATHER_WARNING_EU": {
       "value": "UNKNOWN",
       "fresh": false
     },
+    "WEATHER_WARNING_EU": {
+      "value": "HIGH",
+      "fresh": true
+    },
     "ACTIVE_SIGNAL_HEALTH": {
-      "value": "ACTIVE_EARLY",
+      "value": "SLOW",
       "fresh": true
     },
     "CURVE_TREND": {
@@ -56,33 +56,34 @@
   },
   "warnings": [],
   "consistency": {
-    "verdict": "LIVE_SIGNAL_INCONSISTENT",
-    "reference_date": "2026-07-22",
+    "verdict": "LIVE_SIGNAL_CONSISTENT",
+    "reference_date": "2026-07-23",
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99"
+      "v99",
+      "daily_latest"
     ]
   },
   "freshness": {
     "verdict": "CONTEXT_COHERENT",
-    "context_lag_days": 8,
+    "context_lag_days": 9,
     "disabled": []
   },
   "session_truth": {
-    "n_days": 39,
+    "n_days": 40,
     "n_final_days": 32,
-    "last_date": "2026-07-22",
+    "last_date": "2026-07-23",
     "last_final_date": "2026-07-22",
-    "last_record_status": "REVISED",
-    "last_day_provisional": false,
+    "last_record_status": "PROVISIONAL",
+    "last_day_provisional": true,
     "session_status_counts": {
-      "PROVISIONAL": 38,
+      "PROVISIONAL": 39,
       "REVISED": 31,
       "FINAL": 1
     }
   },
-  "session_warning": null,
+  "session_warning": "DERNIER JOUR PROVISOIRE (settlement non final, voir DSP 18:30 CET)",
   "layer_roles": {
     "v132/indicator_v3_latest.json": "AUTHORITATIVE_SYNTHESIS",
     "v122/v122_consistency.json": "AUTHORITATIVE_CONSISTENCY",
@@ -96,8 +97,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 92.73 \u20ac/t, z 2.639, official_rolling). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT HIGH, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US HIGH/EU UNKNOWN. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **z->0** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-07-22 19:55:15 UTC",
+  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 91.96 \u20ac/t, z 2.38, official_rolling). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT HIGH, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US UNKNOWN/EU HIGH. Sant\u00e9 signal SLOW. Objectif recommand\u00e9 **z->0** (r\u00e8gle fig\u00e9e V56). Horizon ~47 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-07-23 07:59:08 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

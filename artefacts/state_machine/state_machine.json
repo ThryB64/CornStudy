@@ -2,21 +2,21 @@
   "version": "V139-STATE-MACHINE",
   "verdict": "STATE_MACHINE_BUILT",
   "as_of": "2026-07-24",
-  "signal_tier": "SHORT_PREMIUM_STRONG",
-  "basis_z": 1.687,
+  "signal_tier": "SHORT_PREMIUM_MODERATE",
+  "basis_z": 1.319,
   "inputs": {
     "health_status": "SLOW",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "compression_realized": -9.43
+    "compression_realized": -7.17
   },
   "prime_nature": "PRIME_EXCESSIVE",
   "lifecycle_state": "COMPRESSION_DELAYED",
   "headline_state": "COMPRESSION_DELAYED",
-  "signal_quality": "STRONG_SIGNAL",
-  "composite_score": 3,
+  "signal_quality": "CONFIRMED_SIGNAL",
+  "composite_score": 2,
   "quality_note": null,
-  "interpretation": "Au 2026-07-24 : SHORT_PREMIUM_STRONG (z 1.687). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **COMPRESSION_DELAYED** (sant\u00e9 SLOW, compression -9.43). \u00c9tat headline : **COMPRESSION_DELAYED**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
+  "interpretation": "Au 2026-07-24 : SHORT_PREMIUM_MODERATE (z 1.319). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **COMPRESSION_DELAYED** (sant\u00e9 SLOW, compression -7.17). \u00c9tat headline : **COMPRESSION_DELAYED**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

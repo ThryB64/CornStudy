@@ -1,18 +1,18 @@
 # 📊 Dashboard indicateur premium v5 — 2026-07-27
-_Généré 2026-07-27 08:57:41 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-07-27 20:07:10 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_STRONG** · basis 90.91 €/t · z 1.982 (official_rolling)
+- **SHORT_PREMIUM_STRONG** · basis 90.2 €/t · z 1.819 (official_rolling)
 - Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **STRONG_SIGNAL** · score composite **3/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **COMPRESSION_DELAYED** · nature **PRIME_EXCESSIVE** · cycle **COMPRESSION_DELAYED**
 - Objectif **z->0** · horizon ~47 j
 
 ## Signal actif (V124/V179)
 - Entrée 2026-07-13 (z 1.053) · 14 j · statut **SLOW**
-- Compression réalisée **-11.98 €/t** · MFE 0.0 · MAE 13.8 · distance z→0.5 : 1.482
+- Compression réalisée **-11.27 €/t** · MFE 0.0 · MAE 13.8 · distance z→0.5 : 1.319
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next 1.5 €/t, BACKWARDATION)
+- Courbe EMA : NARROWING (spread front-next 1.0 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.927 · substitution DATA_BLOCKED
 - CBOT_SUPPORT HIGH · ADVERSE_RISK MEDIUM · PHYSICAL_TENSION MEDIUM
 - Météo US HIGH · Météo EU UNKNOWN (stale)

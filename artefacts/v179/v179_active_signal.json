@@ -4,37 +4,37 @@
   "signal_status": "SLOW",
   "core": {
     "entry_date": "2026-07-13",
-    "current_date": "2026-07-24",
-    "days_since_entry": 11,
+    "current_date": "2026-07-27",
+    "days_since_entry": 14,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_MODERATE",
+    "current_tier": "SHORT_PREMIUM_STRONG",
     "entry_z": 1.053,
-    "current_z": 1.319,
+    "current_z": 1.982,
     "entry_basis_eur_t": 78.93,
-    "current_basis_eur_t": 86.1,
-    "compression_realized_eur_t": -7.17,
+    "current_basis_eur_t": 90.91,
+    "compression_realized_eur_t": -11.98,
     "mfe_eur_t": 0.0,
     "mae_eur_t": 13.8,
-    "distance_to_z05": 0.819,
-    "distance_to_z0": 1.319,
+    "distance_to_z05": 1.482,
+    "distance_to_z0": 1.982,
     "median_horizon_days": 47
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "COMPRESSION_DELAYED",
-    "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.319
+    "signal_tier": "SHORT_PREMIUM_STRONG",
+    "basis_z": 1.982
   },
   "context": {
-    "objective": "z->0.5",
-    "signal_quality": "CONFIRMED_SIGNAL",
+    "objective": "z->0",
+    "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
     "weather_us": "HIGH",
     "weather_eu": "UNKNOWN",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
-    "adverse_risk": "HIGH"
+    "adverse_risk": "MEDIUM"
   },
   "daily_table": [
     {
@@ -146,10 +146,19 @@
       "curve_spread": 1.5,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9515
+    },
+    {
+      "date": "2026-07-27",
+      "basis": 90.91,
+      "z": 1.982,
+      "tier": "SHORT_PREMIUM_STRONG",
+      "cbot_eur_t": 163.84,
+      "session": "PROVISIONAL",
+      "curve_spread": 1.5,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.9274
     }
   ],
-  "warnings": [
-    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
-  ],
+  "warnings": [],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

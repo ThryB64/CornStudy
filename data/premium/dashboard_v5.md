@@ -1,8 +1,8 @@
-# 📊 Dashboard indicateur premium v5 — 2026-07-28
-_Généré 2026-07-28 20:03:47 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-07-29
+_Généré 2026-07-29 08:08:41 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 84.76 €/t · z 0.984 (official_rolling)
+- **NO_SIGNAL** · basis 84.83 €/t · z 0.981 (official_rolling)
 - Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
 - Objectif **UNKNOWN** · horizon ~47 j
@@ -13,17 +13,17 @@ _Généré 2026-07-28 20:03:47 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 1.5 €/t, BACKWARDATION)
-- MATIF blé/maïs : 0.924 · substitution DATA_BLOCKED
+- MATIF blé/maïs : 0.928 · substitution DATA_BLOCKED
 - CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
-- Météo US HIGH · Météo EU UNKNOWN (stale)
+- Météo US MEDIUM · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **43** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
-- Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 35
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 43/150', 'V168_MATIF': 'ACCUMULATING 42/150', 'V155_SUMMER': 'ACCUMULATING 140/150'}
+- Jours officiels **44** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
+- Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 36
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 44/150', 'V168_MATIF': 'ACCUMULATING 43/150', 'V155_SUMMER': 'ACCUMULATING 141/150'}
 
 ## Santé du système
-- Cohérence LIVE_SIGNAL_INCONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
+- Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
 - Diagnostics bloqués : aucun
 - Warnings : aucun
 

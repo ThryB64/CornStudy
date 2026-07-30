@@ -88,3 +88,4 @@ date,weekday,session,trading_session
 2026-07-27,Monday,TRADING_SESSION,True
 2026-07-28,Tuesday,TRADING_SESSION,True
 2026-07-29,Wednesday,TRADING_SESSION,True
+2026-07-30,Thursday,TRADING_SESSION,True

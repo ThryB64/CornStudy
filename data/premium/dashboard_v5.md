@@ -1,18 +1,18 @@
 # 📊 Dashboard indicateur premium v5 — 2026-08-04
-_Généré 2026-08-04 08:04:51 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-08-04 20:11:36 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_MODERATE** · basis 86.85 €/t · z 1.125 (official_rolling)
+- **SHORT_PREMIUM_MODERATE** · basis 87.47 €/t · z 1.194 (official_rolling)
 - Baseline vs confirmé : **BASELINE z>1 ACTIVE · non confirmé (<1.2)** · qualité **BASELINE_SIGNAL** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
-- Machine d'état : **COMPRESSION_HEALTHY** · nature **PRIME_EXCESSIVE** · cycle **COMPRESSION_HEALTHY**
+- Machine d'état : **PRIME_EXCESSIVE** · nature **PRIME_EXCESSIVE** · cycle **ACTIVE_EARLY**
 - Objectif **z->0.5** · horizon ~47 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-08-03 (z 1.197) · 1 j · statut **HEALTHY**
-- Compression réalisée **0.41 €/t** · MFE 0.41 · MAE 0.0 · distance z→0.5 : 0.625
+- Entrée 2026-08-03 (z 1.197) · 1 j · statut **ACTIVE_EARLY**
+- Compression réalisée **-0.21 €/t** · MFE 0.41 · MAE 0.21 · distance z→0.5 : 0.694
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next 1.75 €/t, BACKWARDATION)
+- Courbe EMA : NARROWING (spread front-next 1.25 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.933 · substitution DATA_BLOCKED
 - CBOT_SUPPORT HIGH · ADVERSE_RISK HIGH · PHYSICAL_TENSION MEDIUM
 - Météo US HIGH · Météo EU UNKNOWN (stale)

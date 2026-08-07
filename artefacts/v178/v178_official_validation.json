@@ -3,7 +3,7 @@
   "gate_days": 40,
   "n_official_days": 51,
   "n_pairs": 43,
-  "n_final_or_revised": 42,
+  "n_final_or_revised": 43,
   "thresholds_frozen_2026_06_11": {
     "validated": {
       "mae_price_eur_t": 2.0,
@@ -19,21 +19,21 @@
   "metrics": {
     "n_pairs": 43,
     "price": {
-      "mae": 2.238,
-      "rmse": 3.061,
-      "bias": -0.576
+      "mae": 2.279,
+      "rmse": 3.072,
+      "bias": -0.616
     },
     "basis": {
-      "mae": 2.238,
-      "rmse": 3.061,
-      "bias": -0.576
+      "mae": 2.279,
+      "rmse": 3.072,
+      "bias": -0.616
     },
     "basis_z": {
-      "mean_abs_diff": 0.1752,
+      "mean_abs_diff": 0.1784,
       "max_abs_diff": 0.6261
     },
     "tier_agreement": 0.86
   },
   "verdict": "PROXY_RESEARCH_ONLY",
-  "interpretation": "51 jours officiels, 43 paires proxy\u2194officiel. Prix : MAE 2.238 \u20ac/t, biais -0.576 \u20ac/t ; tier agreement 0.86. Verdict (seuils fig\u00e9s ex-ante) : PROXY_RESEARCH_ONLY."
+  "interpretation": "51 jours officiels, 43 paires proxy\u2194officiel. Prix : MAE 2.279 \u20ac/t, biais -0.616 \u20ac/t ; tier agreement 0.86. Verdict (seuils fig\u00e9s ex-ante) : PROXY_RESEARCH_ONLY."
 }

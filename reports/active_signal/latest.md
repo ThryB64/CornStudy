@@ -5,14 +5,14 @@ _Généré au 2026-08-07 · RESEARCH_ONLY_NOT_TRADING_
 **Statut : ACTIVE_EARLY** · entrée 2026-08-03 (SHORT_PREMIUM_MODERATE, z 1.197) · 4 j
 
 ## Trajectoire
-- basis 87.26 → 88.02 €/t (compression réalisée **-0.76 €/t**)
-- z 1.197 → 1.158 · distance z→0.5 : **0.658** · z→0 : 1.158
+- basis 87.26 → 91.26 €/t (compression réalisée **-4.0 €/t**)
+- z 1.197 → 1.563 · distance z→0.5 : **1.063** · z→0 : 1.563
 - MFE 0.41 €/t · MAE 6.02 €/t · horizon médian 47 j
 
 ## Machine d'état & contexte
 - nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
-- objectif : z->0.5 · qualité : BASELINE_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : MEDIUM · CBOT support : HIGH · ADVERSE : HIGH
+- objectif : z->0 · qualité : STRONG_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : MEDIUM · CBOT support : HIGH · ADVERSE : MEDIUM
 - météo US : MEDIUM · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
@@ -22,7 +22,4 @@ _Généré au 2026-08-07 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-08-04 | REVISED | 87.47 | 1.19 | SHORT_PREMIUM_MODERATE | 158.78 | 1.25 | BACKWARDATION | 0.93 |
 | 2026-08-05 | REVISED | 93.28 | 1.93 | SHORT_PREMIUM_STRONG | 156.97 | 1.50 | BACKWARDATION | 0.93 |
 | 2026-08-06 | PROVISIONAL | 92.91 | 1.83 | SHORT_PREMIUM_STRONG | 157.34 | 2.00 | BACKWARDATION | 0.93 |
-| 2026-08-07 | PROVISIONAL | 88.02 | 1.16 | SHORT_PREMIUM_MODERATE | 158.48 | 2.00 | BACKWARDATION | 0.93 |
-
-## Warnings
-- ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer
+| 2026-08-07 | REVISED | 91.26 | 1.56 | SHORT_PREMIUM_STRONG | 156.99 | 2.25 | BACKWARDATION | 0.93 |

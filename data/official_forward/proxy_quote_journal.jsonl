@@ -40,3 +40,4 @@
 {"price_date": "2026-08-04", "contract": "EMA_X2026", "barchart_symbol": "XBX26", "proxy_last_price": 249.0, "proxy_previous_settlement": null, "collected_at_utc": "2026-08-04 08:04:51 UTC", "source": "barchart_proxy_exploratory"}
 {"price_date": "2026-08-05", "contract": "EMA_X2026", "barchart_symbol": "XBX26", "proxy_last_price": 246.25, "proxy_previous_settlement": null, "collected_at_utc": "2026-08-05 08:05:31 UTC", "source": "barchart_proxy_exploratory"}
 {"price_date": "2026-08-06", "contract": "EMA_X2026", "barchart_symbol": "XBX26", "proxy_last_price": 250.25, "proxy_previous_settlement": null, "collected_at_utc": "2026-08-06 08:03:50 UTC", "source": "barchart_proxy_exploratory"}
+{"price_date": "2026-08-07", "contract": "EMA_X2026", "barchart_symbol": "XBX26", "proxy_last_price": 246.5, "proxy_previous_settlement": null, "collected_at_utc": "2026-08-07 06:49:02 UTC", "source": "barchart_proxy_exploratory"}

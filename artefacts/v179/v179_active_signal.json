@@ -29,8 +29,8 @@
     "objective": "z->0",
     "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
-    "weather_us": "MEDIUM",
-    "weather_eu": "UNKNOWN",
+    "weather_us": "UNKNOWN",
+    "weather_eu": "MEDIUM",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
@@ -77,7 +77,7 @@
       "tier": "SHORT_PREMIUM_STRONG",
       "cbot_eur_t": 157.34,
       "session": "PROVISIONAL",
-      "curve_spread": 1.5,
+      "curve_spread": 2.0,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9261
     }

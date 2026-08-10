@@ -4,37 +4,37 @@
   "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-08-03",
-    "current_date": "2026-08-07",
-    "days_since_entry": 4,
+    "current_date": "2026-08-10",
+    "days_since_entry": 7,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_STRONG",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.197,
-    "current_z": 1.563,
+    "current_z": 1.363,
     "entry_basis_eur_t": 87.26,
-    "current_basis_eur_t": 91.26,
-    "compression_realized_eur_t": -4.0,
+    "current_basis_eur_t": 89.93,
+    "compression_realized_eur_t": -2.67,
     "mfe_eur_t": 0.41,
     "mae_eur_t": 6.02,
-    "distance_to_z05": 1.063,
-    "distance_to_z0": 1.563,
+    "distance_to_z05": 0.863,
+    "distance_to_z0": 1.363,
     "median_horizon_days": 47
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "ACTIVE_EARLY",
-    "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.563
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.363
   },
   "context": {
-    "objective": "z->0",
-    "signal_quality": "STRONG_SIGNAL",
+    "objective": "z->0.5",
+    "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
-    "weather_us": "MEDIUM",
+    "weather_us": "HIGH",
     "weather_eu": "UNKNOWN",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
-    "adverse_risk": "MEDIUM"
+    "adverse_risk": "HIGH"
   },
   "daily_table": [
     {
@@ -91,8 +91,21 @@
       "curve_spread": 2.25,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.926
+    },
+    {
+      "date": "2026-08-10",
+      "basis": 89.93,
+      "z": 1.363,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 158.32,
+      "session": "PROVISIONAL",
+      "curve_spread": 2.25,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.9345
     }
   ],
-  "warnings": [],
+  "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+  ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

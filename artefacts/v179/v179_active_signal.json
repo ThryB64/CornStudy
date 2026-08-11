@@ -7,34 +7,34 @@
     "current_date": "2026-08-11",
     "days_since_entry": 8,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_STRONG",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.197,
-    "current_z": 1.542,
+    "current_z": 1.33,
     "entry_basis_eur_t": 87.26,
-    "current_basis_eur_t": 91.71,
-    "compression_realized_eur_t": -4.45,
+    "current_basis_eur_t": 90.24,
+    "compression_realized_eur_t": -2.98,
     "mfe_eur_t": 0.41,
     "mae_eur_t": 6.02,
-    "distance_to_z05": 1.042,
-    "distance_to_z0": 1.542,
+    "distance_to_z05": 0.83,
+    "distance_to_z0": 1.33,
     "median_horizon_days": 47
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "ACTIVE_EARLY",
-    "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.542
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.33
   },
   "context": {
-    "objective": "z->0",
-    "signal_quality": "STRONG_SIGNAL",
+    "objective": "z->0.5",
+    "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
     "weather_us": "HIGH",
     "weather_eu": "UNKNOWN",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
-    "adverse_risk": "MEDIUM"
+    "adverse_risk": "HIGH"
   },
   "daily_table": [
     {
@@ -105,16 +105,18 @@
     },
     {
       "date": "2026-08-11",
-      "basis": 91.71,
-      "z": 1.542,
-      "tier": "SHORT_PREMIUM_STRONG",
-      "cbot_eur_t": 157.54,
-      "session": "PROVISIONAL",
+      "basis": 90.24,
+      "z": 1.33,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 157.01,
+      "session": "REVISED",
       "curve_spread": 2.5,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9238
     }
   ],
-  "warnings": [],
+  "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+  ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

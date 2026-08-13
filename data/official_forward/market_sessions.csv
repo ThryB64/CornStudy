@@ -102,3 +102,4 @@ date,weekday,session,trading_session
 2026-08-10,Monday,TRADING_SESSION,True
 2026-08-11,Tuesday,TRADING_SESSION,True
 2026-08-12,Wednesday,TRADING_SESSION,True
+2026-08-13,Thursday,TRADING_SESSION,True

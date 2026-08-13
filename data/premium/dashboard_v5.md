@@ -1,8 +1,8 @@
-# 📊 Dashboard indicateur premium v5 — 2026-08-12
-_Généré 2026-08-12 19:39:49 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-08-13
+_Généré 2026-08-13 07:00:29 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 83.69 €/t · z 0.476 (official_rolling)
+- **NO_SIGNAL** · basis 84.85 €/t · z 0.619 (official_rolling)
 - Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
 - Objectif **UNKNOWN** · horizon ~47 j
@@ -13,17 +13,17 @@ _Généré 2026-08-12 19:39:49 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 3.25 €/t, BACKWARDATION)
-- MATIF blé/maïs : 0.92 · substitution DATA_BLOCKED
+- MATIF blé/maïs : 0.94 · substitution DATA_BLOCKED
 - CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
-- Météo US HIGH · Météo EU UNKNOWN (stale)
+- Météo US MEDIUM · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **54** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
-- Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 46
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 54/150', 'V168_MATIF': 'ACCUMULATING 53/150', 'V155_SUMMER': 'TRIGGERED 155/150'}
+- Jours officiels **55** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
+- Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 47
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 55/150', 'V168_MATIF': 'ACCUMULATING 54/150', 'V155_SUMMER': 'TRIGGERED 156/150'}
 
 ## Santé du système
-- Cohérence LIVE_SIGNAL_INCONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
+- Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
 - Diagnostics bloqués : aucun
 - Warnings : aucun
 

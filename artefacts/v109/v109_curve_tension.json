@@ -1,7 +1,7 @@
 {
   "version": "V109-EMA-CURVE-TENSION",
-  "as_of_curve": "2026-08-12",
-  "basis_z_official": 0.476,
+  "as_of_curve": "2026-08-13",
+  "basis_z_official": 0.619,
   "curve": {
     "front_contract": "EMA_X2026",
     "front_settle": 248.0,

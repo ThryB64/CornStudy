@@ -1,31 +1,24 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-08-12 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-08-13 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : ACTIVE_EARLY** · entrée 2026-08-03 (SHORT_PREMIUM_MODERATE, z 1.197) · 9 j
+**Statut : ACTIVE_EARLY** · entrée 2026-08-13 (SHORT_PREMIUM_MODERATE, z 1.336) · 0 j
 
 ## Trajectoire
-- basis 87.26 → 88.93 €/t (compression réalisée **-1.67 €/t**)
-- z 1.197 → 1.147 · distance z→0.5 : **0.647** · z→0 : 1.147
-- MFE 0.41 €/t · MAE 6.02 €/t · horizon médian 47 j
+- basis 90.56 → 90.56 €/t (compression réalisée **0.0 €/t**)
+- z 1.336 → 1.336 · distance z→0.5 : **0.836** · z→0 : 1.336
+- MFE 0.0 €/t · MAE 0.0 €/t · horizon médian 47 j
 
 ## Machine d'état & contexte
 - nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
-- objectif : z->0.5 · qualité : BASELINE_SIGNAL · composite : None
+- objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
 - courbe : NARROWING · tension physique : MEDIUM · CBOT support : HIGH · ADVERSE : HIGH
-- météo US : MEDIUM · météo EU : MEDIUM
+- météo US : MEDIUM · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
 |---|---|---|---|---|---|---|---|---|
-| 2026-08-03 | REVISED | 87.26 | 1.20 | SHORT_PREMIUM_MODERATE | 161.74 | 1.75 | BACKWARDATION | 0.94 |
-| 2026-08-04 | REVISED | 87.47 | 1.19 | SHORT_PREMIUM_MODERATE | 158.78 | 1.25 | BACKWARDATION | 0.93 |
-| 2026-08-05 | REVISED | 93.28 | 1.93 | SHORT_PREMIUM_STRONG | 156.97 | 1.50 | BACKWARDATION | 0.93 |
-| 2026-08-06 | PROVISIONAL | 92.91 | 1.83 | SHORT_PREMIUM_STRONG | 157.34 | 2.00 | BACKWARDATION | 0.93 |
-| 2026-08-07 | REVISED | 91.26 | 1.56 | SHORT_PREMIUM_STRONG | 156.99 | 2.25 | BACKWARDATION | 0.93 |
-| 2026-08-10 | REVISED | 91.72 | 1.57 | SHORT_PREMIUM_STRONG | 157.53 | 2.50 | BACKWARDATION | 0.93 |
-| 2026-08-11 | REVISED | 90.24 | 1.33 | SHORT_PREMIUM_MODERATE | 157.01 | 2.50 | BACKWARDATION | 0.92 |
-| 2026-08-12 | PROVISIONAL | 88.93 | 1.15 | SHORT_PREMIUM_MODERATE | 158.32 | 2.50 | BACKWARDATION | 0.92 |
+| 2026-08-13 | REVISED | 90.56 | 1.34 | SHORT_PREMIUM_MODERATE | 161.19 | 3.75 | BACKWARDATION | 0.94 |
 
 ## Warnings
 - ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer

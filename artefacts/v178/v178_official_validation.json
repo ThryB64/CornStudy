@@ -1,8 +1,8 @@
 {
   "version": "V178-OFFICIAL-VALIDATION",
   "gate_days": 40,
-  "n_official_days": 55,
-  "n_pairs": 47,
+  "n_official_days": 56,
+  "n_pairs": 48,
   "n_final_or_revised": 47,
   "thresholds_frozen_2026_06_11": {
     "validated": {
@@ -17,23 +17,23 @@
   },
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "metrics": {
-    "n_pairs": 47,
+    "n_pairs": 48,
     "price": {
-      "mae": 2.245,
-      "rmse": 3.009,
-      "bias": -0.638
+      "mae": 2.198,
+      "rmse": 2.977,
+      "bias": -0.625
     },
     "basis": {
-      "mae": 2.245,
-      "rmse": 3.009,
-      "bias": -0.638
+      "mae": 2.198,
+      "rmse": 2.977,
+      "bias": -0.625
     },
     "basis_z": {
-      "mean_abs_diff": 0.1757,
+      "mean_abs_diff": 0.172,
       "max_abs_diff": 0.6261
     },
-    "tier_agreement": 0.872
+    "tier_agreement": 0.875
   },
   "verdict": "PROXY_RESEARCH_ONLY",
-  "interpretation": "55 jours officiels, 47 paires proxy\u2194officiel. Prix : MAE 2.245 \u20ac/t, biais -0.638 \u20ac/t ; tier agreement 0.872. Verdict (seuils fig\u00e9s ex-ante) : PROXY_RESEARCH_ONLY."
+  "interpretation": "56 jours officiels, 48 paires proxy\u2194officiel. Prix : MAE 2.198 \u20ac/t, biais -0.625 \u20ac/t ; tier agreement 0.875. Verdict (seuils fig\u00e9s ex-ante) : PROXY_RESEARCH_ONLY."
 }

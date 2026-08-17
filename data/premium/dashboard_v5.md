@@ -1,8 +1,8 @@
 # 📊 Dashboard indicateur premium v5 — 2026-08-17
-_Généré 2026-08-17 06:02:56 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-08-17 19:09:25 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 88.1 €/t · z 0.985 (official_rolling)
+- **NO_SIGNAL** · basis 88.21 €/t · z 0.989 (official_rolling)
 - Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
 - Objectif **UNKNOWN** · horizon ~47 j
@@ -12,10 +12,10 @@ _Généré 2026-08-17 06:02:56 UTC · RESEARCH_ONLY_NOT_TRADING_
 - Compression réalisée **2.39 €/t** · MFE 2.39 · MAE 0.0 · distance z→0.5 : 0.503
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next 3.25 €/t, BACKWARDATION)
+- Courbe EMA : NARROWING (spread front-next 3.5 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.936 · substitution DATA_BLOCKED
 - CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
-- Météo US UNKNOWN (stale) · Météo EU LOW
+- Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
 - Jours officiels **57** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True

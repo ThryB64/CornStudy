@@ -1,21 +1,21 @@
-# 📊 Dashboard indicateur premium v4 — 2026-08-14
-_Généré 2026-08-14 19:29:43 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-08-17
+_Généré 2026-08-17 06:00:57 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_MODERATE** · basis 88.17 €/t · z 1.003 (official_rolling)
-- État : **COMPRESSION_HEALTHY** (nature PRIME_EXCESSIVE, cycle COMPRESSION_HEALTHY)
-- Objectif : **z->0.5** · horizon ~47 j
-- Qualité : **BASELINE_SIGNAL**
+- **NO_SIGNAL** · basis 88.1 €/t · z 0.985 (official_rolling)
+- État : **NO_ACTIVE_SIGNAL** (nature NO_SIGNAL, cycle NO_ACTIVE_SIGNAL)
+- Objectif : **UNKNOWN** · horizon ~47 j
+- Qualité : **NONE**
 
 ## Contexte
-- ADVERSE_RISK HIGH · CBOT_SUPPORT HIGH · PHYSICAL_TENSION MEDIUM
+- ADVERSE_RISK UNKNOWN (stale) · CBOT_SUPPORT HIGH · PHYSICAL_TENSION UNKNOWN (stale)
 - Substitution DATA_BLOCKED · courbe NARROWING · santé HEALTHY
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
-- Jours officiels 56 · prochain jalon 90 (validation proxy/officiel) · z rolling officiel True
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Jours officiels 57 · prochain jalon 90 (validation proxy/officiel) · z rolling officiel True
 
-_Warnings : ["ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer"]_
+_Warnings : []_
 
 Source unique : data/premium/premium_daily_head.json. RESEARCH_ONLY_NOT_TRADING.

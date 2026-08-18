@@ -1,20 +1,20 @@
 # 📊 Dashboard indicateur premium v5 — 2026-08-18
-_Généré 2026-08-18 05:56:52 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-08-18 19:08:46 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 87.62 €/t · z 0.906 (official_rolling)
-- Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
-- Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
-- Objectif **UNKNOWN** · horizon ~47 j
+- **SHORT_PREMIUM_MODERATE** · basis 89.9 €/t · z 1.185 (official_rolling)
+- Baseline vs confirmé : **BASELINE z>1 ACTIVE · non confirmé (<1.2)** · qualité **BASELINE_SIGNAL** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
+- Machine d'état : **PRIME_EXCESSIVE** · nature **PRIME_EXCESSIVE** · cycle **ACTIVE_EARLY**
+- Objectif **z->0.5** · horizon ~47 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-08-13 (z 1.336) · 1 j · statut **HEALTHY**
-- Compression réalisée **2.39 €/t** · MFE 2.39 · MAE 0.0 · distance z→0.5 : 0.503
+- Entrée 2026-08-18 (z 1.185) · 0 j · statut **ACTIVE_EARLY**
+- Compression réalisée **0.0 €/t** · MFE 0.0 · MAE 0.0 · distance z→0.5 : 0.685
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next 3.5 €/t, BACKWARDATION)
+- Courbe EMA : NARROWING (spread front-next 4.75 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.92 · substitution DATA_BLOCKED
-- CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
+- CBOT_SUPPORT HIGH · ADVERSE_RISK HIGH · PHYSICAL_TENSION MEDIUM
 - Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
@@ -23,8 +23,8 @@ _Généré 2026-08-18 05:56:52 UTC · RESEARCH_ONLY_NOT_TRADING_
 - Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 58/150', 'V168_MATIF': 'ACCUMULATING 57/150', 'V155_SUMMER': 'TRIGGERED 161/150'}
 
 ## Santé du système
-- Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
+- Cohérence LIVE_SIGNAL_INCONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
 - Diagnostics bloqués : aucun
-- Warnings : aucun
+- Warnings : ["ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer"]
 
 Source unique : data/premium/premium_daily_head.json · baseline z>1 FIGÉE. RESEARCH_ONLY_NOT_TRADING.

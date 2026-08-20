@@ -1,7 +1,7 @@
-# Cycle de vie du signal actif — 2026-08-19
-_Généré 2026-08-19 19:03:46 UTC · RESEARCH_ONLY_NOT_TRADING_
+# Cycle de vie du signal actif — 2026-08-20
+_Généré 2026-08-20 05:57:29 UTC · RESEARCH_ONLY_NOT_TRADING_
 
-- **État** : PRIME_EXCESSIVE (nature PRIME_EXCESSIVE, cycle ACTIVE_EARLY)
-- **Âge** : 1 j · santé ACTIVE_EARLY
-- **Compression** : -0.14 €/t · MFE 0.65 · MAE 0.14
-- **Distance** : z→0.5 0.678 · z→0 1.178
+- **État** : COMPRESSION_HEALTHY (nature PRIME_EXCESSIVE, cycle COMPRESSION_HEALTHY)
+- **Âge** : 2 j · santé HEALTHY
+- **Compression** : 1.06 €/t · MFE 1.06 · MAE 0.14
+- **Distance** : z→0.5 0.515 · z→0 1.015

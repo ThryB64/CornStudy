@@ -4,33 +4,33 @@
   "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-08-18",
-    "current_date": "2026-08-20",
-    "days_since_entry": 2,
+    "current_date": "2026-08-21",
+    "days_since_entry": 3,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
     "current_tier": "SHORT_PREMIUM_STRONG",
     "entry_z": 1.185,
-    "current_z": 1.57,
+    "current_z": 1.619,
     "entry_basis_eur_t": 89.9,
-    "current_basis_eur_t": 93.35,
-    "compression_realized_eur_t": -3.45,
+    "current_basis_eur_t": 93.94,
+    "compression_realized_eur_t": -4.04,
     "mfe_eur_t": 1.06,
-    "mae_eur_t": 3.45,
-    "distance_to_z05": 1.07,
-    "distance_to_z0": 1.57,
+    "mae_eur_t": 4.04,
+    "distance_to_z05": 1.119,
+    "distance_to_z0": 1.619,
     "median_horizon_days": 47
   },
   "state_machine": {
     "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
     "lifecycle_state": "ACTIVE_EARLY",
     "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.57
+    "basis_z": 1.619
   },
   "context": {
     "objective": "z->0.5",
     "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
-    "weather_us": "UNKNOWN",
-    "weather_eu": "LOW",
+    "weather_us": "HIGH",
+    "weather_eu": "UNKNOWN",
     "physical_tension": "HIGH",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
@@ -69,6 +69,17 @@
       "curve_spread": 5.0,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9176
+    },
+    {
+      "date": "2026-08-21",
+      "basis": 93.94,
+      "z": 1.619,
+      "tier": "SHORT_PREMIUM_STRONG",
+      "cbot_eur_t": 168.81,
+      "session": "PROVISIONAL",
+      "curve_spread": 5.0,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.9172
     }
   ],
   "warnings": [

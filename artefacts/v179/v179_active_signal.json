@@ -1,40 +1,40 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "ACTIVE_EARLY",
+  "signal_status": "HEALTHY",
   "core": {
     "entry_date": "2026-08-18",
     "current_date": "2026-08-21",
     "days_since_entry": 3,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_STRONG",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.185,
-    "current_z": 1.619,
+    "current_z": 1.076,
     "entry_basis_eur_t": 89.9,
-    "current_basis_eur_t": 93.94,
-    "compression_realized_eur_t": -4.04,
+    "current_basis_eur_t": 89.75,
+    "compression_realized_eur_t": 0.15,
     "mfe_eur_t": 1.06,
     "mae_eur_t": 4.04,
-    "distance_to_z05": 1.119,
-    "distance_to_z0": 1.619,
+    "distance_to_z05": 0.576,
+    "distance_to_z0": 1.076,
     "median_horizon_days": 47
   },
   "state_machine": {
-    "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
-    "lifecycle_state": "ACTIVE_EARLY",
-    "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.619
+    "prime_nature": "PRIME_EXCESSIVE",
+    "lifecycle_state": "COMPRESSION_HEALTHY",
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.076
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "STRONG_SIGNAL",
+    "signal_quality": "BASELINE_SIGNAL",
     "composite_score": null,
-    "weather_us": "HIGH",
+    "weather_us": "MEDIUM",
     "weather_eu": "UNKNOWN",
-    "physical_tension": "HIGH",
+    "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
-    "adverse_risk": "MEDIUM"
+    "adverse_risk": "HIGH"
   },
   "daily_table": [
     {
@@ -72,18 +72,18 @@
     },
     {
       "date": "2026-08-21",
-      "basis": 93.94,
-      "z": 1.619,
-      "tier": "SHORT_PREMIUM_STRONG",
-      "cbot_eur_t": 168.81,
-      "session": "PROVISIONAL",
-      "curve_spread": 5.0,
+      "basis": 89.75,
+      "z": 1.076,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 171.25,
+      "session": "REVISED",
+      "curve_spread": 4.75,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9172
     }
   ],
   "warnings": [
-    "prime adoss\u00e9e \u00e0 une tension physique (backwardation) -> compression plus lente"
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
   ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

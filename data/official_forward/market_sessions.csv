@@ -115,3 +115,4 @@ date,weekday,session,trading_session
 2026-08-23,Sunday,NO_SESSION_WEEKEND,False
 2026-08-24,Monday,TRADING_SESSION,True
 2026-08-25,Tuesday,TRADING_SESSION,True
+2026-08-26,Wednesday,TRADING_SESSION,True

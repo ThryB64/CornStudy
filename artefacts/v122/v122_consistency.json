@@ -1,9 +1,9 @@
 {
   "version": "V122-CONSISTENCY",
-  "as_of": "2026-08-27",
+  "as_of": "2026-08-28",
   "reference_date": "2026-08-27",
   "reference_signal_tier": "NO_SIGNAL",
-  "reference_record_status": "PROVISIONAL",
+  "reference_record_status": "FINAL",
   "layers_checked": [
     {
       "layer": "v101",
@@ -17,7 +17,7 @@
     },
     {
       "layer": "daily_latest",
-      "as_of": "2026-08-26",
+      "as_of": "2026-08-27",
       "signal_tier": "NO_SIGNAL"
     }
   ],
@@ -33,23 +33,17 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
-    },
-    {
-      "layer": "daily_latest",
-      "as_of": "2026-08-26",
-      "signal_tier": "NO_SIGNAL"
     }
   ],
   "consistent": true,
   "verdict": "LIVE_SIGNAL_CONSISTENT",
   "n_revisions_logged": 1,
-  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-08-27, NO_SIGNAL, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
+  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-08-27, NO_SIGNAL, FINAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "revision": {
-    "status": "NO_CHANGE",
+    "status": "REFUSED_FINAL",
     "price_date": "2026-08-27",
-    "record_status": "PROVISIONAL",
-    "signal_tier": "NO_SIGNAL"
+    "note": "Date settl\u00e9e (pass\u00e9e) immuable : on ne r\u00e9\u00e9crit jamais le pass\u00e9 (anti look-ahead)."
   }
 }

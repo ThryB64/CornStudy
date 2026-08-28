@@ -12,10 +12,10 @@
   },
   "public_backfill_coverage": {
     "version": "V42-PUBLIC-BACKFILL",
-    "n_days": 65,
+    "n_days": 66,
     "date_range": [
       "2026-05-29",
-      "2026-08-27"
+      "2026-08-28"
     ],
     "n_contracts_seen": 12,
     "contracts_seen": [
@@ -43,7 +43,7 @@
   },
   "proxy_vs_official": {
     "version": "V42-PROXY-VS-OFFICIAL",
-    "n_official_days": 120,
+    "n_official_days": 121,
     "signal_agreement_rate": null,
     "milestones": {
       "first": 10,

@@ -1,5 +1,5 @@
 # 📊 Dashboard indicateur premium v4 — 2026-08-31
-_Généré 2026-08-31 11:45:59 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-08-31 22:58:52 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
 - **NO_SIGNAL** · basis 89.25 €/t · z 0.987 (official_rolling)

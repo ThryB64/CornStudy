@@ -1,11 +1,11 @@
-# 📊 Dashboard indicateur premium v5 — 2026-08-28
-_Généré 2026-08-28 17:37:57 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-08-31
+_Généré 2026-08-31 11:47:20 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_MODERATE** · basis 89.93 €/t · z 1.083 (official_rolling)
-- Baseline vs confirmé : **BASELINE z>1 ACTIVE · non confirmé (<1.2)** · qualité **BASELINE_SIGNAL** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
-- Machine d'état : **PRIME_PHYSICALLY_JUSTIFIED** · nature **PRIME_PHYSICALLY_JUSTIFIED** · cycle **ACTIVE_EARLY**
-- Objectif **z->0.5** · horizon ~47 j
+- **NO_SIGNAL** · basis 89.25 €/t · z 0.987 (official_rolling)
+- Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
+- Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
+- Objectif **UNKNOWN** · horizon ~47 j
 
 ## Signal actif (V124/V179)
 - Entrée 2026-08-28 (z 1.083) · 0 j · statut **ACTIVE_EARLY**
@@ -14,17 +14,17 @@ _Généré 2026-08-28 17:37:57 UTC · RESEARCH_ONLY_NOT_TRADING_
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 5.75 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.925 · substitution DATA_BLOCKED
-- CBOT_SUPPORT HIGH · ADVERSE_RISK HIGH · PHYSICAL_TENSION HIGH
-- Météo US UNKNOWN (stale) · Météo EU LOW
+- CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
+- Météo US HIGH · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **66** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
-- Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 58
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 66/150', 'V168_MATIF': 'ACCUMULATING 65/150', 'V155_SUMMER': 'TRIGGERED 171/150'}
+- Jours officiels **67** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
+- Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 59
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 67/150', 'V168_MATIF': 'ACCUMULATING 66/150', 'V155_SUMMER': 'TRIGGERED 174/150'}
 
 ## Santé du système
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
 - Diagnostics bloqués : aucun
-- Warnings : ['prime adossée à une tension physique (backwardation) -> compression plus lente', "ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer"]
+- Warnings : aucun
 
 Source unique : data/premium/premium_daily_head.json · baseline z>1 FIGÉE. RESEARCH_ONLY_NOT_TRADING.

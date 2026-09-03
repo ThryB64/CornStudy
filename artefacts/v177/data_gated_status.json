@@ -1,23 +1,23 @@
 {
   "version": "V177-DATA-GATED-RERUNS",
-  "as_of": "2026-09-02T21:12:29.284459+00:00",
+  "as_of": "2026-09-03T10:02:27.888989+00:00",
   "gates": [
     {
       "rerun": "V166_OFFICIAL",
       "gate": 150,
-      "n": 69,
+      "n": 70,
       "status": "ACCUMULATING"
     },
     {
       "rerun": "V168_MATIF",
       "gate": 150,
-      "n": 68,
+      "n": 69,
       "status": "ACCUMULATING"
     },
     {
       "rerun": "V155_SUMMER",
       "gate": 150,
-      "n": 176,
+      "n": 177,
       "status": "TRIGGERED",
       "verdict": "WAITING_DATA",
       "n_joint": null

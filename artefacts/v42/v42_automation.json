@@ -43,7 +43,7 @@
   },
   "proxy_vs_official": {
     "version": "V42-PROXY-VS-OFFICIAL",
-    "n_official_days": 129,
+    "n_official_days": 130,
     "signal_agreement_rate": null,
     "milestones": {
       "first": 10,

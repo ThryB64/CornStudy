@@ -1,7 +1,7 @@
 {
   "version": "V178-OFFICIAL-VALIDATION",
   "gate_days": 40,
-  "n_official_days": 70,
+  "n_official_days": 71,
   "n_pairs": 61,
   "n_final_or_revised": 61,
   "thresholds_frozen_2026_06_11": {
@@ -35,5 +35,5 @@
     "tier_agreement": 0.902
   },
   "verdict": "PROXY_RESEARCH_ONLY",
-  "interpretation": "70 jours officiels, 61 paires proxy\u2194officiel. Prix : MAE 2.221 \u20ac/t, biais -0.754 \u20ac/t ; tier agreement 0.902. Verdict (seuils fig\u00e9s ex-ante) : PROXY_RESEARCH_ONLY."
+  "interpretation": "71 jours officiels, 61 paires proxy\u2194officiel. Prix : MAE 2.221 \u20ac/t, biais -0.754 \u20ac/t ; tier agreement 0.902. Verdict (seuils fig\u00e9s ex-ante) : PROXY_RESEARCH_ONLY."
 }

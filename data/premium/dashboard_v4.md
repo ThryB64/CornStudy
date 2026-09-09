@@ -1,8 +1,8 @@
 # 📊 Dashboard indicateur premium v4 — 2026-09-09
-_Généré 2026-09-09 10:00:22 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-09-09 21:05:26 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 85.52 €/t · z 0.406 (official_rolling)
+- **NO_SIGNAL** · basis 86.13 €/t · z 0.48 (official_rolling)
 - État : **NO_ACTIVE_SIGNAL** (nature NO_SIGNAL, cycle NO_ACTIVE_SIGNAL)
 - Objectif : **UNKNOWN** · horizon ~51 j
 - Qualité : **NONE**
@@ -13,7 +13,7 @@ _Généré 2026-09-09 10:00:22 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
 - Jours officiels 74 · prochain jalon 90 (validation proxy/officiel) · z rolling officiel True
 
 _Warnings : []_

@@ -1,8 +1,8 @@
-# 📊 Dashboard indicateur premium v5 — 2026-09-21
-_Généré 2026-09-21 22:08:32 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-09-22
+_Généré 2026-09-22 10:14:24 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 81.21 €/t · z -0.134 (official_rolling)
+- **NO_SIGNAL** · basis 84.19 €/t · z 0.256 (official_rolling)
 - Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **0/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
 - Objectif **UNKNOWN** · horizon ~51 j
@@ -13,14 +13,14 @@ _Généré 2026-09-21 22:08:32 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 4.0 €/t, BACKWARDATION)
-- MATIF blé/maïs : 0.915 · substitution DATA_BLOCKED
+- MATIF blé/maïs : 0.907 · substitution DATA_BLOCKED
 - CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
-- Météo US UNKNOWN (stale) · Météo EU MEDIUM
+- Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **82** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
+- Jours officiels **83** · prochain jalon **90** (validation proxy/officiel) · z rolling officiel True
 - Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 61
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 82/150', 'V168_MATIF': 'ACCUMULATING 81/150', 'V155_SUMMER': 'TRIGGERED 195/150'}
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 83/150', 'V168_MATIF': 'ACCUMULATING 82/150', 'V155_SUMMER': 'TRIGGERED 196/150'}
 
 ## Santé du système
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True

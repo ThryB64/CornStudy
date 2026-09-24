@@ -1,7 +1,7 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "HEALTHY",
+  "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-09-22",
     "current_date": "2026-09-24",
@@ -9,25 +9,25 @@
     "entry_tier": "SHORT_PREMIUM_MODERATE",
     "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.229,
-    "current_z": 1.169,
+    "current_z": 1.382,
     "entry_basis_eur_t": 91.62,
-    "current_basis_eur_t": 91.42,
-    "compression_realized_eur_t": 0.2,
+    "current_basis_eur_t": 93.12,
+    "compression_realized_eur_t": -1.5,
     "mfe_eur_t": 0.2,
     "mae_eur_t": 1.78,
-    "distance_to_z05": 0.669,
-    "distance_to_z0": 1.169,
+    "distance_to_z05": 0.882,
+    "distance_to_z0": 1.382,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
-    "lifecycle_state": "COMPRESSION_HEALTHY",
+    "lifecycle_state": "ACTIVE_EARLY",
     "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.169
+    "basis_z": 1.382
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "BASELINE_SIGNAL",
+    "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
     "weather_us": "LOW",
     "weather_eu": "UNKNOWN",
@@ -61,12 +61,12 @@
     },
     {
       "date": "2026-09-24",
-      "basis": 91.42,
-      "z": 1.169,
+      "basis": 93.12,
+      "z": 1.382,
       "tier": "SHORT_PREMIUM_MODERATE",
-      "cbot_eur_t": 183.33,
-      "session": "PROVISIONAL",
-      "curve_spread": 5.5,
+      "cbot_eur_t": 182.13,
+      "session": "REVISED",
+      "curve_spread": 7.5,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8753
     }

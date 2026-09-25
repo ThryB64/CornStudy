@@ -4,37 +4,37 @@
   "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-09-22",
-    "current_date": "2026-09-24",
-    "days_since_entry": 2,
+    "current_date": "2026-09-25",
+    "days_since_entry": 3,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_MODERATE",
+    "current_tier": "SHORT_PREMIUM_STRONG",
     "entry_z": 1.229,
-    "current_z": 1.382,
+    "current_z": 1.815,
     "entry_basis_eur_t": 91.62,
-    "current_basis_eur_t": 93.12,
-    "compression_realized_eur_t": -1.5,
+    "current_basis_eur_t": 96.56,
+    "compression_realized_eur_t": -4.94,
     "mfe_eur_t": 0.2,
-    "mae_eur_t": 1.78,
-    "distance_to_z05": 0.882,
-    "distance_to_z0": 1.382,
+    "mae_eur_t": 4.94,
+    "distance_to_z05": 1.315,
+    "distance_to_z0": 1.815,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
     "lifecycle_state": "ACTIVE_EARLY",
-    "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.382
+    "signal_tier": "SHORT_PREMIUM_STRONG",
+    "basis_z": 1.815
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "CONFIRMED_SIGNAL",
+    "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
     "weather_us": "LOW",
     "weather_eu": "UNKNOWN",
     "physical_tension": "HIGH",
     "curve_trend": "NARROWING",
     "cbot_support": "HIGH",
-    "adverse_risk": "HIGH"
+    "adverse_risk": "LOW"
   },
   "daily_table": [
     {
@@ -69,11 +69,21 @@
       "curve_spread": 7.5,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8753
+    },
+    {
+      "date": "2026-09-25",
+      "basis": 96.56,
+      "z": 1.815,
+      "tier": "SHORT_PREMIUM_STRONG",
+      "cbot_eur_t": 178.69,
+      "session": "PROVISIONAL",
+      "curve_spread": 7.5,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.8629
     }
   ],
   "warnings": [
-    "prime adoss\u00e9e \u00e0 une tension physique (backwardation) -> compression plus lente",
-    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
+    "prime adoss\u00e9e \u00e0 une tension physique (backwardation) -> compression plus lente"
   ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

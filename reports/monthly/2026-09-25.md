@@ -1,15 +1,15 @@
 # Rapport forward mensuel v2 — 2026-09-25
 
-_Généré 2026-09-25 10:25:39 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-09-25 21:46:21 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **Jours officiels** : 86 (2026-05-29 → 2026-09-25)
-- **Tiers** : {'NO_SIGNAL': 51, 'SHORT_PREMIUM_MODERATE': 47, 'SHORT_PREMIUM_STRONG': 40, 'SHORT_PREMIUM_EXTREME': 20}
-- **Basis officiel** : moy 82.65 · dernier 96.56 €/t
-- **Cohérence signal (V122)** : LIVE_SIGNAL_CONSISTENT
+- **Tiers** : {'NO_SIGNAL': 52, 'SHORT_PREMIUM_MODERATE': 47, 'SHORT_PREMIUM_STRONG': 40, 'SHORT_PREMIUM_EXTREME': 20}
+- **Basis officiel** : moy 82.69 · dernier 88.28 €/t
+- **Cohérence signal (V122)** : LIVE_SIGNAL_INCONSISTENT
 - **Signal actif (V124)** : ACTIVE_EARLY · MFE 0.2 · MAE 4.94
 - **Courbe (V125)** : tendance NARROWING · tension HIGH
 - **Substitution MATIF (V126)** : ratio 0.8629
-- **Météo US (V127)** : LOW
+- **Météo US (V127)** : None
 - **Proxy/officiel (V103)** : None
 - **Avant bilan sérieux** : ~1.9 mois
 
@@ -21,4 +21,4 @@ _Généré 2026-09-25 10:25:39 UTC · RESEARCH_ONLY_NOT_TRADING_
 | 2026-06 | 37 | {'SHORT_PREMIUM_STRONG': 15, 'SHORT_PREMIUM_MODERATE': 12, 'SHORT_PREMIUM_EXTREME': 10} | 72.18 | 75.12 |
 | 2026-07 | 46 | {'SHORT_PREMIUM_STRONG': 14, 'NO_SIGNAL': 12, 'SHORT_PREMIUM_MODERATE': 11, 'SHORT_PREMIUM_EXTREME': 9} | 83.25 | 84.44 |
 | 2026-08 | 38 | {'SHORT_PREMIUM_MODERATE': 17, 'NO_SIGNAL': 14, 'SHORT_PREMIUM_STRONG': 7} | 88.49 | 89.25 |
-| 2026-09 | 36 | {'NO_SIGNAL': 25, 'SHORT_PREMIUM_MODERATE': 7, 'SHORT_PREMIUM_STRONG': 4} | 86.68 | 96.56 |
+| 2026-09 | 37 | {'NO_SIGNAL': 26, 'SHORT_PREMIUM_MODERATE': 7, 'SHORT_PREMIUM_STRONG': 4} | 86.73 | 88.28 |

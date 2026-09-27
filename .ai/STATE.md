@@ -1,5 +1,27 @@
 # État du projet — Etude Mais
 
+## Mise à jour 2026-09-27 — RÉCUPÉRATION DONNÉES + 4 FUITES DE DATAGE CORRIGÉES
+
+- **Rattrapage** : database/features 2026-07-02 → **2026-09-25** (+60 séances), daily-run PASS, audit PASS.
+- **WASDE (fuite ~8 séances, 18 % des jours)** : legacy datait au 1er du mois. Vrai collecteur ESMIS
+  (`usda_wasde_collector.py`) : dates de publication réelles (`data/wasde_raw/release_dates.csv`),
+  effectif J+1 ouvré, repli jour 14 si date inconnue, valeurs 2002-15 legacy re-datées
+  (`legacy_reports.csv`), parser = legacy à l'identique sur 106 rapports communs. → rapport 2026-09.
+- **FRED (fuite ~6 sem. CPI)** : legacy au 1er du mois observé → ALFRED première publication +1 j ouvré.
+- **COT (fuite 3 séances)** : daté mardi → vendredi de publication ; API Socrata (www.cftc.gov bloque) ;
+  shutdown 2025 → rapports 30/09-23/12 datés 29/12/2025. 0 écart legacy sur 682 rapports, historique 2006→2026-09-22.
+- **ENSO** : saison datée au mois central → disponibilité (fin saison +1 mois +9 j). N'était pas utilisé (interim absent).
+- **Drought monitor : l'interim était SYNTHÉTIQUE** (sommes ~105 %, D4 ~40 %, dates jusqu'en 2029) ;
+  endpoint maïs 404 → proxy Corn Belt 8 États pondérés, daté jeudi de publication, 2000→2026-09-24.
+- **Météo** : incrémental + backoff 429, 19/20 États à jour (mississippi au prochain run) ; le legacy
+  était décalé d'1 j en plus du shift(1) (conservateur, pas de fuite).
+- DXY `DX=F` → `DX-Y.NYB`. FAS reste vide : **clé api.data.gov requise (action user)**.
+- **Re-validation** : FOND h90 **0.614 [0.594;0.635]** (était 0.626) ROBUSTE ; WASDE seul inchangé 0.570 ;
+  **wasde_h40 LIMITE → ROBUSTE** (0.564). Doc : note en tête de FINAL_DIRECTION_FUSION_STUDY.md.
+- **Infra** : weekly-maintenance réparée (success sur GitHub) ; CI installe `.[collect]` (yfinance → V155 en CI) ;
+  cron local = `scripts/cron_daily_local.sh` horaire 7-22h lun-sam, attente réseau, 1 run réussi/jour.
+- Tests : `tests/test_collect_pit_dates.py` (5) + critiques + unit PASS, ruff PASS.
+
 ## Mise à jour 2026-09-26 — FIX weekly-maintenance + état collecte
 
 - **weekly-maintenance en échec depuis sa création (16/16 runs)** : `pip install -e .` réussit donc

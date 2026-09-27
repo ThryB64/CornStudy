@@ -1,4 +1,9 @@
-"""NOAA CPC Oceanic Nino Index collector."""
+"""NOAA CPC Oceanic Nino Index collector.
+
+Chaque saison glissante (ex. DJF) n'est connue qu'après la fin de son dernier mois : l'observation
+est datée à sa disponibilité (1er du mois suivant la fin de saison + AVAILABILITY_LAG_DAYS),
+pas au mois central (legacy : ~2 mois d'avance).
+"""
 
 from __future__ import annotations
 
@@ -7,11 +12,14 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from mais.paths import INTERIM_DIR
 from mais.utils import get_logger
 
 log = get_logger("mais.collect.enso")
 
 ONI_URL = "https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php"
+ONI_ASCII_URL = "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+AVAILABILITY_LAG_DAYS = 9
 SEASONS = ["DJF", "JFM", "FMA", "MAM", "AMJ", "MJJ", "JJA", "JAS", "ASO", "SON", "OND", "NDJ"]
 
 
@@ -51,12 +59,28 @@ def parse_oni_table(html_or_tables: str | list[pd.DataFrame]) -> pd.DataFrame:
     return out
 
 
+def parse_oni_ascii(text: str) -> pd.DataFrame:
+    """oni.ascii.txt (SEAS YR TOTAL ANOM) → lignes datées à la disponibilité."""
+    rows = []
+    for line in text.splitlines()[1:]:
+        parts = line.split()
+        if len(parts) != 4 or parts[0] not in SEASONS:
+            continue
+        center = pd.Timestamp(int(parts[1]), SEASONS.index(parts[0]) + 1, 1)
+        available = center + pd.DateOffset(months=2) + pd.Timedelta(days=AVAILABILITY_LAG_DAYS)
+        rows.append({"Date": available, "season_center": center, "enso_oni_index": float(parts[3])})
+    if not rows:
+        raise CollectorError("ENSO NOAA ascii format changed: no rows parsed")
+    return pd.DataFrame(rows).sort_values("Date").drop_duplicates("Date").reset_index(drop=True)
+
+
 def validate_oni_coverage(df: pd.DataFrame, start: str = "2010-01-01", end: str = "2022-12-31") -> None:
     """Require at least 90% monthly ONI coverage over the R&D period."""
     work = df.copy()
     work["Date"] = pd.to_datetime(work["Date"])
-    months = pd.date_range(start, end, freq="MS")
-    covered = work.set_index("Date").reindex(months)["enso_oni_index"].notna().mean()
+    months = pd.period_range(start, end, freq="M")
+    observed = set(work.loc[work["enso_oni_index"].notna(), "Date"].dt.to_period("M"))
+    covered = sum(m in observed for m in months) / len(months)
     if covered < 0.90:
         raise DataQualityError(f"ENSO ONI coverage too low: {covered:.1%}")
 
@@ -98,13 +122,13 @@ def download(out_dir: Path, src: dict | None = None) -> str:
     """Download NOAA ONI and save ``enso_oni.parquet``."""
     import requests
 
-    url = (src or {}).get("url", ONI_URL)
-    response = requests.get(url, timeout=60)
+    response = requests.get(ONI_ASCII_URL, timeout=60)
     response.raise_for_status()
-    parsed = parse_oni_table(response.text)
+    parsed = parse_oni_ascii(response.text)
     validate_oni_coverage(parsed)
     out_dir.mkdir(parents=True, exist_ok=True)
     parsed.to_parquet(out_dir / "enso_oni.parquet", index=False)
+    parsed.drop(columns=["season_center"]).to_parquet(INTERIM_DIR / "enso_oni.parquet", index=False)
     log.info("enso_oni_written", rows=len(parsed), path=str(out_dir / "enso_oni.parquet"))
     return f"{len(parsed)} monthly ONI rows"
 

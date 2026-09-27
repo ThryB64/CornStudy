@@ -2,6 +2,15 @@
 
 **Date : 2026-07-03. Statut : VALIDÉE (protocole validate_pistes). Script : `scripts/build_direction_fusion.py`. Artefacts : `artefacts/direction_fusion/`.**
 
+> **Re-validation 2026-09-27 (correctif datage WASDE, univers → 2026-09-25).** L'interim WASDE
+> datait chaque rapport au 1er du mois (publication réelle ~8-12) : 18 % des jours portaient une
+> valeur non encore publiée. Reconstruit à la date de publication ESMIS (+1 j ouvré), z-scores
+> expandants. Résultats (les tableaux ci-dessous sont ceux du 2026-07-03) :
+> FOND h90 **0.614 [0.594 ; 0.635]** placebo 0.508 (était 0.626) → **ROBUSTE maintenu** ;
+> WASDE seul h90 0.570 (inchangé : la fuite n'expliquait rien à cet horizon) ; CROP h90 0.608 ;
+> WHEAT h90 0.605 ; FULL h90 0.591 (la dilution par le marché tient). validate_pistes :
+> **wasde_h40 passe LIMITE → ROBUSTE** (0.564 [0.543 ; 0.584], 77 % d'années+).
+
 ## Contexte et déblocage préalable
 
 L'univers d'étude était figé au 2025-07-25 : `mais clean` était un stub legacy et

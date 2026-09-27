@@ -1,13 +1,14 @@
-"""US Drought Monitor weekly collector (V3-06).
+"""US Drought Monitor weekly collector (V3-06, endpoint réparé 2026-09-27).
 
-Public, no API key. Weekly D0-D4 corn area statistics from USDM API.
-Endpoint: https://usdmdataservices.unl.edu/api/AgriculturalStatistics/GetCropImpactStateCorn
-Returns corn-impacted area pct by drought level for CONUS.
+Public, no API key. L'ancien endpoint maïs (AgriculturalStatistics/GetCropImpactStateCorn) renvoie 404 :
+proxy Corn Belt = moyenne des stats d'État pondérée par la production de maïs.
+Les pourcentages USDM sont CUMULATIFS (D0 inclut D1..D4) → convertis en catégories exclusives d0..d4.
+Date = publication (jeudi, carte valide au mardi) : la carte n'est pas connue avant.
 """
 
 from __future__ import annotations
 
-import json
+import io
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -15,73 +16,84 @@ from pathlib import Path
 
 import pandas as pd
 
+from mais.paths import INTERIM_DIR
 from mais.utils import get_logger
 
 log = get_logger("mais.collect.drought")
 
 BASE_URL = (
-    "https://usdmdataservices.unl.edu/api/AgriculturalStatistics"
-    "/GetCropImpactStateCorn"
-    "?aoi=CONUS&startDate={start}&endDate={end}&statisticsType=1&format=json"
+    "https://usdmdataservices.unl.edu/api/StateStatistics/GetDroughtSeverityStatisticsByAreaPercent"
+    "?aoi={fips}&startdate={start}&enddate={end}&statisticsType=1"
 )
+# FIPS -> poids ~ production maïs moyenne 2019-2023 (Mds bu)
+CORN_BELT_WEIGHTS = {"19": 2.5, "17": 2.2, "31": 1.7, "27": 1.4, "18": 1.0,
+                     "46": 0.75, "39": 0.55, "55": 0.55}
+PUBLICATION_LAG_DAYS = 2
 
 
-def _fetch_usdm(start_date: str, end_date: str, timeout: int = 30) -> list[dict]:
-    url = BASE_URL.format(start=start_date, end=end_date)
-    log.info("drought_fetch_start", url=url[:80])
-    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+def _fetch_state(fips: str, start: str, end: str, timeout: int = 60) -> pd.DataFrame:
+    url = BASE_URL.format(fips=fips, start=start, end=end)
+    req = urllib.request.Request(url, headers={"Accept": "text/csv"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         raw = resp.read().decode("utf-8")
-    return json.loads(raw)
+    return pd.read_csv(io.StringIO(raw))
 
 
-def _parse_records(records: list[dict]) -> pd.DataFrame:
-    rows = []
-    for rec in records:
-        date_str = rec.get("MapDate") or rec.get("mapDate") or rec.get("releaseDate") or ""
-        if not date_str:
+def _parse_records(frames: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Moyenne pondérée Corn Belt des % cumulatifs, puis catégories exclusives."""
+    parts = []
+    for fips, df in frames.items():
+        if df is None or df.empty or "MapDate" not in df.columns:
             continue
-        rows.append({
-            "Date": pd.to_datetime(date_str[:10]),
-            "corn_area_d0": float(rec.get("D0", rec.get("d0", 0)) or 0),
-            "corn_area_d1": float(rec.get("D1", rec.get("d1", 0)) or 0),
-            "corn_area_d2": float(rec.get("D2", rec.get("d2", 0)) or 0),
-            "corn_area_d3": float(rec.get("D3", rec.get("d3", 0)) or 0),
-            "corn_area_d4": float(rec.get("D4", rec.get("d4", 0)) or 0),
-        })
-    df = pd.DataFrame(rows)
-    if df.empty:
-        return df
-    return df.sort_values("Date").drop_duplicates(subset=["Date"], keep="last").reset_index(drop=True)
+        d = pd.DataFrame({"map_date": pd.to_datetime(df["MapDate"].astype(str), format="%Y%m%d")})
+        for lvl in range(5):
+            d[f"D{lvl}"] = pd.to_numeric(df[f"D{lvl}"], errors="coerce")
+        d["w"] = CORN_BELT_WEIGHTS.get(fips, 0.0)
+        parts.append(d)
+    if not parts:
+        return pd.DataFrame()
+    allp = pd.concat(parts, ignore_index=True).dropna()
+    cum = allp.groupby("map_date").apply(
+        lambda g: pd.Series({f"D{i}": (g[f"D{i}"] * g["w"]).sum() / g["w"].sum() for i in range(5)}),
+        include_groups=False,
+    )
+    out = pd.DataFrame(index=cum.index)
+    for i in range(4):
+        out[f"corn_area_d{i}"] = (cum[f"D{i}"] - cum[f"D{i + 1}"]).clip(lower=0)
+    out["corn_area_d4"] = cum["D4"]
+    out = out.reset_index()
+    out["Date"] = out["map_date"] + pd.Timedelta(days=PUBLICATION_LAG_DAYS)
+    cols = ["Date", "map_date"] + [f"corn_area_d{i}" for i in range(5)]
+    return out[cols].sort_values("Date").drop_duplicates(subset=["Date"], keep="last").reset_index(drop=True)
 
 
 def download(out_dir: Path, src: dict, *, start_year: int = 2000) -> str:
-    """Download USDM corn area data and save to out_dir/drought_monitor.parquet."""
+    """Download USDM Corn Belt drought data and save to out_dir/drought_monitor.parquet."""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "drought_monitor.parquet"
 
-    end_date = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d")
-    start_date = f"{start_year}-01-01"
-
-    try:
-        records = _fetch_usdm(start_date, end_date)
-        df = _parse_records(records)
-    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError) as exc:
-        log.warning("drought_fetch_failed", error=str(exc))
+    now = datetime.now(tz=timezone.utc)
+    start, end = f"1/1/{start_year}", f"{now.month}/{now.day}/{now.year}"
+    frames: dict[str, pd.DataFrame] = {}
+    for fips in CORN_BELT_WEIGHTS:
+        try:
+            frames[fips] = _fetch_state(fips, start, end)
+        except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+            log.warning("drought_state_failed", fips=fips, error=str(exc))
+    df = _parse_records(frames)
+    # couverture partielle (<75 % du poids) = biais de composition : on garde le cache
+    covered = sum(CORN_BELT_WEIGHTS[f] for f, d in frames.items() if d is not None and not d.empty)
+    if df.empty or covered < 0.75 * sum(CORN_BELT_WEIGHTS.values()):
         if out_path.exists():
-            log.info("drought_using_cached", path=str(out_path))
+            log.warning("drought_using_cached", path=str(out_path), covered=covered)
             return str(out_path)
-        raise RuntimeError("USDM fetch failed and no cached file available") from exc
+        raise RuntimeError("USDM fetch failed and no cached file available")
 
-    if df.empty:
-        log.warning("drought_empty_response")
-        if out_path.exists():
-            return str(out_path)
-        df = pd.DataFrame(columns=["Date", "corn_area_d0", "corn_area_d1", "corn_area_d2", "corn_area_d3", "corn_area_d4"])
-
+    df = df[df["Date"] <= pd.Timestamp(now.date())]
     df.to_parquet(out_path, index=False)
-    log.info("drought_saved", path=str(out_path), rows=len(df))
+    df.drop(columns=["map_date"]).to_parquet(INTERIM_DIR / "drought_monitor.parquet", index=False)
+    log.info("drought_saved", path=str(out_path), rows=len(df), last=str(df["Date"].max().date()))
     return str(out_path)
 
 

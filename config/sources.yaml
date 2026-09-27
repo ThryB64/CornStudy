@@ -59,7 +59,7 @@ sources:
 
   - name: ice_dxy
     provider: yfinance
-    ticker: DX=F
+    ticker: DX-Y.NYB  # DX=F retiré de Yahoo (2026)
     frequency: daily
     publication_lag_days: 0
     enabled: true
@@ -170,7 +170,7 @@ sources:
     market_code: "002602"
     frequency: weekly
     publication_lag_days: 3
-    enabled: false  # Collector = stub (NotImplementedError). Données présentes via import manuel.
+    enabled: true  # API Socrata CFTC (collecteur réel depuis 2026-09-27)
     cot_limited_coverage: true
     cot_coverage_note: >
       data/interim/cftc_cot.parquet couvre 2013-01-08 → 2026-04-28 (695 semaines).
@@ -266,7 +266,7 @@ sources:
     metrics: [d0, d1, d2, d3, d4, d1_plus, d2_plus]
     frequency: weekly
     publication_lag_days: 1
-    enabled: false  # Phase 1 NEW
+    enabled: true  # USDM StateStatistics Corn Belt pondéré (2026-09-27)
     notes: Jeudi 8h30 ET pour le mardi précédent.
 
   # ========================================================================

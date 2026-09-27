@@ -41,7 +41,9 @@ data/raw/*
 data/interim/
 data/processed/
 data/models/
-data/wasde_raw/
+data/wasde_raw/*
+!data/wasde_raw/legacy_reports.csv
+!data/wasde_raw/release_dates.csv
 data/wasde_pdf_raw/
 data/reports/
 data/snapshots/

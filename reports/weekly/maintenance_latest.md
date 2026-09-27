@@ -1,20 +1,20 @@
-# 🔧 Maintenance hebdomadaire — 2026-06-11
+# 🔧 Maintenance hebdomadaire — 2026-09-26
 **Verdict : OK** (0 FAIL, 0 WARN)
 
 | Check | Statut | Détail |
 |---|---|---|
-| ci_daily | ✅ OK | daily 2026-06-11 result=OK |
-| premium_head | ✅ OK | as_of 2026-06-11, LIVE_SIGNAL_CONSISTENT |
+| ci_daily | ✅ OK | daily 2026-09-25 result=OK |
+| premium_head | ✅ OK | as_of 2026-09-25, autoritatives à jour (reporting-only en retard : ['v101', 'v99']) |
 | single_source | ✅ OK | audit single_source PASS |
-| official_journal | ✅ OK | 11 lignes, dernière date il y a 0 j |
-| ema_curve | ✅ OK | 10 lignes, dernière date il y a 0 j |
-| matif_ratio | ✅ OK | 9 lignes, dernière date il y a 0 j |
-| weather_archive | ✅ OK | 25296 lignes, dernière date il y a 0 j |
+| official_journal | ✅ OK | 159 lignes, dernière date il y a 1 j |
+| ema_curve | ✅ OK | 86 lignes, dernière date il y a 1 j |
+| matif_ratio | ✅ OK | 85 lignes, dernière date il y a 1 j |
+| weather_archive | ✅ OK | 54128 lignes, dernière date il y a 1 j |
 | critical_tests | ✅ OK | 5 fichiers : .........................                                                [100%] |
 
 ## Prochains jalons
-- Officiel : {'n_days': 10, 'next': 40, 'meaning': 'z-score officiel rolling'}
-- Data-gated (V177) : {'V166_OFFICIAL': '10/150', 'V168_MATIF': '9/150', 'V155_SUMMER': '93/150'}
-- Validation proxy V178 : ACCUMULATING_10_OF_40
+- Officiel : {'n_days': 86, 'next': 90, 'meaning': 'validation proxy/officiel'}
+- Data-gated (V177) : {'V166_OFFICIAL': '86/150', 'V168_MATIF': '85/150', 'V155_SUMMER': '199/150'}
+- Validation proxy V178 : PROXY_RESEARCH_ONLY
 
 RESEARCH_ONLY_NOT_TRADING.

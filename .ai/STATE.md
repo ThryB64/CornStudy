@@ -1,5 +1,19 @@
 # État du projet — Etude Mais
 
+## Mise à jour 2026-09-26 — FIX weekly-maintenance + état collecte
+
+- **weekly-maintenance en échec depuis sa création (16/16 runs)** : `pip install -e .` réussit donc
+  le fallback contenant `pytest` n'était jamais exécuté → `No module named pytest` → FAIL → exit 1.
+  Fix : `pip install pytest` explicite. En plus : check single_source relance l'audit (artefacts/audit
+  gitignoré → toujours absent en CI), check head ne dégrade plus sur v99/v101 (reporting-only, V122).
+  Local : verdict OK, 0 FAIL / 0 WARN, 25 tests critiques PASS.
+- **CI daily** : OK sans interruption (journal officiel 159 lignes au 2026-09-25, courbe 86, MATIF 85,
+  météo 54k). Jalons : V166/V168 86-85/150 (~fin déc.), V155 déclenché mais WAITING_DATA en CI (pas de CBOT).
+- **Cron local mort** : FAIL quasi quotidien (tous les hôtes injoignables à 7h15 = pas de réseau au réveil),
+  dernier run 2026-08-18. Univers marché/features local figé au **2026-07-02**.
+- V155 lancé en local : PRELIMINARY_N_SMALL (n=140), rev_hot→CBOT h10 ρ −0.45 (signe INVERSE de l'attendu,
+  1 seul été, rendements chevauchants) — pas de claim.
+
 ## Mise à jour 2026-07-03 — DÉBLOCAGE univers figé + fusion directionnelle H90 (Session 7)
 
 - **DÉCOUVERTE INFRA** : l'étude entière était figée au **2025-07-25** — `mais clean` était un

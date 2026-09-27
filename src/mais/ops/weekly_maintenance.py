@@ -90,21 +90,31 @@ def check_head() -> dict[str, str]:
     if not head:
         return _check("premium_head", "FAIL", "head absent")
     age = _age_days(head.get("as_of"))
-    cons = (head.get("consistency") or {}).get("verdict")
+    consistency = head.get("consistency") or {}
+    cons = consistency.get("verdict")
     if age is None or age > MAX_HEAD_AGE_DAYS:
         return _check("premium_head", "FAIL", f"head as_of {head.get('as_of')} (âge {age} j)")
-    if cons != "LIVE_SIGNAL_CONSISTENT":
-        return _check("premium_head", "WARN", f"cohérence {cons}")
-    return _check("premium_head", "OK", f"as_of {head.get('as_of')}, {cons}")
+    # V122 : seules les couches AUTORITATIVES stale comptent ; reporting-only listées sans dégrader
+    if cons != "LIVE_SIGNAL_CONSISTENT" and consistency.get("stale_authoritative_layers"):
+        return _check("premium_head", "WARN",
+                      f"cohérence {cons} ({consistency['stale_authoritative_layers']})")
+    reporting = consistency.get("stale_reporting_only_layers") or []
+    suffix = f" (reporting-only en retard : {reporting})" if reporting else ""
+    return _check("premium_head", "OK", f"as_of {head.get('as_of')}, autoritatives à jour{suffix}")
 
 
 def check_stale_layers() -> dict[str, str]:
-    ss = _read_json(SINGLE_SOURCE)
+    # artefacts/audit est gitignoré : on relance l'audit (lecture seule des fichiers commités)
+    try:
+        from mais.audit.single_source import run_single_source_audit
+        ss = run_single_source_audit()
+    except Exception:  # noqa: BLE001
+        ss = _read_json(SINGLE_SOURCE)
     if not ss:
         return _check("single_source", "WARN", "audit single_source absent")
     overall = ss.get("overall")
-    return _check("single_source", "OK" if overall == "PASS" else "FAIL",
-                  f"audit single_source {overall}")
+    status = {"PASS": "OK", "WARN": "WARN"}.get(overall, "FAIL")
+    return _check("single_source", status, f"audit single_source {overall}")
 
 
 def check_accumulations() -> list[dict[str, str]]:

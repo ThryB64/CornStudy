@@ -1,4 +1,4 @@
-# 🔧 Maintenance hebdomadaire — 2026-09-26
+# 🔧 Maintenance hebdomadaire — 2026-09-27
 **Verdict : OK** (0 FAIL, 0 WARN)
 
 | Check | Statut | Détail |
@@ -6,10 +6,10 @@
 | ci_daily | ✅ OK | daily 2026-09-25 result=OK |
 | premium_head | ✅ OK | as_of 2026-09-25, autoritatives à jour (reporting-only en retard : ['v101', 'v99']) |
 | single_source | ✅ OK | audit single_source PASS |
-| official_journal | ✅ OK | 159 lignes, dernière date il y a 1 j |
-| ema_curve | ✅ OK | 86 lignes, dernière date il y a 1 j |
-| matif_ratio | ✅ OK | 85 lignes, dernière date il y a 1 j |
-| weather_archive | ✅ OK | 54128 lignes, dernière date il y a 1 j |
+| official_journal | ✅ OK | 159 lignes, dernière date il y a 2 j |
+| ema_curve | ✅ OK | 86 lignes, dernière date il y a 2 j |
+| matif_ratio | ✅ OK | 85 lignes, dernière date il y a 2 j |
+| weather_archive | ✅ OK | 54128 lignes, dernière date il y a 2 j |
 | critical_tests | ✅ OK | 5 fichiers : .........................                                                [100%] |
 
 ## Prochains jalons

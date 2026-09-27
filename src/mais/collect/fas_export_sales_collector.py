@@ -1,11 +1,10 @@
 """USDA FAS Export Sales collector (Phase 1 NEW).
 
-Weekly. Released Thursday 8:30 ET for the week ending the prior Thursday.
-Use ``publication_lag_days`` from ``sources.yaml`` at feature-merge time
-(``shift(1)`` + merge-asof in ``build_features()``).
+Weekly. Released Thursday 8:30 ET for the week ending the prior Thursday : l'interim est daté à la
+PUBLICATION (semaine + 7 j ; backlog shutdown 2025 → 2026-01-08), build_features ajoute shift(1).
 
-API: https://apps.fas.usda.gov/OpenData/
-Free key + docs: register at FAS Open Data portal, set ``FAS_API_KEY``.
+API : api.fas.usda.gov (ancien apps.fas.usda.gov/OpenData refuse les clés api.data.gov).
+Clé gratuite : https://api.data.gov/signup/ → ``FAS_API_KEY``.
 """
 
 from __future__ import annotations
@@ -26,10 +25,15 @@ from mais.utils import get_logger, write_parquet
 log = get_logger("mais.collect.fas")
 
 _COMMODITY_CODES = {
-    "CORN": "0410",
-    "SOYBEANS": "0810",
-    "WHEAT": "0110",
+    "CORN": "401",
+    "SOYBEANS": "801",
+    "WHEAT": "107",
 }
+API_BASE = "https://api.fas.usda.gov/api/esr"
+FIRST_MARKET_YEAR = 1999
+CHINA_CODE = 5700
+SHUTDOWN_WEEKS = (pd.Timestamp("2025-09-25"), pd.Timestamp("2026-01-01"))
+SHUTDOWN_CAUGHT_UP = pd.Timestamp("2026-01-08")
 
 
 def _decode_payload(payload: object, *, context: str) -> list[dict]:
@@ -79,110 +83,51 @@ def _http_get_json(url: str, *, context: str) -> list[dict]:
 
 
 def _fetch_exports(api_key: str, commodity_code: str) -> list[dict]:
-    base = (
-        "https://apps.fas.usda.gov/OpenData/api/esr/exports/"
-        f"commodityCode/{commodity_code}"
-    )
-
-    params = {"api_key": api_key}
-    url = f"{base}?{urllib.parse.urlencode(params)}"
-    rows = _http_get_json(url, context="commodity_all")
-    if rows:
-        log.info("fas_fetch_ok", mode="no_market_year", n=len(rows))
-        return rows
-
-    cy = datetime.now().year
+    """api.fas.usda.gov (clé api.data.gov) — une requête par campagne (marketYear = année de fin)."""
+    base = f"{API_BASE}/exports/commodityCode/{commodity_code}/allCountries/marketYear"
     out: list[dict] = []
-    for myid in range(cy - 24, cy + 2):
-        q = urllib.parse.urlencode({"marketYearId": str(myid), "api_key": api_key})
-        chunk = _http_get_json(f"{base}?{q}", context=f"market_year_{myid}")
+    for my in range(FIRST_MARKET_YEAR, datetime.now().year + 2):
+        q = urllib.parse.urlencode({"api_key": api_key})
+        chunk = [r | {"marketYear": my} for r in _http_get_json(f"{base}/{my}?{q}", context=f"market_year_{my}")]
         if chunk:
-            log.info("fas_fetch_ok", mode="market_year_id", market_year=myid, n=len(chunk))
+            log.info("fas_fetch_ok", market_year=my, n=len(chunk))
         out.extend(chunk)
-
-    if out:
-        return out
-
-    for y in range(cy - 8, cy + 1):
-        my_str = f"{y}/{y + 1}"
-        q = urllib.parse.urlencode({"marketYearId": my_str, "api_key": api_key})
-        chunk = _http_get_json(f"{base}?{q}", context=f"market_year_{my_str}")
-        if chunk:
-            log.info("fas_fetch_ok", mode="market_year_str", market_year=my_str, n=len(chunk))
-        out.extend(chunk)
-
     return out
 
 
-def _row_week_date(record: dict) -> pd.Timestamp | None:
-    for k in (
-        "weekEndingDate",
-        "WeekEndingDate",
-        "weekEnding",
-        "WeekEnding",
-        "reportingWeek",
-        "ReportingWeek",
-    ):
-        if k in record and record[k] not in (None, ""):
-            ts = pd.to_datetime(record[k], errors="coerce")
-            if pd.notna(ts):
-                return pd.Timestamp(ts).normalize()
-    return None
+def release_date(week_ending: pd.Series) -> pd.Series:
+    """Publication = jeudi suivant la semaine ; backlog shutdown 2025 rattrapé le 2026-01-08."""
+    rel = week_ending + pd.Timedelta(days=7)
+    backlog = week_ending.between(*SHUTDOWN_WEEKS)
+    return rel.where(~backlog, rel.clip(lower=SHUTDOWN_CAUGHT_UP))
 
 
-def _row_weekly_export_mt(record: dict) -> float | None:
-    """Extract weekly net sales, falling back to export shipment fields.
-
-    FAS endpoint payloads have varied field casing/names across examples and
-    API vintages. The project feature is named ``export_sales_mt`` and should
-    represent net export sales when that field is present.
-    """
-    keys = (
-        "weeklyNetSales",
-        "WeeklyNetSales",
-        "netSales",
-        "NetSales",
-        "currentMYNetSales",
-        "CurrentMYNetSales",
-        "weeklySales",
-        "WeeklySales",
-        "grossNewSales",
-        "GrossNewSales",
-        "weeklyExports",
-        "WeeklyExports",
-        "weeklyExport",
-        "WeeklyExport",
-    )
-    for k in keys:
-        if k in record:
-            v = pd.to_numeric(record[k], errors="coerce")
-            if pd.notna(v):
-                return float(v)
-    return None
-
-
-def _records_to_weekly_totals(rows: list[dict]) -> pd.DataFrame:
-    buckets: dict[pd.Timestamp, float] = {}
-    for r in rows:
-        d = _row_week_date(r)
-        if d is None:
-            continue
-        v = _row_weekly_export_mt(r)
-        if v is None:
-            continue
-        buckets[d] = buckets.get(d, 0.0) + v
-
-    if not buckets:
-        return pd.DataFrame(columns=["Date", "export_sales_mt"])
-    df = pd.DataFrame([{"Date": k, "export_sales_mt": buckets[k]} for k in sorted(buckets)])
-    return df.sort_values("Date").drop_duplicates(subset=["Date"], keep="last").reset_index(drop=True)
+def build_weekly(rows: list[dict]) -> pd.DataFrame:
+    """Totaux hebdo tous pays (ventes nettes, engagements, Chine), datés à la publication."""
+    df = pd.DataFrame(rows)
+    df["week_ending"] = pd.to_datetime(df["weekEndingDate"]).dt.normalize()
+    # semaine à cheval sur deux campagnes : renvoyée par les deux requêtes → garder la nouvelle campagne
+    df = df[df["marketYear"] == df.groupby("week_ending")["marketYear"].transform("max")]
+    num = ["currentMYNetSales", "currentMYTotalCommitment"]
+    df[num] = df[num].apply(pd.to_numeric, errors="coerce")
+    g = df.groupby("week_ending")
+    out = pd.DataFrame({
+        "export_sales_mt": g["currentMYNetSales"].sum(),
+        "export_sales_accumulated_mt": g["currentMYTotalCommitment"].sum(),
+        "export_china_sales_mt": df[df["countryCode"] == CHINA_CODE].groupby("week_ending")["currentMYNetSales"].sum(),
+    }).reset_index()
+    out["export_china_sales_mt"] = out["export_china_sales_mt"].fillna(0.0)
+    out["usda_export_forecast_mt"] = float("nan")
+    out.insert(0, "Date", release_date(out["week_ending"]))
+    out = out.sort_values("week_ending").drop_duplicates("Date", keep="last")
+    return out.drop(columns=["week_ending"]).reset_index(drop=True)
 
 
 def download(out_dir: Path, src: dict) -> str:
     api_key = os.environ.get(src.get("api_key_env", "FAS_API_KEY"))
     if not api_key:
         raise NotImplementedError(
-            "Set FAS_API_KEY (https://apps.fas.usda.gov/OpenData/). "
+            "Set FAS_API_KEY (https://api.data.gov/signup/). "
             "Collector writes ``fas_export_sales.parquet`` under data/interim when successful."
         )
 
@@ -195,7 +140,7 @@ def download(out_dir: Path, src: dict) -> str:
             "FAS API returned no usable rows. Check api_key, commodity code, or USDA availability."
         )
 
-    weekly = _records_to_weekly_totals(rows)
+    weekly = build_weekly(rows)
     if weekly.empty:
         raise RuntimeError("FAS rows parsed but weekly export_sales_mt series is empty.")
 

@@ -52,3 +52,19 @@ def test_wasde_effective_after_release(tmp_path, monkeypatch):
     # rapport d'août sans date connue → repli au 14 → effectif le 17/08 (lundi)
     assert out["Date"].min() == pd.Timestamp("2026-08-17")
     assert out.loc[out["Date"] == pd.Timestamp("2026-09-01"), "wasde_production"].iloc[0] == 16013.0
+
+
+def test_fas_dated_at_release_with_shutdown_backlog_and_my_boundary():
+    from mais.collect import fas_export_sales_collector as fas
+    rows = [
+        {"weekEndingDate": "2026-09-03", "countryCode": 5700, "marketYear": 2026,
+         "currentMYNetSales": 5, "currentMYTotalCommitment": 87},
+        {"weekEndingDate": "2026-09-03", "countryCode": 5700, "marketYear": 2027,
+         "currentMYNetSales": 7, "currentMYTotalCommitment": 16},
+        {"weekEndingDate": "2025-10-02", "countryCode": 1220, "marketYear": 2026,
+         "currentMYNetSales": 1, "currentMYTotalCommitment": 2},
+    ]
+    out = fas.build_weekly(rows).set_index("Date")
+    assert out.loc[pd.Timestamp("2026-09-10"), "export_sales_accumulated_mt"] == 16
+    assert out.loc[pd.Timestamp("2026-09-10"), "export_china_sales_mt"] == 7
+    assert pd.Timestamp("2026-01-08") in out.index

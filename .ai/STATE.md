@@ -15,7 +15,7 @@
   endpoint maïs 404 → proxy Corn Belt 8 États pondérés, daté jeudi de publication, 2000→2026-09-24.
 - **Météo** : incrémental + backoff 429, 19/20 États à jour (mississippi au prochain run) ; le legacy
   était décalé d'1 j en plus du shift(1) (conservateur, pas de fuite).
-- DXY `DX=F` → `DX-Y.NYB`. FAS reste vide : **clé api.data.gov requise (action user)**.
+- DXY `DX=F` → `DX-Y.NYB`. **FAS branché** (clé api.data.gov dans .env) : api.fas.usda.gov (l'ancien portail OpenData refuse ces clés), 1998→2026-09-24, daté à la publication (semaine+7 j, backlog shutdown → 2026-01-08 ; legacy = semaine observée ≈ 6 j de fuite), semaine à cheval sur 2 campagnes dédoublonnée.
 - **Re-validation** : FOND h90 **0.614 [0.594;0.635]** (était 0.626) ROBUSTE ; WASDE seul inchangé 0.570 ;
   **wasde_h40 LIMITE → ROBUSTE** (0.564). Doc : note en tête de FINAL_DIRECTION_FUSION_STUDY.md.
 - **Infra** : weekly-maintenance réparée (success sur GitHub) ; CI installe `.[collect]` (yfinance → V155 en CI) ;

@@ -35,10 +35,14 @@ jobs:
       - name: Weekly maintenance (checks + tests critiques)
         run: python scripts/run_weekly_maintenance.py
 
+      - name: Archive CBOT curve (contrats vivants, Yahoo efface les expirés)
+        run: |
+          python -c "import sys; sys.path.insert(0, 'src'); from pathlib import Path; from mais.collect.cbot_curve_archive import download, CI_ARCHIVE; print(download(Path('/tmp/cbot_curve'), {'out_path': str(CI_ARCHIVE)}))" || echo "curve archive skipped"
+
       - name: Commit report
         run: |
           git config user.name "weekly-maintenance-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add reports/weekly artefacts/v181 || true
+          git add reports/weekly artefacts/v181 data/official_forward/cbot_curve_contracts.parquet || true
           git diff --cached --quiet || git commit -m "chore(weekly): maintenance report $(date -u +%F)"
           git push || true

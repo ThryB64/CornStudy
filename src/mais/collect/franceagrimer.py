@@ -3,7 +3,8 @@
 Source : Eurostat apro_cpsh1 — production maïs France (annuel).
 Note : FranceAgriMer bilans mensuels disponibles sur data.gouv.fr mais
        pas d'API structurée — utilisation d'Eurostat comme source primaire.
-Anti-leakage : publication annuelle (Nov N) → shift(1) + forward-fill.
+Anti-leakage : l'API renvoie le millésime DÉFINITIF, transmis fin septembre N+1 (métadonnées
+apro_cp) → daté au 31 octobre N+1 (legacy : 15 novembre N, ~1 an de fuite), shift(1) + forward-fill.
 """
 
 from __future__ import annotations
@@ -85,14 +86,14 @@ def build_franceagrimer_features(out_dir: Path | None = None) -> pd.DataFrame:
             + annual["hu_mais_production_kt"].fillna(0)
         )
 
-    # Publication date = November 15 of harvest year (Eurostat annual)
+    # millésime définitif disponible fin octobre N+1
     feat_cols = ["fr_mais_production_kt", "ro_mais_production_kt", "hu_mais_production_kt",
                  "fr_mais_prod_anomaly", "fr_mais_prod_yoy_pct", "fr_ro_hu_mais_total_kt"]
     feat_cols = [c for c in feat_cols if c in annual.columns]
 
     rows = []
     for _, row in annual.iterrows():
-        pub_date = pd.Timestamp(f"{int(row['year'])}-11-15")
+        pub_date = pd.Timestamp(f"{int(row['year']) + 1}-10-31")
         r_dict = {"Date": pub_date}
         for col in feat_cols:
             r_dict[col] = row.get(col)

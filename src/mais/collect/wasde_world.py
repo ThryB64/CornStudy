@@ -1,11 +1,9 @@
-"""DATA-WORLD-01 — Enrichissement WASDE EU + Ukraine.
+"""DATA-WORLD-01 — WASDE « World Corn Supply and Use » (réécrit 2026-09-27).
 
-Parse les fichiers texte WASDE existants pour extraire:
-- EU ending stocks, production, exports corn
-- Ukraine production, exports corn
-- Ratio stocks EU/monde
-
-Anti-leakage : publication WASDE ~8-12 du mois → shift(1).
+Parse les deux pages de la table monde (années estimées + projection avec lignes mensuelles,
+on garde la ligne du mois courant). Pour chaque rapport : campagne la plus récente par région.
+Datage : date de publication ESMIS (data/wasde_raw/release_dates.csv, repli jour 14) puis shift(1).
+L'ancien parser étiquetait « eu » des lignes d'autres tables (production UE 2.85 Mt au lieu de ~60).
 """
 
 from __future__ import annotations
@@ -24,140 +22,137 @@ _OUTPUT_DIR = Path(__file__).parents[3] / "data" / "raw" / "wasde_world"
 _AUDIT_OUTPUT = ARTEFACTS_DIR / "ema_study" / "wasde_world_audit.json"
 
 _COLS = ["beg_stocks", "production", "imports", "feed", "dom_total", "exports", "end_stocks"]
-
-_WORLD_SECTION_RE = re.compile(r"World Corn Supply and Use", re.IGNORECASE)
-_CROP_YEAR_RE = re.compile(r"(\d{4}/\d{2,4})")
+_REGIONS = {
+    "world": re.compile(r"^World\b(?!\s+Less)"),
+    "world_less_china": re.compile(r"^World Less China"),
+    "us": re.compile(r"^United States"),
+    "argentina": re.compile(r"^Argentina"),
+    "brazil": re.compile(r"^Brazil"),
+    "ukraine": re.compile(r"^Ukraine"),
+    "eu": re.compile(r"^(European Union|EU-\d+)"),
+    "china": re.compile(r"^China"),
+}
+_YEAR_RE = re.compile(r"^\s*(\d{4})/(\d{2})")
 _NUM_RE = re.compile(r"-?\d+\.\d+")
+_MONTH_RE = re.compile(r"^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b")
+FALLBACK_DAY = 14
+
+
+def _report_yymm(path: Path) -> str | None:
+    m = re.fullmatch(r"wasde(\d{4})", path.stem)
+    return m.group(1) if m else None
 
 
 def _parse_wasde_file(path: Path) -> list[dict]:
-    """Extract EU and Ukraine rows from World Corn Supply section."""
+    """Lignes (crop_year, country, 7 colonnes) de la table World Corn, mois courant pour les projections."""
     try:
-        text = path.read_text(encoding="utf-8", errors="replace")
-    except Exception:
+        lines = path.read_text(encoding="utf-8", errors="replace").split("\n")
+    except OSError:
         return []
-
-    # Extract filename date: wasdeYYMM.txt
-    fname = path.stem
-    m = re.match(r"wasde(\d{2})(\d{2})", fname)
-    if not m:
+    yymm = _report_yymm(path)
+    if yymm is None:
         return []
-    yy, mm = m.groups()
-    pub_year = 2000 + int(yy)
-    pub_date = pd.Timestamp(f"{pub_year}-{mm}-10")  # ~10th of month
-
-    lines = text.split("\n")
-    records = []
-    current_crop_year = None
-    in_world_section = False
-    section_count = 0
-
-    for line in lines:
-        if _WORLD_SECTION_RE.search(line):
-            in_world_section = True
-            section_count += 1
+    out: dict[tuple[int, str], dict] = {}
+    in_table, crop_year, region = False, None, None
+    for raw_line in lines:
+        # formats 2000-2015 : séparateurs « : », mois en toutes lettres, région + mois sur une ligne
+        line = raw_line.replace("\r", "").replace(":", " ")
+        if "World Corn Supply and Use" in line:
+            in_table, crop_year, region = True, None, None
             continue
-        if not in_world_section:
+        if not in_table:
             continue
-        # Detect crop year
-        cy_m = _CROP_YEAR_RE.search(line)
-        if cy_m:
-            cy_str = cy_m.group(1)
-            if cy_str[:4].isdigit():
-                current_crop_year = int(cy_str[:4])
+        if "Supply and Use" in line:
+            in_table = False
             continue
-
-        # Exit condition: new major section after world section
-        if (in_world_section and section_count > 0
-                and re.match(r"^\s*[A-Z][A-Z\s]+Supply and Use", line)
-                and not _WORLD_SECTION_RE.search(line)):
-            in_world_section = False
+        stripped = line.strip()
+        nums = _NUM_RE.findall(line)
+        y = _YEAR_RE.match(stripped)
+        if y and not nums:
+            crop_year = int(y.group(1)) + 1
             continue
+        if not crop_year:
+            continue
+        if not _MONTH_RE.match(stripped):
+            region = next((k for k, rx in _REGIONS.items() if rx.match(stripped)), None)
+        if region and len(nums) >= 7:
+            out[(crop_year, region)] = dict(zip(_COLS, map(float, nums[-7:]), strict=True))
+    return [{"yymm": yymm, "crop_year": cy, "country": reg, **vals} for (cy, reg), vals in out.items()]
 
-        # Match EU or Ukraine row
-        for country in ["European Union", "Ukraine"]:
-            if country in line:
-                nums = _NUM_RE.findall(line)
-                if len(nums) >= 6:
-                    vals = [float(x) for x in nums[-7:]] if len(nums) >= 7 else [float(x) for x in nums]
-                    record = {
-                        "pub_date": pub_date,
-                        "crop_year": current_crop_year,
-                        "country": "eu" if "European" in country else "ukraine",
-                    }
-                    for i, col in enumerate(_COLS):
-                        record[col] = vals[i] if i < len(vals) else float("nan")
-                    records.append(record)
-                break
 
-    return records
+def _release_dates() -> dict[str, pd.Timestamp]:
+    path = _WASDE_RAW_DIR / "release_dates.csv"
+    if not path.exists():
+        return {}
+    rel = pd.read_csv(path, dtype={"yymm": str})
+    return {k: pd.Timestamp(v) for k, v in zip(rel["yymm"], rel["release_date"], strict=True)}
 
 
 def _load_all_wasde_world(wasde_dir: Path) -> pd.DataFrame:
-    all_records = []
+    rel = _release_dates()
+    records = []
     for f in sorted(wasde_dir.glob("wasde*.txt")):
-        records = _parse_wasde_file(f)
-        all_records.extend(records)
-    if not all_records:
-        return pd.DataFrame()
-    return pd.DataFrame(all_records)
+        for r in _parse_wasde_file(f):
+            yymm = r["yymm"]
+            r["pub_date"] = rel.get(yymm, pd.Timestamp(f"20{yymm[:2]}-{yymm[2:]}-{FALLBACK_DAY:02d}"))
+            records.append(r)
+    return pd.DataFrame(records)
+
+
+def latest_by_region(raw: pd.DataFrame) -> pd.DataFrame:
+    """Une ligne par (pub_date, région) : campagne la plus récente du rapport."""
+    raw = raw.sort_values(["pub_date", "country", "crop_year"])
+    return raw.groupby(["pub_date", "country"]).last().reset_index()
+
+
+def us_export_forecast(raw: pd.DataFrame) -> pd.DataFrame:
+    """(pub_date, crop_year, us_exports_mt) — toutes campagnes, pour aligner sur la campagne FAS."""
+    us = raw[raw["country"] == "us"][["pub_date", "crop_year", "exports"]]
+    return us.rename(columns={"exports": "usda_export_forecast_mt"}).assign(
+        usda_export_forecast_mt=lambda d: d["usda_export_forecast_mt"] * 1e6)
 
 
 def _build_features(raw: pd.DataFrame) -> pd.DataFrame:
     if raw.empty:
         return pd.DataFrame()
+    lat = latest_by_region(raw)
+    wide = lat.pivot(index="pub_date", columns="country", values=["production", "exports", "end_stocks", "dom_total"])
+    feats = pd.DataFrame(index=wide.index)
+    names = {"eu": "eu", "ukraine": "ukraine", "brazil": "brazil", "argentina": "argentina",
+             "china": "china", "world": "world", "world_less_china": "world_ex_china"}
+    for reg, nm in names.items():
+        if ("production", reg) not in wide.columns:
+            continue
+        feats[f"wasde_{nm}_production_mt"] = wide[("production", reg)]
+        feats[f"wasde_{nm}_exports_mt"] = wide[("exports", reg)]
+        feats[f"wasde_{nm}_ending_stocks_mt"] = wide[("end_stocks", reg)]
+        feats[f"wasde_{nm}_stock_use_ratio"] = wide[("end_stocks", reg)] / wide[("dom_total", reg)].replace(0, np.nan)
+    # révision mensuelle de production à campagne constante (surprise du rapport)
+    for reg, nm in names.items():
+        sub = raw[raw["country"] == reg].sort_values("pub_date")
+        rev = sub.groupby("crop_year")["production"].diff()
+        sub = sub.assign(rev=rev.values)
+        last = sub.sort_values(["pub_date", "crop_year"]).groupby("pub_date")["rev"].last()
+        feats[f"wasde_{nm}_production_rev_mt"] = last.reindex(feats.index)
+    feats = feats.reset_index().rename(columns={"pub_date": "Date"})
 
-    # For each pub_date + crop_year, keep the latest available data (most recent crop year)
-    raw = raw.sort_values(["pub_date", "crop_year"]).reset_index(drop=True)
-
-    # EU current crop year data per publication date
-    eu = raw[(raw["country"] == "eu") & raw["crop_year"].notna()].copy()
-    ukraine = raw[(raw["country"] == "ukraine") & raw["crop_year"].notna()].copy()
-
-    # Keep the most recent crop year for each publication date
-    eu_latest = eu.sort_values("crop_year").groupby("pub_date").last().reset_index()
-    ukraine_latest = ukraine.sort_values("crop_year").groupby("pub_date").last().reset_index()
-
-    # Build world stocks from "World 3/" rows — but that's harder to parse
-    # Use EU ending stocks as a share: we need EU + global context
-    # For now, compute EU ratio as eu_end_stocks / (eu_production * known_share)
-    # This is approximated — true world stocks are in the raw text
-
-    eu_feat = eu_latest[["pub_date", "production", "exports", "end_stocks"]].copy()
-    eu_feat.columns = ["Date", "wasde_eu_production_mt", "wasde_eu_exports_mt", "wasde_eu_ending_stocks_mt"]
-
-    ukraine_feat = ukraine_latest[["pub_date", "production", "exports"]].copy()
-    ukraine_feat.columns = ["Date", "wasde_ukraine_production_mt", "wasde_ukraine_exports_mt"]
-
-    merged = eu_feat.merge(ukraine_feat, on="Date", how="outer").sort_values("Date").reset_index(drop=True)
-
-    # Forward-fill to daily calendar
     date_range = pd.DataFrame({"Date": pd.date_range("2000-01-01", pd.Timestamp.now().normalize())})
-    daily = date_range.merge(merged, on="Date", how="left")
+    daily = date_range.merge(feats, on="Date", how="left")
     feat_cols = [c for c in daily.columns if c != "Date"]
+    level_cols = [c for c in feat_cols if not c.endswith("_rev_mt")]
+    daily[level_cols] = daily[level_cols].ffill()
+    # la révision n'a de sens que jusqu'au rapport suivant : ffill borné à ~1 mois
+    rev_cols = [c for c in feat_cols if c.endswith("_rev_mt")]
+    daily[rev_cols] = daily[rev_cols].ffill(limit=35)
+    out = daily[["Date"]].copy()
     for col in feat_cols:
-        daily[col] = daily[col].ffill()
-
-    # EU stock-use ratio
-    if "wasde_eu_ending_stocks_mt" in daily.columns:
-        eu_use_approx = 80.0  # approximation EU corn use ~80 Mt
-        daily["wasde_eu_stock_use_ratio"] = daily["wasde_eu_ending_stocks_mt"] / eu_use_approx
-        feat_cols.append("wasde_eu_stock_use_ratio")
-
-    # Anti-leakage: shift(1)
-    out_cols = ["Date"]
-    for col in feat_cols:
-        if col in daily.columns:
-            daily[f"{col}_lag1"] = daily[col].shift(1)
-            out_cols.append(f"{col}_lag1")
-
-    return daily[out_cols]
+        out[f"{col}_lag1"] = daily[col].shift(1)
+    return out
 
 
 def build_wasde_world_features(wasde_dir: Path | None = None) -> pd.DataFrame:
     wdir = wasde_dir or _WASDE_RAW_DIR
     raw = _load_all_wasde_world(wdir)
-
     out_dir = _OUTPUT_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
     if not raw.empty:
@@ -166,7 +161,6 @@ def build_wasde_world_features(wasde_dir: Path | None = None) -> pd.DataFrame:
         parquet = out_dir / "wasde_world_raw.parquet"
         if parquet.exists():
             raw = pd.read_parquet(parquet)
-
     return _build_features(raw)
 
 
@@ -201,9 +195,8 @@ def save_wasde_world(output_path: Path | None = None) -> Path:
 
     audit = build_audit(df)
     audit["note"] = (
-        "WASDE TXT files parsed — EU + Ukraine World Corn Supply. "
-        "Publication ~10e du mois. Anti-leakage shift(1). "
-        "EU stock/use ratio basé sur consommation EU approx. 80 Mt."
+        "WASDE TXT World Corn Supply and Use (monde, UE, Ukraine, Brésil, Argentine, Chine). "
+        "Datage = publication ESMIS réelle puis shift(1). Stock/use = ending / domestic total."
     )
 
     def _convert(obj):

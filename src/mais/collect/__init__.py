@@ -24,6 +24,21 @@ log = get_logger("mais.collect")
 CollectorFn = Callable[[Path, dict], dict | None]
 
 
+def _module_saver(module: str, fn: str) -> CollectorFn:
+    """Adapte les modules DATA-EU/WORLD (save_*() → audit json) à la signature collecteur."""
+    def _run(out_dir: Path, src: dict) -> str:
+        import importlib
+        return str(getattr(importlib.import_module(f"mais.collect.{module}"), fn)())
+    return _run
+
+
+def _module_download(module: str) -> CollectorFn:
+    def _run(out_dir: Path, src: dict) -> str:
+        import importlib
+        return importlib.import_module(f"mais.collect.{module}").download(out_dir, src)
+    return _run
+
+
 def _registry() -> dict[str, CollectorFn]:
     from . import (
         cftc_cot_collector,
@@ -62,17 +77,24 @@ def _registry() -> dict[str, CollectorFn]:
         "usda_nass_crop_progress": nass_quickstats_collector.download,
         "usda_nass_crop_condition": nass_quickstats_collector.download,
         "usda_nass_yield_state":   nass_quickstats_collector.download,
+        "nass_annual":             _module_download("nass_annual"),
         "usda_fas_export_sales":   fas_exports.download,
         # CFTC + EIA
         "cftc_cot_corn": cftc_cot_collector.download,
         "eia_ethanol":   eia_ethanol_collector.download,
         "enso_oni":      enso.download,
+        "wasde_world":   _module_saver("wasde_world", "save_wasde_world"),
+        "openmeteo_eu":  _module_saver("openmeteo_eu", "save_openmeteo_eu"),
+        "eu_carbon":     _module_saver("eu_carbon", "save_eu_carbon"),
+        "ec_mars":       _module_saver("ec_mars", "save_ec_mars"),
         "futures_curve": futures_curve.download,
+        "cbot_curve_archive": _module_download("cbot_curve_archive"),
+        "brazil_exports":     _module_download("brazil_exports"),
         # weather
         "openmeteo_states":   openmeteo_collector.download,
         "us_drought_monitor": drought_monitor_collector.download,
         # world
-        "conab_brazil":          world_collector.download,
+        "conab_brazil":          _module_download("conab_brazil"),
         "bcr_argentina":         world_collector.download,
         "ukragroconsult":        world_collector.download,
         "noaa_oni":              world_collector.download,
@@ -88,7 +110,7 @@ def _registry() -> dict[str, CollectorFn]:
         "eu_cross_assets":       eu_fundamentals_collector.download,
         "ec_mars_bulletin":      eu_fundamentals_collector.download,
         "agreste_france":        eu_fundamentals_collector.download,
-        "franceagrimer":         eu_fundamentals_collector.download,
+        "franceagrimer":         _module_saver("franceagrimer", "save_franceagrimer"),
         # Chine
         "dce_dalian_corn":       dce_dalian_collector.download,
         # synthetic

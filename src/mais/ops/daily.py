@@ -340,6 +340,7 @@ def _known_interim_outputs(name: str) -> list[Path]:
         "eia_ethanol": "eia_ethanol.parquet",
         "openmeteo_states": "meteo.parquet",
         "us_drought_monitor": "drought_monitor.parquet",
+        "nass_annual": "nass_annual.parquet",
         "usda_fas_export_sales": "fas_export_sales.parquet",
         "usda_nass_crop_progress": "crop_progress.parquet",
         "usda_calendar": "usda_calendar.parquet",

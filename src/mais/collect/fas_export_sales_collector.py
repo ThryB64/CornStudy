@@ -102,6 +102,27 @@ def release_date(week_ending: pd.Series) -> pd.Series:
     return rel.where(~backlog, rel.clip(lower=SHUTDOWN_CAUGHT_UP))
 
 
+def attach_export_forecast(weekly: pd.DataFrame) -> pd.DataFrame:
+    """Prévision WASDE d'export US (t) pour la campagne FAS de la semaine, connue avant la publication FAS."""
+    from mais.collect.wasde_world import _OUTPUT_DIR, us_export_forecast
+
+    weekly = weekly.assign(usda_export_forecast_mt=float("nan"))
+    raw_path = _OUTPUT_DIR / "wasde_world_raw.parquet"
+    if not raw_path.exists():
+        return weekly
+    fc = us_export_forecast(pd.read_parquet(raw_path)).sort_values("pub_date")
+    my = weekly["week_ending"].dt.year + (weekly["week_ending"].dt.month >= 9).astype(int)
+    for crop_year, idx in weekly.groupby(my).groups.items():
+        sub = fc[fc["crop_year"] == crop_year]
+        if sub.empty:
+            continue
+        left = weekly.loc[idx, ["Date"]].sort_values("Date").reset_index()
+        m = pd.merge_asof(left, sub[["pub_date", "usda_export_forecast_mt"]], left_on="Date",
+                          right_on="pub_date", direction="backward", allow_exact_matches=False)
+        weekly.loc[m["index"], "usda_export_forecast_mt"] = m["usda_export_forecast_mt"].to_numpy()
+    return weekly
+
+
 def build_weekly(rows: list[dict]) -> pd.DataFrame:
     """Totaux hebdo tous pays (ventes nettes, engagements, Chine), datés à la publication."""
     df = pd.DataFrame(rows)
@@ -117,8 +138,8 @@ def build_weekly(rows: list[dict]) -> pd.DataFrame:
         "export_china_sales_mt": df[df["countryCode"] == CHINA_CODE].groupby("week_ending")["currentMYNetSales"].sum(),
     }).reset_index()
     out["export_china_sales_mt"] = out["export_china_sales_mt"].fillna(0.0)
-    out["usda_export_forecast_mt"] = float("nan")
     out.insert(0, "Date", release_date(out["week_ending"]))
+    out = attach_export_forecast(out)
     out = out.sort_values("week_ending").drop_duplicates("Date", keep="last")
     return out.drop(columns=["week_ending"]).reset_index(drop=True)
 

@@ -629,6 +629,47 @@ def build_features(
             out_df[col] = np.nan
         log.warning("features_crop_progress_missing_schema_only")
 
+    # 9b) NASS surfaces / rendement / production (versions datées à la publication, shift(1))
+    nass_path = interim_dir / "nass_annual.parquet"
+    if nass_path.exists():
+        try:
+            nass = read_table(nass_path, date_col="Date")
+            nass_cols = [c for c in nass.columns if c != "Date"]
+            nass = nass.set_index("Date").reindex(out_df["Date"]).ffill()
+            nass = nass[nass_cols].shift(1).reset_index().rename(columns={"index": "Date"})
+            out_df = out_df.merge(nass, on="Date", how="left")
+            log.info("features_nass_annual_added", n=len(nass_cols))
+        except Exception as e:
+            log.warning("features_nass_annual_failed", error=str(e))
+
+    # 9c) Exports brésiliens mensuels (Comex Stat, datés à la disponibilité, shift(1))
+    br_path = interim_dir / "brazil_exports.parquet"
+    if br_path.exists():
+        try:
+            br = read_table(br_path, date_col="Date")
+            br_cols = [c for c in br.columns if c != "Date"]
+            br = pd.merge_asof(out_df[["Date"]].sort_values("Date"), br.sort_values("Date"),
+                               on="Date", direction="backward")
+            br[br_cols] = br[br_cols].shift(1)
+            out_df = out_df.merge(br, on="Date", how="left")
+            log.info("features_brazil_exports_added", n=len(br_cols))
+        except Exception as e:
+            log.warning("features_brazil_exports_failed", error=str(e))
+
+    # 9d) CONAB relevés récolte brésilienne (datés à la publication, shift(1))
+    conab_path = interim_dir / "conab_brazil.parquet"
+    if conab_path.exists():
+        try:
+            cb = read_table(conab_path, date_col="Date")
+            cb_cols = [c for c in cb.columns if c != "Date"]
+            cb = pd.merge_asof(out_df[["Date"]].sort_values("Date"), cb.sort_values("Date"),
+                               on="Date", direction="backward")
+            cb[cb_cols] = cb[cb_cols].shift(1)
+            out_df = out_df.merge(cb, on="Date", how="left")
+            log.info("features_conab_added", n=len(cb_cols))
+        except Exception as e:
+            log.warning("features_conab_failed", error=str(e))
+
     # 10) EIA Ethanol (weekly → daily, pub lag 6 days, shift(1))
     eia_path = interim_dir / "eia_ethanol.parquet"
     if eia_path.exists():

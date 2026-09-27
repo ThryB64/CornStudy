@@ -7,6 +7,7 @@ API gratuite, sans clé. Toutes les features sont shift(1) — anti-leakage.
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 
 import numpy as np
@@ -44,11 +45,19 @@ def _fetch_zone(zone: str, lat: float, lon: float, start: str = "2010-01-01") ->
         "daily": "temperature_2m_max,temperature_2m_min,precipitation_sum",
         "timezone": "Europe/Paris",
     }
-    try:
-        r = requests.get(_ARCHIVE_URL, params=params, timeout=120)
-        r.raise_for_status()
-        payload = r.json()
-    except Exception:
+    payload = None
+    for attempt in range(5):
+        try:
+            r = requests.get(_ARCHIVE_URL, params=params, timeout=120)
+            if r.status_code == 429:
+                time.sleep(30 * (attempt + 1))
+                continue
+            r.raise_for_status()
+            payload = r.json()
+            break
+        except Exception:
+            time.sleep(5 * (attempt + 1))
+    if payload is None:
         return None
     daily = payload.get("daily", {})
     if not daily or "time" not in daily:
@@ -122,8 +131,9 @@ def _build_eu_aggregate(zone_frames: list[pd.DataFrame]) -> pd.DataFrame:
         - agg["precip_sum"].rolling(365, min_periods=180).mean() * 30 / 365
     )
 
-    # GDD anomalie vs 10 ans glissants
-    mu_gdd = agg["eu_gdd_cumul"].rolling(3650, min_periods=730).mean().shift(1)
+    # GDD anomalie vs même jour de l'année, années ANTÉRIEURES uniquement (≥2 ans)
+    mu_gdd = agg.groupby("doy")["eu_gdd_cumul"].transform(
+        lambda s: s.shift(1).rolling(10, min_periods=2).mean())
     agg["eu_gdd_anomaly"] = agg["eu_gdd_cumul"] - mu_gdd
 
     result = agg[["Date", "eu_gdd_cumul", "eu_gdd_anomaly", "eu_heat_stress_days_4w", "eu_precip_deficit_30d"]].copy()
@@ -141,11 +151,24 @@ def build_openmeteo_eu_features(out_dir: Path | None = None, start: str = "2010-
 
     zone_frames = []
     for zone, cfg in CORN_ZONES_EU.items():
-        df = _fetch_zone(zone, cfg["lat"], cfg["lon"], start=start)
+        path = raw_dir / f"zone_{zone}.parquet"
+        cached = pd.read_parquet(path) if path.exists() else None
+        zone_start = start
+        if cached is not None and not cached.empty:
+            zone_start = (cached["Date"].max() - pd.Timedelta(days=10)).strftime("%Y-%m-%d")
+        df = _fetch_zone(zone, cfg["lat"], cfg["lon"], start=zone_start)
         if df is not None and not df.empty:
-            df = _compute_agro_features(df)
-            df.to_parquet(raw_dir / f"zone_{zone}.parquet", index=False)
+            base = ["Date", "temperature_2m_max", "temperature_2m_min", "precipitation_sum", "zone"]
+            if cached is not None and zone_start != start:
+                df = pd.concat([cached[base], df[base]]).drop_duplicates("Date", keep="last")
+            df = _compute_agro_features(df.dropna(subset=["temperature_2m_max"]).sort_values("Date"))
+            df.to_parquet(path, index=False)
+        else:
+            # zone manquante = biais de pondération silencieux : on garde le cache
+            df = cached
+        if df is not None and not df.empty:
             zone_frames.append((zone, df))
+        time.sleep(1.0)
 
     if not zone_frames:
         return pd.DataFrame(columns=["Date", "eu_gdd_cumul", "eu_gdd_anomaly",

@@ -68,3 +68,46 @@ def test_fas_dated_at_release_with_shutdown_backlog_and_my_boundary():
     assert out.loc[pd.Timestamp("2026-09-10"), "export_sales_accumulated_mt"] == 16
     assert out.loc[pd.Timestamp("2026-09-10"), "export_china_sales_mt"] == 7
     assert pd.Timestamp("2026-01-08") in out.index
+
+
+def test_nass_versions_dated_at_publication():
+    from mais.collect import nass_annual
+    bulk = pd.Timestamp("2012-01-01")
+    assert nass_annual.release_date(2005, "YEAR - MAR ACREAGE", bulk) == pd.Timestamp("2005-03-31")
+    assert nass_annual.release_date(2025, "YEAR", pd.Timestamp("2026-01-12 12:00")) == pd.Timestamp("2026-01-12")
+    assert nass_annual.release_date(2000, "YEAR", bulk) == pd.Timestamp("2001-09-30")
+    assert nass_annual.release_date(2026, "YEAR", pd.Timestamp("2026-09-11")) is None
+
+
+def test_conab_survey_release_month():
+    from mais.collect import conab_brazil
+    assert conab_brazil.release_date("2025/26", 1) == pd.Timestamp("2025-10-16")
+    assert conab_brazil.release_date("2025/26", 12) == pd.Timestamp("2026-09-16")
+
+
+def test_brazil_exports_available_next_month():
+    from mais.collect import brazil_exports
+    rows = [{"year": "2026", "monthNumber": "08", "metricKG": "4653100189", "metricFOB": "1002656682"}]
+    out = brazil_exports.build_monthly(rows)
+    assert out["Date"].iloc[0] == pd.Timestamp("2026-09-10")
+    assert round(out["br_corn_fob_usd_t"].iloc[0], 1) == 215.5
+
+
+def test_wasde_world_parses_old_and_new_layouts(tmp_path):
+    from mais.collect import wasde_world
+    old = ("                          World Corn Supply and Use 1/\r\n"
+           "                      :                 2010/11 (Projected)\r\n"
+           "World 3/              :\r\n"
+           "             May      :  147.04  835.03   86.12  492.70  827.87   88.53  154.21\r\n"
+           "   EU-27 6/       May :    4.43   57.00    2.50   43.50   58.25    1.25    4.43\r\n")
+    new = ("                          World Corn Supply and Use  1/\n"
+           "                                  2026/27 Proj.\n"
+           "    European Union  6/  \n"
+           "                     Aug    5.95   50.20   23.50   53.00   73.00    1.60    5.05\n"
+           "                     Sep    5.95   50.60   23.50   53.40   73.40    1.60    5.05\n")
+    (tmp_path / "wasde1005.txt").write_text(old)
+    (tmp_path / "wasde2609.txt").write_text(new)
+    r_old = {r["country"]: r for r in wasde_world._parse_wasde_file(tmp_path / "wasde1005.txt")}
+    r_new = {r["country"]: r for r in wasde_world._parse_wasde_file(tmp_path / "wasde2609.txt")}
+    assert r_old["world"]["production"] == 835.03 and r_old["eu"]["crop_year"] == 2011
+    assert r_new["eu"]["production"] == 50.6 and r_new["eu"]["crop_year"] == 2027

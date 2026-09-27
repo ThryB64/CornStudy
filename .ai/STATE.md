@@ -1,5 +1,27 @@
 # État du projet — Etude Mais
 
+## Mise à jour 2026-09-27 (suite) — COLLECTE COMPLÈTE : 31 sources actives, toutes datées à la publication
+
+- **Sources UE/monde rebranchées dans la collecte quotidienne** (étaient figées juin-juillet) :
+  `wasde_world` (RÉÉCRIT : l'ancien parser étiquetait « eu » des lignes d'autres tables → production UE 2.85 Mt
+  au lieu de ~60 ; 306 rapports 1995→2026, monde/UE/Ukraine/Brésil/Argentine/Chine, révisions mensuelles),
+  `openmeteo_eu` (incrémental ; zone en échec = cache, sinon biais de pondération ; **eu_gdd_anomaly était
+  faux** : comparé à la moyenne tous jours → même jour années antérieures), `eu_carbon`, `ec_mars`, `franceagrimer`.
+- **Eurostat (ec_mars/franceagrimer)** : datés 15/11 N alors que l'API sert le millésime définitif (fin sept. N+1)
+  → 31/10 N+1 (~1 an de fuite corrigé).
+- **NASS** : nouveau `nass_annual` (Prospective Plantings, Acreage, Crop Production Aug-Nov, final) par version,
+  datés à la publication ; rendement vs tendance (2026 : −7.4 bu/ac). Interims legacy quickstats/production
+  **corrompus** (rendements 1 252-3 637 bu/ac) → `data/interim/_invalid_legacy/` ; `usda_nass_yield_state` désactivé (vide).
+- **Prévision d'export USDA** extraite du WASDE monde → `usda_export_forecast_mt` du FAS (pace = engagements / prévision).
+- **Nouvelles sources** : `brazil_exports` (Comex Stat, volumes + FOB implicite, 1997→, daté 10 de M+1),
+  `conab_brazil` (12 relevés/campagne depuis 2017/18, safrinha, daté 16 du mois), `cbot_curve_archive`
+  (contrats ZC vivants, Yahoo efface les expirés ; copie CI hebdo `data/official_forward/cbot_curve_contracts.parquet`).
+- **Désactivées avec raison documentée** dans sources.yaml (pas de source gratuite scriptable ou déjà couvertes) :
+  BCR, UkrAgroConsult, Dalian, Ukraine exports, Asia tenders, JRC MARS PDF, line-ups Brésil.
+- **Indépendance du PC** : toutes les sources US ont l'historique complet (rattrapage au rallumage) ; seules
+  Euronext officiel, prévisions météo (CI quotidien) et contrats CBOT expirants (CI hebdo) sont irrécupérables.
+- daily-run PASS, 396 features, audit anti-leakage PASS ; collecte forcée : 31/31 OK ; tests PIT 10 + suites PASS.
+
 ## Mise à jour 2026-09-27 — RÉCUPÉRATION DONNÉES + 4 FUITES DE DATAGE CORRIGÉES
 
 - **Rattrapage** : database/features 2026-07-02 → **2026-09-25** (+60 séances), daily-run PASS, audit PASS.

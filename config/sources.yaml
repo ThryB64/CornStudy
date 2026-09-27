@@ -94,7 +94,6 @@ sources:
       - T10YIE            # 10Y breakeven inflation
       - DCOILWTICO        # WTI crude
       - DHHNGSP           # Henry Hub natgas spot
-      - PNFERTUSDM        # Fertilizer price index (Phase 1 NEW)
       - PMAIZMTUSDM       # Corn price (FAO)
     frequency: monthly_or_daily
     publication_lag_days: 1
@@ -105,12 +104,18 @@ sources:
   # USDA WASDE (mensuel)
   # ========================================================================
   - name: usda_wasde
-    provider: usda_wasde_pdf
-    url_template: "https://www.usda.gov/oce/commodity/wasde/wasde{YYYYMM}.pdf"
+    provider: esmis_txt
     frequency: monthly
     publication_lag_days: 0
     enabled: true
-    notes: Publié ~10ème de chaque mois à 12h ET. Parser pdfplumber existant à porter.
+    notes: ESMIS wasdeMMYY.txt, date de publication réelle, effectif J+1 ouvré (usda_wasde_collector).
+
+  # WASDE World Corn (monde/UE/Ukraine/Brésil/Argentine/Chine + prévision export US pour FAS)
+  # — doit tourner APRÈS usda_wasde (txt téléchargés) et AVANT usda_fas_export_sales.
+  - name: wasde_world
+    provider: esmis_txt
+    frequency: monthly
+    enabled: true
 
   # ========================================================================
   # USDA NASS QuickStats (Crop Progress, Crop Condition, Acreage)
@@ -145,6 +150,13 @@ sources:
     statisticcat: YIELD
     frequency: monthly
     publication_lag_days: 1
+    enabled: false  # produisait un fichier vide (schéma crop progress) ; remplacé par nass_annual
+    api_key_env: NASS_API_KEY
+
+  # Surfaces / rendement / production US par version (Prospective Plantings, Acreage, Crop Production)
+  - name: nass_annual
+    provider: nass_quickstats_api
+    frequency: monthly
     enabled: true
     api_key_env: NASS_API_KEY
 
@@ -196,12 +208,18 @@ sources:
   # ========================================================================
   # CBOT futures curve (R&D-03)
   # ========================================================================
+  - name: cbot_curve_archive
+    provider: yfinance
+    frequency: daily
+    enabled: true
+    notes: Archive append-only des contrats ZC vivants (Yahoo efface les expirés) — accumulation courbe/carry.
+
   - name: futures_curve
     provider: cbot_futures_curve
     provider_name: yfinance
     frequency: daily
     publication_lag_days: 1
-    enabled: false
+    enabled: false  # diagnostic seul ; archive réelle = cbot_curve_archive
     notes: Diagnostic qualité obligatoire avant intégration principale ; mapping symbole isolé par provider.
 
   # ========================================================================
@@ -276,21 +294,21 @@ sources:
     provider: conab_html
     commodity: corn
     frequency: monthly
-    enabled: false  # Phase 1 NEW
+    enabled: true  # portail ouvert CONAB LevantamentoGraos.txt (2026-09-27)
     notes: CONAB - estimation production brésilienne (incl. safrinha).
 
   - name: bcr_argentina
     provider: bcr_html
     commodity: corn
     frequency: weekly
-    enabled: false  # Phase 1 NEW
+    enabled: false  # pas d'API (HTML/PDF hebdo) ; bilan Argentine couvert mensuellement par wasde_world
     notes: Bolsa de Cereales Rosario - condition + estimation Argentine.
 
   - name: ukragroconsult
     provider: ukragroconsult_html
     commodity: corn
     frequency: weekly
-    enabled: false  # Phase 1 NEW
+    enabled: false  # service payant
 
   # ========================================================================
   # Indices climat (Phase 1 NEW)
@@ -300,7 +318,7 @@ sources:
     url: https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt
     frequency: monthly
     publication_lag_days: 7
-    enabled: false  # Phase 1 NEW
+    enabled: false  # doublon de enso_oni (même fichier oni.ascii.txt)
     notes: ENSO ONI - driver dominant safrinha brésilienne.
 
   # ========================================================================
@@ -340,7 +358,7 @@ sources:
     ticker: EMA=F
     frequency: daily
     publication_lag_days: 0
-    enabled: false
+    enabled: false  # remplacé par la collecte officielle Euronext (CI)
     notes: >
       Ancien collecteur continu/proxy CBOT conservé pour compatibilité.
       Ne pas utiliser pour les benchmarks EMA réels.
@@ -349,7 +367,7 @@ sources:
     provider: eu_fundamentals_collector
     frequency: daily
     publication_lag_days: 0
-    enabled: false
+    enabled: false  # remplacé par la courbe officielle Euronext (CI)
     notes: >
       Spreads entre contrats EMA (Nov-Jan, Jan-Mar, Mar-Jun) pour signal structure terme.
       Stub — nécessite accès Euronext ou Bloomberg pour contrats spécifiques.
@@ -375,7 +393,7 @@ sources:
     provider: dce_dalian_collector
     frequency: daily
     publication_lag_days: 0
-    enabled: false
+    enabled: false  # pas de source officielle gratuite scriptable (DCE) ; Chine couverte par wasde_world
     notes: >
       Prix futures maïs chinois (CNY/tonne). Signal demande Chine.
       DCE non disponible gratuitement sur yfinance.
@@ -389,7 +407,7 @@ sources:
     provider: eu_fundamentals_collector
     frequency: monthly
     publication_lag_days: 15
-    enabled: false
+    enabled: false  # bulletins JRC en PDF uniquement ; production UE annuelle couverte par ec_mars
     notes: >
       EC MARS bulletin — monitoring cultures EU, estimations rendements (JRC Ispra).
       Publication ~15 du mois. Stub — nécessite parser HTML/PDF JRC.
@@ -399,29 +417,52 @@ sources:
     provider: eu_fundamentals_collector
     frequency: weekly
     publication_lag_days: 1
-    enabled: false
+    enabled: false  # couvert par franceagrimer (Eurostat FR/RO/HU)
     notes: >
       Agreste France — état des cultures (G+E%) hebdomadaire pendant saison.
       Publication lundi. Stub — nécessite scraper agreste.agriculture.gouv.fr.
       Feature: france_ge_pct (analogue US G+E%).
 
   - name: franceagrimer
-    provider: eu_fundamentals_collector
-    frequency: monthly
-    publication_lag_days: 10
-    enabled: false
+    provider: eurostat_apro_cpsh1
+    frequency: annual
+    enabled: true
     notes: >
-      FranceAgriMer — bilan offre/demande France (production, stocks, exports).
-      Publication ~10 du mois. Stub — nécessite parser Excel FranceAgriMer.
+      Production maïs FR/RO/HU (Eurostat apro_cpsh1, millésime définitif daté 31/10 N+1).
+      Le bilan mensuel FranceAgriMer n'a pas d'API structurée.
+
+  - name: ec_mars
+    provider: eurostat_apro_cpsh1
+    frequency: annual
+    enabled: true
+    notes: Production maïs grain UE (Eurostat apro_cpsh1, daté 31/10 N+1).
+
+  - name: openmeteo_eu
+    provider: openmeteo
+    frequency: daily
+    enabled: true
+    notes: 6 zones maïs UE pondérées (GDD, stress thermique, déficit hydrique), incrémental.
+
+  - name: eu_carbon
+    provider: yfinance
+    frequency: daily
+    enabled: true
+    notes: TTF=F et CO2.L (ETS) + z-scores expandants.
 
   # ========================================================================
   # Brésil — CONAB + exports (complète world_collector)
   # ========================================================================
+  - name: brazil_exports
+    provider: comexstat
+    frequency: monthly
+    enabled: true
+    notes: Comex Stat MDIC NCM 1005.90.10 — volumes + FOB implicite, daté au 10 de M+1.
+
   - name: brazil_fob_prices
     provider: world_collector
     frequency: daily
     publication_lag_days: 1
-    enabled: false
+    enabled: false  # couvert par brazil_exports (FOB implicite Comex Stat)
     notes: >
       Prix FOB Paranagua/Santos (USD/tonne). Signal compétition Brésil vs US Gulf.
       Feature dérivée: brazil_us_fob_spread = brazil_fob - us_fob.
@@ -431,7 +472,7 @@ sources:
     provider: world_collector
     frequency: weekly
     publication_lag_days: 3
-    enabled: false
+    enabled: false  # line-ups hebdo non gratuits ; volumes mensuels couverts par brazil_exports
     notes: >
       Inspections portuaires brésiliennes (ANEC/SECEX). Proxy exports hebdomadaires.
       Signal: brazil_export_ytd_vs_5y — pace d'export vs moyenne 5 ans.
@@ -443,7 +484,7 @@ sources:
     provider: world_collector
     frequency: weekly
     publication_lag_days: 3
-    enabled: false
+    enabled: false  # pas d'API officielle (publication ministère irrégulière) ; couvert par wasde_world
     notes: >
       Exports Ukraine (MinAgro / USDA FAS Ukraine). Signal offre mondiale.
       Features: ukraine_export_pace_mt, ukraine_corridor_status (binaire manuel).
@@ -456,7 +497,7 @@ sources:
     provider: world_collector
     frequency: irregular
     publication_lag_days: 1
-    enabled: false
+    enabled: false  # pas de source structurée gratuite
     notes: >
       Tenders Japan (MAFF), Korea (KREI/KGMS), Egypt (GASC) via USDA FAS.
       Feature: asia_total_tender_volume_mt (agrégat), asia_tender_momentum.

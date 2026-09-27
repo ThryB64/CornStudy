@@ -3,7 +3,8 @@
 Source : Eurostat apro_cpsh1 — production/rendement maïs grain EU.
 Code maïs grain : C1500 (Grain maize and corn-cob-mix).
 Accès via SDMX 2.1 REST API, sans authentification.
-Anti-leakage : publication annuelle (automne N) → shift(1) + forward-fill.
+Anti-leakage : l'API renvoie le millésime DÉFINITIF, transmis fin septembre N+1 (métadonnées
+apro_cp) → daté au 31 octobre N+1 (legacy : 15 novembre N, ~1 an de fuite), shift(1) + forward-fill.
 """
 
 from __future__ import annotations
@@ -79,10 +80,10 @@ def build_ec_mars_features(out_dir: Path | None = None) -> pd.DataFrame:
         annual["ec_mars_prod_anomaly_eu"] = annual["production_eu_kt"] - mu
         annual["ec_mars_prod_yoy_pct"] = annual["production_eu_kt"].pct_change() * 100
 
-    # Publication date = November 15 of the harvest year
+    # millésime définitif disponible fin octobre N+1
     rows = []
     for _, row in annual.iterrows():
-        pub_date = pd.Timestamp(f"{int(row['year'])}-11-15")
+        pub_date = pd.Timestamp(f"{int(row['year']) + 1}-10-31")
         rows.append({
             "Date": pub_date,
             "ec_mars_production_eu_kt": row.get("production_eu_kt"),

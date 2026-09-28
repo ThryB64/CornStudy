@@ -1,21 +1,21 @@
 {
   "version": "V42-OFFICIAL-AUTOMATION",
-  "as_of": "2026-09-25",
+  "as_of": "2026-09-28",
   "session_today": "TRADING_SESSION",
   "collect_expected_today": true,
   "monitoring_status": "TRADING_DAY_COLLECT_EXPECTED",
   "market_sessions": {
-    "n_days": 147,
-    "trading_days": 105,
-    "no_session_days": 42,
-    "last_date": "2026-09-25"
+    "n_days": 150,
+    "trading_days": 106,
+    "no_session_days": 44,
+    "last_date": "2026-09-28"
   },
   "public_backfill_coverage": {
     "version": "V42-PUBLIC-BACKFILL",
-    "n_days": 86,
+    "n_days": 87,
     "date_range": [
       "2026-05-29",
-      "2026-09-25"
+      "2026-09-28"
     ],
     "n_contracts_seen": 12,
     "contracts_seen": [
@@ -43,7 +43,7 @@
   },
   "proxy_vs_official": {
     "version": "V42-PROXY-VS-OFFICIAL",
-    "n_official_days": 159,
+    "n_official_days": 160,
     "signal_agreement_rate": null,
     "milestones": {
       "first": 10,

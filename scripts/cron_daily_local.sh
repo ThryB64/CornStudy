@@ -18,6 +18,9 @@ curl -s -m 10 -o /dev/null https://query1.finance.yahoo.com || { echo "$(date -I
 
 set -a; [ -f .env ] && . ./.env; set +a
 venv/bin/python -m mais.cli daily-run --collect
+# le journal forward officiel appartient au CI (append-only, commité 2×/jour) : la copie locale
+# ne doit pas diverger, sinon git pull échoue
+git checkout -- data/forward_journal 2>/dev/null
 STATUS=$(venv/bin/python -c "import json;print(json.load(open('artefacts/daily/daily_status.json')).get('overall_status',''))" 2>/dev/null)
 echo "$(date -Is) daily-run status=$STATUS"
 [ "$STATUS" != "FAIL" ] && [ -n "$STATUS" ] && touch "$STAMP_DIR/$TODAY"

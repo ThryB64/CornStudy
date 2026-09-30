@@ -1,7 +1,7 @@
 {
   "version": "V109-EMA-CURVE-TENSION",
-  "as_of_curve": "2026-09-29",
-  "basis_z_official": -0.143,
+  "as_of_curve": "2026-09-30",
+  "basis_z_official": -0.388,
   "curve": {
     "front_contract": "EMA_H2027",
     "front_settle": 261.75,
@@ -12,7 +12,7 @@
     "curve_shape": "BACKWARDATION",
     "nov_mar_spread": 4.5,
     "most_liquid_contract": "EMA_H2027",
-    "front_oi": 14756
+    "front_oi": 15353
   },
   "components": {
     "backwardation": 1,

@@ -2,10 +2,10 @@
   "version": "PREMIUM-HEAD",
   "verdict": "PREMIUM_HEAD_BUILT",
   "scope": "PREMIUM_ONLY",
-  "as_of": "2026-09-30",
+  "as_of": "2026-10-01",
   "PREMIUM_STATE": "NO_SIGNAL",
-  "basis_z": -0.388,
-  "basis_eur_t": 79.7,
+  "basis_z": 0.359,
+  "basis_eur_t": 85.43,
   "official_proxy_status": "official_rolling",
   "PRIME_NATURE": "NO_SIGNAL",
   "LIFECYCLE_STATE": "NO_ACTIVE_SIGNAL",
@@ -38,12 +38,12 @@
       "fresh": true
     },
     "WEATHER_WARNING_US": {
-      "value": "UNKNOWN",
-      "fresh": false
+      "value": "MEDIUM",
+      "fresh": true
     },
     "WEATHER_WARNING_EU": {
-      "value": "LOW",
-      "fresh": true
+      "value": "UNKNOWN",
+      "fresh": false
     },
     "ACTIVE_SIGNAL_HEALTH": {
       "value": "ACTIVE_EARLY",
@@ -57,27 +57,28 @@
   "warnings": [],
   "consistency": {
     "verdict": "LIVE_SIGNAL_CONSISTENT",
-    "reference_date": "2026-09-30",
+    "reference_date": "2026-10-01",
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99"
+      "v99",
+      "daily_latest"
     ]
   },
   "freshness": {
     "verdict": "CONTEXT_COHERENT",
-    "context_lag_days": 8,
+    "context_lag_days": 9,
     "disabled": []
   },
   "session_truth": {
-    "n_days": 89,
+    "n_days": 90,
     "n_final_days": 76,
-    "last_date": "2026-09-30",
+    "last_date": "2026-10-01",
     "last_final_date": "2026-09-25",
     "last_record_status": "PROVISIONAL",
     "last_day_provisional": true,
     "session_status_counts": {
-      "PROVISIONAL": 86,
+      "PROVISIONAL": 87,
       "REVISED": 73,
       "FINAL": 3
     }
@@ -96,8 +97,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime NO_SIGNAL (basis 79.7 \u20ac/t, z -0.388, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US UNKNOWN/EU LOW. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-09-30 22:29:44 UTC",
+  "explanation": "Prime NO_SIGNAL (basis 85.43 \u20ac/t, z 0.359, official_rolling). Contexte : ADVERSE UNKNOWN, CBOT_SUPPORT HIGH, PHYSICAL_TENSION UNKNOWN (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal ACTIVE_EARLY. Objectif recommand\u00e9 **UNKNOWN** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-10-01 11:46:53 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

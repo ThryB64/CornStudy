@@ -1,7 +1,7 @@
 {
   "version": "V122-CONSISTENCY",
-  "as_of": "2026-10-01",
-  "reference_date": "2026-10-01",
+  "as_of": "2026-10-02",
+  "reference_date": "2026-10-02",
   "reference_signal_tier": "NO_SIGNAL",
   "reference_record_status": "PROVISIONAL",
   "layers_checked": [
@@ -33,44 +33,23 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
+    },
+    {
+      "layer": "daily_latest",
+      "as_of": "2026-10-01",
+      "signal_tier": "NO_SIGNAL"
     }
   ],
   "consistent": true,
   "verdict": "LIVE_SIGNAL_CONSISTENT",
   "n_revisions_logged": 7,
-  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-10-01, NO_SIGNAL, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
+  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-10-02, NO_SIGNAL, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "revision": {
-    "status": "CHANGES_DETECTED_APPEND_ONLY",
-    "price_date": "2026-10-01",
-    "changes": {
-      "official_front_settlement": {
-        "old": 260.5,
-        "new": 263.0
-      },
-      "cbot_cents_bu": {
-        "old": 502.5,
-        "new": 502.0
-      },
-      "eurusd": {
-        "old": 1.1299,
-        "new": 1.1246
-      },
-      "cbot_eur_t": {
-        "old": 175.07,
-        "new": 175.73
-      },
-      "basis_official_eur_t": {
-        "old": 85.43,
-        "new": 87.27
-      },
-      "basis_z_used": {
-        "old": 0.359,
-        "new": 0.598
-      }
-    },
-    "new_signal_tier": "NO_SIGNAL",
-    "note": "journal NON modifi\u00e9 (V27 seul writer, append-only V150)"
+    "status": "NO_CHANGE",
+    "price_date": "2026-10-02",
+    "record_status": "PROVISIONAL",
+    "signal_tier": "NO_SIGNAL"
   }
 }

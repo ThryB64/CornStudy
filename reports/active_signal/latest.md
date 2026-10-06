@@ -18,7 +18,7 @@ _Généré au 2026-10-06 · RESEARCH_ONLY_NOT_TRADING_
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
 |---|---|---|---|---|---|---|---|---|
-| 2026-10-06 | PROVISIONAL | 93.95 | 1.47 | SHORT_PREMIUM_MODERATE | 175.30 | 3.00 | BACKWARDATION | 0.91 |
+| 2026-10-06 | PROVISIONAL | 93.95 | 1.47 | SHORT_PREMIUM_MODERATE | 175.30 | 3.25 | BACKWARDATION | 0.91 |
 
 ## Warnings
 - ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer

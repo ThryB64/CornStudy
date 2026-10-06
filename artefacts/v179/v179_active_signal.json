@@ -44,7 +44,7 @@
       "tier": "SHORT_PREMIUM_MODERATE",
       "cbot_eur_t": 175.3,
       "session": "PROVISIONAL",
-      "curve_spread": 3.0,
+      "curve_spread": 3.25,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.9127
     }

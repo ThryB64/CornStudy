@@ -1,30 +1,30 @@
-# 📊 Dashboard indicateur premium v5 — 2026-10-05
-_Généré 2026-10-06 00:16:47 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-10-06
+_Généré 2026-10-06 12:11:39 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 87.82 €/t · z 0.666 (official_rolling)
-- Baseline vs confirmé : **sous baseline · non confirmé (<1.2)** · qualité **NONE** · score composite **0/5** (V176, qualifie sans remplacer la baseline)
-- Machine d'état : **NO_ACTIVE_SIGNAL** · nature **NO_SIGNAL** · cycle **NO_ACTIVE_SIGNAL**
-- Objectif **UNKNOWN** · horizon ~51 j
+- **SHORT_PREMIUM_MODERATE** · basis 93.95 €/t · z 1.466 (official_rolling)
+- Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **CONFIRMED_SIGNAL** · score composite **1/5** (V176, qualifie sans remplacer la baseline)
+- Machine d'état : **PRIME_EXCESSIVE** · nature **PRIME_EXCESSIVE** · cycle **ACTIVE_EARLY**
+- Objectif **z->0.5** · horizon ~51 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-09-22 (z 1.229) · 3 j · statut **ACTIVE_EARLY**
-- Compression réalisée **-4.94 €/t** · MFE 0.2 · MAE 4.94 · distance z→0.5 : 1.315
+- Entrée 2026-10-06 (z 1.466) · 0 j · statut **ACTIVE_EARLY**
+- Compression réalisée **0.0 €/t** · MFE 0.0 · MAE 0.0 · distance z→0.5 : 0.966
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 3.0 €/t, BACKWARDATION)
-- MATIF blé/maïs : 0.916 · substitution DATA_BLOCKED
-- CBOT_SUPPORT HIGH · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
+- MATIF blé/maïs : 0.913 · substitution DATA_BLOCKED
+- CBOT_SUPPORT HIGH · ADVERSE_RISK HIGH · PHYSICAL_TENSION MEDIUM
 - Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **92** · prochain jalon **180** (bilan forward) · z rolling officiel True
+- Jours officiels **93** · prochain jalon **180** (bilan forward) · z rolling officiel True
 - Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 61
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 92/150', 'V168_MATIF': 'ACCUMULATING 91/150', 'V155_SUMMER': 'TRIGGERED 210/150'}
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 93/150', 'V168_MATIF': 'ACCUMULATING 92/150', 'V155_SUMMER': 'TRIGGERED 210/150'}
 
 ## Santé du système
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
 - Diagnostics bloqués : aucun
-- Warnings : aucun
+- Warnings : ["ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer"]
 
 Source unique : data/premium/premium_daily_head.json · baseline z>1 FIGÉE. RESEARCH_ONLY_NOT_TRADING.

@@ -1,21 +1,21 @@
-# 📊 Dashboard indicateur premium v4 — 2026-10-05
-_Généré 2026-10-06 00:15:27 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-10-06
+_Généré 2026-10-06 12:10:51 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 87.82 €/t · z 0.666 (official_rolling)
-- État : **NO_ACTIVE_SIGNAL** (nature NO_SIGNAL, cycle NO_ACTIVE_SIGNAL)
-- Objectif : **UNKNOWN** · horizon ~51 j
-- Qualité : **NONE**
+- **SHORT_PREMIUM_MODERATE** · basis 93.95 €/t · z 1.466 (official_rolling)
+- État : **PRIME_EXCESSIVE** (nature PRIME_EXCESSIVE, cycle ACTIVE_EARLY)
+- Objectif : **z->0.5** · horizon ~51 j
+- Qualité : **CONFIRMED_SIGNAL**
 
 ## Contexte
-- ADVERSE_RISK UNKNOWN (stale) · CBOT_SUPPORT HIGH · PHYSICAL_TENSION UNKNOWN (stale)
+- ADVERSE_RISK HIGH · CBOT_SUPPORT HIGH · PHYSICAL_TENSION MEDIUM
 - Substitution DATA_BLOCKED · courbe NARROWING · santé ACTIVE_EARLY
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
-- Jours officiels 92 · prochain jalon 180 (bilan forward) · z rolling officiel True
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Jours officiels 93 · prochain jalon 180 (bilan forward) · z rolling officiel True
 
-_Warnings : []_
+_Warnings : ["ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer"]_
 
 Source unique : data/premium/premium_daily_head.json. RESEARCH_ONLY_NOT_TRADING.

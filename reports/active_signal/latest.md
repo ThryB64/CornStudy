@@ -1,27 +1,24 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-09-25 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-10-06 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : ACTIVE_EARLY** · entrée 2026-09-22 (SHORT_PREMIUM_MODERATE, z 1.229) · 3 j
+**Statut : ACTIVE_EARLY** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 0 j
 
 ## Trajectoire
-- basis 91.62 → 96.56 €/t (compression réalisée **-4.94 €/t**)
-- z 1.229 → 1.815 · distance z→0.5 : **1.315** · z→0 : 1.815
-- MFE 0.2 €/t · MAE 4.94 €/t · horizon médian 51 j
+- basis 93.95 → 93.95 €/t (compression réalisée **0.0 €/t**)
+- z 1.466 → 1.466 · distance z→0.5 : **0.966** · z→0 : 1.466
+- MFE 0.0 €/t · MAE 0.0 €/t · horizon médian 51 j
 
 ## Machine d'état & contexte
-- nature : **PRIME_PHYSICALLY_JUSTIFIED** · cycle : **ACTIVE_EARLY**
-- objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : HIGH · CBOT support : HIGH · ADVERSE : LOW
+- nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
+- objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : MEDIUM · CBOT support : HIGH · ADVERSE : HIGH
 - météo US : LOW · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
 |---|---|---|---|---|---|---|---|---|
-| 2026-09-22 | REVISED | 91.62 | 1.23 | SHORT_PREMIUM_MODERATE | 184.38 | 4.00 | BACKWARDATION | 0.91 |
-| 2026-09-23 | REVISED | 91.99 | 1.25 | SHORT_PREMIUM_MODERATE | 182.76 | 5.50 | BACKWARDATION | 0.88 |
-| 2026-09-24 | REVISED | 93.12 | 1.38 | SHORT_PREMIUM_MODERATE | 182.13 | 7.50 | BACKWARDATION | 0.88 |
-| 2026-09-25 | PROVISIONAL | 96.56 | 1.81 | SHORT_PREMIUM_STRONG | 178.69 | 7.50 | BACKWARDATION | 0.86 |
+| 2026-10-06 | PROVISIONAL | 93.95 | 1.47 | SHORT_PREMIUM_MODERATE | 175.30 | 3.00 | BACKWARDATION | 0.91 |
 
 ## Warnings
-- prime adossée à une tension physique (backwardation) -> compression plus lente
+- ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer

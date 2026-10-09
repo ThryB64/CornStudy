@@ -29,11 +29,11 @@
     "objective": "z->0.5",
     "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
-    "weather_us": "UNKNOWN",
-    "weather_eu": "LOW",
+    "weather_us": "LOW",
+    "weather_eu": "UNKNOWN",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "cbot_support": "HIGH",
+    "cbot_support": "MEDIUM",
     "adverse_risk": "HIGH"
   },
   "daily_table": [
@@ -77,7 +77,7 @@
       "tier": "SHORT_PREMIUM_MODERATE",
       "cbot_eur_t": 175.54,
       "session": "PROVISIONAL",
-      "curve_spread": 3.0,
+      "curve_spread": 3.75,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.908
     }

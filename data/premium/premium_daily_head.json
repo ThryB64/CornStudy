@@ -11,7 +11,7 @@
   "LIFECYCLE_STATE": "COMPRESSION_HEALTHY",
   "HEADLINE_STATE": "COMPRESSION_HEALTHY",
   "SIGNAL_QUALITY": "CONFIRMED_SIGNAL",
-  "COMPOSITE_SCORE": 1,
+  "COMPOSITE_SCORE": 0,
   "WATCH_STATE": null,
   "TARGET_RECOMMENDATION": "z->0.5",
   "HORIZON_ESTIMATE": {
@@ -26,7 +26,7 @@
       "fresh": true
     },
     "CBOT_SUPPORT": {
-      "value": "HIGH",
+      "value": "MEDIUM",
       "fresh": true
     },
     "PHYSICAL_TENSION": {
@@ -38,12 +38,12 @@
       "fresh": true
     },
     "WEATHER_WARNING_US": {
-      "value": "UNKNOWN",
-      "fresh": false
-    },
-    "WEATHER_WARNING_EU": {
       "value": "LOW",
       "fresh": true
+    },
+    "WEATHER_WARNING_EU": {
+      "value": "UNKNOWN",
+      "fresh": false
     },
     "ACTIVE_SIGNAL_HEALTH": {
       "value": "HEALTHY",
@@ -63,13 +63,12 @@
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99",
-      "daily_latest"
+      "v99"
     ]
   },
   "freshness": {
     "verdict": "CONTEXT_COHERENT",
-    "context_lag_days": 10,
+    "context_lag_days": 3,
     "disabled": []
   },
   "session_truth": {
@@ -99,8 +98,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime SHORT_PREMIUM_MODERATE (basis 93.46 \u20ac/t, z 1.355, official_rolling). Contexte : ADVERSE HIGH, CBOT_SUPPORT HIGH, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US UNKNOWN/EU LOW. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-10-09 12:03:43 UTC",
+  "explanation": "Prime SHORT_PREMIUM_MODERATE (basis 93.46 \u20ac/t, z 1.355, official_rolling). Contexte : ADVERSE HIGH, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US LOW/EU UNKNOWN. Sant\u00e9 signal HEALTHY. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-10-09 22:50:06 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

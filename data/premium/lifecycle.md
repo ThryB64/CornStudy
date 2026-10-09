@@ -1,5 +1,5 @@
 # Cycle de vie du signal actif — 2026-10-09
-_Généré 2026-10-09 12:02:49 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-10-09 22:49:19 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **État** : COMPRESSION_HEALTHY (nature PRIME_EXCESSIVE, cycle COMPRESSION_HEALTHY)
 - **Âge** : 3 j · santé HEALTHY

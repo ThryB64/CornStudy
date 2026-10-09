@@ -14,7 +14,7 @@
   "lifecycle_state": "COMPRESSION_HEALTHY",
   "headline_state": "COMPRESSION_HEALTHY",
   "signal_quality": "CONFIRMED_SIGNAL",
-  "composite_score": 1,
+  "composite_score": 0,
   "quality_note": null,
   "interpretation": "Au 2026-10-09 : SHORT_PREMIUM_MODERATE (z 1.355). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **COMPRESSION_HEALTHY** (sant\u00e9 HEALTHY, compression 0.49). \u00c9tat headline : **COMPRESSION_HEALTHY**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",

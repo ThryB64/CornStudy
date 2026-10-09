@@ -1,8 +1,8 @@
 {
   "version": "V122-CONSISTENCY",
-  "as_of": "2026-10-08",
-  "reference_date": "2026-10-08",
-  "reference_signal_tier": "SHORT_PREMIUM_STRONG",
+  "as_of": "2026-10-09",
+  "reference_date": "2026-10-09",
+  "reference_signal_tier": "SHORT_PREMIUM_MODERATE",
   "reference_record_status": "PROVISIONAL",
   "layers_checked": [
     {
@@ -18,7 +18,7 @@
     {
       "layer": "daily_latest",
       "as_of": "2026-10-08",
-      "signal_tier": "SHORT_PREMIUM_STRONG"
+      "signal_tier": "SHORT_PREMIUM_MODERATE"
     }
   ],
   "duplicate_dates": [],
@@ -33,48 +33,23 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
+    },
+    {
+      "layer": "daily_latest",
+      "as_of": "2026-10-08",
+      "signal_tier": "SHORT_PREMIUM_MODERATE"
     }
   ],
   "consistent": true,
   "verdict": "LIVE_SIGNAL_CONSISTENT",
   "n_revisions_logged": 11,
-  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-10-08, SHORT_PREMIUM_STRONG, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
+  "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-10-09, SHORT_PREMIUM_MODERATE, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "revision": {
-    "status": "CHANGES_DETECTED_APPEND_ONLY",
-    "price_date": "2026-10-08",
-    "changes": {
-      "official_front_settlement": {
-        "old": 272.0,
-        "new": 269.0
-      },
-      "cbot_cents_bu": {
-        "old": 501.75,
-        "new": 499.75
-      },
-      "eurusd": {
-        "old": 1.1189,
-        "new": 1.1216
-      },
-      "cbot_eur_t": {
-        "old": 176.53,
-        "new": 175.41
-      },
-      "basis_official_eur_t": {
-        "old": 95.47,
-        "new": 93.59
-      },
-      "basis_z_used": {
-        "old": 1.632,
-        "new": 1.372
-      },
-      "signal_tier": {
-        "old": "SHORT_PREMIUM_STRONG",
-        "new": "SHORT_PREMIUM_MODERATE"
-      }
-    },
-    "new_signal_tier": "SHORT_PREMIUM_MODERATE",
-    "note": "journal NON modifi\u00e9 (V27 seul writer, append-only V150)"
+    "status": "NO_CHANGE",
+    "price_date": "2026-10-09",
+    "record_status": "PROVISIONAL",
+    "signal_tier": "SHORT_PREMIUM_MODERATE"
   }
 }

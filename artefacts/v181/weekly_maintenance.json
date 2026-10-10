@@ -3,17 +3,17 @@
   "verdict": "OK",
   "n_fail": 0,
   "n_warn": 0,
-  "generated_at": "2026-09-27T17:38:57.901083+00:00",
+  "generated_at": "2026-10-10T11:39:30.984313+00:00",
   "checks": [
     {
       "check": "ci_daily",
       "status": "OK",
-      "detail": "daily 2026-09-25 result=OK"
+      "detail": "daily 2026-10-09 result=OK"
     },
     {
       "check": "premium_head",
       "status": "OK",
-      "detail": "as_of 2026-09-25, autoritatives \u00e0 jour (reporting-only en retard : ['v101', 'v99'])"
+      "detail": "as_of 2026-10-09, autoritatives \u00e0 jour (reporting-only en retard : ['v101', 'v99'])"
     },
     {
       "check": "single_source",
@@ -23,22 +23,22 @@
     {
       "check": "official_journal",
       "status": "OK",
-      "detail": "159 lignes, derni\u00e8re date il y a 2 j"
+      "detail": "169 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "ema_curve",
       "status": "OK",
-      "detail": "86 lignes, derni\u00e8re date il y a 2 j"
+      "detail": "96 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "matif_ratio",
       "status": "OK",
-      "detail": "85 lignes, derni\u00e8re date il y a 2 j"
+      "detail": "95 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "weather_archive",
       "status": "OK",
-      "detail": "54128 lignes, derni\u00e8re date il y a 2 j"
+      "detail": "57936 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "critical_tests",
@@ -48,14 +48,14 @@
   ],
   "next_milestones": {
     "official": {
-      "n_days": 86,
-      "next": 90,
-      "meaning": "validation proxy/officiel"
+      "n_days": 96,
+      "next": 180,
+      "meaning": "bilan forward"
     },
     "data_gated": {
-      "V166_OFFICIAL": "86/150",
-      "V168_MATIF": "85/150",
-      "V155_SUMMER": "199/150"
+      "V166_OFFICIAL": "96/150",
+      "V168_MATIF": "95/150",
+      "V155_SUMMER": "213/150"
     },
     "v178_validation": "PROXY_RESEARCH_ONLY"
   },

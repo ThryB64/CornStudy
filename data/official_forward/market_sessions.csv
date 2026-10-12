@@ -160,3 +160,6 @@ date,weekday,session,trading_session
 2026-10-07,Wednesday,TRADING_SESSION,True
 2026-10-08,Thursday,TRADING_SESSION,True
 2026-10-09,Friday,TRADING_SESSION,True
+2026-10-10,Saturday,NO_SESSION_WEEKEND,False
+2026-10-11,Sunday,NO_SESSION_WEEKEND,False
+2026-10-12,Monday,TRADING_SESSION,True

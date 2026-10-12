@@ -1,40 +1,40 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "HEALTHY",
+  "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-10-06",
-    "current_date": "2026-10-09",
-    "days_since_entry": 3,
+    "current_date": "2026-10-12",
+    "days_since_entry": 6,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_MODERATE",
+    "current_tier": "SHORT_PREMIUM_STRONG",
     "entry_z": 1.466,
-    "current_z": 1.355,
+    "current_z": 1.634,
     "entry_basis_eur_t": 93.95,
-    "current_basis_eur_t": 93.46,
-    "compression_realized_eur_t": 0.49,
+    "current_basis_eur_t": 95.71,
+    "compression_realized_eur_t": -1.76,
     "mfe_eur_t": 0.49,
-    "mae_eur_t": 1.52,
-    "distance_to_z05": 0.855,
-    "distance_to_z0": 1.355,
+    "mae_eur_t": 1.76,
+    "distance_to_z05": 1.134,
+    "distance_to_z0": 1.634,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
-    "lifecycle_state": "COMPRESSION_HEALTHY",
-    "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.355
+    "lifecycle_state": "ACTIVE_EARLY",
+    "signal_tier": "SHORT_PREMIUM_STRONG",
+    "basis_z": 1.634
   },
   "context": {
-    "objective": "z->0.5",
-    "signal_quality": "CONFIRMED_SIGNAL",
+    "objective": "z->0",
+    "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
-    "weather_us": "LOW",
-    "weather_eu": "UNKNOWN",
+    "weather_us": "UNKNOWN",
+    "weather_eu": "MEDIUM",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "MEDIUM",
-    "adverse_risk": "HIGH"
+    "adverse_risk": "MEDIUM"
   },
   "daily_table": [
     {
@@ -80,10 +80,19 @@
       "curve_spread": 3.75,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.908
+    },
+    {
+      "date": "2026-10-12",
+      "basis": 95.71,
+      "z": 1.634,
+      "tier": "SHORT_PREMIUM_STRONG",
+      "cbot_eur_t": 169.54,
+      "session": "PROVISIONAL",
+      "curve_spread": 3.75,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.9123
     }
   ],
-  "warnings": [
-    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer"
-  ],
+  "warnings": [],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

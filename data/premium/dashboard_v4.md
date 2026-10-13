@@ -1,5 +1,5 @@
 # 📊 Dashboard indicateur premium v4 — 2026-10-12
-_Généré 2026-10-12 13:24:22 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-10-13 00:55:36 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
 - **SHORT_PREMIUM_STRONG** · basis 95.71 €/t · z 1.634 (official_rolling)
@@ -13,7 +13,7 @@ _Généré 2026-10-12 13:24:22 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
 - Jours officiels 97 · prochain jalon 180 (bilan forward) · z rolling officiel True
 
 _Warnings : []_

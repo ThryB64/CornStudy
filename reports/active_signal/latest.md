@@ -13,7 +13,7 @@ _Généré au 2026-10-12 · RESEARCH_ONLY_NOT_TRADING_
 - nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
 - objectif : z->0 · qualité : STRONG_SIGNAL · composite : None
 - courbe : NARROWING · tension physique : MEDIUM · CBOT support : MEDIUM · ADVERSE : MEDIUM
-- météo US : UNKNOWN · météo EU : MEDIUM
+- météo US : LOW · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -22,4 +22,4 @@ _Généré au 2026-10-12 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-10-07 | PROVISIONAL | 95.42 | 1.64 | SHORT_PREMIUM_STRONG | 177.33 | 3.25 | BACKWARDATION | 0.91 |
 | 2026-10-08 | PROVISIONAL | 95.47 | 1.63 | SHORT_PREMIUM_STRONG | 176.53 | 3.00 | BACKWARDATION | 0.90 |
 | 2026-10-09 | PROVISIONAL | 93.46 | 1.35 | SHORT_PREMIUM_MODERATE | 175.54 | 3.75 | BACKWARDATION | 0.91 |
-| 2026-10-12 | PROVISIONAL | 95.71 | 1.63 | SHORT_PREMIUM_STRONG | 169.54 | 3.75 | BACKWARDATION | 0.91 |
+| 2026-10-12 | PROVISIONAL | 95.71 | 1.63 | SHORT_PREMIUM_STRONG | 169.54 | 4.00 | BACKWARDATION | 0.91 |

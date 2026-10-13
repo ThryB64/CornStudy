@@ -1,5 +1,5 @@
 # Cycle de vie du signal actif — 2026-10-13
-_Généré 2026-10-13 12:53:33 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-10-13 23:01:49 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **État** : PRIME_EXCESSIVE (nature PRIME_EXCESSIVE, cycle ACTIVE_EARLY)
 - **Âge** : 7 j · santé ACTIVE_EARLY

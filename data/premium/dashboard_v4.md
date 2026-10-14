@@ -1,11 +1,11 @@
-# 📊 Dashboard indicateur premium v4 — 2026-10-13
-_Généré 2026-10-13 23:01:49 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-10-14
+_Généré 2026-10-14 10:27:12 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_STRONG** · basis 97.52 €/t · z 1.848 (official_rolling)
+- **SHORT_PREMIUM_EXTREME** · basis 100.33 €/t · z 2.182 (official_rolling)
 - État : **PRIME_EXCESSIVE** (nature PRIME_EXCESSIVE, cycle ACTIVE_EARLY)
 - Objectif : **z->0** · horizon ~51 j
-- Qualité : **STRONG_SIGNAL**
+- Qualité : **EXTREME_SIGNAL**
 
 ## Contexte
 - ADVERSE_RISK MEDIUM · CBOT_SUPPORT MEDIUM · PHYSICAL_TENSION MEDIUM
@@ -13,8 +13,8 @@ _Généré 2026-10-13 23:01:49 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
-- Jours officiels 98 · prochain jalon 180 (bilan forward) · z rolling officiel True
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Jours officiels 99 · prochain jalon 180 (bilan forward) · z rolling officiel True
 
 _Warnings : []_
 

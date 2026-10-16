@@ -5,8 +5,8 @@ _Généré au 2026-10-16 · RESEARCH_ONLY_NOT_TRADING_
 **Statut : SLOW** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 10 j
 
 ## Trajectoire
-- basis 93.95 → 109.03 €/t (compression réalisée **-15.08 €/t**)
-- z 1.466 → 2.928 · distance z→0.5 : **2.428** · z→0 : 2.928
+- basis 93.95 → 105.2 €/t (compression réalisée **-11.25 €/t**)
+- z 1.466 → 2.416 · distance z→0.5 : **1.916** · z→0 : 2.416
 - MFE 0.49 €/t · MAE 18.44 €/t · horizon médian 51 j
 
 ## Machine d'état & contexte
@@ -26,4 +26,4 @@ _Généré au 2026-10-16 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-10-13 | PROVISIONAL | 97.52 | 1.85 | SHORT_PREMIUM_STRONG | 169.98 | 4.25 | BACKWARDATION | 0.91 |
 | 2026-10-14 | REVISED | 111.03 | 3.49 | SHORT_PREMIUM_EXTREME | 169.72 | 3.75 | BACKWARDATION | 0.91 |
 | 2026-10-15 | REVISED | 107.94 | 2.88 | SHORT_PREMIUM_EXTREME | 167.81 | 3.50 | BACKWARDATION | 0.88 |
-| 2026-10-16 | PROVISIONAL | 109.03 | 2.93 | SHORT_PREMIUM_EXTREME | 166.72 | 3.50 | BACKWARDATION | 0.89 |
+| 2026-10-16 | REVISED | 105.20 | 2.42 | SHORT_PREMIUM_EXTREME | 166.05 | 3.25 | BACKWARDATION | 0.89 |

@@ -1,16 +1,16 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-10-15 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-10-16 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : ACTIVE_EARLY** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 9 j
+**Statut : SLOW** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 10 j
 
 ## Trajectoire
-- basis 93.95 → 107.94 €/t (compression réalisée **-13.99 €/t**)
-- z 1.466 → 2.876 · distance z→0.5 : **2.376** · z→0 : 2.876
+- basis 93.95 → 109.03 €/t (compression réalisée **-15.08 €/t**)
+- z 1.466 → 2.928 · distance z→0.5 : **2.428** · z→0 : 2.928
 - MFE 0.49 €/t · MAE 18.44 €/t · horizon médian 51 j
 
 ## Machine d'état & contexte
-- nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
+- nature : **PRIME_EXCESSIVE** · cycle : **COMPRESSION_DELAYED**
 - objectif : z->0 · qualité : EXTREME_SIGNAL · composite : None
 - courbe : NARROWING · tension physique : MEDIUM · CBOT support : MEDIUM · ADVERSE : MEDIUM
 - météo US : UNKNOWN · météo EU : LOW
@@ -26,3 +26,4 @@ _Généré au 2026-10-15 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-10-13 | PROVISIONAL | 97.52 | 1.85 | SHORT_PREMIUM_STRONG | 169.98 | 4.25 | BACKWARDATION | 0.91 |
 | 2026-10-14 | REVISED | 111.03 | 3.49 | SHORT_PREMIUM_EXTREME | 169.72 | 3.75 | BACKWARDATION | 0.91 |
 | 2026-10-15 | REVISED | 107.94 | 2.88 | SHORT_PREMIUM_EXTREME | 167.81 | 3.50 | BACKWARDATION | 0.88 |
+| 2026-10-16 | PROVISIONAL | 109.03 | 2.93 | SHORT_PREMIUM_EXTREME | 166.72 | 3.50 | BACKWARDATION | 0.89 |

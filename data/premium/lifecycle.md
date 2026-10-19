@@ -1,5 +1,5 @@
 # Cycle de vie du signal actif — 2026-10-19
-_Généré 2026-10-19 11:05:32 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-10-19 22:34:24 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **État** : COMPRESSION_DELAYED (nature PRIME_EXCESSIVE, cycle COMPRESSION_DELAYED)
 - **Âge** : 13 j · santé SLOW

@@ -2,10 +2,10 @@
   "version": "PREMIUM-HEAD",
   "verdict": "PREMIUM_HEAD_BUILT",
   "scope": "PREMIUM_ONLY",
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-20",
   "PREMIUM_STATE": "SHORT_PREMIUM_EXTREME",
-  "basis_z": 2.374,
-  "basis_eur_t": 105.23,
+  "basis_z": 2.442,
+  "basis_eur_t": 106.24,
   "official_proxy_status": "official_rolling",
   "PRIME_NATURE": "PRIME_EXCESSIVE",
   "LIFECYCLE_STATE": "COMPRESSION_DELAYED",
@@ -57,27 +57,28 @@
   "warnings": [],
   "consistency": {
     "verdict": "LIVE_SIGNAL_CONSISTENT",
-    "reference_date": "2026-10-19",
+    "reference_date": "2026-10-20",
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99"
+      "v99",
+      "daily_latest"
     ]
   },
   "freshness": {
     "verdict": "CONTEXT_COHERENT",
-    "context_lag_days": 6,
+    "context_lag_days": 7,
     "disabled": []
   },
   "session_truth": {
-    "n_days": 102,
+    "n_days": 103,
     "n_final_days": 79,
-    "last_date": "2026-10-19",
+    "last_date": "2026-10-20",
     "last_final_date": "2026-10-16",
     "last_record_status": "PROVISIONAL",
     "last_day_provisional": true,
     "session_status_counts": {
-      "PROVISIONAL": 99,
+      "PROVISIONAL": 100,
       "REVISED": 76,
       "FINAL": 3
     }
@@ -96,8 +97,8 @@
     "farmer_backtest.py",
     "asymmetric_module.py"
   ],
-  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 105.23 \u20ac/t, z 2.374, official_rolling). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal SLOW. Objectif recommand\u00e9 **z->0** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-10-19 22:35:45 UTC",
+  "explanation": "Prime SHORT_PREMIUM_EXTREME (basis 106.24 \u20ac/t, z 2.442, official_rolling). Contexte : ADVERSE MEDIUM, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US MEDIUM/EU UNKNOWN. Sant\u00e9 signal SLOW. Objectif recommand\u00e9 **z->0** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
+  "generated_at": "2026-10-20 10:19:59 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

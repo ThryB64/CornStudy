@@ -1,26 +1,26 @@
-# 📊 Dashboard indicateur premium v5 — 2026-10-19
-_Généré 2026-10-19 22:35:45 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-10-20
+_Généré 2026-10-20 10:19:59 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_EXTREME** · basis 105.23 €/t · z 2.374 (official_rolling)
+- **SHORT_PREMIUM_EXTREME** · basis 106.24 €/t · z 2.442 (official_rolling)
 - Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **EXTREME_SIGNAL** · score composite **2/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **COMPRESSION_DELAYED** · nature **PRIME_EXCESSIVE** · cycle **COMPRESSION_DELAYED**
 - Objectif **z->0** · horizon ~51 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-10-06 (z 1.466) · 13 j · statut **SLOW**
-- Compression réalisée **-11.28 €/t** · MFE 0.49 · MAE 18.44 · distance z→0.5 : 1.874
+- Entrée 2026-10-06 (z 1.466) · 14 j · statut **SLOW**
+- Compression réalisée **-12.29 €/t** · MFE 0.49 · MAE 18.44 · distance z→0.5 : 1.942
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 4.25 €/t, BACKWARDATION)
-- MATIF blé/maïs : 0.899 · substitution DATA_BLOCKED
+- MATIF blé/maïs : 0.902 · substitution DATA_BLOCKED
 - CBOT_SUPPORT MEDIUM · ADVERSE_RISK MEDIUM · PHYSICAL_TENSION MEDIUM
 - Météo US MEDIUM · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **102** · prochain jalon **180** (bilan forward) · z rolling officiel True
+- Jours officiels **103** · prochain jalon **180** (bilan forward) · z rolling officiel True
 - Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 61
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 102/150', 'V168_MATIF': 'ACCUMULATING 101/150', 'V155_SUMMER': 'TRIGGERED 223/150'}
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 103/150', 'V168_MATIF': 'ACCUMULATING 102/150', 'V155_SUMMER': 'TRIGGERED 224/150'}
 
 ## Santé du système
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True

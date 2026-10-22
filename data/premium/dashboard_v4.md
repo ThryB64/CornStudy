@@ -1,8 +1,8 @@
-# 📊 Dashboard indicateur premium v4 — 2026-10-21
-_Généré 2026-10-21 21:54:31 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-10-22
+_Généré 2026-10-22 10:26:57 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_EXTREME** · basis 105.84 €/t · z 2.235 (official_rolling)
+- **SHORT_PREMIUM_EXTREME** · basis 105.41 €/t · z 2.154 (official_rolling)
 - État : **COMPRESSION_DELAYED** (nature PRIME_EXCESSIVE, cycle COMPRESSION_DELAYED)
 - Objectif : **z->0** · horizon ~51 j
 - Qualité : **EXTREME_SIGNAL**
@@ -13,8 +13,8 @@ _Généré 2026-10-21 21:54:31 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
-- Jours officiels 104 · prochain jalon 180 (bilan forward) · z rolling officiel True
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Jours officiels 105 · prochain jalon 180 (bilan forward) · z rolling officiel True
 
 _Warnings : []_
 

@@ -1,16 +1,16 @@
 {
   "version": "V109-EMA-CURVE-TENSION",
   "as_of_curve": "2026-10-22",
-  "basis_z_official": 2.154,
+  "basis_z_official": 1.955,
   "curve": {
     "front_contract": "EMA_H2027",
-    "front_settle": 268.5,
+    "front_settle": 265.25,
     "next_contract": "EMA_M2027",
-    "next_settle": 265.0,
-    "front_next_spread": 3.5,
+    "next_settle": 262.75,
+    "front_next_spread": 2.5,
     "backwardation": true,
     "curve_shape": "BACKWARDATION",
-    "nov_mar_spread": 22.75,
+    "nov_mar_spread": 19.75,
     "most_liquid_contract": "EMA_H2027",
     "front_oi": 22818
   },
@@ -20,7 +20,7 @@
   },
   "physical_tension_live": "MEDIUM",
   "verdict": "PHYSICAL_TENSION_LIVE_UNBLOCKED",
-  "interpretation": "Courbe EMA officielle live : front EMA_H2027 268.5 vs EMA_M2027 265.0 -> spread 3.5 \u20ac/t (BACKWARDATION). PHYSICAL_TENSION live = **MEDIUM**. Une backwardation marqu\u00e9e (vieille r\u00e9colte ch\u00e8re vs nouvelle) traduit une tension physique R\u00c9ELLE -> la prime EMA haute est alors JUSTIFI\u00c9E, compression plus lente, objectif PRUDENT z\u21920.5 (V56). Un contango la rendrait plus probablement anomalie compressible (z\u21920).",
+  "interpretation": "Courbe EMA officielle live : front EMA_H2027 265.25 vs EMA_M2027 262.75 -> spread 2.5 \u20ac/t (BACKWARDATION). PHYSICAL_TENSION live = **MEDIUM**. Une backwardation marqu\u00e9e (vieille r\u00e9colte ch\u00e8re vs nouvelle) traduit une tension physique R\u00c9ELLE -> la prime EMA haute est alors JUSTIFI\u00c9E, compression plus lente, objectif PRUDENT z\u21920.5 (V56). Un contango la rendrait plus probablement anomalie compressible (z\u21920).",
   "note": "Snapshot officiel du jour. PHYSICAL_TENSION live d\u00e9sormais disponible (dernier diagnostic en retard d\u00e9bloqu\u00e9). CONTEXTE, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

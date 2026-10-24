@@ -3,17 +3,17 @@
   "verdict": "OK",
   "n_fail": 0,
   "n_warn": 0,
-  "generated_at": "2026-10-17T09:56:35.688452+00:00",
+  "generated_at": "2026-10-24T10:03:16.383963+00:00",
   "checks": [
     {
       "check": "ci_daily",
       "status": "OK",
-      "detail": "daily 2026-10-16 result=OK"
+      "detail": "daily 2026-10-23 result=OK"
     },
     {
       "check": "premium_head",
       "status": "OK",
-      "detail": "as_of 2026-10-16, autoritatives \u00e0 jour (reporting-only en retard : ['v101', 'v99'])"
+      "detail": "as_of 2026-10-23, autoritatives \u00e0 jour (reporting-only en retard : ['v101', 'v99'])"
     },
     {
       "check": "single_source",
@@ -23,39 +23,39 @@
     {
       "check": "official_journal",
       "status": "OK",
-      "detail": "177 lignes, derni\u00e8re date il y a 1 j"
+      "detail": "186 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "ema_curve",
       "status": "OK",
-      "detail": "101 lignes, derni\u00e8re date il y a 1 j"
+      "detail": "106 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "matif_ratio",
       "status": "OK",
-      "detail": "100 lignes, derni\u00e8re date il y a 1 j"
+      "detail": "105 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "weather_archive",
       "status": "OK",
-      "detail": "59840 lignes, derni\u00e8re date il y a 1 j"
+      "detail": "61744 lignes, derni\u00e8re date il y a 1 j"
     },
     {
       "check": "critical_tests",
       "status": "OK",
-      "detail": "5 fichiers : .........................                                                [100%]"
+      "detail": "5 fichiers : -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html"
     }
   ],
   "next_milestones": {
     "official": {
-      "n_days": 101,
+      "n_days": 106,
       "next": 180,
       "meaning": "bilan forward"
     },
     "data_gated": {
-      "V166_OFFICIAL": "101/150",
-      "V168_MATIF": "100/150",
-      "V155_SUMMER": "220/150"
+      "V166_OFFICIAL": "106/150",
+      "V168_MATIF": "105/150",
+      "V155_SUMMER": "227/150"
     },
     "v178_validation": "PROXY_RESEARCH_ONLY"
   },

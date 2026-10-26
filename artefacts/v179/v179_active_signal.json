@@ -1,29 +1,29 @@
 {
   "version": "V179-ACTIVE-SIGNAL-REPORT",
   "verdict": "REPORT_BUILT",
-  "signal_status": "SLOW",
+  "signal_status": "ADVERSE_LIKE",
   "core": {
     "entry_date": "2026-10-06",
-    "current_date": "2026-10-23",
-    "days_since_entry": 17,
+    "current_date": "2026-10-26",
+    "days_since_entry": 20,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
     "current_tier": "SHORT_PREMIUM_EXTREME",
     "entry_z": 1.466,
-    "current_z": 2.029,
+    "current_z": 2.118,
     "entry_basis_eur_t": 93.95,
-    "current_basis_eur_t": 105.03,
-    "compression_realized_eur_t": -11.08,
+    "current_basis_eur_t": 106.19,
+    "compression_realized_eur_t": -12.24,
     "mfe_eur_t": 0.49,
     "mae_eur_t": 18.44,
-    "distance_to_z05": 1.529,
-    "distance_to_z0": 2.029,
+    "distance_to_z05": 1.618,
+    "distance_to_z0": 2.118,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
-    "lifecycle_state": "COMPRESSION_DELAYED",
+    "lifecycle_state": "ADVERSE_LIKE",
     "signal_tier": "SHORT_PREMIUM_EXTREME",
-    "basis_z": 2.029
+    "basis_z": 2.118
   },
   "context": {
     "objective": "z->0",
@@ -190,8 +190,21 @@
       "curve_spread": 3.0,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8831
+    },
+    {
+      "date": "2026-10-26",
+      "basis": 106.19,
+      "z": 2.118,
+      "tier": "SHORT_PREMIUM_EXTREME",
+      "cbot_eur_t": 159.06,
+      "session": "PROVISIONAL",
+      "curve_spread": 3.0,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.8822
     }
   ],
-  "warnings": [],
+  "warnings": [
+    "sant\u00e9 du signal ADVERSE_LIKE (signature lente/adverse)"
+  ],
   "status": "RESEARCH_ONLY_NOT_TRADING"
 }

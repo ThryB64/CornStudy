@@ -17,7 +17,7 @@
     },
     {
       "layer": "daily_latest",
-      "as_of": "2026-10-26",
+      "as_of": "2026-10-27",
       "signal_tier": "SHORT_PREMIUM_STRONG"
     }
   ],
@@ -33,11 +33,6 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
-    },
-    {
-      "layer": "daily_latest",
-      "as_of": "2026-10-26",
-      "signal_tier": "SHORT_PREMIUM_STRONG"
     }
   ],
   "consistent": true,

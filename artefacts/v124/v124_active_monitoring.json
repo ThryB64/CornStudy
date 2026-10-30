@@ -4,18 +4,18 @@
   "entry_date": "2026-10-06",
   "current_date": "2026-10-30",
   "days_since_entry": 24,
-  "n_official_days_in_episode": 30,
+  "n_official_days_in_episode": 31,
   "entry_tier": "SHORT_PREMIUM_MODERATE",
   "current_tier": "SHORT_PREMIUM_MODERATE",
   "entry_z": 1.466,
-  "current_z": 1.478,
+  "current_z": 1.445,
   "entry_basis_eur_t": 93.95,
-  "current_basis_eur_t": 101.19,
-  "compression_realized_eur_t": -7.24,
+  "current_basis_eur_t": 100.97,
+  "compression_realized_eur_t": -7.02,
   "mfe_eur_t": 0.49,
   "mae_eur_t": 18.44,
-  "distance_to_z05": 0.978,
-  "distance_to_z0": 1.478,
+  "distance_to_z05": 0.945,
+  "distance_to_z0": 1.445,
   "median_horizon_days": 51,
   "status": "ADVERSE_LIKE",
   "thresholds": {
@@ -25,7 +25,7 @@
     "delayed_ge": 30,
     "mfe_adverse_lt": 5.0
   },
-  "interpretation": "Signal actif 24 j (30 jours officiels). Compression -7.24 \u20ac/t, MFE 0.49, MAE 18.44, z 1.466\u21921.478. Statut **ADVERSE_LIKE** (horizon m\u00e9dian saisonnier 51 j). Signature ADVERSE V82 (\u226520 j, MFE<5) : ne pas renforcer, viser z\u21920.5.",
+  "interpretation": "Signal actif 24 j (31 jours officiels). Compression -7.02 \u20ac/t, MFE 0.49, MAE 18.44, z 1.466\u21921.445. Statut **ADVERSE_LIKE** (horizon m\u00e9dian saisonnier 51 j). Signature ADVERSE V82 (\u226520 j, MFE<5) : ne pas renforcer, viser z\u21920.5.",
   "note": "R\u00e9utilise l'isolement d'\u00e9pisode V102. Paliers calibr\u00e9s sur V82/V120, pas sur le PnL. Descriptif, jamais un veto. Se densifie avec le forward.",
   "status_research": "RESEARCH_ONLY_NOT_TRADING"
 }

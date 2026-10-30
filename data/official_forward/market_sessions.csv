@@ -180,3 +180,4 @@ date,weekday,session,trading_session
 2026-10-27,Tuesday,TRADING_SESSION,True
 2026-10-28,Wednesday,TRADING_SESSION,True
 2026-10-29,Thursday,TRADING_SESSION,True
+2026-10-30,Friday,TRADING_SESSION,True

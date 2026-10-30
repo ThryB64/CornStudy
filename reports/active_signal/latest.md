@@ -1,19 +1,19 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-10-29 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-10-30 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : ADVERSE_LIKE** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 23 j
+**Statut : ADVERSE_LIKE** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 24 j
 
 ## Trajectoire
-- basis 93.95 → 100.58 €/t (compression réalisée **-6.63 €/t**)
-- z 1.466 → 1.431 · distance z→0.5 : **0.931** · z→0 : 1.431
+- basis 93.95 → 101.19 €/t (compression réalisée **-7.24 €/t**)
+- z 1.466 → 1.478 · distance z→0.5 : **0.978** · z→0 : 1.478
 - MFE 0.49 €/t · MAE 18.44 €/t · horizon médian 51 j
 
 ## Machine d'état & contexte
 - nature : **PRIME_EXCESSIVE** · cycle : **ADVERSE_LIKE**
 - objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
 - courbe : NARROWING · tension physique : MEDIUM · CBOT support : MEDIUM · ADVERSE : HIGH
-- météo US : UNKNOWN · météo EU : LOW
+- météo US : LOW · météo EU : LOW
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -36,6 +36,7 @@ _Généré au 2026-10-29 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-10-27 | REVISED | 104.13 | 1.84 | SHORT_PREMIUM_STRONG | 159.12 | 2.75 | BACKWARDATION | 0.86 |
 | 2026-10-28 | REVISED | 100.24 | 1.42 | SHORT_PREMIUM_MODERATE | 159.26 | 2.25 | BACKWARDATION | 0.87 |
 | 2026-10-29 | REVISED | 100.58 | 1.43 | SHORT_PREMIUM_MODERATE | 158.67 | 3.00 | BACKWARDATION | 0.87 |
+| 2026-10-30 | PROVISIONAL | 101.19 | 1.48 | SHORT_PREMIUM_MODERATE | 158.06 | 3.00 | BACKWARDATION | 0.88 |
 
 ## Warnings
 - ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer

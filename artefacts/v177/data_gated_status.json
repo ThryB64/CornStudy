@@ -1,17 +1,17 @@
 {
   "version": "V177-DATA-GATED-RERUNS",
-  "as_of": "2026-10-30T22:35:49.038223+00:00",
+  "as_of": "2026-11-02T13:50:06.074173+00:00",
   "gates": [
     {
       "rerun": "V166_OFFICIAL",
       "gate": 150,
-      "n": 111,
+      "n": 112,
       "status": "ACCUMULATING"
     },
     {
       "rerun": "V168_MATIF",
       "gate": 150,
-      "n": 110,
+      "n": 111,
       "status": "ACCUMULATING"
     },
     {

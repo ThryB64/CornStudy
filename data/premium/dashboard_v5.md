@@ -1,26 +1,26 @@
-# 📊 Dashboard indicateur premium v5 — 2026-10-30
-_Généré 2026-10-30 22:35:49 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-11-02
+_Généré 2026-11-02 13:50:06 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_MODERATE** · basis 100.97 €/t · z 1.445 (official_rolling)
+- **SHORT_PREMIUM_MODERATE** · basis 100.43 €/t · z 1.382 (official_rolling)
 - Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **CONFIRMED_SIGNAL** · score composite **0/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **ADVERSE_LIKE** · nature **PRIME_EXCESSIVE** · cycle **ADVERSE_LIKE**
 - Objectif **z->0.5** · horizon ~51 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-10-06 (z 1.466) · 24 j · statut **ADVERSE_LIKE**
-- Compression réalisée **-7.02 €/t** · MFE 0.49 · MAE 18.44 · distance z→0.5 : 0.945
+- Entrée 2026-10-06 (z 1.466) · 27 j · statut **ADVERSE_LIKE**
+- Compression réalisée **-6.48 €/t** · MFE 0.49 · MAE 18.44 · distance z→0.5 : 0.882
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 2.75 €/t, BACKWARDATION)
-- MATIF blé/maïs : 0.876 · substitution DATA_BLOCKED
+- MATIF blé/maïs : 0.881 · substitution DATA_BLOCKED
 - CBOT_SUPPORT MEDIUM · ADVERSE_RISK HIGH · PHYSICAL_TENSION MEDIUM
-- Météo US UNKNOWN (stale) · Météo EU LOW
+- Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **111** · prochain jalon **180** (bilan forward) · z rolling officiel True
+- Jours officiels **112** · prochain jalon **180** (bilan forward) · z rolling officiel True
 - Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 61
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 111/150', 'V168_MATIF': 'ACCUMULATING 110/150', 'V155_SUMMER': 'TRIGGERED 234/150'}
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 112/150', 'V168_MATIF': 'ACCUMULATING 111/150', 'V155_SUMMER': 'TRIGGERED 234/150'}
 
 ## Santé du système
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True

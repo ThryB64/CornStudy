@@ -17,7 +17,7 @@
     },
     {
       "layer": "daily_latest",
-      "as_of": "2026-11-02",
+      "as_of": "2026-11-03",
       "signal_tier": "SHORT_PREMIUM_MODERATE"
     }
   ],
@@ -33,23 +33,48 @@
       "layer": "v99",
       "as_of": "2026-06-01",
       "signal_tier": "SHORT_PREMIUM_EXTREME"
-    },
-    {
-      "layer": "daily_latest",
-      "as_of": "2026-11-02",
-      "signal_tier": "SHORT_PREMIUM_MODERATE"
     }
   ],
   "consistent": true,
   "verdict": "LIVE_SIGNAL_CONSISTENT",
-  "n_revisions_logged": 14,
+  "n_revisions_logged": 15,
   "interpretation": "R\u00e9f\u00e9rence = dernier jour du journal officiel (2026-11-03, SHORT_PREMIUM_MODERATE, PROVISIONAL). Toutes les couches dat\u00e9es concordent ; aucun doublon de date.",
   "note": "R\u00e9vision audit\u00e9e du jour courant uniquement (PROVISIONAL) ; pass\u00e9 FINAL immuable. CONTEXTE de coh\u00e9rence, jamais un veto.",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "revision": {
-    "status": "NO_CHANGE",
+    "status": "CHANGES_DETECTED_APPEND_ONLY",
     "price_date": "2026-11-03",
-    "record_status": "PROVISIONAL",
-    "signal_tier": "SHORT_PREMIUM_MODERATE"
+    "changes": {
+      "official_front_settlement": {
+        "old": 256.25,
+        "new": 250.75
+      },
+      "cbot_cents_bu": {
+        "old": 445.75,
+        "new": 441.5
+      },
+      "eurusd": {
+        "old": 1.1183,
+        "new": 1.1196
+      },
+      "cbot_eur_t": {
+        "old": 156.92,
+        "new": 155.25
+      },
+      "basis_official_eur_t": {
+        "old": 99.33,
+        "new": 95.5
+      },
+      "basis_z_used": {
+        "old": 1.267,
+        "new": 0.894
+      },
+      "signal_tier": {
+        "old": "SHORT_PREMIUM_MODERATE",
+        "new": "NO_SIGNAL"
+      }
+    },
+    "new_signal_tier": "NO_SIGNAL",
+    "note": "journal NON modifi\u00e9 (V27 seul writer, append-only V150)"
   }
 }

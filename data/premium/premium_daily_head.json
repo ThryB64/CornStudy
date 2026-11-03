@@ -64,8 +64,7 @@
     "stale_authoritative_layers": [],
     "stale_reporting_only_layers": [
       "v101",
-      "v99",
-      "daily_latest"
+      "v99"
     ]
   },
   "freshness": {
@@ -101,7 +100,7 @@
     "asymmetric_module.py"
   ],
   "explanation": "Prime SHORT_PREMIUM_MODERATE (basis 99.33 \u20ac/t, z 1.267, official_rolling). Contexte : ADVERSE HIGH, CBOT_SUPPORT MEDIUM, PHYSICAL_TENSION MEDIUM (tendance courbe NARROWING), substitution DATA_BLOCKED, m\u00e9t\u00e9o US UNKNOWN/EU LOW. Sant\u00e9 signal ADVERSE_LIKE. Objectif recommand\u00e9 **z->0.5** (r\u00e8gle fig\u00e9e V56). Horizon ~51 j (demi-vie tier None j). La r\u00e8gle d'entr\u00e9e (short basis-haut) est fig\u00e9e ; les diagnostics modulent l'objectif/horizon, jamais un veto.",
-  "generated_at": "2026-11-03 12:59:59 UTC",
+  "generated_at": "2026-11-03 23:34:31 UTC",
   "status": "RESEARCH_ONLY_NOT_TRADING",
   "scope_clean": true
 }

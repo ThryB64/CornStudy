@@ -1,5 +1,5 @@
 # 📊 Dashboard indicateur premium v5 — 2026-11-03
-_Généré 2026-11-03 12:59:59 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-11-03 23:34:31 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
 - **SHORT_PREMIUM_MODERATE** · basis 99.33 €/t · z 1.267 (official_rolling)

@@ -14,7 +14,7 @@
   "lifecycle_state": "ADVERSE_LIKE",
   "headline_state": "ADVERSE_LIKE",
   "signal_quality": "CONFIRMED_SIGNAL",
-  "composite_score": 0,
+  "composite_score": 1,
   "quality_note": null,
   "interpretation": "Au 2026-11-02 : SHORT_PREMIUM_MODERATE (z 1.382). Nature **PRIME_EXCESSIVE** (tension MEDIUM), cycle de vie **ADVERSE_LIKE** (sant\u00e9 ADVERSE_LIKE, compression -6.48). \u00c9tat headline : **ADVERSE_LIKE**. La machine d'\u00e9tat situe le signal dans son cycle (pas seulement oui/non), \u00e0 partir de briques existantes.",
   "note": "Aucun fit ; r\u00e8gles sur diagnostics V124/V109/V125. Contexte, jamais un veto. Se densifie forward.",

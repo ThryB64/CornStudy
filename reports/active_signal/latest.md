@@ -12,8 +12,8 @@ _Généré au 2026-11-02 · RESEARCH_ONLY_NOT_TRADING_
 ## Machine d'état & contexte
 - nature : **PRIME_EXCESSIVE** · cycle : **ADVERSE_LIKE**
 - objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : MEDIUM · CBOT support : MEDIUM · ADVERSE : HIGH
-- météo US : LOW · météo EU : UNKNOWN
+- courbe : NARROWING · tension physique : MEDIUM · CBOT support : LOW · ADVERSE : MEDIUM
+- météo US : MEDIUM · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -40,5 +40,4 @@ _Généré au 2026-11-02 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-11-02 | PROVISIONAL | 100.43 | 1.38 | SHORT_PREMIUM_MODERATE | 158.32 | 2.75 | BACKWARDATION | 0.88 |
 
 ## Warnings
-- ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer
 - santé du signal ADVERSE_LIKE (signature lente/adverse)

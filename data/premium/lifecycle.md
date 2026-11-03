@@ -1,7 +1,7 @@
-# Cycle de vie du signal actif — 2026-11-02
-_Généré 2026-11-03 01:09:57 UTC · RESEARCH_ONLY_NOT_TRADING_
+# Cycle de vie du signal actif — 2026-11-03
+_Généré 2026-11-03 12:56:39 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **État** : ADVERSE_LIKE (nature PRIME_EXCESSIVE, cycle ADVERSE_LIKE)
-- **Âge** : 27 j · santé ADVERSE_LIKE
-- **Compression** : -6.48 €/t · MFE 0.49 · MAE 18.44
-- **Distance** : z→0.5 0.882 · z→0 1.382
+- **Âge** : 28 j · santé ADVERSE_LIKE
+- **Compression** : -5.38 €/t · MFE 0.49 · MAE 18.44
+- **Distance** : z→0.5 0.767 · z→0 1.267

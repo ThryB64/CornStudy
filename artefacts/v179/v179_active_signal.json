@@ -4,37 +4,37 @@
   "signal_status": "ADVERSE_LIKE",
   "core": {
     "entry_date": "2026-10-06",
-    "current_date": "2026-11-02",
-    "days_since_entry": 27,
+    "current_date": "2026-11-03",
+    "days_since_entry": 28,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
     "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.466,
-    "current_z": 1.382,
+    "current_z": 1.267,
     "entry_basis_eur_t": 93.95,
-    "current_basis_eur_t": 100.43,
-    "compression_realized_eur_t": -6.48,
+    "current_basis_eur_t": 99.33,
+    "compression_realized_eur_t": -5.38,
     "mfe_eur_t": 0.49,
     "mae_eur_t": 18.44,
-    "distance_to_z05": 0.882,
-    "distance_to_z0": 1.382,
+    "distance_to_z05": 0.767,
+    "distance_to_z0": 1.267,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "ADVERSE_LIKE",
     "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.382
+    "basis_z": 1.267
   },
   "context": {
     "objective": "z->0.5",
     "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
-    "weather_us": "MEDIUM",
-    "weather_eu": "UNKNOWN",
+    "weather_us": "UNKNOWN",
+    "weather_eu": "LOW",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "cbot_support": "LOW",
-    "adverse_risk": "MEDIUM"
+    "cbot_support": "MEDIUM",
+    "adverse_risk": "HIGH"
   },
   "daily_table": [
     {
@@ -256,9 +256,21 @@
       "curve_spread": 2.75,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8812
+    },
+    {
+      "date": "2026-11-03",
+      "basis": 99.33,
+      "z": 1.267,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 156.92,
+      "session": "PROVISIONAL",
+      "curve_spread": 2.75,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.8907
     }
   ],
   "warnings": [
+    "ADVERSE_RISK \u00e9lev\u00e9 -> risque d'\u00e9cartement, ne pas renforcer",
     "sant\u00e9 du signal ADVERSE_LIKE (signature lente/adverse)"
   ],
   "status": "RESEARCH_ONLY_NOT_TRADING"

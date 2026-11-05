@@ -1,8 +1,8 @@
-# 📊 Dashboard indicateur premium v4 — 2026-11-04
-_Généré 2026-11-04 23:52:46 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-11-05
+_Généré 2026-11-05 13:25:52 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **NO_SIGNAL** · basis 96.39 €/t · z 0.978 (official_rolling)
+- **NO_SIGNAL** · basis 91.36 €/t · z 0.494 (official_rolling)
 - État : **NO_ACTIVE_SIGNAL** (nature NO_SIGNAL, cycle NO_ACTIVE_SIGNAL)
 - Objectif : **UNKNOWN** · horizon ~51 j
 - Qualité : **NONE**
@@ -13,8 +13,8 @@ _Généré 2026-11-04 23:52:46 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
-- Jours officiels 114 · prochain jalon 180 (bilan forward) · z rolling officiel True
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Jours officiels 115 · prochain jalon 180 (bilan forward) · z rolling officiel True
 
 _Warnings : ['santé du signal ADVERSE_LIKE (signature lente/adverse)']_
 

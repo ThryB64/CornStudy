@@ -1,5 +1,5 @@
 # 📊 Dashboard indicateur premium v5 — 2026-11-06
-_Généré 2026-11-06 13:10:30 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-11-06 23:25:37 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
 - **NO_SIGNAL** · basis 91.2 €/t · z 0.477 (official_rolling)
@@ -12,10 +12,10 @@ _Généré 2026-11-06 13:10:30 UTC · RESEARCH_ONLY_NOT_TRADING_
 - Compression réalisée **-5.38 €/t** · MFE 0.49 · MAE 18.44 · distance z→0.5 : 0.767
 
 ## Contexte marché
-- Courbe EMA : NARROWING (spread front-next 0.75 €/t, BACKWARDATION)
+- Courbe EMA : NARROWING (spread front-next 2.0 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.906 · substitution DATA_BLOCKED
 - CBOT_SUPPORT MEDIUM · ADVERSE_RISK UNKNOWN (stale) · PHYSICAL_TENSION UNKNOWN (stale)
-- Météo US LOW · Météo EU UNKNOWN (stale)
+- Météo US UNKNOWN (stale) · Météo EU LOW
 
 ## Officiel / proxy & jalons
 - Jours officiels **116** · prochain jalon **180** (bilan forward) · z rolling officiel True

@@ -1,11 +1,11 @@
 {
   "version": "V42-PUBLIC-BACKFILL",
-  "n_days": 115,
+  "n_days": 116,
   "date_range": [
     "2026-05-29",
-    "2026-11-05"
+    "2026-11-06"
   ],
-  "n_contracts_seen": 12,
+  "n_contracts_seen": 13,
   "contracts_seen": [
     "EMA_H2027",
     "EMA_H2028",
@@ -13,6 +13,7 @@
     "EMA_M2026",
     "EMA_M2027",
     "EMA_M2028",
+    "EMA_M2029",
     "EMA_Q2026",
     "EMA_Q2027",
     "EMA_Q2028",

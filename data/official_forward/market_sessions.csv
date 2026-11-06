@@ -187,3 +187,4 @@ date,weekday,session,trading_session
 2026-11-03,Tuesday,TRADING_SESSION,True
 2026-11-04,Wednesday,TRADING_SESSION,True
 2026-11-05,Thursday,TRADING_SESSION,True
+2026-11-06,Friday,TRADING_SESSION,True

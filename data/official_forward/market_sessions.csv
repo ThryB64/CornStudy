@@ -191,3 +191,4 @@ date,weekday,session,trading_session
 2026-11-07,Saturday,NO_SESSION_WEEKEND,False
 2026-11-08,Sunday,NO_SESSION_WEEKEND,False
 2026-11-09,Monday,TRADING_SESSION,True
+2026-11-10,Tuesday,TRADING_SESSION,True

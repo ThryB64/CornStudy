@@ -1,45 +1,21 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-11-03 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-11-11 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : ADVERSE_LIKE** · entrée 2026-10-06 (SHORT_PREMIUM_MODERATE, z 1.466) · 28 j
+**Statut : ACTIVE_EARLY** · entrée 2026-11-11 (SHORT_PREMIUM_MODERATE, z 1.05) · 0 j
 
 ## Trajectoire
-- basis 93.95 → 99.33 €/t (compression réalisée **-5.38 €/t**)
-- z 1.466 → 1.267 · distance z→0.5 : **0.767** · z→0 : 1.267
-- MFE 0.49 €/t · MAE 18.44 €/t · horizon médian 51 j
+- basis 97.24 → 97.24 €/t (compression réalisée **0.0 €/t**)
+- z 1.05 → 1.05 · distance z→0.5 : **0.55** · z→0 : 1.05
+- MFE 0.0 €/t · MAE 0.0 €/t · horizon médian 51 j
 
 ## Machine d'état & contexte
-- nature : **PRIME_EXCESSIVE** · cycle : **ADVERSE_LIKE**
-- objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : MEDIUM · CBOT support : MEDIUM · ADVERSE : HIGH
-- météo US : UNKNOWN · météo EU : LOW
+- nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
+- objectif : z->0 · qualité : BASELINE_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : MEDIUM · CBOT support : MEDIUM · ADVERSE : MEDIUM
+- météo US : LOW · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
 |---|---|---|---|---|---|---|---|---|
-| 2026-10-06 | PROVISIONAL | 93.95 | 1.47 | SHORT_PREMIUM_MODERATE | 175.30 | 3.25 | BACKWARDATION | 0.91 |
-| 2026-10-07 | PROVISIONAL | 95.42 | 1.64 | SHORT_PREMIUM_STRONG | 177.33 | 3.25 | BACKWARDATION | 0.91 |
-| 2026-10-08 | PROVISIONAL | 95.47 | 1.63 | SHORT_PREMIUM_STRONG | 176.53 | 3.00 | BACKWARDATION | 0.90 |
-| 2026-10-09 | PROVISIONAL | 93.46 | 1.35 | SHORT_PREMIUM_MODERATE | 175.54 | 3.75 | BACKWARDATION | 0.91 |
-| 2026-10-12 | PROVISIONAL | 95.71 | 1.63 | SHORT_PREMIUM_STRONG | 169.54 | 4.00 | BACKWARDATION | 0.91 |
-| 2026-10-13 | PROVISIONAL | 97.52 | 1.85 | SHORT_PREMIUM_STRONG | 169.98 | 4.25 | BACKWARDATION | 0.91 |
-| 2026-10-14 | REVISED | 111.03 | 3.49 | SHORT_PREMIUM_EXTREME | 169.72 | 3.75 | BACKWARDATION | 0.91 |
-| 2026-10-15 | REVISED | 107.94 | 2.88 | SHORT_PREMIUM_EXTREME | 167.81 | 3.50 | BACKWARDATION | 0.88 |
-| 2026-10-16 | REVISED | 105.20 | 2.42 | SHORT_PREMIUM_EXTREME | 166.05 | 3.25 | BACKWARDATION | 0.89 |
-| 2026-10-19 | PROVISIONAL | 105.23 | 2.37 | SHORT_PREMIUM_EXTREME | 166.02 | 4.25 | BACKWARDATION | 0.90 |
-| 2026-10-20 | REVISED | 110.12 | 2.82 | SHORT_PREMIUM_EXTREME | 161.63 | 3.75 | BACKWARDATION | 0.90 |
-| 2026-10-21 | REVISED | 105.84 | 2.23 | SHORT_PREMIUM_EXTREME | 162.66 | 3.50 | BACKWARDATION | 0.89 |
-| 2026-10-22 | REVISED | 103.79 | 1.96 | SHORT_PREMIUM_STRONG | 161.46 | 2.50 | BACKWARDATION | 0.87 |
-| 2026-10-23 | REVISED | 105.03 | 2.03 | SHORT_PREMIUM_EXTREME | 160.22 | 3.00 | BACKWARDATION | 0.88 |
-| 2026-10-26 | REVISED | 104.51 | 1.92 | SHORT_PREMIUM_STRONG | 160.24 | 3.00 | BACKWARDATION | 0.88 |
-| 2026-10-27 | REVISED | 104.13 | 1.84 | SHORT_PREMIUM_STRONG | 159.12 | 2.75 | BACKWARDATION | 0.86 |
-| 2026-10-28 | REVISED | 100.24 | 1.42 | SHORT_PREMIUM_MODERATE | 159.26 | 2.25 | BACKWARDATION | 0.87 |
-| 2026-10-29 | REVISED | 100.58 | 1.43 | SHORT_PREMIUM_MODERATE | 158.67 | 3.00 | BACKWARDATION | 0.87 |
-| 2026-10-30 | REVISED | 100.97 | 1.45 | SHORT_PREMIUM_MODERATE | 157.78 | 2.75 | BACKWARDATION | 0.88 |
-| 2026-11-02 | PROVISIONAL | 100.43 | 1.38 | SHORT_PREMIUM_MODERATE | 158.32 | 2.75 | BACKWARDATION | 0.88 |
-| 2026-11-03 | PROVISIONAL | 99.33 | 1.27 | SHORT_PREMIUM_MODERATE | 156.92 | 2.75 | BACKWARDATION | 0.89 |
-
-## Warnings
-- ADVERSE_RISK élevé -> risque d'écartement, ne pas renforcer
-- santé du signal ADVERSE_LIKE (signature lente/adverse)
+| 2026-11-11 | PROVISIONAL | 97.24 | 1.05 | SHORT_PREMIUM_MODERATE | 157.76 | 2.75 | BACKWARDATION | 0.89 |

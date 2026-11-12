@@ -4,36 +4,36 @@
   "signal_status": "ACTIVE_EARLY",
   "core": {
     "entry_date": "2026-11-11",
-    "current_date": "2026-11-11",
-    "days_since_entry": 0,
+    "current_date": "2026-11-12",
+    "days_since_entry": 1,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
     "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.05,
-    "current_z": 1.05,
+    "current_z": 1.085,
     "entry_basis_eur_t": 97.24,
-    "current_basis_eur_t": 97.24,
-    "compression_realized_eur_t": 0.0,
+    "current_basis_eur_t": 97.66,
+    "compression_realized_eur_t": -0.42,
     "mfe_eur_t": 0.0,
-    "mae_eur_t": 0.0,
-    "distance_to_z05": 0.55,
-    "distance_to_z0": 1.05,
+    "mae_eur_t": 0.42,
+    "distance_to_z05": 0.585,
+    "distance_to_z0": 1.085,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_EXCESSIVE",
     "lifecycle_state": "ACTIVE_EARLY",
     "signal_tier": "SHORT_PREMIUM_MODERATE",
-    "basis_z": 1.05
+    "basis_z": 1.085
   },
   "context": {
-    "objective": "z->0.5",
+    "objective": "z->0",
     "signal_quality": "BASELINE_SIGNAL",
     "composite_score": null,
     "weather_us": "UNKNOWN",
     "weather_eu": "LOW",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "cbot_support": "LOW",
+    "cbot_support": "MEDIUM",
     "adverse_risk": "MEDIUM"
   },
   "daily_table": [
@@ -47,6 +47,17 @@
       "curve_spread": 2.75,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8892
+    },
+    {
+      "date": "2026-11-12",
+      "basis": 97.66,
+      "z": 1.085,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 158.59,
+      "session": "PROVISIONAL",
+      "curve_spread": 2.75,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.9083
     }
   ],
   "warnings": [],

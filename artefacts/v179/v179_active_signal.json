@@ -26,14 +26,14 @@
     "basis_z": 1.05
   },
   "context": {
-    "objective": "z->0",
+    "objective": "z->0.5",
     "signal_quality": "BASELINE_SIGNAL",
     "composite_score": null,
-    "weather_us": "LOW",
-    "weather_eu": "UNKNOWN",
+    "weather_us": "UNKNOWN",
+    "weather_eu": "LOW",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
-    "cbot_support": "MEDIUM",
+    "cbot_support": "LOW",
     "adverse_risk": "MEDIUM"
   },
   "daily_table": [

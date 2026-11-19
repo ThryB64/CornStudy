@@ -29,12 +29,12 @@
     "objective": "z->0.5",
     "signal_quality": "STRONG_SIGNAL",
     "composite_score": null,
-    "weather_us": "LOW",
+    "weather_us": "MEDIUM",
     "weather_eu": "LOW",
     "physical_tension": "MEDIUM",
     "curve_trend": "NARROWING",
     "cbot_support": "LOW",
-    "adverse_risk": "MEDIUM"
+    "adverse_risk": "LOW"
   },
   "daily_table": [
     {

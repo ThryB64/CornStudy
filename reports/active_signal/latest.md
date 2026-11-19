@@ -12,8 +12,8 @@ _Généré au 2026-11-18 · RESEARCH_ONLY_NOT_TRADING_
 ## Machine d'état & contexte
 - nature : **PRIME_EXCESSIVE** · cycle : **ACTIVE_EARLY**
 - objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : MEDIUM · CBOT support : LOW · ADVERSE : MEDIUM
-- météo US : LOW · météo EU : LOW
+- courbe : NARROWING · tension physique : MEDIUM · CBOT support : LOW · ADVERSE : LOW
+- météo US : MEDIUM · météo EU : LOW
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |

@@ -1,6 +1,6 @@
 # Rapport forward mensuel v2 — 2026-11-18
 
-_Généré 2026-11-18 14:26:22 UTC · RESEARCH_ONLY_NOT_TRADING_
+_Généré 2026-11-19 00:39:34 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 - **Jours officiels** : 124 (2026-05-29 → 2026-11-18)
 - **Tiers** : {'NO_SIGNAL': 63, 'SHORT_PREMIUM_MODERATE': 61, 'SHORT_PREMIUM_STRONG': 51, 'SHORT_PREMIUM_EXTREME': 34}
@@ -9,7 +9,7 @@ _Généré 2026-11-18 14:26:22 UTC · RESEARCH_ONLY_NOT_TRADING_
 - **Signal actif (V124)** : ACTIVE_EARLY · MFE 0.0 · MAE 6.83
 - **Courbe (V125)** : tendance NARROWING · tension MEDIUM
 - **Substitution MATIF (V126)** : ratio 0.8824
-- **Météo US (V127)** : LOW
+- **Météo US (V127)** : MEDIUM
 - **Proxy/officiel (V103)** : None
 - **Avant bilan sérieux** : ~0.1 mois
 

@@ -13,7 +13,7 @@ _Généré au 2026-11-23 · RESEARCH_ONLY_NOT_TRADING_
 - nature : **PRIME_PHYSICALLY_JUSTIFIED** · cycle : **COMPRESSION_DELAYED**
 - objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : None
 - courbe : NARROWING · tension physique : HIGH · CBOT support : LOW · ADVERSE : LOW
-- météo US : LOW · météo EU : LOW
+- météo US : UNKNOWN · météo EU : UNKNOWN
 
 ## Jour par jour (sessions officielles)
 | date | session | basis | z | tier | cbot_eur_t | curve_spread | curve_shape | matif_wheat_corn |
@@ -26,7 +26,7 @@ _Généré au 2026-11-23 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-11-18 | PROVISIONAL | 104.07 | 1.67 | SHORT_PREMIUM_STRONG | 159.43 | 3.75 | BACKWARDATION | 0.88 |
 | 2026-11-19 | PROVISIONAL | 97.84 | 1.06 | SHORT_PREMIUM_MODERATE | 161.16 | 4.75 | BACKWARDATION | 0.88 |
 | 2026-11-20 | PROVISIONAL | 102.36 | 1.49 | SHORT_PREMIUM_MODERATE | 161.89 | 4.75 | BACKWARDATION | 0.88 |
-| 2026-11-23 | PROVISIONAL | 103.31 | 1.56 | SHORT_PREMIUM_STRONG | 162.19 | 5.25 | BACKWARDATION | 0.88 |
+| 2026-11-23 | PROVISIONAL | 103.31 | 1.56 | SHORT_PREMIUM_STRONG | 162.19 | 5.75 | BACKWARDATION | 0.88 |
 
 ## Warnings
 - prime adossée à une tension physique (backwardation) -> compression plus lente

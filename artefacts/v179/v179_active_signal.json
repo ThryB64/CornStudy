@@ -4,37 +4,37 @@
   "signal_status": "SLOW",
   "core": {
     "entry_date": "2026-11-11",
-    "current_date": "2026-11-24",
-    "days_since_entry": 13,
+    "current_date": "2026-11-25",
+    "days_since_entry": 14,
     "entry_tier": "SHORT_PREMIUM_MODERATE",
-    "current_tier": "SHORT_PREMIUM_STRONG",
+    "current_tier": "SHORT_PREMIUM_MODERATE",
     "entry_z": 1.05,
-    "current_z": 1.888,
+    "current_z": 1.483,
     "entry_basis_eur_t": 97.24,
-    "current_basis_eur_t": 106.88,
-    "compression_realized_eur_t": -9.64,
+    "current_basis_eur_t": 102.78,
+    "compression_realized_eur_t": -5.54,
     "mfe_eur_t": 0.0,
     "mae_eur_t": 9.64,
-    "distance_to_z05": 1.388,
-    "distance_to_z0": 1.888,
+    "distance_to_z05": 0.983,
+    "distance_to_z0": 1.483,
     "median_horizon_days": 51
   },
   "state_machine": {
     "prime_nature": "PRIME_PHYSICALLY_JUSTIFIED",
     "lifecycle_state": "COMPRESSION_DELAYED",
-    "signal_tier": "SHORT_PREMIUM_STRONG",
-    "basis_z": 1.888
+    "signal_tier": "SHORT_PREMIUM_MODERATE",
+    "basis_z": 1.483
   },
   "context": {
     "objective": "z->0.5",
-    "signal_quality": "STRONG_SIGNAL",
+    "signal_quality": "CONFIRMED_SIGNAL",
     "composite_score": null,
     "weather_us": "LOW",
     "weather_eu": "LOW",
     "physical_tension": "HIGH",
     "curve_trend": "NARROWING",
-    "cbot_support": "LOW",
-    "adverse_risk": "LOW"
+    "cbot_support": "MEDIUM",
+    "adverse_risk": "MEDIUM"
   },
   "daily_table": [
     {
@@ -146,6 +146,17 @@
       "curve_spread": 5.5,
       "curve_shape": "BACKWARDATION",
       "matif_wheat_corn": 0.8842
+    },
+    {
+      "date": "2026-11-25",
+      "basis": 102.78,
+      "z": 1.483,
+      "tier": "SHORT_PREMIUM_MODERATE",
+      "cbot_eur_t": 163.72,
+      "session": "PROVISIONAL",
+      "curve_spread": 5.5,
+      "curve_shape": "BACKWARDATION",
+      "matif_wheat_corn": 0.8884
     }
   ],
   "warnings": [

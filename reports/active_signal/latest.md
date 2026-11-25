@@ -1,18 +1,18 @@
 # Signal actif — rapport V179
 
-_Généré au 2026-11-24 · RESEARCH_ONLY_NOT_TRADING_
+_Généré au 2026-11-25 · RESEARCH_ONLY_NOT_TRADING_
 
-**Statut : SLOW** · entrée 2026-11-11 (SHORT_PREMIUM_MODERATE, z 1.05) · 13 j
+**Statut : SLOW** · entrée 2026-11-11 (SHORT_PREMIUM_MODERATE, z 1.05) · 14 j
 
 ## Trajectoire
-- basis 97.24 → 106.88 €/t (compression réalisée **-9.64 €/t**)
-- z 1.05 → 1.888 · distance z→0.5 : **1.388** · z→0 : 1.888
+- basis 97.24 → 102.78 €/t (compression réalisée **-5.54 €/t**)
+- z 1.05 → 1.483 · distance z→0.5 : **0.983** · z→0 : 1.483
 - MFE 0.0 €/t · MAE 9.64 €/t · horizon médian 51 j
 
 ## Machine d'état & contexte
 - nature : **PRIME_PHYSICALLY_JUSTIFIED** · cycle : **COMPRESSION_DELAYED**
-- objectif : z->0.5 · qualité : STRONG_SIGNAL · composite : None
-- courbe : NARROWING · tension physique : HIGH · CBOT support : LOW · ADVERSE : LOW
+- objectif : z->0.5 · qualité : CONFIRMED_SIGNAL · composite : None
+- courbe : NARROWING · tension physique : HIGH · CBOT support : MEDIUM · ADVERSE : MEDIUM
 - météo US : LOW · météo EU : LOW
 
 ## Jour par jour (sessions officielles)
@@ -28,6 +28,7 @@ _Généré au 2026-11-24 · RESEARCH_ONLY_NOT_TRADING_
 | 2026-11-20 | PROVISIONAL | 102.36 | 1.49 | SHORT_PREMIUM_MODERATE | 161.89 | 4.75 | BACKWARDATION | 0.88 |
 | 2026-11-23 | PROVISIONAL | 103.31 | 1.56 | SHORT_PREMIUM_STRONG | 162.19 | 5.75 | BACKWARDATION | 0.88 |
 | 2026-11-24 | PROVISIONAL | 106.88 | 1.89 | SHORT_PREMIUM_STRONG | 160.87 | 5.50 | BACKWARDATION | 0.88 |
+| 2026-11-25 | PROVISIONAL | 102.78 | 1.48 | SHORT_PREMIUM_MODERATE | 163.72 | 5.50 | BACKWARDATION | 0.89 |
 
 ## Warnings
 - prime adossée à une tension physique (backwardation) -> compression plus lente

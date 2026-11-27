@@ -208,3 +208,4 @@ date,weekday,session,trading_session
 2026-11-24,Tuesday,TRADING_SESSION,True
 2026-11-25,Wednesday,TRADING_SESSION,True
 2026-11-26,Thursday,TRADING_SESSION,True
+2026-11-27,Friday,TRADING_SESSION,True

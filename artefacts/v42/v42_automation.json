@@ -1,14 +1,14 @@
 {
   "version": "V42-OFFICIAL-AUTOMATION",
-  "as_of": "2026-11-26",
+  "as_of": "2026-11-27",
   "session_today": "TRADING_SESSION",
   "collect_expected_today": true,
   "monitoring_status": "TRADING_DAY_COLLECT_EXPECTED",
   "market_sessions": {
-    "n_days": 209,
-    "trading_days": 149,
+    "n_days": 210,
+    "trading_days": 150,
     "no_session_days": 60,
-    "last_date": "2026-11-26"
+    "last_date": "2026-11-27"
   },
   "public_backfill_coverage": {
     "version": "V42-PUBLIC-BACKFILL",

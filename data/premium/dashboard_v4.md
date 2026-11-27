@@ -1,11 +1,11 @@
-# 📊 Dashboard indicateur premium v4 — 2026-11-26
-_Généré 2026-11-27 01:51:32 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v4 — 2026-11-27
+_Généré 2026-11-27 15:27:03 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_EXTREME** · basis 108.79 €/t · z 2.035 (official_rolling)
+- **SHORT_PREMIUM_STRONG** · basis 107.82 €/t · z 1.921 (official_rolling)
 - État : **COMPRESSION_DELAYED** (nature PRIME_PHYSICALLY_JUSTIFIED, cycle COMPRESSION_DELAYED)
 - Objectif : **z->0.5** · horizon ~51 j
-- Qualité : **EXTREME_SIGNAL**
+- Qualité : **STRONG_SIGNAL**
 
 ## Contexte
 - ADVERSE_RISK LOW · CBOT_SUPPORT LOW · PHYSICAL_TENSION HIGH
@@ -13,8 +13,8 @@ _Généré 2026-11-27 01:51:32 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Qualité & jalons
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
-- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99']
-- Jours officiels 130 · prochain jalon 180 (bilan forward) · z rolling officiel True
+- Diagnostics bloqués (stale) : aucun · couches reporting-only en retard : ['v101', 'v99', 'daily_latest']
+- Jours officiels 131 · prochain jalon 180 (bilan forward) · z rolling officiel True
 
 _Warnings : ['prime adossée à une tension physique (backwardation) -> compression plus lente']_
 

@@ -1,26 +1,26 @@
-# 📊 Dashboard indicateur premium v5 — 2026-11-26
-_Généré 2026-11-27 01:52:54 UTC · RESEARCH_ONLY_NOT_TRADING_
+# 📊 Dashboard indicateur premium v5 — 2026-11-27
+_Généré 2026-11-27 15:27:52 UTC · RESEARCH_ONLY_NOT_TRADING_
 
 ## Signal
-- **SHORT_PREMIUM_EXTREME** · basis 108.79 €/t · z 2.035 (official_rolling)
-- Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **EXTREME_SIGNAL** · score composite **3/5** (V176, qualifie sans remplacer la baseline)
+- **SHORT_PREMIUM_STRONG** · basis 107.82 €/t · z 1.921 (official_rolling)
+- Baseline vs confirmé : **BASELINE z>1 ACTIVE · CONFIRMÉ z≥1.2** · qualité **STRONG_SIGNAL** · score composite **2/5** (V176, qualifie sans remplacer la baseline)
 - Machine d'état : **COMPRESSION_DELAYED** · nature **PRIME_PHYSICALLY_JUSTIFIED** · cycle **COMPRESSION_DELAYED**
 - Objectif **z->0.5** · horizon ~51 j
 
 ## Signal actif (V124/V179)
-- Entrée 2026-11-11 (z 1.05) · 15 j · statut **SLOW**
-- Compression réalisée **-11.55 €/t** · MFE 0.0 · MAE 11.55 · distance z→0.5 : 1.535
+- Entrée 2026-11-11 (z 1.05) · 16 j · statut **SLOW**
+- Compression réalisée **-10.58 €/t** · MFE 0.0 · MAE 11.55 · distance z→0.5 : 1.421
 
 ## Contexte marché
 - Courbe EMA : NARROWING (spread front-next 6.0 €/t, BACKWARDATION)
 - MATIF blé/maïs : 0.885 · substitution DATA_BLOCKED
 - CBOT_SUPPORT LOW · ADVERSE_RISK LOW · PHYSICAL_TENSION HIGH
-- Météo US LOW · Météo EU MEDIUM
+- Météo US LOW · Météo EU UNKNOWN (stale)
 
 ## Officiel / proxy & jalons
-- Jours officiels **130** · prochain jalon **180** (bilan forward) · z rolling officiel True
+- Jours officiels **131** · prochain jalon **180** (bilan forward) · z rolling officiel True
 - Validation V178 (40 j) : **PROXY_RESEARCH_ONLY** · paires proxy↔officiel 61
-- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 130/150', 'V168_MATIF': 'ACCUMULATING 129/150', 'V155_SUMMER': 'TRIGGERED 262/150'}
+- Re-runs data-gated (V177) : {'V166_OFFICIAL': 'ACCUMULATING 131/150', 'V168_MATIF': 'ACCUMULATING 130/150', 'V155_SUMMER': 'TRIGGERED 262/150'}
 
 ## Santé du système
 - Cohérence LIVE_SIGNAL_CONSISTENT · fraîcheur CONTEXT_COHERENT · scope_clean True
